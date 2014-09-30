@@ -1,0 +1,114 @@
+source 'https://rubygems.org'
+
+
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails'
+# Use sqlite3 as the database for Active Record
+gem 'sqlite3'
+
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier'
+# Use CoffeeScript for .js.coffee assets and views
+gem 'coffee-rails'
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem 'therubyracer',  platforms: :ruby
+
+# Use jquery as the JavaScript library
+gem 'jquery-rails'
+# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+gem 'turbolinks'
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder'
+# bundle exec rake doc:rails generates the API under doc/api.
+gem 'sdoc',          group: :doc
+
+# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+gem 'spring',        group: :development
+
+# Use ActiveModel has_secure_password
+# gem 'bcrypt', '~> 3.1.7'
+
+# Use unicorn as the app server
+# gem 'unicorn'
+
+# Use Capistrano for deployment
+# gem 'capistrano-rails', group: :development
+
+# Use debugger
+# gem 'debugger', group: [:development, :test]
+
+gem 'protected_attributes'
+
+# authentication
+gem 'devise'
+
+# localization and versioning
+gem 'russian'
+gem 'http_accept_language'
+gem 'paper_trail'
+gem 'globalize'
+gem 'globalize-versioning'
+
+# javascript
+gem 'jquery'
+gem 'google-analytics-turbolinks'
+gem 'social-buttons'
+
+# css
+# Use SCSS for stylesheets
+gem 'sass-rails'
+gem 'sass'
+gem 'compass'
+gem 'compass-rails'
+gem 'zurb-foundation'
+
+
+# text editors
+gem 'codemirror-rails'
+gem 'ckeditor'
+
+
+
+
+
+# content
+gem 'acts-as-taggable-on'
+
+gem 'rubytree'
+
+# rails_admin and plugins
+
+gem 'rails_admin'
+gem 'rails_admin-i18n'
+gem 'rails_admin_nestable'
+gem 'rails_admin_tag_list', github: 'VoroninNick/rails_admin_tag_list', branch: 'pasha'
+gem 'rails_admin_globalize_field', github: 'VoroninNick/rails_admin_globalize_field', branch: 'allow-current-locale'
+
+
+# image processing
+gem 'paperclip'
+gem 'paperclip-compression'
+
+
+group :naucc, :development, :caching do
+  gem 'consistency_fail'
+  gem 'better_errors'
+  gem "binding_of_caller"
+  gem 'simplecov', :require => false, :group => :test
+end
+
+group :naucc, :development, :test, :cucumber, :caching do
+  gem 'capybara', github: 'jnicklas/capybara'
+  gem 'poltergeist'
+  gem 'annotate'
+  gem 'bullet'
+  #gem 'brakeman'
+  gem 'factory_girl_rails'
+  gem 'rspec-rails', '~> 3.0.0.beta'
+  gem 'spork-rails'
+  gem 'syntax'
+  gem 'watchr'
+  gem 'foreman'
+  gem 'delorean'
+  gem 'pry'
+end

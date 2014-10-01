@@ -31,4 +31,20 @@ RailsAdmin.config do |config|
     history_index
     history_show
   end
+
+  ([
+   Article, Comment, Event, FormConfig, HomeAboutUsSlide, HomeContactInfo, HomeForm, HomePage, MainSliderSlide, User
+
+
+  ]#+(Dir.glob(Rails.root.join('app/models/pages/*.rb')).each {|file| require file;}; classes = [] ;Pages.constants.each {|c| classes.push("Pages::#{c.to_s}") }; classes )
+
+  ).each do | model |
+    #config.model model.name do
+    #visible false
+    config.included_models += [model]
+    if model.respond_to?(:translates?) && model.translates? && model.respond_to?(:translation_class)
+      config.included_models += [model.translation_class]
+    end
+    #end
+  end
 end

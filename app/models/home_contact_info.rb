@@ -8,24 +8,38 @@ class HomeContactInfo < ActiveRecord::Base
   attr_accessible :translations_attributes, :translations
 
   class Translation
-    attr_accessible :locale, :published_translation, :name, :short_description, :full_description, :avatar_alt
+    attr_accessible :locale, :published_translation, :address, :addres_at
 
     # def published=(value)
     #   self[:published] = value
     # end
 
     rails_admin do
+      visible false
+      #parent HomePage
+
       edit do
         field :locale, :hidden
         field :published_translation
-        field :name
 
-        field :short_description
-        field :full_description, :ck_editor
-        field :background_alt
+        field :address
+        field :address_at
 
 
       end
+    end
+  end
+
+  rails_admin do
+    parent HomePage
+
+    edit do
+      field :translations, :globalize_tabs
+      field :info_service_email
+      field :info_service_phone
+      field :support_email
+      field :map_latitude
+      field :map_longtitude
     end
   end
 end

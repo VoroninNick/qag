@@ -33,12 +33,12 @@ class CreateEvents < ActiveRecord::Migration
 
     model.create_translation_table!
 
-    change_table model.table_name do |t|
+    change_table model.translation_class.table_name do |t|
       t.boolean :published_translation
     end
 
     [:avatar, :banner].each do |field_name|
-      change_table model.table_name do
+      change_table model.table_name do |t|
       t.string "#{field_name.to_s}_file_name".to_sym
       t.string "#{field_name.to_s}_image_content_type".to_sym
       t.integer "#{field_name.to_s}_file_size".to_sym

@@ -23,7 +23,7 @@ class CreateMainSliderSlides < ActiveRecord::Migration
 
     model.create_translation_table!
 
-    change_table model.table_name do |t|
+    change_table model.translation_class.table_name do |t|
       t.boolean :published_translation
     end
   end

@@ -13,17 +13,21 @@ class HomeAboutUsSlide < ActiveRecord::Base
     # end
 
     rails_admin do
+      visible false
+
       edit do
         field :locale, :hidden
         field :published_translation
         field :name
         field :short_description
-        field :full, :ck_editor
+        field :full_description, :ck_editor
       end
     end
   end
 
   rails_admin do
+    parent HomePage
+
     edit do
       field :published
       field :order_index

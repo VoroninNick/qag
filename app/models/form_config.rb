@@ -5,6 +5,8 @@ class FormConfig < ActiveRecord::Base
   attr_accessible :name
 
   rails_admin do
+    navigation_label 'other'
+
     edit do
       field :name
       # field :form_receiver_list do
@@ -14,4 +16,5 @@ class FormConfig < ActiveRecord::Base
       field :receiver_emails
     end
   end
+
 end

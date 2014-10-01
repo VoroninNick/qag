@@ -56,13 +56,48 @@ class Event < ActiveRecord::Base
     # end
 
     rails_admin do
+      visible false
+
       edit do
         field :locale, :hidden
         field :published_translation
         field :name
+        field :address
         field :short_description
-        field :full, :ck_editor
+        field :full_description, :ck_editor
       end
+    end
+  end
+
+  rails_admin do
+    weight -2
+
+    edit do
+      field :translations, :globalize_tabs
+
+
+      field :start_date
+      field :end_date
+
+      group :days do
+        field :day_monday
+        field :day_monday_start_time
+        field :day_tuesday
+        field :day_tuesday_start_time
+        field :day_wensday
+        field :day_wensday_start_time
+        field :day_thursday
+        field :day_thursday_start_time
+        field :day_friday
+        field :day_friday_start_time
+        field :day_saturday
+        field :day_saturday_start_time
+        field :day_sunday
+        field :day_sunday_start_time
+      end
+
+
+      field :participants_count
     end
   end
 end

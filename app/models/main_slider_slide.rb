@@ -5,7 +5,7 @@ class MainSliderSlide < ActiveRecord::Base
                     :url  => '/assets/articles/:id/:style/:basename.:extension',
                     :path => ':rails_root/public/assets/articles/:id/:style/:basename.:extension',
                     convert_options: {
-                        banner: "-quality 94 -interlace Plane",
+                        background: "-quality 94 -interlace Plane",
                     }
 
   [:background].each do |paperclip_field_name|
@@ -19,13 +19,15 @@ class MainSliderSlide < ActiveRecord::Base
   attr_accessible :translations_attributes, :translations
 
   class Translation
-    attr_accessible :locale, :published_translation, :name, :short_description, :full_description, :avatar_alt
+    attr_accessible :locale, :published_translation, :name, :short_description, :full_description, :background_alt
 
     # def published=(value)
     #   self[:published] = value
     # end
 
     rails_admin do
+      visible false
+
       edit do
         field :locale, :hidden
         field :published_translation
@@ -41,13 +43,15 @@ class MainSliderSlide < ActiveRecord::Base
   end
 
   rails_admin do
+    parent HomePage
+
     edit do
       field :published
       field :order_index
       field :translations, :globalize_tabs
       group :image_data do
-        field :avatar, :paperclip
-        field :avatar_file_name_fallback
+        field :background, :paperclip
+        field :background_file_name_fallback
       end
     end
   end

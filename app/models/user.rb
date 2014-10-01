@@ -30,13 +30,15 @@ class User < ActiveRecord::Base
   attr_accessible :translations_attributes, :translations
 
   class Translation
-    attr_accessible :locale, :published_translation, :avatar_alt
+    attr_accessible :locale, :name, :published_translation, :avatar_alt
 
     # def published=(value)
     #   self[:published] = value
     # end
 
     rails_admin do
+      visible false
+
       edit do
         field :locale, :hidden
         field :name
@@ -50,6 +52,9 @@ class User < ActiveRecord::Base
 
   rails_admin do
 
+    edit do
+      field :translations, :globalize_tabs
+    end
   end
 
 

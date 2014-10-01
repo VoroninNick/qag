@@ -35,6 +35,7 @@ class Article < ActiveRecord::Base
     # end
 
     rails_admin do
+      visible false
       edit do
         field :locale, :hidden
         field :published_translation

@@ -1,0 +1,35 @@
+doctype html
+html class="locale-#{I18n.locale.to_s} controller-#{params[:controller]} action-#{params[:action]}" lang="en"
+  head
+    meta charset="utf-8"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+
+    title == content_for?(:title) ? yield(:title) : "Untitled"
+
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "vendor/modernizr"
+    = csrf_meta_tag
+
+
+
+    /[if !IE 7]
+      sass:
+        #wrap
+          display: table
+          height: 100%
+
+  body
+    #header
+    - if !(params[:controller] == 'home' && params[:action] == 'index')
+      #wrap
+        #main
+          #content
+            == yield
+      #footer
+    - else
+      #wrap
+        == yield
+
+
+
+    = javascript_include_tag "application"

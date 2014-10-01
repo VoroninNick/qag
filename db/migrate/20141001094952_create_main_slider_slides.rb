@@ -9,12 +9,12 @@ class CreateMainSliderSlides < ActiveRecord::Migration
       t.boolean :published
       t.integer :order_index
 
-      t.string :background_image_file_name
-      t.string :background_image_content_type
-      t.integer :background_image_file_size
-      t.datetime :background_image_updated_at
-      t.string :background_image_file_name_fallback
-      t.string :background_image_alt
+      t.string :background_file_name
+      t.string :background_content_type
+      t.integer :background_file_size
+      t.datetime :background_updated_at
+      t.string :background_file_name_fallback
+      t.string :background_alt
 
       t.timestamps
     end

@@ -1,9 +1,12 @@
 class MainSliderSlide < ActiveRecord::Base
   attr_accessible :name, :short_description, :full_description, :published, :order_index
 
-  has_attached_file :background, :styles => { :thumb => '150x150>', :article_item => '320x320>', home_article_item: '250x250>', article_page: '500x500>'},
+  has_attached_file :background, :styles => { banner: '2100x1200#' },
                     :url  => '/assets/articles/:id/:style/:basename.:extension',
-                    :path => ':rails_root/public/assets/articles/:id/:style/:basename.:extension'
+                    :path => ':rails_root/public/assets/articles/:id/:style/:basename.:extension',
+                    convert_options: {
+                        banner: "-quality 94 -interlace Plane",
+                    }
 
   [:background].each do |paperclip_field_name|
     attr_accessible paperclip_field_name.to_sym, "delete_#{paperclip_field_name}".to_sym, "#{paperclip_field_name}_file_name".to_sym, "#{paperclip_field_name}_file_size".to_sym, "#{paperclip_field_name}_content_type".to_sym, "#{paperclip_field_name}_updated_at".to_sym, "#{paperclip_field_name}_file_name_fallback".to_sym, "#{paperclip_field_name}_alt".to_sym

@@ -1,11 +1,17 @@
 class Event < ActiveRecord::Base
   has_attached_file :avatar, :styles => { :event_list_small_thumb => '360x240#', :event_list_large_thumb => '720x480#', :home_expired_event_thumb => '400x1000#', :article_item => '320x320>', home_article_item: '250x250>', article_page: '500x500>'},
                     :url  => '/assets/articles/:id/:style/:basename.:extension',
-                    :path => ':rails_root/public/assets/articles/:id/:style/:basename.:extension'
+                    :path => ':rails_root/public/assets/articles/:id/:style/:basename.:extension',
+                    convert_options: {
+                        banner: "-quality 94 -interlace Plane",
+                    }
 
-  has_attached_file :banner, :styles => { :event_list_small_thumb => '360x240#', :event_list_large_thumb => '720x480#', :home_expired_event_thumb => '400x1000#', :article_item => '320x320>', home_article_item: '250x250>', article_page: '500x500>'},
+  has_attached_file :banner, :styles => { banner: '2100x500#' },
                     :url  => '/assets/articles/:id/:style/:basename.:extension',
-                    :path => ':rails_root/public/assets/articles/:id/:style/:basename.:extension'
+                    :path => ':rails_root/public/assets/articles/:id/:style/:basename.:extension',
+                    convert_options: {
+                        banner: "-quality 94 -interlace Plane",
+                    }
 
 
 

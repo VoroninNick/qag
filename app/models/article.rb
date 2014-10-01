@@ -1,11 +1,20 @@
 class Article < ActiveRecord::Base
-  has_attached_file :avatar, :styles => { :article_list_small_thumb => '360x300#', :event_list_large_thumb => '720x480#', :home_expired_event_thumb => '400x1000#', :article_item => '320x320>', home_article_item: '250x250>', article_page: '500x500>'},
-                    :url  => '/assets/articles/:id/:style/:basename.:extension',
-                    :path => ':rails_root/public/assets/articles/:id/:style/:basename.:extension'
+  attr_accessible :published, :name, :short_description, :full_description, :release_date
 
-  has_attached_file :article_banner, :styles => { :article_list_small_thumb => '2100x500#', :event_list_large_thumb => '720x480#', :home_expired_event_thumb => '400x1000#', :article_item => '320x320>', home_article_item: '250x250>', article_page: '500x500>'},
+  has_attached_file :avatar, :styles => { :article_list_small_thumb => '360x300#', related_irticle_thumb: '600x500#'},
                     :url  => '/assets/articles/:id/:style/:basename.:extension',
-                    :path => ':rails_root/public/assets/articles/:id/:style/:basename.:extension'
+                    :path => ':rails_root/public/assets/articles/:id/:style/:basename.:extension',
+                    convert_options: {
+                      article_list_small_thumb: "-quality 94 -interlace Plane",
+                      related_irticle_thumb: "-quality 94 -interlace Plane"
+                    }
+
+  has_attached_file :banner, :styles => { :banner => '2100x500#'},
+                    :url  => '/assets/articles/:id/:style/:basename.:extension',
+                    :path => ':rails_root/public/assets/articles/:id/:style/:basename.:extension',
+                    convert_options: {
+                        banner: "-quality 94 -interlace Plane",
+                    }
 
 
   [:avatar, :banner].each do |paperclip_field_name|
@@ -14,7 +23,7 @@ class Article < ActiveRecord::Base
     attr_accessor "delete_#{paperclip_field_name}".to_sym
   end
 
-  translates :name, :short_description, :full_description, :address, :versioning => :paper_trail
+  translates :name, :short_description, :full_description, :avatar_alt, :banner_alt, :versioning => :paper_trail
   accepts_nested_attributes_for :translations
   attr_accessible :translations_attributes, :translations
 
@@ -29,9 +38,7 @@ class Article < ActiveRecord::Base
       edit do
         field :locale, :hidden
         field :published_translation
-        field :name
-        field :short_description
-        field :full, :ck_editor
+
       end
     end
   end

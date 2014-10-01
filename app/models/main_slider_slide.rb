@@ -1,33 +1,22 @@
-class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+class MainSliderSlide < ActiveRecord::Base
+  attr_accessible :name, :short_description, :full_description, :published, :order_index
 
-  attr_accessible :email, :password, :password_confirmation
-
-  attr_accessible :name, :status, :role
-
-  has_attached_file :avatar, :styles => { :thumb => '150x150#'},
+  has_attached_file :background, :styles => { :thumb => '150x150>', :article_item => '320x320>', home_article_item: '250x250>', article_page: '500x500>'},
                     :url  => '/assets/articles/:id/:style/:basename.:extension',
                     :path => ':rails_root/public/assets/articles/:id/:style/:basename.:extension'
 
-  [:avatar].each do |paperclip_field_name|
+  [:background].each do |paperclip_field_name|
     attr_accessible paperclip_field_name.to_sym, "delete_#{paperclip_field_name}".to_sym, "#{paperclip_field_name}_file_name".to_sym, "#{paperclip_field_name}_file_size".to_sym, "#{paperclip_field_name}_content_type".to_sym, "#{paperclip_field_name}_updated_at".to_sym, "#{paperclip_field_name}_file_name_fallback".to_sym, "#{paperclip_field_name}_alt".to_sym
 
     attr_accessor "delete_#{paperclip_field_name}".to_sym
   end
 
-  has_and_belongs_to_many :events, join_table: 'event_subscriptions'
-
-  has_many :comments
-
-  translates :name, :avatar_alt, :versioning => :paper_trail
+  translates :name, :short_description, :full_description, :background_alt, :versioning => :paper_trail
   accepts_nested_attributes_for :translations
   attr_accessible :translations_attributes, :translations
 
   class Translation
-    attr_accessible :locale, :published_translation, :avatar_alt
+    attr_accessible :locale, :published_translation, :name, :short_description, :full_description, :avatar_alt
 
     # def published=(value)
     #   self[:published] = value
@@ -36,19 +25,27 @@ class User < ActiveRecord::Base
     rails_admin do
       edit do
         field :locale, :hidden
+        field :published_translation
         field :name
-        field :avatar_alt
+
+        field :short_description
+        field :full_description, :ck_editor
+        field :background_alt
 
 
       end
     end
   end
 
-
   rails_admin do
-
+    edit do
+      field :published
+      field :order_index
+      field :translations, :globalize_tabs
+      group :image_data do
+        field :avatar, :paperclip
+        field :avatar_file_name_fallback
+      end
+    end
   end
-
-
-
 end

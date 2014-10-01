@@ -98,6 +98,7 @@ gem 'rails_admin_tag_list', github: 'VoroninNick/rails_admin_tag_list', branch: 
 gem 'rails_admin_globalize_field', github: 'VoroninNick/rails_admin_globalize_field', branch: 'allow-current-locale'
 
 
+
 # image processing
 gem 'paperclip'
 gem 'paperclip-compression'

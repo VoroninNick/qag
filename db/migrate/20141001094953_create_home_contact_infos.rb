@@ -11,6 +11,8 @@ class CreateHomeContactInfos < ActiveRecord::Migration
       t.float :map_latitude
       t.float :map_longtitude
 
+      t.belongs_to :home_page
+
       t.timestamps
     end
 

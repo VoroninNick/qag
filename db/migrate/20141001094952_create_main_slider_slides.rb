@@ -16,6 +16,8 @@ class CreateMainSliderSlides < ActiveRecord::Migration
       t.string :background_file_name_fallback
       t.string :background_alt
 
+      t.belongs_to :home_page
+
       t.timestamps
     end
 

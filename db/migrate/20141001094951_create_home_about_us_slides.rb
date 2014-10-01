@@ -9,6 +9,8 @@ class CreateHomeAboutUsSlides < ActiveRecord::Migration
       t.boolean :published
       t.integer :order_index
 
+      t.belongs_to :home_page
+
       t.timestamps
     end
 

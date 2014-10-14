@@ -1,0 +1,1123 @@
+$sections-count: 6
+
+$bullet-with: 10px
+$bullet-height: 10px
+$bullet-background: white
+$bullet-border-radius: 50%
+$bullet-indent: 1.25rem
+$active-bullet-background: $orange-color
+
+$main-slider-slides-count: 3
+
+$featured-events-timeline-height: 250px
+$featured-events-timeline-bullet-background: #7ab8d1
+$featured-events-timeline-active-bullet-background: #ffb502
+
+$featured-events-timeline-active-event-text-color: #0a4f6c
+$featured-events-timeline-inactive-event-text-color: $featured-events-timeline-bullet-background
+
+$featured-events-count: <%= 7 %>
+$featured-events-timeline-pages-count: <%= 1 %>
+
+$home-page-sections-count: 6
+$home-page-initial-section-number: 1
+
+$user-comments-count: 6
+
+$expired-events-count: 20
+$expired-events-pages-count: $expired-events-count / 5
+
+
+@include keyframes(input-active-animation)
+  0%
+    width: 0%
+    left: auto
+    right: 0
+    background: #2facda
+  100%
+    width: 100%
+
+
+
+
+#html.controller-home.action-index
+  #body
+    overflow: hidden
+  #wrap
+    position: relative
+    height: #{100% * $sections-count}
+
+  .page-section
+    position: absolute
+    height: #{100% / $sections-count}
+    width: 100%
+
+
+
+
+    @for $i from 2 through $sections-count
+      &.page-section-number-#{$i}
+        top: #{100% / ($sections-count) * ($i - 1)}
+
+
+
+
+
+
+.home-page-section-bullets
+  position: fixed
+  top: 0
+  right: 0
+  height: 100%
+  //background: red
+  z-index: 6
+  width: 0
+  overflow: visible
+
+  ul
+    height: 100%
+    //background: blue
+    position: absolute
+    width: 100px
+    z-index: 10
+    display: block
+    right: 0
+
+    width: 0
+    padding: 0
+    margin: 0
+
+    height: auto
+    top: 50%
+    width: auto
+    @include transform( translateY(-50%) )
+    margin-right: 1.5rem
+
+    li
+      z-index: 12
+      //background: blue
+      display: inline-block
+      height: 1rem
+      width: 1rem
+      position: relative
+      margin: 0
+      padding: 0
+      left: 0
+      top: 0
+
+      label
+        width: rem-calc(20)
+        height: rem-calc(20)
+
+
+        display: block
+        cursor: pointer
+
+        &:hover
+          background: $orange-color
+
+        &:before
+          content: ""
+          top: 5px
+          left: 5px
+          position: relative
+          border-radius: 50%
+          background: white
+          display: block
+          width: rem-calc(10)
+          height: rem-calc(10)
+          //@include transition-duration(6s)
+          //@include transition-property(background-color)
+
+
+
+#html.js.controller-home.action-index
+  #wrap
+    height: 100%
+
+  .page-section
+    height: 100%
+    overflow: hidden
+    top: -100%
+    //@for $i from 1 through $home-page-sections-count
+      //&.page-section-number-#{$i}
+        //top: 0
+
+.home-page-section-bullets ul li
+  display: none
+
+#html.js.controller-home.action-index
+  input.home-page-section-flag
+    @for $i from 1 through $home-page-sections-count
+      &.home-page-section-flag-to-#{$i}
+        &:checked
+          & ~ .home-page-section-bullets ul li.home-page-section-bullet-from-#{$i}
+            display: inline-block
+          & ~ .home-page-section-bullets ul li#home-page-section-bullet-from-#{$i}-to-#{$i}
+            label
+              &:before
+                background: $active-bullet-background
+
+          & ~ .page-section-number-#{$i}
+            opacity: 1
+            top: 0
+
+    &.home-page-section-flag.initial
+      &:checked
+        & ~ .home-page-section-bullets ul li.home-page-section-bullet-from-#{1}
+          display: inline-block
+        & ~ .home-page-section-bullets ul li#home-page-section-bullet-from-#{1}-to-#{1}
+          label
+            &:before
+              background: $active-bullet-background
+
+        & ~ .page-section-number-#{1}
+          opacity: 1
+          top: 0
+
+
+
+    &.home-page-section-flag-to-2, &.home-page-section-flag-to-5
+      &:checked
+        & ~ .home-page-section-bullets ul li
+          label
+            &:before
+              background: #2981a9
+
+
+    &.home-page-section-flag-to-2
+      &:checked
+        & ~ .home-page-section-bullets ul li#home-page-section-bullet-from-2-to-2
+          label
+            &:before
+              background: #fdfffe
+    &.home-page-section-flag-to-5
+      &:checked
+        & ~ .home-page-section-bullets ul li#home-page-section-bullet-from-5-to-5
+          label
+            &:before
+              background: #fdfffe
+
+
+    $i: 3
+
+    &.home-page-section-flag-to-#{$i}
+      &:checked
+        & ~ .home-page-section-bullets ul li
+          label
+            &:before
+              background: #e59d00
+
+        & ~ .home-page-section-bullets ul li#home-page-section-bullet-from-#{$i}-to-#{$i}
+          label
+            &:before
+              background: white
+
+
+    &.home-page-section-flag-to-6
+      &:checked
+        & ~ .home-page-section-bullets ul li
+          label
+            &:before
+              background: #a8a9ad
+
+        & ~ .home-page-section-bullets ul li#home-page-section-bullet-from-6-to-6
+          label
+            &:before
+              background: $orange-color
+
+
+
+.page-section
+  //@include transition-duration(2s)
+  //@include transition-property(top)
+
+
+@include keyframes(page-section-slide-up)
+  0%
+    top: 0
+  100%
+    top: -#{100% / $home-page-sections-count}
+
+@include keyframes(page-section-slide-down)
+  0%
+    top: 0
+  100%
+    top: #{100% / $home-page-sections-count}
+
+
+@include keyframes(js-page-section-slide-up)
+  0%
+    top: 0
+  100%
+    top: -100%
+
+@include keyframes(js-page-section-slide-down)
+  0%
+    top: 0
+  100%
+    top: 100%
+
+
+#html.controller-home.action-index
+  @for $i from 1 through 6
+    @for $j from 1 through 6
+      @if $i != $j
+        input#home-page-section-flag-from-#{$i}-to-#{$j}
+          &:checked
+            @if $i < $j
+              & ~ .page-section-number-#{$i}
+                top: -#{100% / $home-page-sections-count}
+                opacity: 1
+                z-index: 5
+                @include animation-name(page-section-slide-up)
+                @include animation-duration(1s)
+
+              & ~ .page-section-number-#{$j}
+                top: 0
+                opacity: 1
+
+            @else
+              & ~ .page-section-number-#{$i}
+                top: #{100% / $home-page-sections-count}
+                opacity: 1
+                z-index: 5
+                @include animation-name(page-section-slide-down)
+                @include animation-duration(1s)
+              & ~ .page-section-number-#{$j}
+                top: 0
+                opacity: 1
+
+
+
+#html.js.controller-home.action-index
+  @for $i from 1 through 6
+    @for $j from 1 through 6
+      @if $i != $j
+        input#home-page-section-flag-from-#{$i}-to-#{$j}
+          &:checked
+            @if $i < $j
+              & ~ .page-section-number-#{$i}
+                top: -100%
+                //opacity: 1
+                //z-index: 5
+                @include animation-name(js-page-section-slide-up)
+                //@include animation-duration(2s)
+
+              & ~ .page-section-number-#{$j}
+                //top: 0
+                //opacity: 1
+
+            @else
+              & ~ .page-section-number-#{$i}
+                top: 100%
+                //opacity: 1
+                //z-index: 5
+                @include animation-name(js-page-section-slide-down)
+                //@include animation-duration(2s)
+              & ~ .page-section-number-#{$j}
+                //top: 0
+                //opacity: 1
+
+
+
+//$i: 1
+//@for $j from 1 through 6
+//  @if $i != $j
+//    input#home-page-section-flag-from-#{$i}-to-#{$j}
+//      &:checked
+//        @if $i < $j
+//          & ~ .page-section-number-#{$i}
+//            top: 0
+//            opacity: 1
+//            @include animation-name(page-section-slide-up)
+//
+//          & ~ .page-section-number-#{$j}
+//            top: 0
+//            opacity: 1
+//        @else
+//          & ~ .page-section-number-#{$i}
+//            top: 0
+//            opacity: 1
+//            @include animation-name(page-section-slide-down)
+//          & ~ .page-section-number-#{$j}
+//            top: 0
+//            opacity: 1
+
+
+
+
+
+
+
+
+
+.page-section
+  opacity: 0
+
+
+
+
+
+
+  &.home-slider-section
+    text-align: center
+
+    .slides
+      top: 0
+      position: absolute
+      left: 0
+      width: 100%
+      height: 100%
+      overflow: hidden
+      margin: 0
+      padding: 0
+      .slide
+        top: 0
+        left: 0
+
+
+        //opacity: 0
+
+        height: 100%
+        position: absolute
+        width: 100%
+
+        &:first-child
+          opacity: 1
+        .image-background
+          height: 100%
+          display: block
+          background-size: cover
+          img
+            opacity: 0
+
+        @for $i from 1 through $main-slider-slides-count
+          &#slide-#{$i}
+            z-index: $i
+
+
+    .bullets
+      display: inline-block
+      position: absolute
+      bottom: 150px
+      z-index: #{$main-slider-slides-count + 2}
+
+      li
+        display: inline-block
+        margin-left: $bullet-indent
+        &:first-child
+          margin-left: 0
+
+        label
+          display: block
+          background: $bullet-background
+          //background: $active-bullet-background
+          width: $bullet-with
+          height: $bullet-height
+          border-radius: $bullet-border-radius
+          cursor: pointer
+
+
+
+
+    @for $i from 1 through 3
+      .home-slider-slide-flag#home-slider-slide-flag-#{$i}
+        &:checked
+          & ~ .slides
+            .slide#slide-#{$i}
+              z-index: #{$main-slider-slides-count + 1}
+
+
+
+          & ~ .bullets
+            .home-slider-slide-label#home-slider-slide-label-#{$i}
+              label
+                background: $active-bullet-background
+                cursor: default
+
+
+
+
+
+
+
+
+  &.home-featured-events-section
+    background: $skyblue-color
+    color: white
+
+
+    .event-info-slides
+      padding-bottom: $featured-events-timeline-height
+      height: 100%
+
+      .event-info-slides-row
+        height: 100%
+
+        .prev-event-labels
+          li
+            display: none
+
+        > ul
+          padding-left: 0
+
+        ul
+          width: 100%
+          display: block
+          margin: 0
+          li.event
+            background: $skyblue-color
+            height: 100%
+            width: 100%
+            list-style: none
+            display: inline-block
+            padding: 4rem 0 0 0
+
+            .image-and-info
+              .image
+                a
+                  img
+              .info
+                .start-date, .end-date
+                  display: inline-block
+
+                  .tip
+                    display: block
+                  .value
+                    font-size: 1.2rem
+                    font-weight: 500
+
+                .start-date:after
+                  content: "\2014"
+                  display: inline-block
+                  margin: 0 1rem 0 1rem
+                  font-size: 1.2rem
+
+                .participants-count
+                  svg
+                    width: 40px
+                    height: 30px
+                    margin-right: 5px
+                  .count
+                    font-size: 1.5rem
+                    font-weight: 600
+                    vertical-align: top
+                    line-height: 30px
+                  .participants-tip
+                    vertical-align: top
+                    line-height: 30px
+                    font-size: 1.1rem
+                    font-weight: 100
+
+
+            .description
+              .event-title
+                font-size: 2rem
+              .event-description
+                padding-top: 2rem
+                font-weight: 300
+                line-height: 1.3
+            .event-link-and-register-button
+              clear: left
+
+              .event-link-wrapper
+                height: 0
+                text-align: right
+
+                .event-link
+                  line-height: 3.75rem
+
+
+
+
+              .register-button
+                label
+                  height: 3.75rem
+                  display: inline-block
+                  background: $registration-button-background
+                  width: 100%
+                  text-align: center
+                  border-radius: 3px
+                  cursor: pointer
+
+                  svg
+                    display: inline-block
+                    position: relative
+                    top: rem-calc(10)
+                    width: 2.5rem
+                    height: 2.5rem
+
+                    .clock-arrow, .clock-round, .clock-fire
+                      fill: white
+
+
+                  .registration-text
+                    font-size: 2rem
+                    text-transform: uppercase
+                    font-size: 1.3rem
+                    font-weight: 700
+
+
+
+
+
+
+
+
+    .timeline
+      height: $featured-events-timeline-height
+      position: absolute
+      bottom: 0
+      width: 100%
+      background: $light-skyblue-color
+
+      .time-line-row
+        position: relative
+        overflow: hidden
+
+        .events-container
+          position: relative
+          width: #{100% * ($featured-events-timeline-pages-count)}
+
+
+
+
+      .event
+        display: inline-block
+        width: #{100% / ($featured-events-count)}
+        text-align: center
+
+        // draw triangle on selected event
+        &:before
+          width: 0
+          height: 0
+          border-style: solid
+          border-width: 15px 15px 0 15px
+          border-color: #30addb transparent transparent transparent
+          line-height: 0px
+          _border-color: #30addb #000000 #000000 #000000
+          _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000')
+          -webkit-transform: rotate(360deg)
+          position: relative
+          top: 14px
+
+        .date
+          color: $featured-events-timeline-inactive-event-text-color
+
+
+          .day-number
+            font-size: 4rem
+            font-weight: 900
+            line-height: 0.9
+          .month
+            font-size: 1rem
+            line-height: 1
+            font-weight: 600
+            text-transform: uppercase
+
+      .bullet
+        display: block
+        text-align: center
+        overflow: hidden
+
+        label
+          display: inline-block
+          width: 1rem
+          height: 1rem
+          border-radius: 50%
+          background: $featured-events-timeline-bullet-background
+          cursor: pointer
+          position: relative
+
+
+          &:after
+            content: ""
+            position: absolute
+            top: 8px
+            left: 16px
+            height: 1px
+            width: 200px
+            display: inline-block
+            border-top: #a9a7ac 1px dashed
+
+
+          &:before
+            content: ""
+            position: absolute
+            top: 8px
+            //left: 16px
+            height: 1px
+            width: 200px
+            display: inline-block
+            border-top: #a9a7ac 1px dashed
+            left: auto
+            right: 16px
+
+
+      .event:first-child
+        .bullet
+          label:before
+            content: none
+
+      .event:last-child
+        .bullet
+          label:after
+            content: none
+
+      ul.prev-event-labels
+
+
+
+
+
+
+
+
+
+
+
+
+    @for $i from 1 through $featured-events-count
+      .home-featured-events-timeline-flag#home-featured-events-timeline-flag-#{$i}
+        &:checked
+          & ~ .event-info-slides
+            .event#event-#{$i}
+              //z-index: #{$main-slider-slides-count + 1}
+              //display: block
+              z-index: 2
+
+
+          & ~ .timeline
+            .event#event-#{$i}
+
+              // enable triangle
+              &:before
+                content: ""
+
+
+
+              .date
+                color: $featured-events-timeline-active-event-text-color
+                padding-bottom: 1rem
+
+                .day-number
+                  font-size: 6rem
+                .month
+                  font-size: 1.5rem
+              .bullet
+                label
+                  background: $featured-events-timeline-active-bullet-background
+                  cursor: default
+
+#home-featured-event-info-slides-row
+  position: relative
+
+#home-featured-event-info-slides-row-ul
+  height: 100%
+.home-featured-event
+  position: absolute
+
+
+#home-featured-prev-event-arrow, #home-featured-next-event-arrow
+  position: absolute
+  top: 150px
+  height: rem-calc(33)
+  width: rem-calc(22)
+  cursor: pointer
+#home-featured-prev-event-arrow
+  left: -45px
+#home-featured-next-event-arrow
+  right: -45px
+
+.left-arrow-path, .right-arrow-path
+  fill: #98d5e8
+
+
+.prev-arrow-show-event-animation
+.next-arrow-show-event-animation
+.prev-arrow-hide-event-animation
+.next-arrow-hide-event-animation
+
+
+
+
+.page-section
+  &.home-about-section
+    > ul.slides
+      height: 100%
+      padding: 0
+      margin: 0
+      > li.slide
+        height: 100%
+
+
+
+
+
+  &.home-expired-events-section
+    .events-slider
+      height: 100%
+      ul
+        margin: 0
+        padding: 0
+        width: #{100% * $expired-events-pages-count}
+        height: 100%
+        li
+          display: inline-block
+          width: #{100% / $expired-events-count}
+          height: 100%
+
+          a
+            display: block
+            height: 100%
+            position: relative
+
+            svg
+              max-width: 100%
+              position: absolute
+              top: 0
+              left: 0
+
+              .overlay
+                @include transition-property(fill)
+                @include transition-duration(1s)
+
+            .name, .date-range
+              color: white
+              padding: 3.5rem 2.5rem
+
+            .name
+              position: absolute
+              top: 0
+              font-size: 1.2rem
+              font-weight: 600
+              text-transform: uppercase
+
+            .date-range
+              position: absolute
+              bottom: 0
+              left: 0
+              right: 0
+              font-size: 1.3rem
+              font-weight: 500
+              text-align: right
+
+              .start-date, .end-date
+                display: inline-block
+              .start-date:after
+                display: inline-block
+                content: "\2014"
+                font-size: 1rem
+
+                margin: 0 5px
+
+
+
+          &:hover
+            svg
+              .overlay
+                fill: rgba(#ff594a, 0.8)
+
+
+
+          
+
+
+  &.home-contact-section
+    .relative
+      position: relative
+      height: 100%
+    .map-wrapper
+      height: 100%
+
+      .map-container
+        height: 100%
+
+        .home-marker
+          svg
+            width: 54px
+            height: 80px
+
+    #home-contact-form
+      z-index: 1
+      background: $skyblue-color
+      width: 60%
+      max-width: 780px
+      position: absolute
+      right: 0
+      height: 100%
+      top: 0
+
+      #home-contact-form-outer
+        height: 100%
+        padding: 0 0 0 40px
+        #home-contact-form-content
+          max-width: 500px
+          height: 100%
+
+          .form-title
+            margin: 2rem 0 1.5rem 0
+
+            .svg-container
+              text-align: center
+
+              svg
+                display: inline-block
+                width: 2.5rem
+                height: 2.5rem
+
+                .round
+                  fill: white
+                .clock-arrow
+                  fill: white
+                .dot
+                  fill: #f0c67a
+
+            .title
+              text-transform: uppercase
+              color: white
+              display: block
+              font-size: 4rem
+              font-weight: 900
+              line-height: 0.9
+
+          .address
+            text-transform: uppercase
+            font-size: 1.3rem
+            font-weight: 500
+            color: $dark-blue-color
+          .address-at
+            font-size: 1rem
+            font-weight: 300
+
+          .info-service
+            margin: 1.5rem 0 0 0
+            .title
+              color: $dark-blue-color
+            ul
+              margin: 0.5rem 0 1rem 0
+              padding: 0
+
+              li
+                list-style: none
+
+                &.info-phone
+                  span
+                    color: white
+                    top: -10px
+                    position: relative
+                &.info-mail
+                  span
+                    color: white
+                    top: -10px
+                    position: relative
+
+              svg
+                width: 2.5rem
+                height: 2rem
+                margin-right: 0.5rem
+
+          .support
+            .title
+              color: $dark-blue-color
+            ul
+              margin: 0.5rem 0 1rem 0
+              padding: 0
+            li
+              list-style: none
+            svg
+              width: 2.5rem
+              height: 2rem
+              margin-right: 0.5rem
+            span
+              top: -10px
+              position: relative
+              color: white
+
+        .contact-form
+          form
+            .field
+              position: relative
+              margin: 4px 0 0 0
+              input, textarea
+
+                background: transparent
+                height: 40px
+                width: 100%
+                border: none
+                font-size: 1.1rem
+                font-weight: 500
+                color: white
+                padding: 0 1.5rem 0 1.5rem
+                font-family: inherit
+
+                @include placeholder
+                  color: $skyblue-color
+                  //background: green
+
+
+                &:focus
+                  //background: $form-focus-input-background
+
+                  @include placeholder
+                    color: $form-focus-input-background
+
+
+
+              textarea
+                background: $form-input-background
+                height: 120px
+                padding: 0.5rem 1.5rem 0.5rem 1.5rem
+                line-height: 1.4
+
+              &.field-submit
+                margin: 1rem 0 0 0
+                input
+                  background: white
+                  color: $form-input-background
+                  border-radius: 3px
+                  font-size: 1.1rem
+                  font-weight: 900
+                  text-transform: uppercase
+
+            input[type=text] + .input-bg
+              position: absolute
+              display: block
+              height: 100%
+              width: 100%
+              top: 0
+              z-index: -1
+              background: $form-input-background
+            input[type="text"]:focus + .input-bg
+              background: $orange-color
+              @include animation-duration(0.5s)
+              @include animation-delay(0s)
+              @include animation-name(input-active-animation)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.map-container
+  img
+    max-width: none
+
+
+.page-section
+
+  &.home-comments-section
+    background: #ffffff
+
+    .section-title
+      margin: 3rem 0 0 0
+      text-align: center
+      .svg-container
+        svg
+          width: 45px
+          height: 40px
+          display: inline-block
+
+          .border
+            fill: #fe9900
+          .dot
+            fill: #a46201
+          .line
+            fill: #fd9802
+
+      .title
+        text-transform: uppercase
+        color: $orange-color
+        font-size: 3.5rem
+        font-weight: 900
+
+    .user-avatars
+      ul
+        li.user-avatar
+          overflow: hidden
+          list-style: none
+
+
+          label
+            text-align: center
+            cursor: pointer
+            display: block
+            img
+              border-radius: 50%
+            .name
+              display: inline-block
+              font-weight: 600
+              color: #888
+              text-transform: uppercase
+              max-width: 110px
+            .status
+              display: block
+              font-weight: 300
+              color: #888
+              font-size: 0.8rem
+
+
+
+    .comments
+      margin-top: 3.5rem
+      ul
+        li
+          list-style: none
+          display: none
+          font-size: 1.2rem
+          font-weight: 300
+          color: #fccf52
+
+          &:before, &:after
+            color: #c0e6f3
+            position: absolute
+            display: block
+            font-weight: 900
+          &:before
+            content: "\AB"
+            font-size: 12rem
+            top: 0
+            left: 0
+            line-height: 1rem
+
+          &:after
+            content: "\BB"
+            right: 0
+            bottom: 0
+            font-size: 6rem
+            line-height: 100%
+
+          .comment-text
+            position: relative
+            display: block
+            padding: 0 30px 3rem 75px
+            z-index: 1
+
+
+          
+  @for $i from 1 through $user-comments-count
+    input.home-user-comment-flag#home-user-comment-flag-#{$i}:checked
+      & ~ .user-avatars
+        ul
+          li.user-avatar#user-avatar-#{$i}
+            label
+              img
+                border: $orange-color 3px solid
+              .name
+                color: #2581a8
+              .status
+                color: $orange-color
+      & ~ .comments
+        ul
+          li.comment#comment-#{$i}
+            display: block

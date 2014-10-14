@@ -2,19 +2,22 @@ class Article < ActiveRecord::Base
   attr_accessible :published, :name, :short_description, :full_description, :release_date
 
   has_attached_file :avatar, :styles => { :article_list_small_thumb => '360x300#', related_irticle_thumb: '600x500#'},
-                    :url  => '/assets/articles/:id/:style/:basename.:extension',
-                    :path => ':rails_root/public/assets/articles/:id/:style/:basename.:extension',
+                    :url  => "/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
+                    :path => ":rails_root/public/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
                     convert_options: {
                       article_list_small_thumb: "-quality 94 -interlace Plane",
                       related_irticle_thumb: "-quality 94 -interlace Plane"
                     }
 
   has_attached_file :banner, :styles => { :banner => '2100x500#'},
-                    :url  => '/assets/articles/:id/:style/:basename.:extension',
-                    :path => ':rails_root/public/assets/articles/:id/:style/:basename.:extension',
+                    :url  => "/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
+                    :path => ":rails_root/public/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
                     convert_options: {
                         banner: "-quality 94 -interlace Plane",
                     }
+
+  validates_attachment_file_name :avatar, :matches => [/png\Z/i, /jpe?g\Z/i, /gif\Z/i, /svg\Z/i]
+  validates_attachment_file_name :banner, :matches => [/png\Z/i, /jpe?g\Z/i, /gif\Z/i, /svg\Z/i]
 
 
   [:avatar, :banner].each do |paperclip_field_name|
@@ -28,7 +31,7 @@ class Article < ActiveRecord::Base
   attr_accessible :translations_attributes, :translations
 
   class Translation
-    attr_accessible :locale, :published_translation, :name, :short_description, :full_description, :address
+    attr_accessible :locale, :published_translation, :name, :short_description, :full_description
 
     # def published=(value)
     #   self[:published] = value
@@ -39,8 +42,20 @@ class Article < ActiveRecord::Base
       edit do
         field :locale, :hidden
         field :published_translation
+        field :name
+        field :short_description
+        field :full_description, :ck_editor
+        field :avatar_alt
 
       end
+    end
+  end
+
+  rails_admin do
+    edit do
+      field :translations, :globalize_tabs
+      field :avatar
+      field :avatar_file_name_fallback
     end
   end
 end

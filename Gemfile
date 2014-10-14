@@ -6,7 +6,13 @@ gem 'rails', '4.1.6'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', '~> 4.0.1'
+#gem 'sass'
+
+#gem 'sass-rails', '5.0.0.beta1' # This is the important bit since it supports Sass 3.3
+#gem 'susy'
+#gem 'compass-rails', '~> 2.0.0'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
@@ -102,6 +108,7 @@ gem 'rails_admin_globalize_field', github: 'VoroninNick/rails_admin_globalize_fi
 # image processing
 gem 'paperclip'
 gem 'paperclip-compression'
+#gem 'paperclip-imgix', github: 'zebrafishlabs/paperclip-imgix'
 
 
 group :naucc, :development, :caching do
@@ -127,3 +134,5 @@ group :naucc, :development, :test, :cucumber, :caching do
   gem 'delorean'
   gem 'pry'
 end
+
+gem 'amoeba'

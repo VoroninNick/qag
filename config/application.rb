@@ -20,6 +20,8 @@ module Qag
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    Bundler.require(:default, Rails.env)
+
     config.i18n.default_locale = :en
     config.i18n.available_locales = [:ru, :uk, :en]
   end

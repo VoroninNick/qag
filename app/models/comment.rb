@@ -2,7 +2,7 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :commentable, polymorphic: true
 
-  attr_accessible :user, :commentable_type, :commentable_id, :commentable, :comment_text, :published, :order_index
+  attr_accessible :user, :user_id, :commentable_type, :commentable_id, :commentable, :comment_text, :published, :order_index
 
   translates :comment_text, :versioning => :paper_trail
   accepts_nested_attributes_for :translations
@@ -29,6 +29,7 @@ class Comment < ActiveRecord::Base
   rails_admin do
     edit do
       field :published
+      field :user
       field :translations, :globalize_tabs
 
     end

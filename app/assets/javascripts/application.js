@@ -12,8 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require foundation
+//= require jquery.mousewheel.min
+// foundation
 //= require turbolinks
-//= require_tree .
+//= require rich_marker
+//= require test_map
+//= require home
 
-$(function(){ $(document).foundation(); });
+//$(function(){ $(document).foundation(); });

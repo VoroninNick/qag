@@ -1,17 +1,20 @@
 class Event < ActiveRecord::Base
-  has_attached_file :avatar, :styles => { :event_list_small_thumb => '360x240#', :event_list_large_thumb => '720x480#', :home_expired_event_thumb => '400x1000#', :article_item => '320x320>', home_article_item: '250x250>', article_page: '500x500>'},
-                    :url  => '/assets/articles/:id/:style/:basename.:extension',
-                    :path => ':rails_root/public/assets/articles/:id/:style/:basename.:extension',
+  has_attached_file :avatar, :styles => { :event_list_small_thumb => '360x240#', :event_list_large_thumb => '720x480#', :home_expired_event_thumb => '500x1250#', :article_item => '320x320>', home_article_item: '250x250>', article_page: '500x500>'},
+                    :url  => "/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
+                    :path => ":rails_root/public/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
                     convert_options: {
                         banner: "-quality 94 -interlace Plane",
                     }
 
   has_attached_file :banner, :styles => { banner: '2100x500#' },
-                    :url  => '/assets/articles/:id/:style/:basename.:extension',
-                    :path => ':rails_root/public/assets/articles/:id/:style/:basename.:extension',
+                    :url  => "/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
+                    :path => ":rails_root/public/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
                     convert_options: {
                         banner: "-quality 94 -interlace Plane",
                     }
+
+  validates_attachment_file_name :avatar, :matches => [/png\Z/i, /jpe?g\Z/i, /gif\Z/i, /svg\Z/i]
+  validates_attachment_file_name :banner, :matches => [/png\Z/i, /jpe?g\Z/i, /gif\Z/i, /svg\Z/i]
 
 
 
@@ -65,6 +68,8 @@ class Event < ActiveRecord::Base
         field :address
         field :short_description
         field :full_description, :ck_editor
+
+
       end
     end
   end
@@ -73,6 +78,8 @@ class Event < ActiveRecord::Base
     weight -2
 
     edit do
+      field :published
+
       field :translations, :globalize_tabs
 
 
@@ -98,6 +105,9 @@ class Event < ActiveRecord::Base
 
 
       field :participants_count
+
+      field :avatar
+      field :banner
     end
   end
 end

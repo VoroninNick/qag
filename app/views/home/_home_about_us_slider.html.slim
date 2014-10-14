@@ -1,0 +1,99 @@
+sass:
+  @import "app/assets/stylesheets/functions"
+
+  .home-about-section
+    .slides
+      .slide
+        &:first-child
+          background: #ffb700
+
+          .slide-row
+            height: 100%
+            position: relative
+
+          .name
+            color: white
+            font-size: 6rem
+            font-weight: 900
+            text-transform: uppercase
+            line-height: 0.9
+            position: absolute
+            top: 10%
+            @include transform( translateY(-10%) )
+
+          .short-description
+            color: white
+            font-weight: 300
+            font-size: 1.2rem
+
+            position: absolute
+            top: 50%
+            @include transform( translateY(-50%) )
+
+          .social-links
+            margin-top: 2rem
+            ul
+              padding: 0
+              margin: 0
+
+              li
+                display: inline-block
+                list-style: none
+                margin-left: 1rem
+                margin-right: 1rem
+
+                &:first-child
+                  margin-left: 0
+                &:last-child
+                  margin-right: 0
+
+                svg
+                  width: 2rem
+                  height: 2rem
+
+div.page-section.page-section-number-3.home-about-section
+  - if @about_slides.count > 0
+
+    - @about_slides.each_with_index do |slide, index|
+      input type="radio" name="home-about-slider-slide-flag" class="home-about-slider-slide-flag flag" id="home-about-slider-slide-flag-#{index + 1}" checked=( (index == 0)? 'checked' : false )
+
+
+
+    ul.slides
+      - @about_slides.each_with_index do |slide, index|
+        li.slide id="home-about-slide-#{index + 1}"
+          .slide-row.row
+            .name.columns.large-9
+              = slide.name
+            .short-description.columns.large-7.large-push-5
+              = slide.short_description
+              - if index == 0
+                .social-links
+                  ul
+                    li
+                      a href="#"
+                        = embedded_svg_from_assets('svg/tweet.svg')
+                    li
+                      a href="#"
+                        = embedded_svg_from_assets('svg/google_plus.svg')
+                    li
+                      a href="#"
+                        = embedded_svg_from_assets('svg/vk.svg')
+                    li
+                      a href="#"
+                        = embedded_svg_from_assets('svg/facebook.svg')
+                    li
+                      a href="#"
+                        = embedded_svg_from_assets('svg/blogger.svg')
+                    li
+                      a href="#"
+                        = embedded_svg_from_assets('svg/linked_in.svg')
+                    li
+                      a href="#"
+                        = embedded_svg_from_assets('svg/odnoklasniki.svg')
+
+    - if @about_slides.count > 1
+      ul.bullets
+        - @about_slides.each_with_index do |slide, index|
+          li
+            label for="home-about-slider-slide-flag-#{index + 1}"

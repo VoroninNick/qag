@@ -1,0 +1,69 @@
+div.page-section.page-section-number-5.home-contact-section
+  .relative
+    #home-map-wrapper.map-wrapper data-markers="#{@home_map_markers.to_json}"
+      #home-map-container.map-container style=""
+    /.row
+    /  .columns.large-7.right
+    /    .contact_test
+    /      |test
+    /.light_blue_background
+    #home-contact-form
+      #home-contact-form-outer
+        #home-contact-form-content
+          #home-contact-form-row.row
+            .form-title
+              .svg-container
+                = embedded_svg_from_assets('svg/contacts_icon.svg')
+              span.title
+                = 'Де нас знайти'
+            .address
+              = @home_contact_info.address
+            .address-at
+              = raw @home_contact_info.address_at
+            .info-service
+              .title
+                = 'Інформаційний сервіс'
+              ul
+                li.info-mail
+                  a href="#"
+                    = embedded_svg_from_assets('svg/mail.svg')
+                    span
+                      = 'info@qagroup.com.ua'
+                li.info-phone
+                  a href="#"
+                    = embedded_svg_from_assets('svg/tel.svg')
+                    span
+                      = '+38 (099) 376 65 05'
+
+            .support
+              .title
+                = 'Служба підтримки'
+              ul
+                li.info-mail
+                  a href="#"
+                    = embedded_svg_from_assets('svg/mail.svg')
+                    span
+                      = 'support@qagroup.com.ua'
+
+
+            .contact-form
+              form
+                .field.field-name
+                  input type="text" placeholder="Ім'я"
+                  .input-bg
+                .field.field-phone
+                  input type="text" placeholder="+38 (XXX) XXX XX XX"
+                  .input-bg
+                .field.field-email
+                  input type="text" placeholder="Електронна скринька"
+                  .input-bg
+                .field.field-message
+                  textarea placeholder="Текст повідомлення"
+
+                .field.field-submit
+                  input type="submit" name="home-form-submit" value="Надіслати"
+
+
+
+
+

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'test', to: 'test#index'
+  get 'test/rendering', to: 'test#rendering'
+
   mount Ckeditor::Engine => '/ckeditor'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users

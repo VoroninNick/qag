@@ -1,0 +1,29 @@
+div.page-section.page-section-number-6.home-comments-section
+  .section-title
+    .svg-container
+      = embedded_svg_from_assets('svg/reviews.svg')
+    .title
+      = 'Відгуки користувачів'
+  - @home_reviews.each_with_index do |comment, index|
+    input type="radio" name="home-user-comment-flag" class="home-user-comment-flag flag" id="home-user-comment-flag-#{index + 1}" checked=( (index == 0)? 'checked' : false )
+
+  .user-avatars
+    ul.row
+      - @home_reviews.each_with_index do |comment, index|
+        li.user-avatar.columns.large-2 id="user-avatar-#{index + 1}"
+          label for="home-user-comment-flag-#{index + 1}"
+            img src=comment.user.avatar.url(:thumb)
+            span.name
+              = comment.user.name
+            span.status
+              = comment.user.status
+
+  .comments
+    ul.row
+      - @home_reviews.each_with_index do |comment, index|
+        li.comment.columns.large-10.push-1 id="comment-#{index + 1}"
+          .comment-text
+            = comment.comment_text
+
+          
+

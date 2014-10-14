@@ -8,7 +8,7 @@ class HomeContactInfo < ActiveRecord::Base
   attr_accessible :translations_attributes, :translations
 
   class Translation
-    attr_accessible :locale, :published_translation, :address, :addres_at
+    attr_accessible :locale, :published_translation, :address, :address_at
 
     # def published=(value)
     #   self[:published] = value

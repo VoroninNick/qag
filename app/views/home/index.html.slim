@@ -1,41 +1,57 @@
+- home_sections_count = 6
+input data-to="1"  type="radio" class="home-page-section-flag flag initial" name="home-page-section-flag"  id="home-page-section-flag-initial" checked="checked"
+- for i in 1..(home_sections_count)
+  - for j in 1..(home_sections_count)
+    /- if i != j
+    input type="radio" data-from="#{i}" data-to="#{j}" class="flag home-page-section-flag home-page-section-flag-from-#{i} home-page-section-flag-to-#{j}" name="home-page-section-flag"  id="home-page-section-flag-from-#{i}-to-#{j}"
+
+.home-page-section-bullets
+  ul
+    - for i in 1..home_sections_count
+      - for j in 1..home_sections_count
+        /- if i != j
+        li class="home-page-section-bullet home-page-section-bullet-from-#{i} home-page-section-bullet-to-#{j}" id="home-page-section-bullet-from-#{i}-to-#{j}"
+          label for="home-page-section-flag-from-#{i}-to-#{j}"
+
+
 div.page-section.page-section-number-1.home-slider-section
+  - @main_slider_slides.each_with_index do |slide, index|
+    input type="radio" name="home-slider-slide-flag" class="home-slider-slide-flag flag" id="home-slider-slide-flag-#{(index + 1)}" checked=( (index == 0)? 'checked' : false )
+
   ul.slides
-    li.slide
-      .image-background style="background: url('#{stub_image_link(2000, 1000)}')"
-        img src="#{ stub_image_link(2000,1000) }"
-      .description
-        .slide-title
-          a href="#"
-
-    li.slide
-      .image-background href="#" style="background: url('#{stub_image_link(2000, 1000)}')"
-        img src="#{ stub_image_link(2000,1000) }"
-      .description
-        .slide-title
-          a href="#"
-
-    li.slide
-      .image-background href="#" style="background: url('#{stub_image_link(2000, 1000)}')"
-        img src="#{ stub_image_link(2000,1000) }"
-      .description
-        .slide-title
-          a href="#"
+    - @main_slider_slides.each_with_index do |slide, index|
+      li.slide id="slide-#{index + 1}"
+        .image-background style="background: url('#{slide.background.url(:banner)}')"
+          img src=slide.background.url(:background) alt=slide.background_alt
+        .description
+          .slide-title
+            = slide.name
 
 
-div.page-section.page-section-number-2.home-events-section
+  ul.bullets
+    - @main_slider_slides.each_with_index do |slide, index|
+      li.home-slider-slide-label id="home-slider-slide-label-#{index + 1}"
+        label for="home-slider-slide-flag-#{(index + 1)}"
 
 
 
-div.page-section.page-section-number-3.home-about-section
+
+
+= render partial: 'home/home_featured_events'
 
 
 
-div.page-section.page-section-number-4.home-expired-events-section
+
+= render partial: 'home/home_about_us_slider'
+
+
+= render partial: 'home/home_expired_events'
 
 
 
-div.page-section.page-section-number-5.home-contact-section
+= render partial: 'home/home_map'
 
 
 
-div.page-section.page-section-number-6.home-comments-section
+
+= render partial: 'home/home_user_feedbacks'

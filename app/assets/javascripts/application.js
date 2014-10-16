@@ -21,3 +21,13 @@
 //= require home
 
 //$(function(){ $(document).foundation(); });
+
+$(document).on('page:load', function(){
+    if(window.location.pathname == '' || window.location.pathname == '/'){
+        $('#html').addClass('controller-home action-index');
+    }
+    else{
+        $('#html').removeClass('controller-home action-index');
+    }
+
+})

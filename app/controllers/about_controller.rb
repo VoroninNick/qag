@@ -9,5 +9,8 @@ class AboutController < ApplicationController
             }
         }
     }
+
+    @participants = Participant.all.where("published = 't' ")
+    @team_members = TeamMember.all.where("published = 't' ")
   end
 end

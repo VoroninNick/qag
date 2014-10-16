@@ -90,8 +90,14 @@
                 .image.about-team-avatar-img-container
                   img.about-team-avatar-img.grayscale src=m.avatar.url(:about)
                 .about-team-avatar-description
+
                   span.about-team-avatar-description-text
-                    = m.short_description
+                    span.about-team-avatar-description-text-name
+                      = m.name
+                    span.about-team-avatar-description-text-short-description
+                      = m.short_description
+                    span.about-team-avatar-description-text-social-links
+
 
           .clearfix
 

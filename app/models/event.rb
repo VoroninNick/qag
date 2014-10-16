@@ -1,4 +1,5 @@
 class Event < ActiveRecord::Base
+
   has_attached_file :avatar, :styles => { :event_list_small_thumb => '360x240#', :event_list_large_thumb => '720x480#', :home_expired_event_thumb => '500x1250#', :article_item => '320x320>', home_article_item: '250x250>', article_page: '500x500>'},
                     :url  => "/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
                     :path => ":rails_root/public/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",

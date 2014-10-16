@@ -1,7 +1,7 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 // You can use CoffeeScript in this file: http://coffeescript.org/
-$('.controller-home.action-index').each(function(){
+$('html.controller-home.action-index').each(function(){
   var $page = $(this)
 //    $.ajax(
 //        {
@@ -43,7 +43,7 @@ $('.controller-home.action-index').each(function(){
             var $flags = $('.home-page-section-flag')
             var $checked_flag = $flags.filter(':checked')
             var checked_flag_index = $checked_flag.index()
-            var checked_section_number = Number.parseInt($checked_flag.attr('data-to'))
+            var checked_section_number = parseInt($checked_flag.attr('data-to'))
 
             var next_number = 0;
             var min_number = 1;
@@ -75,10 +75,50 @@ $('.controller-home.action-index').each(function(){
 })
 
 
+
 var $home_featured_event_info_slides_row = $('#home-featured-event-info-slides-row')
 var $home_featured_events_section = $('#home-featured-events-section')
 if($home_featured_event_info_slides_row.length > 0) {
     //$home_featured_event_info_slides_row.
+
+
+//        prev_start = 4
+//        next_start = 8
+//        $.ajax(
+//        {
+//            url: '/data/featured_events/?ajax=true&direction=both&prev_start=' + prev_start + '&prev_count=14&next_start='+next_start + '&next_count=14',
+//            type: 'GET',
+//            dataType: 'json',
+//            success: function(data){
+//
+//                //$home_featured_events_section
+//               $data  = $(data)
+//               data = data
+//
+//                $data = $data.get(0)
+//               next_events = $data.next_events
+//               prev_events = $data.prev_events
+//               total_count = $data.total_count
+//               prev_remaining = $data.prev_remaining
+//               next_remaining = $data.next_remaining
+//
+//
+//               var $home_featured_event_info_slides_row_ul = $('#home-featured-event-info-slides-row-ul')
+//
+//               $(prev_events).each(function(){
+//                   e = $(this)
+//                   var $event = $('<li class="event home-featured-event" id="event-'+ e.number+'" ><div class="image-and-info columns large-4"><div class="image"><a href="#"><img src="'+ e.img_src+'"/></a></div><div class="info">' +
+//                       '<div class="start_date"><span class="tip">Початок:</span><span class="value">08.09.2014</span>' + '<span class="end-date"><span class="span.tip">Завершення:</span><span class="value">'+'03.10.2014'+'</span>' +
+//                       '<div class="participants-count"></div>' +
+//
+//                       '</div></div></li>')
+//               })
+//
+//
+//
+//            }
+//
+//        } )
 
 
 
@@ -90,7 +130,7 @@ if($home_featured_event_info_slides_row.length > 0) {
         var $flags = $home_featured_events_section.find('input.home-featured-events-timeline-flag')
         var flags_count = $flags.length
         var $checked_flag = $flags.filter(':checked')
-        var checked_event_number = Number.parseInt($checked_flag.attr('data-event-number'))
+        var checked_event_number = parseInt($checked_flag.attr('data-event-number'))
 
         var challenge_event_number = checked_event_number
         if(direction){
@@ -128,4 +168,6 @@ if($home_featured_event_info_slides_row.length > 0) {
 
 
     })
+
+
 }

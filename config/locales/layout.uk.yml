@@ -1,0 +1,18 @@
+uk:
+  layout:
+    header:
+      menu:
+        about: 'Про нас'
+        events: 'Заходи'
+        articles: 'Публікації'
+        contact: 'Контакти'
+      contact-info:
+        info-service:
+          tip: 'Інформаційний сервіс'
+          email: 'info@qagroup.com.ua'
+          phone: '+38 (099) 376 65 05'
+        support:
+          tip: 'Служба підтримки'
+          email: 'support@qagroup.com.ua'
+    breadcrumbs:
+      about_us: 'Про нас'

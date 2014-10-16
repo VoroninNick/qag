@@ -1,0 +1,17 @@
+uk:
+  pages:
+    home:
+      timeline:
+        month-names:
+          month-1: 'січня'
+          month-2: 'лютого'
+          month-3: 'березня'
+          month-4: 'квітня'
+          month-5: 'травня'
+          month-6: 'червня'
+          month-7: 'липня'
+          month-8: 'серпня'
+          month-9: 'вересня'
+          month-10: 'жовтня'
+          month-11: 'листопада'
+          month-12: 'грудня'

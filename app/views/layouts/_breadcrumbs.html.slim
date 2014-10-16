@@ -1,0 +1,5 @@
+- if @breadcrumbs
+  #breadcrumbs-container
+    ul#breadcrumbs-ul
+      - @breadcrumbs.each_pair do |key, value|
+        = content_tag( (value.keys.include?(:link) && value[:link].keys.include?(:url))? 'a' : 'span', ( (key.to_s != 'home')?  ( (value.keys.include?(:title) )? value[:title] : key.to_s)    : ApplicationHelper.self_embedded_svg_from_assets('svg/tel.svg') ), html: ((value.keys.include?(:link) && value[:link].keys.include?(:url))? { href: value[:link][:url] } : false ) )

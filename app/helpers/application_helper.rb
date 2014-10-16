@@ -15,7 +15,7 @@ module ApplicationHelper
     output.html_safe
   end
 
-  def self.js_embedded_svg filename, options={}
+  def self.self_js_embedded_svg filename, options={}
     file = File.read(Rails.root.join('app', 'assets', 'images', filename))
     doc = Nokogiri::HTML::DocumentFragment.parse file
     svg = doc.at_css 'svg'
@@ -30,19 +30,35 @@ module ApplicationHelper
     minimized_source
   end
 
+  def js_embedded_svg filename, options={}
+    self.self_js_embedded_svg(filename, options)
+  end
+
+  def self.self_embedded_svg_from_assets filename, options = {}
+    self.self_embedded_svg("/app/assets/images/#{filename}", options)
+  end
+
   def embedded_svg_from_assets filename, options = {}
-    embedded_svg("/app/assets/images/#{filename}", options)
+    ApplicationHelper.self_embedded_svg_from_assets(filename, options)
   end
 
   def embedded_svg_from_public filename, options = {}
+    self.self_embedded_svg("#{filename}", options)
+  end
+
+  def self.self_embedded_svg_from_public filename, options = {}
     embedded_svg("/public/#{filename}", options)
   end
 
-  def embedded_svg filename, options={}
-    embedded_svg_from_absolute_path(Rails.root.to_s + filename.to_s, options)
+  def self.self_embedded_svg filename, options={}
+    self.self_embedded_svg_from_absolute_path(Rails.root.to_s + filename.to_s, options)
   end
 
-  def embedded_svg_from_absolute_path(filename, options = {})
+  def embedded_svg filename, options={}
+    self.class.self_embedded_svg(filename, options)
+  end
+
+  def self.self_embedded_svg_from_absolute_path(filename, options = {})
     file = File.read(filename.to_s)
     doc = Nokogiri::HTML::DocumentFragment.parse file
     svg = doc.at_css 'svg'
@@ -51,4 +67,9 @@ module ApplicationHelper
     end
     doc.to_html.html_safe
   end
+
+  def embedded_svg_from_absolute_path(filename, options = {})
+    self.class.self_embedded_svg_from_absolute_path(filename, options)
+  end
+
 end

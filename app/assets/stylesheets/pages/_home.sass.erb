@@ -360,316 +360,205 @@ $expired-events-pages-count: $expired-events-count / 5
 
 
 
-  &.home-slider-section
-    text-align: center
+#home-slider-section
+  text-align: center
 
-    .slides
+  .slides
+
+    top: 0
+    position: absolute
+    left: 0
+    width: 100%
+    height: 100%
+    overflow: hidden
+    margin: 0
+    padding: 0
+    .slide
       top: 0
-      position: absolute
       left: 0
-      width: 100%
+      background: red
+
+
+      //opacity: 0
+
       height: 100%
-      overflow: hidden
-      margin: 0
-      padding: 0
-      .slide
-        top: 0
-        left: 0
-
-
-        //opacity: 0
-
-        height: 100%
-        position: absolute
-        width: 100%
-
-        &:first-child
-          opacity: 1
-        .image-background
-          height: 100%
-          display: block
-          background-size: cover
-          img
-            opacity: 0
-
-        @for $i from 1 through $main-slider-slides-count
-          &#slide-#{$i}
-            z-index: $i
-
-
-    .bullets
-      display: inline-block
       position: absolute
-      bottom: 150px
-      z-index: #{$main-slider-slides-count + 2}
-
-      li
-        display: inline-block
-        margin-left: $bullet-indent
-        &:first-child
-          margin-left: 0
-
-        label
-          display: block
-          background: $bullet-background
-          //background: $active-bullet-background
-          width: $bullet-with
-          height: $bullet-height
-          border-radius: $bullet-border-radius
-          cursor: pointer
-
-
-
-
-    @for $i from 1 through 3
-      .home-slider-slide-flag#home-slider-slide-flag-#{$i}
-        &:checked
-          & ~ .slides
-            .slide#slide-#{$i}
-              z-index: #{$main-slider-slides-count + 1}
-
-
-
-          & ~ .bullets
-            .home-slider-slide-label#home-slider-slide-label-#{$i}
-              label
-                background: $active-bullet-background
-                cursor: default
-
-
-
-
-
-
-
-
-  &.home-featured-events-section
-    background: $skyblue-color
-    color: white
-
-
-    .event-info-slides
-      padding-bottom: $featured-events-timeline-height
-      height: 100%
-
-      .event-info-slides-row
-        height: 100%
-
-        .prev-event-labels
-          li
-            display: none
-
-        > ul
-          padding-left: 0
-
-        ul
-          width: 100%
-          display: block
-          margin: 0
-          li.event
-            background: $skyblue-color
-            height: 100%
-            width: 100%
-            list-style: none
-            display: inline-block
-            padding: 4rem 0 0 0
-
-            .image-and-info
-              .image
-                a
-                  img
-              .info
-                .start-date, .end-date
-                  display: inline-block
-
-                  .tip
-                    display: block
-                  .value
-                    font-size: 1.2rem
-                    font-weight: 500
-
-                .start-date:after
-                  content: "\2014"
-                  display: inline-block
-                  margin: 0 1rem 0 1rem
-                  font-size: 1.2rem
-
-                .participants-count
-                  svg
-                    width: 40px
-                    height: 30px
-                    margin-right: 5px
-                  .count
-                    font-size: 1.5rem
-                    font-weight: 600
-                    vertical-align: top
-                    line-height: 30px
-                  .participants-tip
-                    vertical-align: top
-                    line-height: 30px
-                    font-size: 1.1rem
-                    font-weight: 100
-
-
-            .description
-              .event-title
-                font-size: 2rem
-              .event-description
-                padding-top: 2rem
-                font-weight: 300
-                line-height: 1.3
-            .event-link-and-register-button
-              clear: left
-
-              .event-link-wrapper
-                height: 0
-                text-align: right
-
-                .event-link
-                  line-height: 3.75rem
-
-
-
-
-              .register-button
-                label
-                  height: 3.75rem
-                  display: inline-block
-                  background: $registration-button-background
-                  width: 100%
-                  text-align: center
-                  border-radius: 3px
-                  cursor: pointer
-
-                  svg
-                    display: inline-block
-                    position: relative
-                    top: rem-calc(10)
-                    width: 2.5rem
-                    height: 2.5rem
-
-                    .clock-arrow, .clock-round, .clock-fire
-                      fill: white
-
-
-                  .registration-text
-                    font-size: 2rem
-                    text-transform: uppercase
-                    font-size: 1.3rem
-                    font-weight: 700
-
-
-
-
-
-
-
-
-    .timeline
-      height: $featured-events-timeline-height
-      position: absolute
-      bottom: 0
       width: 100%
-      background: $light-skyblue-color
 
-      .time-line-row
-        position: relative
-        overflow: hidden
-
-        .events-container
-          position: relative
-          width: #{100% * ($featured-events-timeline-pages-count)}
-
-
-
-
-      .event
-        display: inline-block
-        width: #{100% / ($featured-events-count)}
-        text-align: center
-
-        // draw triangle on selected event
-        &:before
-          width: 0
-          height: 0
-          border-style: solid
-          border-width: 15px 15px 0 15px
-          border-color: #30addb transparent transparent transparent
-          line-height: 0px
-          _border-color: #30addb #000000 #000000 #000000
-          _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000')
-          -webkit-transform: rotate(360deg)
-          position: relative
-          top: 14px
-
-        .date
-          color: $featured-events-timeline-inactive-event-text-color
-
-
-          .day-number
-            font-size: 4rem
-            font-weight: 900
-            line-height: 0.9
-          .month
-            font-size: 1rem
-            line-height: 1
-            font-weight: 600
-            text-transform: uppercase
-
-      .bullet
+      &:first-child
+        opacity: 1
+      .image-background
+        height: 100%
         display: block
-        text-align: center
-        overflow: hidden
+        background-size: cover
+        img
+          opacity: 0
 
-        label
+      @for $i from 1 through $main-slider-slides-count
+        &#slide-#{$i}
+          z-index: $i
+
+
+  .bullets
+    display: inline-block
+    position: absolute
+    bottom: 150px
+    z-index: #{$main-slider-slides-count + 2}
+
+    li
+      display: inline-block
+      margin-left: $bullet-indent
+      &:first-child
+        margin-left: 0
+
+      label
+        display: block
+        background: $bullet-background
+        //background: $active-bullet-background
+        width: $bullet-with
+        height: $bullet-height
+        border-radius: $bullet-border-radius
+        cursor: pointer
+
+
+
+
+  @for $i from 1 through 3
+    .home-slider-slide-flag#home-slider-slide-flag-#{$i}
+      &:checked
+        & ~ .slides
+          .slide#slide-#{$i}
+            z-index: #{$main-slider-slides-count + 1}
+
+
+
+        & ~ .bullets
+          .home-slider-slide-label#home-slider-slide-label-#{$i}
+            label
+              background: $active-bullet-background
+              cursor: default
+
+
+
+
+
+
+
+
+#home-featured-events-section
+  background: $skyblue-color
+  color: white
+
+
+  .event-info-slides
+    padding-bottom: $featured-events-timeline-height
+    height: 100%
+
+    .event-info-slides-row
+      height: 100%
+
+      .prev-event-labels
+        li
+          display: none
+
+      > ul
+        padding-left: 0
+
+      ul
+        width: 100%
+        display: block
+        margin: 0
+        li.event
+          background: $skyblue-color
+          height: 100%
+          width: 100%
+          list-style: none
           display: inline-block
-          width: 1rem
-          height: 1rem
-          border-radius: 50%
-          background: $featured-events-timeline-bullet-background
-          cursor: pointer
-          position: relative
+          padding: 4rem 0 0 0
+
+          .image-and-info
+            .image
+              a
+                img
+            .info
+              .start-date, .end-date
+                display: inline-block
+
+                .tip
+                  display: block
+                .value
+                  font-size: 1.2rem
+                  font-weight: 500
+
+              .start-date:after
+                content: "\2014"
+                display: inline-block
+                margin: 0 1rem 0 1rem
+                font-size: 1.2rem
+
+              .participants-count
+                svg
+                  width: 40px
+                  height: 30px
+                  margin-right: 5px
+                .count
+                  font-size: 1.5rem
+                  font-weight: 600
+                  vertical-align: top
+                  line-height: 30px
+                .participants-tip
+                  vertical-align: top
+                  line-height: 30px
+                  font-size: 1.1rem
+                  font-weight: 100
 
 
-          &:after
-            content: ""
-            position: absolute
-            top: 8px
-            left: 16px
-            height: 1px
-            width: 200px
-            display: inline-block
-            border-top: #a9a7ac 1px dashed
+          .description
+            .event-title
+              font-size: 2rem
+            .event-description
+              padding-top: 2rem
+              font-weight: 300
+              line-height: 1.3
+          .event-link-and-register-button
+            clear: left
 
+            .event-link-wrapper
+              height: 0
+              text-align: right
 
-          &:before
-            content: ""
-            position: absolute
-            top: 8px
-            //left: 16px
-            height: 1px
-            width: 200px
-            display: inline-block
-            border-top: #a9a7ac 1px dashed
-            left: auto
-            right: 16px
-
-
-      .event:first-child
-        .bullet
-          label:before
-            content: none
-
-      .event:last-child
-        .bullet
-          label:after
-            content: none
-
-      ul.prev-event-labels
+              .event-link
+                line-height: 3.75rem
 
 
 
 
+            .register-button
+              label
+                height: 3.75rem
+                display: inline-block
+                background: $registration-button-background
+                width: 100%
+                text-align: center
+                border-radius: 3px
+                cursor: pointer
+
+                svg
+                  display: inline-block
+                  position: relative
+                  top: rem-calc(10)
+                  width: 2.5rem
+                  height: 2.5rem
+
+                  .clock-arrow, .clock-round, .clock-fire
+                    fill: white
+
+
+                .registration-text
+                  font-size: 2rem
+                  text-transform: uppercase
+                  font-size: 1.3rem
+                  font-weight: 700
 
 
 
@@ -678,35 +567,161 @@ $expired-events-pages-count: $expired-events-count / 5
 
 
 
-    @for $i from 1 through $featured-events-count
-      .home-featured-events-timeline-flag#home-featured-events-timeline-flag-#{$i}
-        &:checked
-          & ~ .event-info-slides
-            .event#event-#{$i}
-              //z-index: #{$main-slider-slides-count + 1}
-              //display: block
-              z-index: 2
+  .timeline
+    height: $featured-events-timeline-height
+    position: absolute
+    bottom: 0
+    width: 100%
+    background: $light-skyblue-color
+
+    .time-line-row
+      position: relative
+      overflow: hidden
+
+      .events-container
+        position: relative
+        width: #{100% * ($featured-events-timeline-pages-count)}
 
 
-          & ~ .timeline
-            .event#event-#{$i}
 
-              // enable triangle
-              &:before
-                content: ""
 
+    .event
+      display: inline-block
+      width: #{100% / ($featured-events-count)}
+      text-align: center
+
+      // draw triangle on selected event
+      &:before
+        width: 0
+        height: 0
+        border-style: solid
+        border-width: 15px 15px 0 15px
+        border-color: #30addb transparent transparent transparent
+        line-height: 0px
+        _border-color: #30addb #000000 #000000 #000000
+        _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000')
+        -webkit-transform: rotate(360deg)
+        position: relative
+        top: 14px
+
+
+      .event-label
+        display: block
+        cursor: pointer
+
+      .date
+        color: $featured-events-timeline-inactive-event-text-color
+        height: 5rem
+
+
+        .day-number
+
+          font-size: 4rem
+          font-weight: 900
+          line-height: 0.9
+          @include transition-duration(1s)
+          @include transition-property(font color)
+        .month
+          font-size: 1rem
+          line-height: 1
+          font-weight: 600
+          text-transform: uppercase
+
+    .bullet
+      display: block
+      text-align: center
+      overflow: hidden
+
+      .render-bullet
+        display: inline-block
+        width: 1rem
+        height: 1rem
+        border-radius: 50%
+        background: $featured-events-timeline-bullet-background
+        cursor: pointer
+        position: relative
+
+
+        &:after
+          content: ""
+          position: absolute
+          top: 8px
+          left: 16px
+          height: 1px
+          width: 200px
+          display: inline-block
+          border-top: #a9a7ac 1px dashed
+
+
+        &:before
+          content: ""
+          position: absolute
+          top: 8px
+          //left: 16px
+          height: 1px
+          width: 200px
+          display: inline-block
+          border-top: #a9a7ac 1px dashed
+          left: auto
+          right: 16px
+
+
+    .event:first-child
+      .bullet
+        label:before
+          content: none
+
+    .event:last-child
+      .bullet
+        label:after
+          content: none
+
+    ul.prev-event-labels
+
+
+
+
+
+
+
+
+
+
+
+
+  @for $i from 1 through $featured-events-count
+    .home-featured-events-timeline-flag#home-featured-events-timeline-flag-#{$i}
+      &:checked
+        & ~ .event-info-slides
+          .event#event-#{$i}
+            //z-index: #{$main-slider-slides-count + 1}
+            //display: block
+            z-index: 2
+
+
+        & ~ .timeline
+          .event#event-#{$i}
+
+            // enable triangle
+            &:before
+              content: ""
+
+            #event-#{$i}-label
+              cursor: default
 
 
               .date
                 color: $featured-events-timeline-active-event-text-color
                 padding-bottom: 1rem
+                height: 8rem
 
                 .day-number
+                  height: 5rem
                   font-size: 6rem
                 .month
                   font-size: 1.5rem
               .bullet
-                label
+                .render-bullet
                   background: $featured-events-timeline-active-bullet-background
                   cursor: default
 
@@ -734,6 +749,14 @@ $expired-events-pages-count: $expired-events-count / 5
   fill: #98d5e8
 
 
+.featured-section-event-content
+  position: absolute
+  width: 100%
+  left: 0
+  top: 50%
+  @include transform( translate3d(0, -50%, 0) )
+
+
 .prev-arrow-show-event-animation
 .next-arrow-show-event-animation
 .prev-arrow-hide-event-animation
@@ -743,257 +766,257 @@ $expired-events-pages-count: $expired-events-count / 5
 
 
 .page-section
-  &.home-about-section
-    > ul.slides
+#home-about-section
+  > ul.slides
+    height: 100%
+    padding: 0
+    margin: 0
+    > li.slide
       height: 100%
-      padding: 0
+
+
+
+
+
+#home-expired-events-section
+  .events-slider
+    height: 100%
+    ul
       margin: 0
-      > li.slide
-        height: 100%
-
-
-
-
-
-  &.home-expired-events-section
-    .events-slider
+      padding: 0
+      width: #{100% * $expired-events-pages-count}
       height: 100%
-      ul
-        margin: 0
-        padding: 0
-        width: #{100% * $expired-events-pages-count}
+      li
+        display: inline-block
+        width: #{100% / $expired-events-count}
         height: 100%
-        li
-          display: inline-block
-          width: #{100% / $expired-events-count}
+
+        a
+          display: block
           height: 100%
+          position: relative
 
-          a
-            display: block
-            height: 100%
-            position: relative
+          svg
+            max-width: 100%
+            position: absolute
+            top: 0
+            left: 0
 
-            svg
-              max-width: 100%
-              position: absolute
-              top: 0
-              left: 0
+            .overlay
+              @include transition-property(fill)
+              @include transition-duration(1s)
 
-              .overlay
-                @include transition-property(fill)
-                @include transition-duration(1s)
+          .name, .date-range
+            color: white
+            padding: 3.5rem 2.5rem
 
-            .name, .date-range
-              color: white
-              padding: 3.5rem 2.5rem
+          .name
+            position: absolute
+            top: 0
+            font-size: 1.2rem
+            font-weight: 600
+            text-transform: uppercase
 
-            .name
-              position: absolute
-              top: 0
-              font-size: 1.2rem
-              font-weight: 600
-              text-transform: uppercase
+          .date-range
+            position: absolute
+            bottom: 0
+            left: 0
+            right: 0
+            font-size: 1.3rem
+            font-weight: 500
+            text-align: right
 
-            .date-range
-              position: absolute
-              bottom: 0
-              left: 0
-              right: 0
-              font-size: 1.3rem
-              font-weight: 500
-              text-align: right
+            .start-date, .end-date
+              display: inline-block
+            .start-date:after
+              display: inline-block
+              content: "\2014"
+              font-size: 1rem
 
-              .start-date, .end-date
-                display: inline-block
-              .start-date:after
-                display: inline-block
-                content: "\2014"
-                font-size: 1rem
-
-                margin: 0 5px
+              margin: 0 5px
 
 
 
-          &:hover
-            svg
-              .overlay
-                fill: rgba(#ff594a, 0.8)
+        &:hover
+          svg
+            .overlay
+              fill: rgba(#ff594a, 0.8)
 
 
 
           
 
 
-  &.home-contact-section
-    .relative
-      position: relative
-      height: 100%
-    .map-wrapper
+#home-contact-section
+  .relative
+    position: relative
+    height: 100%
+  .map-wrapper
+    height: 100%
+
+    .map-container
       height: 100%
 
-      .map-container
+      .home-marker
+        svg
+          width: 54px
+          height: 80px
+
+  #home-contact-form
+    z-index: 1
+    background: $skyblue-color
+    width: 60%
+    max-width: 780px
+    position: absolute
+    right: 0
+    height: 100%
+    top: 0
+
+    #home-contact-form-outer
+      height: 100%
+      padding: 0 0 0 40px
+      #home-contact-form-content
+        max-width: 500px
         height: 100%
 
-        .home-marker
-          svg
-            width: 54px
-            height: 80px
+        .form-title
+          margin: 2rem 0 1.5rem 0
 
-    #home-contact-form
-      z-index: 1
-      background: $skyblue-color
-      width: 60%
-      max-width: 780px
-      position: absolute
-      right: 0
-      height: 100%
-      top: 0
+          .svg-container
+            text-align: center
 
-      #home-contact-form-outer
-        height: 100%
-        padding: 0 0 0 40px
-        #home-contact-form-content
-          max-width: 500px
-          height: 100%
+            svg
+              display: inline-block
+              width: 2.5rem
+              height: 2.5rem
 
-          .form-title
-            margin: 2rem 0 1.5rem 0
+              .round
+                fill: white
+              .clock-arrow
+                fill: white
+              .dot
+                fill: #f0c67a
 
-            .svg-container
-              text-align: center
-
-              svg
-                display: inline-block
-                width: 2.5rem
-                height: 2.5rem
-
-                .round
-                  fill: white
-                .clock-arrow
-                  fill: white
-                .dot
-                  fill: #f0c67a
-
-            .title
-              text-transform: uppercase
-              color: white
-              display: block
-              font-size: 4rem
-              font-weight: 900
-              line-height: 0.9
-
-          .address
+          .title
             text-transform: uppercase
-            font-size: 1.3rem
-            font-weight: 500
+            color: white
+            display: block
+            font-size: 4rem
+            font-weight: 900
+            line-height: 0.9
+
+        .address
+          text-transform: uppercase
+          font-size: 1.3rem
+          font-weight: 500
+          color: $dark-blue-color
+        .address-at
+          font-size: 1rem
+          font-weight: 300
+
+        .info-service
+          margin: 1.5rem 0 0 0
+          .title
             color: $dark-blue-color
-          .address-at
-            font-size: 1rem
-            font-weight: 300
+          ul
+            margin: 0.5rem 0 1rem 0
+            padding: 0
 
-          .info-service
-            margin: 1.5rem 0 0 0
-            .title
-              color: $dark-blue-color
-            ul
-              margin: 0.5rem 0 1rem 0
-              padding: 0
-
-              li
-                list-style: none
-
-                &.info-phone
-                  span
-                    color: white
-                    top: -10px
-                    position: relative
-                &.info-mail
-                  span
-                    color: white
-                    top: -10px
-                    position: relative
-
-              svg
-                width: 2.5rem
-                height: 2rem
-                margin-right: 0.5rem
-
-          .support
-            .title
-              color: $dark-blue-color
-            ul
-              margin: 0.5rem 0 1rem 0
-              padding: 0
             li
               list-style: none
+
+              &.info-phone
+                span
+                  color: white
+                  top: -10px
+                  position: relative
+              &.info-mail
+                span
+                  color: white
+                  top: -10px
+                  position: relative
+
             svg
               width: 2.5rem
               height: 2rem
               margin-right: 0.5rem
-            span
-              top: -10px
-              position: relative
+
+        .support
+          .title
+            color: $dark-blue-color
+          ul
+            margin: 0.5rem 0 1rem 0
+            padding: 0
+          li
+            list-style: none
+          svg
+            width: 2.5rem
+            height: 2rem
+            margin-right: 0.5rem
+          span
+            top: -10px
+            position: relative
+            color: white
+
+      .contact-form
+        form
+          .field
+            position: relative
+            margin: 4px 0 0 0
+            input, textarea
+
+              background: transparent
+              height: 40px
+              width: 100%
+              border: none
+              font-size: 1.1rem
+              font-weight: 500
               color: white
+              padding: 0 1.5rem 0 1.5rem
+              font-family: inherit
 
-        .contact-form
-          form
-            .field
-              position: relative
-              margin: 4px 0 0 0
-              input, textarea
+              @include placeholder
+                color: $skyblue-color
+                //background: green
 
-                background: transparent
-                height: 40px
-                width: 100%
-                border: none
-                font-size: 1.1rem
-                font-weight: 500
-                color: white
-                padding: 0 1.5rem 0 1.5rem
-                font-family: inherit
+
+              &:focus
+                //background: $form-focus-input-background
 
                 @include placeholder
-                  color: $skyblue-color
-                  //background: green
-
-
-                &:focus
-                  //background: $form-focus-input-background
-
-                  @include placeholder
-                    color: $form-focus-input-background
+                  color: $form-focus-input-background
 
 
 
-              textarea
-                background: $form-input-background
-                height: 120px
-                padding: 0.5rem 1.5rem 0.5rem 1.5rem
-                line-height: 1.4
-
-              &.field-submit
-                margin: 1rem 0 0 0
-                input
-                  background: white
-                  color: $form-input-background
-                  border-radius: 3px
-                  font-size: 1.1rem
-                  font-weight: 900
-                  text-transform: uppercase
-
-            input[type=text] + .input-bg
-              position: absolute
-              display: block
-              height: 100%
-              width: 100%
-              top: 0
-              z-index: -1
+            textarea
               background: $form-input-background
-            input[type="text"]:focus + .input-bg
-              background: $orange-color
-              @include animation-duration(0.5s)
-              @include animation-delay(0s)
-              @include animation-name(input-active-animation)
+              height: 120px
+              padding: 0.5rem 1.5rem 0.5rem 1.5rem
+              line-height: 1.4
+
+            &.field-submit
+              margin: 1rem 0 0 0
+              input
+                background: white
+                color: $form-input-background
+                border-radius: 3px
+                font-size: 1.1rem
+                font-weight: 900
+                text-transform: uppercase
+
+          input[type=text] + .input-bg
+            position: absolute
+            display: block
+            height: 100%
+            width: 100%
+            top: 0
+            z-index: -1
+            background: $form-input-background
+          input[type="text"]:focus + .input-bg
+            background: $orange-color
+            @include animation-duration(0.5s)
+            @include animation-delay(0s)
+            @include animation-name(input-active-animation)
 
 
 
@@ -1016,108 +1039,108 @@ $expired-events-pages-count: $expired-events-count / 5
 
 .page-section
 
-  &.home-comments-section
-    background: #ffffff
+#home-comments-section
+  background: #ffffff
 
-    .section-title
-      margin: 3rem 0 0 0
-      text-align: center
-      .svg-container
-        svg
-          width: 45px
-          height: 40px
-          display: inline-block
+  .section-title
+    margin: 3rem 0 0 0
+    text-align: center
+    .svg-container
+      svg
+        width: 45px
+        height: 40px
+        display: inline-block
 
-          .border
-            fill: #fe9900
-          .dot
-            fill: #a46201
-          .line
-            fill: #fd9802
+        .border
+          fill: #fe9900
+        .dot
+          fill: #a46201
+        .line
+          fill: #fd9802
 
-      .title
-        text-transform: uppercase
-        color: $orange-color
-        font-size: 3.5rem
-        font-weight: 900
+    .title
+      text-transform: uppercase
+      color: $orange-color
+      font-size: 3.5rem
+      font-weight: 900
 
-    .user-avatars
-      ul
-        li.user-avatar
-          overflow: hidden
-          list-style: none
+  .user-avatars
+    ul
+      li.user-avatar
+        overflow: hidden
+        list-style: none
 
 
-          label
-            text-align: center
-            cursor: pointer
+        label
+          text-align: center
+          cursor: pointer
+          display: block
+          img
+            border-radius: 50%
+          .name
+            display: inline-block
+            font-weight: 600
+            color: #888
+            text-transform: uppercase
+            max-width: 110px
+          .status
             display: block
-            img
-              border-radius: 50%
-            .name
-              display: inline-block
-              font-weight: 600
-              color: #888
-              text-transform: uppercase
-              max-width: 110px
-            .status
-              display: block
-              font-weight: 300
-              color: #888
-              font-size: 0.8rem
+            font-weight: 300
+            color: #888
+            font-size: 0.8rem
 
 
 
-    .comments
-      margin-top: 3.5rem
-      ul
-        li
-          list-style: none
-          display: none
-          font-size: 1.2rem
-          font-weight: 300
-          color: #fccf52
+  .comments
+    margin-top: 3.5rem
+    ul
+      li
+        list-style: none
+        display: none
+        font-size: 1.2rem
+        font-weight: 300
+        color: #fccf52
 
-          &:before, &:after
-            color: #c0e6f3
-            position: absolute
-            display: block
-            font-weight: 900
-          &:before
-            content: "\AB"
-            font-size: 12rem
-            top: 0
-            left: 0
-            line-height: 1rem
+        &:before, &:after
+          color: #c0e6f3
+          position: absolute
+          display: block
+          font-weight: 900
+        &:before
+          content: "\AB"
+          font-size: 12rem
+          top: 0
+          left: 0
+          line-height: 1rem
 
-          &:after
-            content: "\BB"
-            right: 0
-            bottom: 0
-            font-size: 6rem
-            line-height: 100%
+        &:after
+          content: "\BB"
+          right: 0
+          bottom: 0
+          font-size: 6rem
+          line-height: 100%
 
-          .comment-text
-            position: relative
-            display: block
-            padding: 0 30px 3rem 75px
-            z-index: 1
+        .comment-text
+          position: relative
+          display: block
+          padding: 0 30px 3rem 75px
+          z-index: 1
 
 
           
-  @for $i from 1 through $user-comments-count
-    input.home-user-comment-flag#home-user-comment-flag-#{$i}:checked
-      & ~ .user-avatars
-        ul
-          li.user-avatar#user-avatar-#{$i}
-            label
-              img
-                border: $orange-color 3px solid
-              .name
-                color: #2581a8
-              .status
-                color: $orange-color
-      & ~ .comments
-        ul
-          li.comment#comment-#{$i}
-            display: block
+@for $i from 1 through $user-comments-count
+  .home-user-comment-flag#home-user-comment-flag-#{$i}:checked
+    & ~ .user-avatars
+      ul
+        li.user-avatar#user-avatar-#{$i}
+          label
+            img
+              border: $orange-color 3px solid
+            .name
+              color: #2581a8
+            .status
+              color: $orange-color
+    & ~ .comments
+      ul
+        li.comment#comment-#{$i}
+          display: block

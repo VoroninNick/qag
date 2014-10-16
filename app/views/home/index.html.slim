@@ -14,24 +14,26 @@ input data-to="1"  type="radio" class="home-page-section-flag flag initial" name
           label for="home-page-section-flag-from-#{i}-to-#{j}"
 
 
-div.page-section.page-section-number-1.home-slider-section
+div#home-slider-section.page-section.page-section-number-1.home-slider-section
   - @main_slider_slides.each_with_index do |slide, index|
     input type="radio" name="home-slider-slide-flag" class="home-slider-slide-flag flag" id="home-slider-slide-flag-#{(index + 1)}" checked=( (index == 0)? 'checked' : false )
 
-  ul.slides
+  ul#home-slides-ul.slides
     - @main_slider_slides.each_with_index do |slide, index|
       li.slide id="slide-#{index + 1}"
         .image-background style="background: url('#{slide.background.url(:banner)}')"
-          img src=slide.background.url(:background) alt=slide.background_alt
-        .description
-          .slide-title
+          img.home-slider-slide-img src=slide.background.url(:background) alt=slide.background_alt
+        .home-slider-description.description
+          .home-slider-slide-title.slide-title
             = slide.name
 
 
-  ul.bullets
+  ul#home-slider-bullets.bullets
     - @main_slider_slides.each_with_index do |slide, index|
       li.home-slider-slide-label id="home-slider-slide-label-#{index + 1}"
         label for="home-slider-slide-flag-#{(index + 1)}"
+  #home-slider-scroll-down-arrow
+    = embedded_svg_from_assets('svg/scroll.svg')
 
 
 

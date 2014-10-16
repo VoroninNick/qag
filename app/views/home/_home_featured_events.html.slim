@@ -1,7 +1,7 @@
 - @pure_css = false
 div#home-featured-events-section.page-section.page-section-number-2.home-featured-events-section
   - @featured_events.each_with_index do |event, index|
-    input data-event-number="#{index + 1}" type="radio" name="home-featured-events-timeline-flag" class="home-featured-events-timeline-flag flag" id="home-featured-events-timeline-flag-#{index + 1}" checked=( (index == 3)? 'checked' : false )
+    input data-event-number="#{index + 1}" type="radio" name="home-featured-events-timeline-flag" class="home-featured-events-timeline-flag flag #{(index >= @featured_events_active_event_index)? 'future-event' : 'expired-event'}" id="home-featured-events-timeline-flag-#{index + 1}" checked=( (index == @featured_events_active_event_index)? 'checked' : false )
 
 
   #event-info-slides.event-info-slides
@@ -26,58 +26,63 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
       ul#home-featured-event-info-slides-row-ul
         - @featured_events.each_with_index do |event, index|
           li.event.home-featured-event id="event-#{index + 1}"
-            .image-and-info.columns.large-4
-              .image
-                a href="#"
-                  img src=event.avatar.url(:event_list_small_thumb)
-              .info
-                .start-date
-                  span.tip
-                    |Початок:
-                  span.value
-                    |08.09.2014
-                .end-date
-                  span.tip
-                    |Завершення:
-                  span.value
-                    |03.10.2014
-                .participants-count
-                  = embedded_svg_from_assets('svg/participant.svg')
-                  span.count
-                    |150
-                  span.participants-tip
-                    |&nbsp;учасників зареєстровано
-
-
-            .description.columns.large-8
-              .event-title
-                = event.name
-                / slide.name
-              .event-description
-                = event.short_description
-
-            .event-link-and-register-button
-              .event-link-wrapper.large-4.columns.large-push-4
-                .event-link
+            .featured-section-event-content
+              .image-and-info.columns.large-4
+                .image
                   a href="#"
-                    |Детальніше про подію
-              .register-button.columns.large-4.right
-                label
-                  = embedded_svg_from_assets('svg/registration.svg')
-                  span.registration-text
-                    |Зареєструватись
+                    img src=event.avatar.url(:event_list_small_thumb)
+                .info
+                  .start-date
+                    span.tip
+                      |Початок:
+                    span.value
+                      |08.09.2014
+                  .end-date
+                    span.tip
+                      |Завершення:
+                    span.value
+                      |03.10.2014
+                  .participants-count
+                    = embedded_svg_from_assets('svg/participant.svg')
+                    span.count
+                      |150
+                    span.participants-tip
+                      |&nbsp;учасників зареєстровано
+
+
+              .description.columns.large-8
+                .event-title
+                  = event.name
+                  / slide.name
+                .event-description
+                  = event.short_description
+
+              .event-link-and-register-button
+                .event-link-wrapper.large-4.columns.large-push-4
+                  .event-link
+                    a href="#"
+                      |Детальніше про подію
+                .register-button.columns.large-4.right
+                  label
+                    = embedded_svg_from_assets('svg/registration.svg')
+                    span.registration-text
+                      |Зареєструватись
 
 
 
-  .timeline
-    .time-line-row.row
-      .events-container
+
+  #home-featured-timeline.timeline
+    #home-featured-timeline-row.time-line-row.row
+      #home-featured-timepline-row-container.events-container
         - @featured_events.each_with_index do |event, index|
           .event id="event-#{index + 1}"
-            .date
-              .day-number
-                = 26
-              .month
-                = 'вересня'
-            .bullet
-              label for="home-featured-events-timeline-flag-#{index + 1}"
+            label id="event-#{index + 1}-label" class="event-label" for="home-featured-events-timeline-flag-#{index + 1}"
+              .date id="event-#{index + 1}-date"
+                .day-number id="event-#{index + 1}-date-day-number"
+                  = event.start_date.day
+                  /26
+                .month id="event-#{index + 1}-date-month-name"
+                  = t("pages.home.timeline.month-names.month-#{event.start_date.month}")
+                  /'вересня'
+              .bullet id="event-#{index + 1}-bullet"
+                span.render-bullet id="event-#{index + 1}-render-bullet"

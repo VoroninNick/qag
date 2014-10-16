@@ -1,6 +1,20 @@
 Rails.application.routes.draw do
+  get 'contact', to: 'contact#index', as: :contact
+
+  get 'articles', to: 'articles#list', as: :articles_list
+
+  get 'articles/:item', to: 'articles#show', as: :article_item
+
+  get 'events/:item', to: 'events#show', as: :event_item
+
+  get 'events', to: 'events#list', as: :events_list
+
+  get 'about', to: 'about#index', as: :about
+
   get 'test', to: 'test#index'
   get 'test/rendering', to: 'test#rendering'
+
+  get '/data/:page', to: 'data#index'
 
   mount Ckeditor::Engine => '/ckeditor'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'

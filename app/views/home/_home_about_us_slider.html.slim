@@ -51,7 +51,7 @@ sass:
                   width: 2rem
                   height: 2rem
 
-div.page-section.page-section-number-3.home-about-section
+div#home-about-section.page-section.page-section-number-3.home-about-section
   - if @about_slides.count > 0
 
     - @about_slides.each_with_index do |slide, index|
@@ -90,7 +90,7 @@ div.page-section.page-section-number-3.home-about-section
                         = embedded_svg_from_assets('svg/linked_in.svg')
                     li
                       a href="#"
-                        = embedded_svg_from_assets('svg/odnoklasniki.svg')
+                        = embedded_svg_from_assets('svg/odnoklassniki.svg')
 
     - if @about_slides.count > 1
       ul.bullets

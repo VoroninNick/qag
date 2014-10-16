@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.mousewheel.min
+//= require grayscale.min
 // foundation
 //= require turbolinks
 //= require rich_marker

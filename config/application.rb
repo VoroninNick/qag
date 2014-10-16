@@ -24,5 +24,7 @@ module Qag
 
     config.i18n.default_locale = :en
     config.i18n.available_locales = [:ru, :uk, :en]
+
+    config.assets.precompile += %w( modernizr_load1.js modernizr_svg.min.js )
   end
 end

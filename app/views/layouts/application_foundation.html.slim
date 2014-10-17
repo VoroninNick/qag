@@ -27,7 +27,7 @@ html#html class="locale-#{I18n.locale.to_s} controller-#{params[:controller]} ac
         #main
           #content
             == yield
-      #footer
+      = render partial: 'layouts/footer'
     - else
       #wrap
         == yield

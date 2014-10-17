@@ -5,7 +5,9 @@
 // ==================================
 
 // 1. about top banner
-//
+// 2. about quote
+// 2. what unites us
+// 3. about team
 
 
 
@@ -72,15 +74,114 @@
 }
 
 
+
 // ==================================
 // ----------------------------------
-// about team
+// 2. quote
 // ----------------------------------
 // ==================================
+
+
+#about-quote{
+  background-color: #2facda;
+  margin: 4.5rem 0 0 0;
+}
+
+#about-quote-text-wrapper {
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: #fccf52;
+  margin: 7rem 0;
+  position: relative;
+
+
+  &:before, &:after {
+    color: #2ebcd0;
+    position: absolute;
+    display: block;
+    font-weight: 900;
+  }
+
+  &:before {
+    content: "\AB";
+    font-size: 12rem;
+    top: 0;
+    left: 0;
+    line-height: 1rem;
+  }
+
+  &:after {
+    content: "\BB";
+    right: 0;
+    bottom: 0;
+    font-size: 6rem;
+    line-height: 100%;
+  }
+
+
+}
+
+#about-quote-text {
+  position: relative;
+  display: block;
+  padding: 0 30px 3rem 75px;
+  z-index: 1;
+  color: white;
+  font-style: italic;
+  font-size: 1.3rem;
+}
+
+// ==================================
+// ----------------------------------
+// 3. what unites us
+// ----------------------------------
+// ==================================
+
+#what-unites-us-header{
+  margin-bottom: 0.5rem;
+}
+
+#main-features{
+  color: $dark-gray-color;
+  font-weight: 500;
+  font-size: 1.5rem;
+  margin-bottom: 0.3rem;
+}
+
+
+
+// ==================================
+// ----------------------------------
+// 4. about team
+// ----------------------------------
+// ==================================
+
+#about-team{
+ padding: 0 0 2.5rem 0;
+}
+
+#about-participants{
+ padding: 0 0 8rem 0;
+}
+
+#about-team-and-participants{
+  background-color: #f2f2f2;
+  margin-top: 4rem;
+}
+
+#about-team-title, #about-participants-title{
+  margin: 3rem 0 0.5rem 0;
+}
+
 
 #about-team-avatars-ul{
   list-style: none;
   padding: 0;
+  margin: 2.5rem 0 0 0;
+}
+
+.about-team-avatar-li{
+  padding: 24px 15px;
 }
 
 .about-team-avatar-img-container{
@@ -152,10 +253,19 @@
 
 
 .about-team-avatar-description-text-name{
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 500;
+  line-height: 1.4rem;
   color: #666;
   display: block;
+
+}
+
+.about-team-avatar-description-text-short-description{
+  line-height: 1.2rem;
+  display: block;
+  margin: 16px 0;
+  font-style: italic;
 }
 
 .about-team-avatar-wrapper{
@@ -163,6 +273,21 @@
     .about-team-avatar-description{
       @include transform( translate3d(0, 0, 0) );
       border: 2px solid #ab6c0f;
+    }
+  }
+}
+
+.about-team-avatar-description-text-social-links{
+  display: block;
+
+  a{
+    display: inline-block;
+
+    svg{
+      display: block;
+      width: 32px;
+      height: 32px;
+      margin: 0 5px;
     }
   }
 }

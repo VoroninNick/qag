@@ -18,6 +18,19 @@ class Participant < ActiveRecord::Base
     attr_accessor "delete_#{paperclip_field_name}".to_sym
   end
 
+  def get_social_links
+    result = {}
+
+    [:twitter, :facebook, :odnoklassniki, :linked_in, :blogger, :vk, :google_plus].each do |field_name|
+      value = send("social_#{field_name}")
+      if value && value.length > 0
+        result[field_name] = value
+      end
+    end
+
+    result
+  end
+
   translates :name, :short_description, :avatar_alt, :versioning => :paper_trail
   accepts_nested_attributes_for :translations
   attr_accessible :translations_attributes, :translations
@@ -43,7 +56,7 @@ class Participant < ActiveRecord::Base
   end
 
   rails_admin do
-    weight -10
+
     navigation_label "About page"
 
     edit do

@@ -5,7 +5,8 @@
 // =========================================
 
 // 1. header
-// 2. breadcrumbs
+// 2. footer
+// 3. breadcrumbs
 
 
 $header-height: 90px;
@@ -498,10 +499,147 @@ $header-height: 90px;
 }
 
 
+// ==========================================================================
+// --------------------------------------------------------------------------
+// 2. footer
+// --------------------------------------------------------------------------
+// ==========================================================================
+
+#footer{
+  background-color: $footer-background-color;
+  padding: 1.5rem 0 2rem 0;
+  overflow: hidden;
+}
+
+#footer-menu-and-social-icons-row{
+  margin-bottom: 3rem;
+}
+
+#footer-menu-ul{
+  margin: 0;
+  padding: 0;
+}
+
+.footer-menu-li{
+  display: inline-block;
+  margin: 0 0.5rem;
+
+  text-transform: uppercase;
+
+  &:first-child{
+    margin-left: 0;
+  }
+}
+
+.footer-menu-li-a{
+  color: white;
+  font-weight: 500;
+}
+
+#footer-social-icons-ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 30px;
+}
+
+.footer-social-icons-ul-li{
+  display: inline-block;
+  padding: 0 12px;
+  height: 30px;
+
+  &:first-child{
+    padding-left: 0;
+  }
+}
+
+.footer-social-icons-ul-li-a{
+  .social-svg{
+    width: 30px;
+    height: 30px;
+  }
+
+  .social-svg-g{
+    opacity: 1;
+  }
+
+  .social-svg-g-path{
+    fill: white
+  }
+}
+
+
+#footer-partners-tip{
+  font-weight: 100;
+  color: white;
+  font-size: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+
+#footer-partners-ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-partners-ul-li{
+  display: inline-block;
+  margin: 0 0.5rem;
+
+  &:first-child{
+    margin-left: 0;
+  }
+}
+
+.footer-partners-ul-li-a-img{
+  width: 78px;
+  height: 35px;
+  opacity: 0.5;
+
+}
+
+#footer-copyright-and-developed-by{
+  font-weight: 100;
+  color: white;
+  font-size: 0.9rem;
+
+  a{
+    color: inherit;
+    text-decoration: underline;
+  }
+}
+
+#footer-copyright{
+  margin-bottom: 1.25rem;
+}
+
+#footer-developed-by{
+  height: 40px;
+  position: relative;
+}
+
+#footer-developed-by-text{
+  transform: translateY(-50%);
+  top: 50%;
+  position: absolute;
+  display: block;
+  left: 50px;
+  margin: 0;
+}
+
+#vs-logo-link{
+  display: inline-block;
+  height: 40px;
+  svg{
+    width: 48px;
+    height: 40px;
+  }
+}
+
 
 // ==========================================================================
 // --------------------------------------------------------------------------
-// breadcrumbs
+// 3. breadcrumbs
 // --------------------------------------------------------------------------
 // ==========================================================================
 
@@ -592,4 +730,12 @@ $header-height: 90px;
     }
 
   }
+}
+
+.about-gray-header{
+  color: $dark-gray-color;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 800;
+  font-size: 3rem;
 }

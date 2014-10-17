@@ -14,5 +14,22 @@ ru:
         support:
           tip: 'Служба поддержки'
           email: 'support@qagroup.com.ua'
+    footer:
+      menu:
+        about: 'О нас'
+        events: 'События'
+        articles: 'Публикации'
+        contact: 'Контакты'
+      partners:
+        title: 'Наши партнеры'
+      developed-by:
+        developed: "Сделано %{link_start}дизайн студией Н. Воронина%{link_end} в 2014 году."
+        studio-site-link: "http://voroninstudio.eu/ru"
+        #project-info: "%{link_start}Інформация о сайте%{link_end}"
+        project-info: ""
+        project-link: "http://voroninstudio.eu/ru/portfolio"
+      copyright: "&copy; Quality Assurance Group"
+
     breadcrumbs:
       about_us: 'О нас'
+

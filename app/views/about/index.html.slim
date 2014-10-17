@@ -53,14 +53,16 @@
 
 #about-quote
   #about-quote-row.row
-    #about-quote-column.columns.large-10
-      #about-quote-text.quote
-        = 'Quality Assurance Group - це спільнота спеціалістів, які вирішують задачі різного рівня складності та діляться досвідом з іншими у галузі Тестування, Контроль Якості та Забезпечення Якості Програмного Забезпечення.'
-#about-slider
+    #about-quote-column.columns.large-10.large-push-1
+      #about-quote-text-wrapper
+        #about-quote-text.quote
+          = 'Quality Assurance Group - це спільнота спеціалістів, які вирішують задачі різного рівня складності та діляться досвідом з іншими у галузі Тестування, Контроль Якості та Забезпечення Якості Програмного Забезпечення.'
+
+= render partial: 'about/about_slider'
 
 #about-what-unites-us
   #about-what-unites-us-row.row
-    .css-h2.about-orange-header.columns.large-12
+    #what-unites-us-header.css-h2.about-orange-header.columns.large-12
       = 'Що нас об’єднує:'
     #main-features.columns.large-12
       = 'Якісне навчання. Якісне розуміння. Якісна робота.'
@@ -78,10 +80,11 @@
 #about-team-and-participants
   #about-team-and-participants-row.row
     #about-team
-      #about-team-title.columns.large-12
+      #about-team-title.about-gray-header.columns.large-12
         = 'Наша команда'
       #about-team-text.columns.large-12
         = 'QualityAssuranceGroup це команда сильних, орієнтовані на результат спеціалістів. Кожен із членів робить свій вагомий внесок у її розвиток QA галузі та ІТ загалом, та дає можливість рости професійно та розвиватися кожному бажаючому приєднатися. Завжди в пошуку та дослідження нових підходів до тестування програмного забезпечення та розробки індивідуальних технік, що дає нам змогу іти в ногу з швидким розвитком ІТ.'
+      .clearfix
       #about-team-avatars
         ul#about-team-avatars-ul
           - @team_members.each do |m|
@@ -97,12 +100,38 @@
                     span.about-team-avatar-description-text-short-description
                       = m.short_description
                     span.about-team-avatar-description-text-social-links
+                      - m.get_social_links.each_pair do |key, value|
+                        a href=value
+                          = embedded_svg_from_assets("svg/#{key}.svg")
+
 
 
           .clearfix
 
     #about-participants
-      #about-participants-title.columns.large-12
+      #about-participants-title.about-gray-header.columns.large-12
         = 'Почесні учасники'
       #about-participants-text.columns.large-12
         = "QualityAssuranceGroup об'єднює всіх тих, що працюють безпосередньо над підвищенням рівня якості програмного забезпечення та всяко сприяють тому, щоб продукт, що розробляється відповідав не тільки внутнішнім процесам та підходам, а і світовим. Тому QualityAssuranceGroup запрошує всіх приєднюватися та підтримувати це на всіх рівнях та етапах розробки."
+      .clearfix
+
+      #about-team-avatars
+        ul#about-team-avatars-ul
+          - @participants.each do |m|
+            li.about-team-avatar-li.columns.large-3
+              .about-team-avatar-wrapper
+                .image.about-team-avatar-img-container
+                  img.about-team-avatar-img.grayscale src=m.avatar.url(:about)
+                .about-team-avatar-description
+
+                  span.about-team-avatar-description-text
+                    span.about-team-avatar-description-text-name
+                      = m.name
+                    span.about-team-avatar-description-text-short-description
+                      = m.short_description
+                    span.about-team-avatar-description-text-social-links
+                      - m.get_social_links.each_pair do |key, value|
+                        a href=value
+                          = embedded_svg_from_assets("svg/#{key}.svg")
+
+      .clearfix

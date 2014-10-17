@@ -1,6 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:900,400,700,400italic,300italic,500,100italic,500italic,300,700italic,100,900italic&subset=cyrillic-ext,latin-ext,latin,cyrillic)
 
-$footer-height: 0
+$footer-height: 220px
 
 #html, #body
   height: 100%
@@ -11,12 +11,12 @@ $footer-height: 0
 
 #main
   overflow: auto
-  padding-bottom: 150px  /* must be same height as the footer */
+  padding-bottom: $footer-height  /* must be same height as the footer */
 
 #footer
   position: relative
-  margin-top: -150px /* negative value of footer height */
-  height: 150px
+  margin-top: -#{$footer-height} /* negative value of footer height */
+  height: $footer-height
   clear: both
 
 /*Opera Fix*/

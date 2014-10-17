@@ -1,5 +1,5 @@
-class TeamMember < ActiveRecord::Base
-  attr_accessible :published, :name, :short_description
+class Partner < ActiveRecord::Base
+  attr_accessible :published, :name, :short_description, :link
 
   attr_accessible :social_twitter, :social_facebook, :social_odnoklassniki, :social_linked_in, :social_blogger, :social_vk, :social_google_plus
 
@@ -31,12 +31,12 @@ class TeamMember < ActiveRecord::Base
     result
   end
 
-  translates :name, :short_description, :avatar_alt, :versioning => :paper_trail
+  translates :name, :short_description, :avatar_alt, :link, :versioning => :paper_trail
   accepts_nested_attributes_for :translations
   attr_accessible :translations_attributes, :translations
 
   class Translation
-    attr_accessible :locale, :published_translation, :name, :short_description, :avatar_alt
+    attr_accessible :locale, :published_translation, :name, :short_description, :avatar_alt, :link
 
     # def published=(value)
     #   self[:published] = value
@@ -49,29 +49,20 @@ class TeamMember < ActiveRecord::Base
         field :locale, :hidden
         field :published_translation
         field :name
-        field :short_description
         field :avatar_alt
+        field :link
+        field :short_description
       end
     end
   end
 
   rails_admin do
-    navigation_label "About page"
-    weight -1
+    navigation_label "Footer"
 
     edit do
       field :published
       field :avatar
       field :translations, :globalize_tabs
-      group :social_links do
-        field :social_twitter
-        field :social_facebook
-        field :social_odnoklassniki
-        field :social_linked_in
-        field :social_blogger
-        field :social_vk
-        field :social_google_plus
-      end
     end
   end
 end

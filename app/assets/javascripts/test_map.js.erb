@@ -13,9 +13,10 @@ $(document).on('ready', function() {
             {
                 featureType: 'all',
                 stylers: [
-                    { "saturation": -100 },
-                    { "lightness": 0 },
-                    { "gamma": 1.18 }
+                    { "saturation": -11 },
+                    { "lightness": -4 },
+                    { "gamma": 1.8 },
+                    { "hue": '#0088ff' }
                 ]
             }
         ];
@@ -63,7 +64,8 @@ $(document).on('ready', function() {
 
                 var m = data_markers[i]
 
-                var $div = jQuery('<div class="home-marker"><div class="marker-tooltip"></div><a href="'+ m.apartment_url +'"><%= ApplicationHelper.js_embedded_svg('marker.svg') %></a></div>');
+                //var $div = jQuery('<div class="home-marker"><div class="marker-tooltip"></div><a href="'+ m.apartment_url +'"><%= ApplicationHelper.self_js_embedded_svg('marker.svg') %></a></div>');
+                var $div = jQuery('<div class="home-marker"><div class="marker-tooltip"></div><a href="#"><img src="<%= asset_path('marker.png')  %>" style="width: 52px; height: 78px;" /></a></div>');
                 var $marker_tooltip = $div.find('.marker-tooltip')
                 $marker_tooltip.append('<a href="#"><div class="address-and-category"><div class="address">'+ m.address+'</div></div></a>')
 

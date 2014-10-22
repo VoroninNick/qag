@@ -14,11 +14,14 @@
 //= require jquery_ujs
 //= require jquery.mousewheel.min
 //= require grayscale.min
+//= require selectize
 // foundation
-//= require turbolinks
+// require turbolinks
 //= require rich_marker
 //= require test_map
 //= require home
+//= require contact
+//= require events
 
 //$(function(){ $(document).foundation(); });
 

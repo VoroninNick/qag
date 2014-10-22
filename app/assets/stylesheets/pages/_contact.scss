@@ -1,0 +1,98 @@
+#contact-map-container{
+  height: 500px;
+}
+
+
+
+#contact-page-content{
+  padding: 0 0 8rem 0;
+}
+
+#contact-page-header {
+  margin: 45px 0 40px 0;
+  color: $dark-gray-color;
+  font-weight: 800;
+  font-size: 3rem;
+}
+
+#contact-page-address{
+  color: $font-brown-color;
+  font-weight: 500;
+  font-size: 1.5rem;
+  margin-bottom: 0.3rem;
+}
+
+#contact-page-address-at{
+  color: $font-brown-color;
+}
+
+
+
+// -----------------------
+// -----------------------
+
+
+#contact-page-info-service{
+  margin: 1.5rem 0 0 0;
+
+  .title{
+    color: #2b7fa3;
+  }
+
+  ul{
+    margin: 0.5rem 0 1rem 0;
+    padding: 0;
+
+    li{
+      list-style: none;
+
+      &.info-phone{
+        span{
+          color: $font-brown-color;
+          top: -10px;
+          position: relative;
+        }
+      }
+
+      &.info-mail{
+        span{
+          color: $font-brown-color;
+          top: -10px;
+          position: relative;
+        }
+      }
+    }
+
+    svg{
+      width: 2.5rem;
+      height: 2rem;
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+#contact-page-support{
+  .title{
+    color: #2b7fa3
+  }
+  ul{
+    margin: 0.5rem 0 1rem 0;
+    padding: 0;
+  }
+
+  li{
+    list-style: none;
+  }
+  svg{
+    width: 2.5rem;
+    height: 2rem;
+    margin-right: 0.5rem;
+  }
+
+  span{
+    top: -10px;
+    position: relative;
+    color: $font-brown-color;
+  }
+}
+

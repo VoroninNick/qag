@@ -36,12 +36,12 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
                     span.tip
                       |Початок:
                     span.value
-                      |08.09.2014
+                      = "#{event.start_date.day}.#{event.start_date.month}.#{event.start_date.year}"
                   .end-date
                     span.tip
                       |Завершення:
                     span.value
-                      |03.10.2014
+                      = "#{event.end_date.day}.#{event.end_date.month}.#{event.end_date.year}"
                   .participants-count
                     = embedded_svg_from_assets('svg/participant.svg')
                     span.count

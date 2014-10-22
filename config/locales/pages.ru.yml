@@ -15,3 +15,26 @@ ru:
           month-10: 'октября'
           month-11: 'ноября'
           month-12: 'декабря'
+
+    contact:
+      header: 'Мы открыты для сотрудничества...'
+      text:
+        part-1: "Свяжитесь с нашими администраторами, если Вам нужна помощь, чтобы найти информацию."
+        part-2: "Если вы пытаетесь сообщить о технических проблемах работы сайта, то пожалуйста, укажите название и версию браузера, а также операционной системы, страницу и описание самой проблемы."
+
+    events-list:
+      search:
+        input-placeholder: "Найти курсы..."
+      tag-filter:
+        all-events: "Все события"
+
+      event-template:
+        hover:
+          participants-count: "%{participants_count} учасников"
+          register-button: "Зарегистрироваться"
+          expired-event:
+            title: "Событие завершено"
+        info:
+          start-date-tip: "Начало:"
+          end-date-tip: "Завершение:"
+          participants-count: "%{svg}%{count}%{span_start}&nbsp;учасников%{span_end}"

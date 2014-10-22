@@ -15,3 +15,33 @@ en:
           month-10: 'october'
           month-11: 'november'
           month-12: 'december'
+
+    contact:
+      header: 'We are open for cooperation...'
+      text:
+        part-1: "Contact our administrator if you need help to find information."
+        part-2: "If you are trying to report technical problems of the site, please provide the name and version of browser and operating system, and page description of the problem."
+      info:
+        info-service:
+          title: 'Info service'
+        support:
+          title: 'Support'
+
+
+
+    events-list:
+      search:
+        input-placeholder: "Find courses..."
+      tag-filter:
+        all-events: "All events"
+
+      event-template:
+        hover:
+          participants-count: "%{participants_count} participants"
+          register-button: "Register"
+          expired-event:
+            title: "Event expired"
+        info:
+          start-date-tip: "Start:"
+          end-date-tip: "End:"
+          participants-count: "%{svg}%{count}%{span_start}&nbsp;participants%{span_end}"

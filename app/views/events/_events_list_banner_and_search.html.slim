@@ -1,0 +1,39 @@
+#events-list-banner
+  /- @event_tags.each do |tag|
+    input type="radio" name="event-tag-#{tag.id}" id="event-tag-#{tag.id}"
+
+  /svg#about-banner-svg width="2100" height="500"
+  /  filter id="colorMeSaturate"
+  /    feColorMatrix in="SourceGraphic" type="saturate" values="0"
+  /
+  /  g
+  /    image filter="url(#colorMeSaturate)" xlink:href=asset_path('banners/about.jpg') width="2100" height="500" opacity="1"
+  /  rect class="overlay" fill="rgba(255, 153, 0, 0.1)" opacity="1" x="0" y="0" width="2100" height="500"
+
+  #events-list-banner-image-wrapper
+    img#events-list-banner-img.grayscale src=asset_path('banners/events_list.jpg')
+  #search-abs-row-wrapper
+    #search-row.row
+      #search-column.columns.large-6
+        input type="text" placeholder=t('pages.events-list.search.input-placeholder')
+      #tag-dropdown-column.columns.large-6
+        /select#tag-dropdown-select
+        /  - @event_tags.each do |tag|
+        /    option value=tag.id
+        /      = tag.name
+        #tag-dropdown tabindex="2"
+          span#selected_tag data-id="#{ (@selected_event_tag)? @selected_event_tag.id : 0 }"
+            span#selected-tag-overlay tabindex="1"
+            span#selected-tag-value
+              = (@selected_event_tag)? @selected_event_tag.name : t('pages.events-list.tag-filter.all-events')
+          ul#tag-dropdown-ul
+            - if @selected_event_tag
+              li.tag-dropdown-ul-li
+                a.tag-dropdown-ul-li-a href=events_list_path tabindex="#{1}"
+                  span.tag-dropdown-ul-li-a-span
+                    = t('pages.events-list.tag-filter.all-events')
+            - @event_tags.each do |tag|
+              li.tag-dropdown-ul-li
+                a.tag-dropdown-ul-li-a href=event_tag_path(tag: tag.slug) tabindex="1"
+                  span.tag-dropdown-ul-li-a-span
+                    = tag.name

@@ -1,6 +1,19 @@
+# -*- encoding : utf-8 -*-
+
 class Event < ActiveRecord::Base
 
-  has_attached_file :avatar, :styles => { :event_list_small_thumb => '360x240#', :event_list_large_thumb => '720x480#', :home_expired_event_thumb => '500x1250#', :article_item => '320x320>', home_article_item: '250x250>', article_page: '500x500>'},
+  has_and_belongs_to_many :event_gallery_albums, join_table: :events_and_gallery_albums
+
+  has_and_belongs_to_many :event_gallery_images, join_table: :events_and_gallery_images
+
+  attr_accessible :event_gallery_albums, :event_gallery_album_id, :event_gallery_album_ids
+  attr_accessible :event_gallery_images, :event_gallery_image_id, :event_gallery_image_ids
+
+  has_and_belongs_to_many :event_tags, join_table: :event_taggings
+  attr_accessible :event_tags, :event_tag_id, :event_tag_ids
+
+
+  has_attached_file :avatar, :styles => { :event_list_small_thumb => '360x240#', :event_list_avatar => '255x170#', :event_list_large_thumb => '720x480#', :home_expired_event_thumb => '500x1250#', :article_item => '320x320>', home_article_item: '250x250>', article_page: '500x500>'},
                     :url  => "/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
                     :path => ":rails_root/public/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
                     convert_options: {
@@ -17,6 +30,8 @@ class Event < ActiveRecord::Base
   validates_attachment_file_name :avatar, :matches => [/png\Z/i, /jpe?g\Z/i, /gif\Z/i, /svg\Z/i]
   validates_attachment_file_name :banner, :matches => [/png\Z/i, /jpe?g\Z/i, /gif\Z/i, /svg\Z/i]
 
+  #acts_as_taggable
+
 
 
   [:avatar, :banner].each do |paperclip_field_name|
@@ -28,7 +43,7 @@ class Event < ActiveRecord::Base
   has_and_belongs_to_many :users, join_table: 'event_subscriptions'
 
 
-  attr_accessible :published, :name, :short_description, :full_description
+  attr_accessible :published, :name, :slug, :short_description, :full_description
 
   attr_accessible :start_date, :end_date, :address, :participants_count
 
@@ -48,12 +63,35 @@ class Event < ActiveRecord::Base
     :day_sunday_start_time
 
 
-  translates :name, :short_description, :full_description, :address, :versioning => :paper_trail
+  def images
+    query_album_images = "select ai.event_gallery_image_id as 'id' from event_gallery_albums_and_event_gallery_images ai, events_and_gallery_albums ea where ea.event_id = #{self.id} and ai.event_gallery_album_id = ea.event_gallery_album_id "
+    query_event_images = "select ei.event_gallery_image_id as 'id' from events_and_gallery_images ei where ei.event_id = #{self.id}"
+    result_images = EventGalleryImage.find_by_sql(query_album_images) + EventGalleryImage.find_by_sql(query_event_images)
+
+    result_images
+  end
+
+  def tags
+    tags_arr = []
+
+    self.event_tags.each do |tag|
+      tags_arr.push tag.slug
+    end
+
+    tags_arr
+  end
+
+
+  translates :name, :slug, :short_description, :full_description, :address, :versioning => :paper_trail
   accepts_nested_attributes_for :translations
   attr_accessible :translations_attributes, :translations
 
   class Translation
-    attr_accessible :locale, :published_translation, :name, :short_description, :full_description, :address
+    attr_accessible :locale, :published_translation, :name, :slug, :short_description, :full_description, :address
+
+    before_save do
+      self.slug = self.name.parameterize if !self.slug || self.slug == ''
+    end
 
     # def published=(value)
     #   self[:published] = value
@@ -66,6 +104,9 @@ class Event < ActiveRecord::Base
         field :locale, :hidden
         field :published_translation
         field :name
+        field :slug do
+          label "url"
+        end
         field :address
         field :short_description
         field :full_description, :ck_editor
@@ -77,11 +118,31 @@ class Event < ActiveRecord::Base
 
   rails_admin do
     weight -2
+    navigation_label "Events"
+
+    list do
+      field :id
+      field :published
+      field :name
+      field :short_description
+      field :avatar
+      field :start_date
+      field :end_date
+    end
 
     edit do
       field :published
 
+      # field :tag_list do
+      #   label 'Категорія (може бути декілька)'
+      #   help 'Використовуйте кому як розділювач'
+      #   partial 'tag_list_with_suggestions'
+      # end
+
       field :translations, :globalize_tabs
+      field :event_tags
+
+
 
 
       field :start_date
@@ -109,6 +170,9 @@ class Event < ActiveRecord::Base
 
       field :avatar
       field :banner
+
+      field :event_gallery_albums
+      field :event_gallery_images
     end
   end
 end

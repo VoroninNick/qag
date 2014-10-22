@@ -46,23 +46,40 @@ $header-height: 90px;
 #header-fixed{
   position: fixed;
   height: $header-height;
+  height: 0;
   z-index: 10;
   width: 100%;
+//  &:before{
+//    position: absolute;
+//    content: "";
+//    height: 90px;
+//    top: 0;
+//    left: 0;
+//    width: 100%;
+//    background-color: green;
+//    z-index: 1;
+//  }
 }
 
 #header-logo{
   height: 32px;
   width: 245px;
-  margin: 30px 0 0 30px;
+  margin: 30px 0 0 5%;
+  z-index: 1;
+  position: relative;
 }
 
 #header-logo-svg{
   height: 32px;
   width: 245px;
+
+
 }
 
 #header-logo-svg-path-word-group{
   fill: #2f8fb9;
+
+
 }
 
 #header-menu-button {
@@ -76,7 +93,8 @@ $header-height: 90px;
   position: absolute;
   top: 0;
   right: 0;
-  margin: 38px 30px 0 0;
+  margin: 38px 5% 0 0;
+  position: fixed;
 
 
   @include transition-duration(0.6s);
@@ -93,9 +111,14 @@ $header-height: 90px;
   position: absolute;
 
   padding: 0;
+  @include transition(background-color 1s);
 
-  @include transition-property(all);
-  @include transition-duration(0.3s);
+  //@include transition-property(all);
+  //@include transition-duration(0.3s);
+
+  &, &:before, &:after{
+    //@include transition(color 1s);
+  }
 
   &:before, &:after{
     content: '';
@@ -106,8 +129,11 @@ $header-height: 90px;
     position: absolute;
     z-index: -1;
 
-    @include transition-property(all);
-    @include transition-duration(0.3s);
+    //@include transition-property(width background-color);
+    transition-property: all, background;
+    //@include transition-duration(0.3s, 3s );
+    transition-duration: 0.3s, 1s;
+    //transition-duration: 0.3s;
   }
 
   &:before{
@@ -116,6 +142,15 @@ $header-height: 90px;
 
   &:after{
     top: 8px;
+  }
+
+
+
+  &.blue{
+    &, &:before, &:after {
+      //background-color: #2f8fb9;
+      background-color: #2facda;
+    }
   }
 
 

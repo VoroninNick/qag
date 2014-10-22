@@ -1,25 +1,29 @@
 Rails.application.routes.draw do
-  get 'contact', to: 'contact#index', as: :contact
+  scope "(:locale)" do
+    get 'contact', to: 'contact#index', as: :contact
 
-  get 'articles', to: 'articles#list', as: :articles_list
+    get 'articles', to: 'articles#list', as: :articles_list
 
-  get 'articles/:item', to: 'articles#show', as: :article_item
+    get 'articles/:item', to: 'articles#item', as: :article_item
 
-  get 'events/:item', to: 'events#show', as: :event_item
+    get 'events/(:tag)', to: 'events#list', as: :events_list
 
-  get 'events', to: 'events#list', as: :events_list
+    get 'events/:tag', to: 'events#tag', as: :event_tag
 
-  get 'about', to: 'about#index', as: :about
+    get 'event/*tags/:item', to: 'events#item', as: :event_item
 
-  get 'test', to: 'test#index'
-  get 'test/rendering', to: 'test#rendering'
+    get 'about', to: 'about#index', as: :about
 
-  get '/data/:page', to: 'data#index'
+    get 'test', to: 'test#index'
+    get 'test/rendering', to: 'test#rendering'
 
-  mount Ckeditor::Engine => '/ckeditor'
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  devise_for :users
-  root to: 'home#index'
+    get '/data/:page', to: 'data#index'
+
+    mount Ckeditor::Engine => '/ckeditor'
+    mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+    devise_for :users
+    root to: 'home#index'
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

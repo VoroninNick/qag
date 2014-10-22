@@ -15,3 +15,27 @@ uk:
           month-10: 'жовтня'
           month-11: 'листопада'
           month-12: 'грудня'
+
+    contact:
+      header: 'Ми відкриті для співпраці...'
+      text:
+        part-1: "Зв'яжіться з нашими адміністраторами, якщо Вам потрібна допомога, щоб знайти інформацію."
+        part-2: "Якщо ви намагаєтеся повідомити про технічні проблеми роботи сайту, то будь ласка, вкажіть назву та версію браузера, а також операційної системи, сторінку та опис самої проблеми."
+
+
+    events-list:
+      search:
+        input-placeholder: "Знайти курси..."
+      tag-filter:
+        all-events: "Всі заходи"
+
+      event-template:
+        hover:
+          participants-count: "%{participants_count} учасників"
+          register-button: "Зареєструватись"
+          expired-event:
+            title: "Подія завершена"
+        info:
+          start-date-tip: "Початок:"
+          end-date-tip: "Завершення:"
+          participants-count: "%{svg}%{count}%{span_start}&nbsp;учасників%{span_end}"

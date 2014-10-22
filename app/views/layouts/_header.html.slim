@@ -2,7 +2,12 @@
   input#header-show-menu-flag type="checkbox"  class="flag"
   #header-fixed
     #header-logo
-      = embedded_svg_from_assets('svg/logo.svg')
+      /- link_to_unless_current(root_path) do
+        = embedded_svg_from_assets('svg/logo.svg')
+
+      = link_to_unless_current(embedded_svg_from_assets('svg/logo.svg'), { controller: "home", action: "index" }) { embedded_svg_from_assets('svg/logo.svg') }
+
+
   label#header-menu-button for="header-show-menu-flag"
     #header-menu-button-inner
   #header-menu-container

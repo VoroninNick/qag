@@ -136,3 +136,10 @@ group :naucc, :development, :test, :cucumber, :caching do
 end
 
 gem 'amoeba'
+
+
+gem "selectize-rails"
+
+gem 'acts-as-taggable-on'
+
+gem 'rails_admin_tag_list', github: 'VoroninNick/rails_admin_tag_list', branch: 'pasha'

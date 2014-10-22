@@ -91,7 +91,7 @@
             li.about-team-avatar-li.columns.large-3
               .about-team-avatar-wrapper
                 .image.about-team-avatar-img-container
-                  img.about-team-avatar-img.grayscale src=m.avatar.url(:about)
+                  img.about-team-avatar-img.grayscale src=image_or_stub_url(m.avatar, :about, 250, 250, "member #{m.id}")
                 .about-team-avatar-description
 
                   span.about-team-avatar-description-text
@@ -121,7 +121,7 @@
             li.about-team-avatar-li.columns.large-3
               .about-team-avatar-wrapper
                 .image.about-team-avatar-img-container
-                  img.about-team-avatar-img.grayscale src=m.avatar.url(:about)
+                  img.about-team-avatar-img.grayscale src=image_or_stub_url(m.avatar, :about, 250, 250, "member #{m.id}")
                 .about-team-avatar-description
 
                   span.about-team-avatar-description-text

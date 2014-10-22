@@ -72,4 +72,8 @@ module ApplicationHelper
     self.class.self_embedded_svg_from_absolute_path(filename, options)
   end
 
+  def image_or_stub_url(paperclip_instance, style = :original, width=250, height=250, text='image')
+    ( (paperclip_instance && paperclip_instance.respond_to?(:exists?) && paperclip_instance.exists?(style) && paperclip_instance.respond_to?(:url) )? paperclip_instance.url(style) : stub_image_link(width, height, text) )
+  end
+
 end

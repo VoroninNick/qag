@@ -12,7 +12,7 @@ div#home-comments-section.page-section.page-section-number-6.home-comments-secti
       - @home_reviews.each_with_index do |comment, index|
         li.user-avatar.columns.large-2 id="user-avatar-#{index + 1}"
           label for="home-user-comment-flag-#{index + 1}"
-            img src=comment.user.avatar.url(:thumb)
+            img src=image_or_stub_url(comment.user.avatar, :thumb, 150, 150, "user #{comment.user.id}")
             span.name
               = comment.user.name
             span.status

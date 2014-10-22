@@ -30,7 +30,7 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
               .image-and-info.columns.large-4
                 .image
                   a href="#"
-                    img src=event.avatar.url(:event_list_small_thumb)
+                    img src=image_or_stub_url(event.avatar, :event_list_small_thumb, 360, 240, "event #{event.id}")
                 .info
                   .start-date
                     span.tip

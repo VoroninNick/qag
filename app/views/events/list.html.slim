@@ -68,6 +68,6 @@
                   - event.images.each_with_index do |image, index|
                     li.hover-expired-event-images-carousel-ul-li
                       a.hover-expired-event-images-carousel-ul-li-a href=( (image.image.exists?(:original) )? image.image.url(:original) : stub_image_link(600, 400, "image #{index + 1}") )
-                        img.hover-expired-event-images-carousel-ul-li-a-img src=( (image.image.exists?(:event_list_image) )? image.image.url(:event_list_image) : stub_image_link(150, 100, "image #{index + 1}") )
+                        img.hover-expired-event-images-carousel-ul-li-a-img src=image_or_stub_url(image.image, :event_list_image, 150, 100, "image #{index+1}")
 
 

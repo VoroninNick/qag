@@ -3,6 +3,8 @@ class EventsController < ApplicationController
   end
 
   def list
+    max_events_count = 10
+
     @breadcrumbs = {
         home: {},
         events_list: {
@@ -31,11 +33,11 @@ class EventsController < ApplicationController
     @event_tags = EventTag.all
 
     if selected_event_tag == 0
-      @events = Event.all
+      @events = Event.all.limit(max_events_count)
 
 
     else
-      @events = selected_event_tag.events
+      @events = selected_event_tag.events.limit(max_events_count)
       @selected_event_tag = selected_event_tag
       @event_tags = @event_tags.where("id <> #{selected_event_tag.id}")
     end

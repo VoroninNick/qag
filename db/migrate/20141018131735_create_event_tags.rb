@@ -7,7 +7,7 @@ class CreateEventTags < ActiveRecord::Migration
       t.timestamps
     end
 
-    model.create_translation_table!
+    model.create_translation_table!(name: :string)
 
     create_table :event_taggings do |t|
       t.belongs_to :event

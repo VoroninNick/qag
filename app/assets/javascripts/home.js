@@ -6,6 +6,36 @@
 var initialize = function() {
     $('html.controller-home.action-index').each(function () {
         var $page = $(this)
+
+// =====================================
+// -------------------------------------
+// initialize autoscroll banner
+// -------------------------------------
+// =====================================
+
+ var initialize_home_slider = function() {
+     var $home_slider_section = $page.find('#home-slider-section')
+     var auto_interval = 6000
+     setInterval(function(){
+         var $flags = $('input.home-slider-slide-flag')
+         var $checked_flag = $flags.filter(':checked')
+         var flags_count = $flags.length
+         var checked_flag_index = $checked_flag.index()
+
+         var future_index = checked_flag_index + 1
+         if(checked_flag_index >= flags_count){
+             future_index = 0
+         }
+         var $future_flag = $flags.eq(future_index)
+         $checked_flag.prop('checked', false);
+         $future_flag.prop('checked', true)
+     }, auto_interval)
+ }
+
+ initialize_home_slider()
+
+
+
 //    $.ajax(
 //        {
 //            url: '/?featured_events&ajax',

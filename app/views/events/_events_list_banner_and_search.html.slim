@@ -15,12 +15,16 @@
   #search-abs-row-wrapper
     #search-row.row
       #search-column.columns.large-6
-        input type="text" placeholder=t('pages.events-list.search.input-placeholder')
+        form#search-form
+          input#search-input name="search" type="text" placeholder=t('pages.events-list.search.input-placeholder')
+          input#search-submit type="submit"
+          label#search-submit-label for="search-submit"
       #tag-dropdown-column.columns.large-6
         /select#tag-dropdown-select
         /  - @event_tags.each do |tag|
         /    option value=tag.id
         /      = tag.name
+
         #tag-dropdown tabindex="2"
           span#selected_tag data-id="#{ (@selected_event_tag)? @selected_event_tag.id : 0 }"
             span#selected-tag-overlay tabindex="1"

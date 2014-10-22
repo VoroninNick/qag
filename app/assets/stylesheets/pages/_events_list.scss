@@ -107,21 +107,52 @@ $events-list-dropdown-tags-count: 13;
 }
 
 #search-column{
-  input{
-    display: inline-block;
-    height: 100%;
-    width: 100%;
-    color: #ff9a00;
-    font-size: 1.4rem;
-    font-style: italic;
-    font-weight: 300;
-    padding: 0 20px 0 20px;
 
-    @include placeholder {
-      color: #aaa;
-    }
+}
+
+#search-form{
+  position: relative;
+  display: none;
+}
+
+#search-input{
+  display: inline-block;
+  height: 60px;
+  width: 100%;
+  color: #ff9a00;
+  font-size: 1.4rem;
+  font-style: italic;
+  font-weight: 300;
+  padding: 0 80px 0 20px;
+
+  @include placeholder {
+    color: #aaa;
+  }
+
+  &:focus ~ #search-submit-label{
+    background: red;
   }
 }
+
+#search-submit{
+  position: absolute;
+  right: 0;
+  display: none;
+}
+
+#search-submit-label{
+  display: block;
+  position: absolute;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  top: 0;
+  background: orange;
+}
+
+
+
+
 
 
 
@@ -187,6 +218,8 @@ $events-list-dropdown-tags-count: 13;
 
   padding: 0 20px;
   background: #2facda;
+
+  cursor: pointer;
 
   line-height: 60px;
   //box-shadow: ;
@@ -392,6 +425,18 @@ $events-list-dropdown-tags-count: 13;
   0%{
     transform: translateY(100%);
   }
+}
+
+
+@include keyframes(rotateup-back){
+  0%{
+    transform: rotateX(90deg) translateY(10%);
+  }
+}
+
+#events-list{
+  position: relative;
+  z-index: 0;
 }
 
 
@@ -674,6 +719,19 @@ $events-list-dropdown-tags-count: 13;
 
   &.initialized{
     position: relative;
+
+    &:hover{
+      .description{
+        @include animation(none);
+
+      }
+
+      .event-title{
+        text-align: left;
+      }
+    }
+
+
   }
 
   .events-list-event-back, .events-list-event-front{
@@ -688,12 +746,31 @@ $events-list-dropdown-tags-count: 13;
   .events-list-event-back{
     background: #ff594a;
     //opacity: 0;
+    transition-property: transform;
+    transition-duration: 1s;
+
   }
 
 
 
   .events-list-event-front{
     background: white;
+
+    .image-and-info{
+      display: block;
+    }
+
+    .description{
+      width: 75%;
+    }
+
+    .event-title-a{
+      color: #33abdd;
+    }
+
+    .event-description{
+      display: block;
+    }
   }
 
   .event-front-row, .event-back-row{
@@ -705,6 +782,9 @@ $events-list-dropdown-tags-count: 13;
   &:hover{
     .events-list-event-back{
       z-index: 2;
+      @include animation-duration(10s);
+      @include animation-name(rotateup-back);
+
     }
   }
 

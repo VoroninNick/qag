@@ -5,7 +5,12 @@
       /- link_to_unless_current(root_path) do
         = embedded_svg_from_assets('svg/logo.svg')
 
-      = link_to_unless_current(embedded_svg_from_assets('svg/logo.svg'), { controller: "home", action: "index" }) { embedded_svg_from_assets('svg/logo.svg') }
+      /- unless params[:controller] == 'home' && params[:action] == 'index'
+        =
+
+      = link_to_unless(params[:controller] == 'home' && params[:action] == 'index' , embedded_svg_from_assets('svg/logo.svg'), root_path )
+
+      /= link_to_unless_current(embedded_svg_from_assets('svg/logo.svg'), { controller: "home", action: "index" }) { embedded_svg_from_assets('svg/logo.svg') }
 
 
   label#header-menu-button for="header-show-menu-flag"
@@ -25,6 +30,7 @@
     #header-menu-search-wrapper
       input#header-menu-search-input type="search"
       label#header-menu-search-icon for="header-menu-search-input"
+
 
 
 

@@ -377,6 +377,9 @@ $expired-events-pages-count: $expired-events-count / 5
       top: 0
       left: 0
       background: #e0d3c3
+      opacity: 0.5
+      @include transition-property(opacity)
+      @include transition-duration(0.5s)
 
 
       //opacity: 0
@@ -429,6 +432,7 @@ $expired-events-pages-count: $expired-events-count / 5
         & ~ .slides
           .slide#slide-#{$i}
             z-index: #{$main-slider-slides-count + 1}
+            opacity: 1
 
 
 

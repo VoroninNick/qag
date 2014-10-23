@@ -19,4 +19,15 @@ class ApplicationController < ActionController::Base
 
     I18n.locale = locale
   end
+
+  before_filter do
+    if params[:load_partial]
+      params_partial_path = params[:load_partial]
+      content = render_to_string layout: 'render_partial', template: 'async_renderer/index', locals: {  }
+      data_to_output = { partial: content, partial_path: params_partial_path }
+      json_source = data_to_output.to_json
+
+      render inline: json_source
+    end
+  end
 end

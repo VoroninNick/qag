@@ -1,4 +1,4 @@
-#body{
+#body.active-modal{
   overflow: hidden;
   /* overflow: auto; */
 }
@@ -12,7 +12,15 @@
   background: transparent;
   z-index: 11;
   display: block;
+
+  @include transform( translateY(-100%) );
+
+  &.active{
+    @include transform( none );
+  }
 }
+
+
 
 .popup-reset{
   position: relative;
@@ -60,17 +68,21 @@
 .popup-box{
   max-width: 100%;
   position: relative;
-  border: 10px lightblue solid;
+  //border: 10px lightblue solid;
   padding: 2rem;
 }
 
 .popup-box-content{
-  width: 500px;
-  height: 500px;
-  background: red;
-  height: 1200px;
+  height: auto;
+  //width: 500px;
+  //height: 500px;
+  width: auto;
+  background: #fafafa;
+  //height: 1200px;
   max-width: 100%;
   position: relative;
+  padding: 50px;
+  //background: white;
 }
 
 .popup-height-overlay{
@@ -79,7 +91,7 @@
   left: 0;
   bottom: 0;
   right: 0;
-  background: rgba(0, 35, 98, 0.9);
+  background: rgba(#000, 0.5);
   cursor: pointer;
   min-height: 100%;
   max-width: 100%;
@@ -119,6 +131,23 @@
   }
 
   .popup-box-content{
-    height: 200px;
+    //height: 200px;
+    //padding: 50px;
+    //background: white;
+  }
+}
+
+
+
+#sessions-new{
+  .field{
+    width: 500px;
+
+    input{
+      width: 100%;
+      border: 2px #e9e9e9 solid;
+      height: 40px;
+    }
+
   }
 }

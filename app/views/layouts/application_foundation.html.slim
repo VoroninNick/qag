@@ -33,9 +33,13 @@ html#html class="locale-#{I18n.locale.to_s} controller-#{params[:controller]} ac
         == yield
 
 
-    .async-partial-loader data-path="layouts/modal"
+    /.async-partial-loader data-path="layouts/modal"
+    /.async-loader data-url=new_user_registration(locale: I18n.locale)
+    #new_user_session-popup-wrapper.popup-wrapper.async-loader data-url=new_user_session_url(locale: I18n.locale) data-popup-name="sign_in_popup_form"
+
+    /.async
     /.async-partial-loader data-path="devise/registrations/new"
-    .async-partial-loader data-path="about/about_banner"
+    //.async-partial-loader data-path="about/about_banner"
 
 
     script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"

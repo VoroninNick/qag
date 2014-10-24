@@ -19,10 +19,12 @@
 // foundation
 // require turbolinks
 //= require rich_marker
+//= require popup
 //= require test_map
 //= require home
 //= require contact
 //= require events
+
 
 //$(function(){ $(document).foundation(); });
 

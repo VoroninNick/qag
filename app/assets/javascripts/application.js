@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require async_loader
 //= require jquery.mousewheel.min
 //= require grayscale.min
 //= require selectize

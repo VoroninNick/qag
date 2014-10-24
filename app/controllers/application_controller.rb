@@ -23,9 +23,16 @@ class ApplicationController < ActionController::Base
   before_filter do
     if params[:load_partial]
       params_partial_path = params[:load_partial]
-      content = render_to_string layout: 'render_partial', template: 'async_renderer/index', locals: {  }
-      data_to_output = { partial: content, partial_path: params_partial_path }
-      json_source = data_to_output.to_json
+      params_partial_paths = params_partial_path.split(',')
+      output_partials = []
+      params_partial_paths.each do |partial_path|
+        content = render_to_string layout: 'render_partial', template: 'async_renderer/index', locals: { partial_path: partial_path }
+
+        data_to_output = { partial: content, partial_path: partial_path }
+        output_partials.push data_to_output
+      end
+
+      json_source = output_partials.to_json
 
       render inline: json_source
     end

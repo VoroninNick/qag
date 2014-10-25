@@ -1,0 +1,20 @@
+#devise-content
+  #devise_sessions-new-get-form-wrap.devise-form-wrap
+    .form-title
+      = t('devise.registrations.header')
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name, locale: I18n.locale)) do |f|
+      = f.error_notification
+      .form-inputs
+        = f.input :first_name, required: true, auto_focus: true, label: false, placeholder: "#{t('devise.registrations.placeholders.first_name')}*"
+        = f.input :last_name, label: false, required: true, placeholder: "#{t('devise.registrations.placeholders.last_name')}*"
+        = f.input :email, required: true, label: false, placeholder: "#{t('devise.registrations.placeholders.email')}*"
+        = f.input :password, required: true, label: false, placeholder: "#{t('devise.registrations.placeholders.password')}", hint: ("#{@minimum_password_length} characters minimum" if @validatable)
+        = f.input :password_confirmation, label: false, required: true, placeholder: "#{t('devise.registrations.placeholders.password_confirmation')}*"
+        = f.input :city, label: false, placeholder: t('devise.registrations.placeholders.city')
+        = f.input :company, label: false, placeholder: t('devise.registrations.placeholders.company')
+        = f.input :status, label: false, placeholder: t('devise.registrations.placeholders.status')
+        = f.input :description, label: false, placeholder: t('devise.registrations.placeholders.description')
+        = recaptcha_tags display: { lang: I18n.locale }
+      .form-actions
+        = f.button :submit, t('devise.registrations.create_button'), class: 'sign-up-submit-button'
+    = render "devise/shared/links"

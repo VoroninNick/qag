@@ -19,32 +19,35 @@ html#html class="locale-#{I18n.locale.to_s} controller-#{params[:controller]} ac
           height: 100%
 
   body#body
-    = render partial: 'layouts/header'
+    /input type="checkbox" id="wrap-focus-flag" class="flag" checked="checked"
+    #body-inner
+      = render partial: 'layouts/header'
 
 
-    - if !(params[:controller] == 'home' && params[:action] == 'index')
-      #wrap
-        #main
-          #content
-            == yield
-      = render partial: 'layouts/footer'
-    - else
-      #wrap
-        == yield
+      - if !(params[:controller] == 'home' && params[:action] == 'index')
+        #wrap for="wrap-focus-flag"
+          #main
+            #content
+              == yield
+        = render partial: 'layouts/footer'
+      - else
+        #wrap for="wrap-focus-flag"
+          == yield
 
 
-    /.async-partial-loader data-path="layouts/modal"
-    /.async-loader data-url=new_user_registration(locale: I18n.locale)
-    #new_user_session-popup-wrapper.popup-wrapper.async-loader data-url=new_user_session_url(locale: I18n.locale) data-popup-name="sign_in_popup_form"
+      /.async-partial-loader data-path="layouts/modal"
+      /.async-loader data-url=new_user_registration(locale: I18n.locale)
+      - if !@is_devise
+        #new_user_session-popup-wrapper.popup-wrapper.async-loader data-url=new_user_session_url(locale: I18n.locale) data-popup-name="sign_in_popup_form"
 
-    /.async
-    /.async-partial-loader data-path="devise/registrations/new"
-    //.async-partial-loader data-path="about/about_banner"
-
-
-    script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"
-    = javascript_include_tag "application"
-    / javascript_include_tag "modernizr_load1"
+      /.async
+      /.async-partial-loader data-path="devise/registrations/new"
+      //.async-partial-loader data-path="about/about_banner"
 
 
-  / render partial: 'layouts/modal'
+      script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"
+      = javascript_include_tag "application"
+      / javascript_include_tag "modernizr_load1"
+
+
+    / render partial: 'layouts/modal'

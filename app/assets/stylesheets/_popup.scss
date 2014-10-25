@@ -1,6 +1,10 @@
 #body.active-modal{
-  overflow: hidden;
+  //overflow: hidden;
   /* overflow: auto; */
+}
+
+#body-inner{
+  height: 100%;
 }
 
 .popup{
@@ -15,9 +19,9 @@
 
   @include transform( translateY(-100%) );
 
-  &.active{
-    @include transform( none );
-  }
+  //&.active{
+  //  @include transform( none );
+  //}
 }
 
 
@@ -83,6 +87,8 @@
   position: relative;
   padding: 50px;
   //background: white;
+
+  text-align: left;
 }
 
 .popup-height-overlay{
@@ -135,19 +141,241 @@
     //padding: 50px;
     //background: white;
   }
+
+  .popup-box{
+    padding: 0;
+    margin: 0;
+  }
+}
+
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+
+  background-color: lightblue !important;
+  color: white !important;
+
 }
 
 
 
-#sessions-new{
-  .field{
+.simple_form.new_user{
+  width: 500px;
+  .input{
     width: 500px;
+    display: inline-block;
+    margin: 2px 0;
+
+    .hint{
+      display: none;
+    }
+
+
 
     input{
       width: 100%;
       border: 2px #e9e9e9 solid;
       height: 40px;
+      padding: 0 20px;
+
+      font-size: 17px;
+      font-weight: 300;
+      font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+      &:focus{
+        & + .hint{
+          display: block;
+        }
+      }
     }
 
+    &.boolean{
+      &, input {
+        width: auto;
+        height: auto;
+      }
+    }
+    //header-menu-button-inner
+  }
+}
+
+
+
+
+
+.form-title{
+  text-align: center;
+  text-transform: uppercase;
+  margin: 0 0 40px 0;
+  font-weight: 900;
+  font-size: 23px;
+  color: #58595b;
+  border-radius: 4px;
+}
+
+.forgot-password{
+  display: inline-block;
+  float: right;
+}
+
+.sign-up{
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 19px;
+  color: #ff9a00;
+}
+
+#popup-close-button{
+  width: 24px;
+  height: 4px;
+
+  background: transparent;
+  position: absolute;
+
+  padding: 0;
+  @include transition(background-color 1s);
+  top: 30px;
+  right: 22px;
+  cursor: pointer;
+
+  //@include transition-property(all);
+  //@include transition-duration(0.3s);
+
+  &, &:before, &:after{
+    //@include transition(color 1s);
+  }
+
+  &:before, &:after{
+    content: '';
+    display: block;
+    width: 24px;
+    height: 4px;
+    background: #bbbcc0;
+    background: $gray-color;
+    position: absolute;
+    z-index: 0;
+    top: 0;
+
+    //@include transition-property(width background-color);
+    transition-property: all, background;
+    //@include transition-duration(0.3s, 3s );
+    transition-duration: 0.3s, 1s;
+    //transition-duration: 0.3s;
+  }
+
+  &:before {
+    @include transform(rotate(-45deg));
+
+  }
+  &:after {
+    @include transform(rotate(45deg));
+  }
+
+
+
+  &.blue{
+    &, &:before, &:after {
+      //background-color: #2f8fb9;
+      background-color: #2facda;
+    }
+  }
+
+
+}
+
+
+.sign-in-submit-button-wrapper{
+  display: inline-block;
+  width: 50%;
+  padding: 0 0 0 15px;
+}
+
+.sign-up-link-wrapper{
+  display: inline-block;
+  width: 50%;
+  padding: 0 15px 0 0;
+
+
+}
+
+.sign-in-submit-button{
+  //label{
+    height: 3.75rem;
+    display: inline-block;
+    background: $registration-button-background;
+    width: 100%;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+
+  //.registration-text {
+    //font-size: 2rem;
+    text-transform:uppercase;
+    font-size: 1.3rem;
+    font-weight:900;
+    border: none;
+    color: white;
+  //}
+  //}
+}
+
+#devise_sessions-new-get-flag{
+  &:checked{
+    & ~ #body-inner{
+      #devise_sessions-new-get{
+        @include transform( none );
+      }
+    }
+  }
+}
+
+.modal-flag{
+  &:checked {
+    & ~ #body-inner {
+      overflow: hidden;
+
+      #header-menu-container{
+        display: none;
+      }
+    }
+  }
+}
+
+//#wrap-focus-flag{
+//  &:checked {
+//    & ~ #body-inner {
+//      #header-menu-container {
+//        display: none;
+//      }
+//    }
+//  }
+//}
+
+
+#content {
+
+  #devise-content{
+    text-align: center;
+    display: block;
+    //transform: translate3d(-50%, -50%, 0) ;
+    //top: 50%;
+    //left: 50%;
+    //position: absolute;
+    padding: 8rem 0 0 0;
+  }
+
+  .devise-form-wrap {
+    display: inline-block;
+    width: 500px;
+    max-width: 100%;
+    text-align: left;
+  }
+}
+
+// style captcha
+#recaptcha_widget_div{
+  &, & tr, & td, & tbody{
+    background: transparent;
   }
 }

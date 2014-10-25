@@ -143,3 +143,8 @@ gem "selectize-rails"
 gem 'acts-as-taggable-on'
 
 gem 'rails_admin_tag_list', github: 'VoroninNick/rails_admin_tag_list', branch: 'pasha'
+gem 'simple_form'
+
+gem "recaptcha", :require => "recaptcha/rails"
+
+gem 'phony_rails'

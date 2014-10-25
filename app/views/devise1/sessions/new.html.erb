@@ -1,0 +1,20 @@
+<div id="sessions-new">
+<h2><%= t('devise.sessions.header') %></h2>
+
+<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div id="field-email" class="field">
+  <%= f.input :email, required: true, autofocus: true, placeholder: t('devise.sessions.placeholders.email')  %></div>
+
+  <div id="field-password" class="field"><%= f.label :password %><br />
+    <%= f.input :password, autocomplete: "off" %></div>
+
+
+  <% if devise_mapping.rememberable? -%>
+    <div><%= f.input :remember_me, as: :boolean %> <%= f.label :remember_me %></div>
+  <% end -%>
+
+  <div><%= f.submit t('devise.sessions.sign_in_button') %></div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+</div>

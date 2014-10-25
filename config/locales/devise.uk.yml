@@ -25,6 +25,7 @@ uk:
 
       signed_in: 'Вхід успішний.'
       signed_out: 'Вихід успішний.'
+      remember_me: "запам'ятати мене"
       placeholders:
         email: 'Електронна скринька'
         password: 'Пароль'
@@ -39,6 +40,7 @@ uk:
       send_paranoid_instructions: 'Якщо Ваш email існує у нашій базі даних, Вам надіслано інструкції з підтвердження облікового запису.'
       confirmed: 'Ваш обліковий запис було успішно підтверджено.'
     registrations:
+      header: "Форма створення нового користувача"
       signed_up: 'Вітаємо! Ви успішно зареєструвалися.'
       inactive_signed_up: 'Ви успішно зареєструвалися. Але, Ви не можете увійти через те, що ваш обліковий запис %{reason}.'
       updated: 'Ви успішно оновили свій обліковий запис.'
@@ -48,6 +50,23 @@ uk:
         inactive: 'не активний'
         unconfirmed: 'не підтверджено'
         locked: 'заблоковано'
+      placeholders:
+        first_name: "Ім'я"
+        last_name: "Прізвище"
+        email: "Електронна пошта"
+        contact_phone: "Контактний телефон"
+        password: "Пароль"
+        password_confirmation: "Підтвердіть пароль"
+        city: "Місто"
+        company: "Компанія"
+        status: "Посада(професія)"
+        description: "Коментар"
+        captcha: ""
+
+      required_fields_help: "* поля обов'язкові для заповнення"
+      create_button: "create my account"
+
+
     unlocks:
       send_instructions: 'На Ваш email надіслано інструкції з розблокування.'
       unlocked: 'Ваш обліковий запис було успішно розблоковано.'
@@ -62,3 +81,11 @@ uk:
         subject: 'Інструкції зі скидання паролю'
       unlock_instructions:
         subject: 'Інструкції з розблокування'
+
+  shared:
+    links:
+      sign_in: "Увыйти"
+      sign_up: "Новий користувач"
+      forgot_password: "Забули пароль?"
+      confirmations: "Не отримали email з підтвердженням?"
+      unlocks: "Не отримали email з розблокуванням?"

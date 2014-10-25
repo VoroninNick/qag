@@ -1,10 +1,12 @@
-.popup.less-than-screen
+input type="checkbox" id="#{@modal_id}-flag" class="flag modal-flag"
+.popup.less-than-screen id="#{@modal_id}"
   .popup-reset
     .popup-overlay-container
       .popup-height-keep
         .popup-box-border
           .popup-box
             .popup-box-content
+              label#popup-close-button for="#{@modal_id}-flag"
               = yield
-        .popup-height-overlay
+        label.popup-height-overlay for="#{@modal_id}-flag"
       .popup-overlay

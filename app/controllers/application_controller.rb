@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
   end
 
   before_filter do
+    @is_devise = params[:controller].scan(/^devise\//).count > 0
+  end
+
+  before_filter do
     #str = render_to_string controller: 'home', action: 'index'
 
     #if params[:async]
@@ -50,10 +54,13 @@ class ApplicationController < ActionController::Base
 
     #render inline: self.controller.send(:_layout).virtual_path.name
 
-    if params[:modal]
+    if params[:modal] == 'true'
+
       self.class.layout 'modal-layout'
       #render layout: 'modal-layout'
-      #render inline: 'hello'
+      #render inline: params.inspect
+      @modal_id = "#{params[:controller].parameterize.underscore}-#{params[:action]}-#{@_request.method.downcase}"
+
     end
 
   end

@@ -33,6 +33,7 @@ en:
       updated: "Your password has been changed successfully. You are now signed in."
       updated_not_active: "Your password has been changed successfully."
     registrations:
+      header: "Sign up"
       destroyed: "Bye! Your account has been successfully cancelled. We hope to see you again soon."
       signed_up: "Welcome! You have signed up successfully."
       signed_up_but_inactive: "You have signed up successfully. However, we could not sign you in because your account is not yet activated."
@@ -40,12 +41,33 @@ en:
       signed_up_but_unconfirmed: "A message with a confirmation link has been sent to your email address. Please follow the link to activate your account."
       update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and follow the confirm link to confirm your new email address."
       updated: "Your account has been updated successfully."
+
+      placeholders:
+        first_name: "Ім'я"
+        last_name: ""
+        email: ""
+        contact_phone: ""
+        password: ""
+        password_confirmation: ""
+        city: ""
+        company: ""
+        status: ""
+        description: ""
+
+      required_fields_help: "* поля обов'язкові для заповнення"
+      create_button: "create my account"
+
     sessions:
       header: "Sign in"
       sign_in_button: 'Sign in'
       signed_in: "Signed in successfully."
       signed_out: "Signed out successfully."
       already_signed_out: "Signed out successfully."
+      remember_me: "remember me"
+
+      placeholders:
+        email: 'Електронна скринька'
+        password: 'Пароль'
     unlocks:
       send_instructions: "You will receive an email with instructions for how to unlock your account in a few minutes."
       send_paranoid_instructions: "If your account exists, you will receive an email with instructions for how to unlock it in a few minutes."
@@ -60,3 +82,12 @@ en:
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
+
+
+  shared:
+    links:
+      sign_in: "Log in"
+      sign_up: "Sign up"
+      forgot_password: "Forgot your password?"
+      confirmations: "Didn't receive confirmation instructions?"
+      unlocks: "Didn't receive unlock instructions?"

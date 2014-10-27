@@ -10,6 +10,10 @@ class User < ActiveRecord::Base
 
   attr_accessible :name, :status, :role
 
+  attr_accessible :first_name, :last_name, :contact_phone, :city, :company, :description
+  #t.string :work_position
+
+
   has_attached_file :avatar, :styles => { :thumb => '150x150#'},
                     :url  => "/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
                     :path => ":rails_root/public/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",

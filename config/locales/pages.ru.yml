@@ -38,3 +38,10 @@ ru:
           start-date-tip: "Начало:"
           end-date-tip: "Завершение:"
           participants-count: "%{svg}%{count}%{span_start}&nbsp;учасников%{span_end}"
+
+
+    event-item:
+      event-info:
+        title: "Информация о событии"
+        date-range: "%{start_date_day}.%{start_date_month}.%{start_date_year}&nbsp;&mdash;&nbsp;%{end_date_day}%{end_date_month}%{end_date_year}"
+        participants-count: "%{svg}%{span_start}%{participants_count}&nbsp;учасников%{span_end}"

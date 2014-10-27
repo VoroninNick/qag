@@ -725,6 +725,14 @@ $header-height: 90px;
   }
 }
 
+.inactive-breadcrumb-a{
+  color: #6d6e72;
+
+  &:hover{
+    color: #ffb700;
+  }
+}
+
 
 
 #breadcrumb-home-a{

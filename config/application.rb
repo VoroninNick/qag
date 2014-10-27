@@ -20,11 +20,16 @@ module Qag
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+
     Bundler.require(:default, Rails.env)
 
     config.i18n.default_locale = :ru
     config.i18n.available_locales = [:ru, :uk, :en]
 
     config.assets.precompile += %w( modernizr_load1.js modernizr_svg.min.js )
+
+    config.action_mailer.default_url_options = {
+        :host => 'www.qag.voroninstudio.eu',
+    }
   end
 end

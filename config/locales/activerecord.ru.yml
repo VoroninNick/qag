@@ -1,0 +1,14 @@
+ru:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            first_name:
+              too_short: "Имя должно состоять хотя бы из 2 символов"
+            last_name:
+              too_short: "Фамилия должна состоять хотя бы из 2 символов"
+            email:
+              taken: "Такой email уже используется"
+            password_confirmation:
+              confirmation: "Пароли должны совпадать"

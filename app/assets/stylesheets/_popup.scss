@@ -171,11 +171,15 @@ select:-webkit-autofill {
       display: none;
     }
 
+    .error{
+      color: #ff5949;
+    }
+
 
 
     input{
       width: 100%;
-      border: 2px #e9e9e9 solid;
+      border: 1px #e9e9e9 solid;
       height: 40px;
       padding: 0 20px;
 
@@ -184,16 +188,34 @@ select:-webkit-autofill {
       font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
       &:focus{
+        background: #86c7e7;
+        color: white;
+        font-weight: 500;
+
         & + .hint{
           display: block;
         }
+
+        @include placeholder{
+          color: white;
+          font-weight: 300;
+        }
       }
+
     }
 
     &.boolean{
       &, input {
         width: auto;
         height: auto;
+      }
+
+
+    }
+
+    &.field_with_errors{
+      input{
+        border-color: #ff5949;
       }
     }
     //header-menu-button-inner
@@ -299,7 +321,7 @@ select:-webkit-autofill {
 
 }
 
-.sign-in-submit-button{
+.sign-in-submit-button, .sign-up-submit-button{
   //label{
     height: 3.75rem;
     display: inline-block;
@@ -377,5 +399,30 @@ select:-webkit-autofill {
 #recaptcha_widget_div{
   &, & tr, & td, & tbody{
     background: transparent;
+  }
+
+  #recaptcha_response_field{
+    width: 100%;
+    border: 2px #e9e9e9 solid;
+    height: 40px;
+    padding: 0 20px !important;
+
+    font-size: 17px;
+    font-weight: 300;
+    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    &:focus{
+      & + .hint{
+        //display: block;
+      }
+    }
+  }
+
+  .recaptcha_input_area{
+    margin: 0 14px 0 0 !important;
+  }
+
+  .recaptcha_r2_c1{
+    display: none;
   }
 }

@@ -1,0 +1,110 @@
+// ==================================
+// ----------------------------------
+// event item top banner
+// ----------------------------------
+// ==================================
+
+#event-item-banner-image-wrapper {
+  width: 100%;
+  height: 500px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+
+  &:after{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    display: block;
+    right: 0;
+    background: $orange-color;
+    opacity: 0.1;
+  }
+
+}
+
+
+
+// ==================================
+// ----------------------------------
+// event item content
+// ----------------------------------
+// ==================================
+
+
+#event-item-page-event-info-column{
+
+
+}
+
+#event-item-page-event-name{
+  @include large-gray-header;
+  text-align: left;
+  line-height: 1;
+}
+
+#event-content-and-info-row{
+  margin-top: 50px;
+
+}
+
+#event-item-page-event-info-column{
+  border-radius: 3px;
+  background: #2facda;
+  min-height: 350px;
+  @include box-shadow(1px 1px 5px rgba(0,0,0,0.5));
+  padding: 20px 30px 30px 30px;
+}
+
+
+
+
+#event-item-page-event-info{
+
+
+
+
+  color: white;
+
+  svg{
+    display: inline-block;
+    width: 21px;
+    height: 21px;
+
+    path{
+      fill: #2a7fa6;
+    }
+  }
+
+  span{
+    display: inline-block;
+  }
+}
+
+#event-item-page-event-info-title{
+  font-size: 1.4rem;
+}
+
+.event-item-page-event-info-text{
+  font-weight: 300;
+  font-size: 0.8rem;
+
+  padding-left: 40px;
+  min-height: 21px;
+
+  line-height: 1.4;
+
+}
+
+.event-item-page-event-info-list-item{
+  position: relative;
+  margin: 12px 0;
+  svg{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+  }
+}

@@ -1,0 +1,14 @@
+en:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            first_name:
+              too_short: "First name must be 2 symbols at least"
+            last_name:
+              too_short: "Last name must be 2 symbols at least"
+            email:
+              taken: "Email already taken"
+            password_confirmation:
+              confirmation: "Passwords are different"

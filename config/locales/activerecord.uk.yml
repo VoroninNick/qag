@@ -1,0 +1,14 @@
+uk:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            first_name:
+              too_short: "Ім'я повинне бути щонайменше 2 символи"
+            last_name:
+              too_short: "Прізвище повинне бути щонайменше 2 символи"
+            email:
+              taken: "Такий email вже використовується"
+            password_confirmation:
+              confirmation: "Пароли повинні бути однаковими"

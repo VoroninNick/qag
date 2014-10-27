@@ -20,10 +20,11 @@
       span#header-menu-active-locale.header-menu-locale
         = I18n.locale
       ul#header-menu-locales-list
-        - I18n.available_locales.take_while{|locale| locale != I18n.locale }.each do |locale|
-          li.header-menu-locale.header-menu-inactive-locale
-            a.header-menu-locale-a.header-menu-inactive-locale-a href="#"
-              = locale
+        - @page_locale_links.each_pair do |locale, url|
+          - if locale.to_sym != I18n.locale.to_sym
+            li.header-menu-locale.header-menu-inactive-locale
+              a.header-menu-locale-a.header-menu-inactive-locale-a href=url
+                = locale
 
     a#header-menu-user.popup-link data-popup-name="sign_in_popup_form" for="devise_sessions-new-get-flag"
 

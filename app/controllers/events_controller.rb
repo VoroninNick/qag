@@ -1,5 +1,45 @@
 class EventsController < ApplicationController
+
+
   def item
+    params_item = params[:item]
+    @event_ids_rows = Event.find_by_sql("select t.event_id as id from #{Event.translation_class.table_name} t where t.locale='#{I18n.locale}' and t.slug='#{params_item}'")
+    @event_ids = []
+    @event_ids_rows.each {|e| @event_ids.push e['id']  }
+    @events = Event.find(@event_ids)
+    @event = (@events.respond_to?(:count) && @events.count > 0)? @events.first : nil
+
+    @event.translations_by_locale.keys.each do |locale|
+      I18n.with_locale(locale.to_sym) do
+        @page_locale_links[locale.to_sym] = url_for(item: @event.slug, tags: @event.tags.join('-'), locale: locale)
+      end
+
+    end
+
+
+    @breadcrumbs = {
+        home: {},
+        events_list: {
+            title: I18n.t('layout.breadcrumbs.events_list'),
+            link: {
+                url: events_list_path(locale: I18n.locale)
+            }
+        },
+        event_item: {
+            title: @event.name,
+            link: {
+                url: event_item_path(item: @event.slug, tags: @event.tags.join('-'), locale: I18n.locale)
+            }
+        }
+    }
+
+
+    text = ""
+    @page_locale_links.each_pair do |locale, url|
+      text += "<a href=\"#{url}\">#{locale}</a><br/>"
+    end
+
+    #render inline: text
   end
 
   def list

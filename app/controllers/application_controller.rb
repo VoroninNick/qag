@@ -20,6 +20,12 @@ class ApplicationController < ActionController::Base
     I18n.locale = locale
   end
 
+  before_filter :update_sanitized_params, if: :devise_controller?
+
+  def update_sanitized_params
+    devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:first_name, :last_name, :email, :password, :password_confirmation, :city, :company, :status, :description)}
+  end
+
   before_filter do
     @is_devise = params[:controller].scan(/^devise\//).count > 0
   end
@@ -63,6 +69,11 @@ class ApplicationController < ActionController::Base
 
     end
 
+  end
+
+  before_filter do
+    @page_locale_links = {}
+    I18n.available_locales.each {|locale| @page_locale_links[locale.to_sym] = url_for(locale: locale) }
   end
 
   # if params[:load_partial]

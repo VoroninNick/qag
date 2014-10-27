@@ -15,12 +15,13 @@
 #events-list
   - @events.each_with_index do |event, index|
     .events-list-event class="#{ (Date.today > event.end_date)? 'expired-event' : ( Date.today >= event.start_date )? 'started-event' : 'future-event' }#{(index % 2 == 1)? ' right-image' : nil}"
-      a.event-bg-link href=event_item_path(item: event.slug, tags: event.tags.join('-'))
+      a.event-bg-link href=event_item_path(item: event.slug, tags: event.tags.join('-'), locale: I18n.locale)
       .events-list-event-row.row
         .image-and-info.columns.large-3
           .image
             a href="#"
-              img.grayscale src=( (event.avatar.exists?(:event_list_avatar) )? event.avatar.url(:event_list_avatar) : stub_image_link(255, 170, "event #{event.id}") )
+              /img.grayscale src=( (event.avatar.exists?(:event_list_avatar) )? event.avatar.url(:event_list_avatar) : stub_image_link(255, 170, "event #{event.id}") )
+              img.grayscale src=image_or_stub_url(event.avatar, :event_list_avatar, 255, 170, "event #{event.id}")
           .info
             .start-date
               span.tip

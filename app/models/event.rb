@@ -75,22 +75,25 @@ class Event < ActiveRecord::Base
     tags_arr = []
 
     self.event_tags.each do |tag|
-      tags_arr.push tag.slug
+      tags_arr.push tag.slug.parameterize.underscore
     end
 
     tags_arr
   end
 
+  attr_accessible :days_and_time_string
 
-  translates :name, :slug, :short_description, :full_description, :address, :versioning => :paper_trail
+
+  translates :name, :slug, :short_description, :full_description, :address, :days_and_time_string, :versioning => :paper_trail
   accepts_nested_attributes_for :translations
   attr_accessible :translations_attributes, :translations
 
   class Translation
-    attr_accessible :locale, :published_translation, :name, :slug, :short_description, :full_description, :address
+    attr_accessible :locale, :published_translation, :name, :slug, :short_description, :full_description, :address, :days_and_time_string
 
     before_save do
       self.slug = self.name.parameterize if !self.slug || self.slug == ''
+      self.slug = self.slug.parameterize.underscore
     end
 
     # def published=(value)
@@ -110,6 +113,7 @@ class Event < ActiveRecord::Base
         field :address
         field :short_description
         field :full_description, :ck_editor
+        field :days_and_time_string, :text
 
 
       end

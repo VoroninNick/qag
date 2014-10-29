@@ -8,6 +8,10 @@
 }
 
 .popup{
+  opacity: 0;
+  @include transition(opacity 0.5s);
+  transition-property: opacity, transform;
+  transition-duration: 0.5s, 1ms; 
   position: fixed;
   top: 0;
   left: 0;
@@ -17,7 +21,8 @@
   z-index: 11;
   display: block;
 
-  @include transform( translateY(-100%) );
+  //@include transform( translate3d(0, -100%, 0) );
+  @include transform( translate3d(0, -100%, 0) );
 
   //&.active{
   //  @include transform( none );
@@ -85,7 +90,8 @@
   //height: 1200px;
   max-width: 100%;
   position: relative;
-  padding: 50px;
+  //padding: 50px;
+  padding: 40px 50px 50px 50px;
   //background: white;
 
   text-align: left;
@@ -112,7 +118,7 @@
   bottom: 0;
   z-index: -1;
   cursor: pointer;
-  display: none;
+  //display: none;
   max-width: 100%;
 }
 
@@ -191,6 +197,7 @@ select:-webkit-autofill {
         background: #86c7e7;
         color: white;
         font-weight: 500;
+        outline: none;
 
         & + .hint{
           display: block;
@@ -229,7 +236,8 @@ select:-webkit-autofill {
 .form-title{
   text-align: center;
   text-transform: uppercase;
-  margin: 0 0 40px 0;
+  //margin: 0 0 40px 0;
+  margin: 0 0 30px 0;
   font-weight: 900;
   font-size: 23px;
   color: #58595b;
@@ -321,7 +329,9 @@ select:-webkit-autofill {
 
 }
 
-.sign-in-submit-button, .sign-up-submit-button{
+
+
+.sign-in-submit-button, .sign-up-submit-button, .devise-submit-button{
   //label{
     height: 3.75rem;
     display: inline-block;
@@ -364,15 +374,25 @@ select:-webkit-autofill {
   }
 }
 
-//#wrap-focus-flag{
-//  &:checked {
-//    & ~ #body-inner {
-//      #header-menu-container {
-//        display: none;
-//      }
-//    }
-//  }
-//}
+#wrap-focus-flag{
+ &:checked {
+   & ~ #body-inner {
+     #header-menu-container {
+       display: none;
+     }
+   }
+ }
+}
+
+#menu-focus-flag{
+  &:chacked{
+    & ~ #body-inner{
+      #header-menu-container{
+        display: block;
+      }
+    }
+  }
+}
 
 
 #content {
@@ -425,4 +445,86 @@ select:-webkit-autofill {
   .recaptcha_r2_c1{
     display: none;
   }
+}
+
+
+
+#devise_registrations-new-get-flag{
+  &:checked{
+    & ~ #body-inner{
+      #devise_registrations-new-get{
+        @include transform( translate3d(0, 0, 0) );
+        opacity: 1;
+      }
+    }
+  }
+}
+
+#devise_sessions-new-get-flag{
+  &:checked{
+    & ~ #body-inner{
+      #devise_sessions-new-get{
+        //transform: translateY(0);
+        @include transform( translate3d(0, 0, 0) );
+        opacity: 1;
+      }
+    }
+  }
+}
+
+#devise_confirmations-new-get-flag{
+  &:checked{
+    & ~ #body-inner{
+      #devise_confirmations-new-get{
+        //transform: translateY(0);
+        @include transform( translate3d(0, 0, 0) );
+        opacity: 1;
+      }
+    }
+  }
+}
+
+#devise_unlocks-new-get-flag{
+  &:checked{
+    & ~ #body-inner{
+      #devise_unlocks-new-get{
+        //transform: translateY(0);
+        @include transform( translate3d(0, 0, 0) );
+        opacity: 1;
+      }
+    }
+  }
+}
+
+#devise_passwords-new-get-flag{
+  &:checked{
+    & ~ #body-inner{
+      #devise_passwords-new-get{
+        //transform: translateY(0);
+        @include transform( translate3d(0, 0, 0) );
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.simple_form.new_user{
+  .input.password{
+    margin-bottom: 15px;
+  }
+
+  .input.boolean{
+    input.boolean{
+      top: 2px;
+      position: relative;
+    }
+  }
+}
+
+.button{
+  box-shadow: 0px 1px 2px rgba(0,0,0,0.3);  
+}
+
+.form-actions{
+  margin-top: 3rem;
 }

@@ -96,16 +96,22 @@ $header-height: 90px;
   margin: 38px 5% 0 0;
   position: fixed;
 
+  padding: 0;
+  margin: 30px 5% 0 0;
+
 
   @include transition-duration(0.6s);
   @include transition-property(all);
   @include transition-timing-function( cubic-bezier(0.7, 0.01, 0.3, 1) );
 }
 
-#header-menu-button-inner{
+
+
+#header-menu-button-label, #header-menu-close-button-label{
   width: 24px;
   height: 4px;
   right: 0;
+  cursor: inherit;
 
   background: white;
   position: absolute;
@@ -137,11 +143,11 @@ $header-height: 90px;
   }
 
   &:before{
-    top: -8px;
+    top: 5px;
   }
 
   &:after{
-    top: 8px;
+    top: 14px;
   }
 
 
@@ -152,44 +158,80 @@ $header-height: 90px;
       background-color: #2facda;
     }
   }
+}
 
+#header-menu-button-label{
+  height: 24px;
+  background: transparent;
+  border-top: 4px white solid;
+  position: relative;
+  display: block;
 
+  &:before{
+      top: 5px;
+  }
+
+  &:after{
+    top: 14px;
+  }
+  
+}
+
+#header-menu-close-button-label{
+  height: 24px;
+
+  &:before, &:after{
+    top: 10px;
+  }
+
+  display: none;
+
+  background: none;
+
+  &:before, &:after {
+    //top: 10px;
+    background: $gray-color;
+  }
+  &:before {
+    @include transform(rotate(-45deg));
+  }
+  &:after {
+    @include transform(rotate(45deg));
+  }
 }
 
 #header-menu-button{
   &:hover {
-    #header-menu-button-inner {
+    #header-menu-button-label, #header-menu-close-button-label {
       &:before {
-        top: -9px;
+        //top: -9px;
+        //top: 5px;
       }
       &:after {
-        top: 9px;
+        //top: 9px;
+        //top: 14px;
       }
     }
   }
 }
 
-#header-show-menu-flag{
+#menu-focus-flag{
   &:checked {
-    & ~ #header-menu-button {
-      #header-menu-button-inner {
-        background: none;
 
-        &:before, &:after {
-          top: 0;
-          background: $gray-color;
+    & ~ #body-inner{
+      #header-menu-button {
+        #header-menu-button-label {
+          display: none;
         }
-        &:before {
-          @include transform(rotate(-45deg));
-        }
-        &:after {
-          @include transform(rotate(45deg));
+
+        #header-menu-close-button-label{
+          display: block;
         }
       }
-    }
 
-    & ~ #header-menu-container{
-      display: block;
+      #header-menu-container{
+        display: block;
+      }
     }
   }
 }

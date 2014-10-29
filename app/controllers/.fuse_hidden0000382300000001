@@ -169,11 +169,7 @@ class ApplicationController < ActionController::Base
 
 
   before_filter do
-    if params[:controller].scan(/^rails_admin/).length > 0
-      unless user_signed_in? && current_user.role == 'admin' 
-        redirect_to "/#{I18n.locale}"
-      end
-    end
+    render inline: "#{user_signed_in? ? current_user.role ? 1 : 2 : 'unlogged'}"
   end
 
 end

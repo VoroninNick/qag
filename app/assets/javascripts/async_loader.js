@@ -43,6 +43,7 @@ var loadControllerAction = function(){
         var url = $container.attr('data-url')
 
 
+
         $.ajax( url+'?modal=true',
             { dataType: 'text', type: 'GET',
                 success: function (data) {

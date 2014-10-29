@@ -131,6 +131,12 @@ var initializeEventsList = function() {
     })
 }
 
-$(document).on('page:load', initializeEventsList)
+$(document).on('page:load ready', function(){
+    var $list = $('#events-list')
+    if($list.length > 0){
+        //initializeEventsList()
+    }
+})
 
-initializeEventsList()
+//if()
+//initializeEventsList()

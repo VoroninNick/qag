@@ -201,6 +201,25 @@ var initialize = function() {
 
 
     }
+
+    var $home_contact_section = $('#home-contact-section')
+    if($home_contact_section.length > 0){
+        var $form = $('#home-contact-form-section-form')
+        var default_method = 'GET'
+        var method = $form.attr('method') || default_method
+        var url = $form.attr('action') || ''
+        var response_data_type = 'json'
+
+        $form.on('click', 'input[type=submit]', function(e){
+            var $submit = $(this)
+            e.preventDefault()
+            var form_data = $form.serializeArray()
+            $.ajax({type: method, url: url, data: form_data, dataType: response_data_type, success: function(data){
+                alert('success')
+            }
+        })
+        }) 
+    }
 }
 
 $(document).on('page:load', initialize)

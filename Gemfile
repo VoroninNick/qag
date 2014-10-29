@@ -132,8 +132,18 @@ group :naucc, :development, :test, :cucumber, :caching do
   gem 'watchr'
   gem 'foreman'
   gem 'delorean'
-  gem 'pry'
+  #gem 'pry'
+
 end
+
+group :development, :test do
+ # gem 'jazz_hands'
+end
+
+gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
+gem 'pry-byebug'   # This may or may not work with 2.1.2 either, so remove if you still get errorrs
+
+#gem 'debugger'
 
 gem 'amoeba'
 

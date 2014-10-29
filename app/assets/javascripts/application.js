@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require translate_functions
+//= require locales
 //= require async_loader
 //= require jquery.mousewheel.min
 //= require grayscale.min

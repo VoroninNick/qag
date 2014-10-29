@@ -43,18 +43,18 @@ en:
       updated: "Your account has been updated successfully."
 
       placeholders:
-        first_name: "Ім'я"
-        last_name: ""
-        email: ""
-        contact_phone: ""
-        password: ""
-        password_confirmation: ""
-        city: ""
-        company: ""
-        status: ""
-        description: ""
+        first_name: "First name"
+        last_name: "Last name"
+        email: "Email"
+        contact_phone: "Contact phone"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        city: "City"
+        company: "Company"
+        status: "Status"
+        description: "Description"
 
-      required_fields_help: "* поля обов'язкові для заповнення"
+      required_fields_help: "* required fields"
       create_button: "create my account"
 
     sessions:

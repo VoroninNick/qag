@@ -1,47 +1,48 @@
-#footer
-  #footer-menu-and-social-icons-row.row
-    #footer-menu.columns.large-6
-      ul#footer-menu-ul
-        li.footer-menu-li
-          a.footer-menu-li-a  href=about_path
-            = t('layout.footer.menu.about')
-        li.footer-menu-li
-          a.footer-menu-li-a href=events_list_path
-            = t('layout.footer.menu.events')
-        li.footer-menu-li
-          a.footer-menu-li-a href=articles_list_path
-            = t('layout.footer.menu.articles')
-        li.footer-menu-li
-          a.footer-menu-li-a href=contact_path
-            = t('layout.footer.menu.contact')
+- unless params[:controller].scan(/^rails_admin/).length > 0 
+  #footer
+    #footer-menu-and-social-icons-row.row
+      #footer-menu.columns.large-6
+        ul#footer-menu-ul
+          li.footer-menu-li
+            a.footer-menu-li-a  href=about_path
+              = t('layout.footer.menu.about')
+          li.footer-menu-li
+            a.footer-menu-li-a href=events_list_path
+              = t('layout.footer.menu.events')
+          li.footer-menu-li
+            a.footer-menu-li-a href=articles_list_path
+              = t('layout.footer.menu.articles')
+          li.footer-menu-li
+            a.footer-menu-li-a href=contact_path
+              = t('layout.footer.menu.contact')
 
-    #footer-social-icons.columns.large-5.large-push-1
-      ul#footer-social-icons-ul
-        - Setting.get_social_links.each_pair do |key, value|
-          li.footer-social-icons-ul-li
-            a.footer-social-icons-ul-li-a href=value
-              = embedded_svg_from_assets("svg/#{key}.svg")
+      #footer-social-icons.columns.large-5.large-push-1
+        ul#footer-social-icons-ul
+          - Setting.get_social_links.each_pair do |key, value|
+            li.footer-social-icons-ul-li
+              a.footer-social-icons-ul-li-a href=value
+                = embedded_svg_from_assets("svg/#{key}.svg")
 
-  #footer-partners-and-copyright-and-developed-by-row.row
-    #footer-partners.columns.large-6
-      #footer-partners-tip
-        = t('layout.footer.partners.title')
-      ul#footer-partners-ul
-        - Partner.all.where("published = 't' ").each do |p|
-          li.footer-partners-ul-li
-            a.footer-partners-ul-li-a href=p.link
-              img.footer-partners-ul-li-a-img src=p.avatar.url() alt=p.avatar_alt
+    #footer-partners-and-copyright-and-developed-by-row.row
+      #footer-partners.columns.large-6
+        #footer-partners-tip
+          = t('layout.footer.partners.title')
+        ul#footer-partners-ul
+          - Partner.all.where("published = 't' ").each do |p|
+            li.footer-partners-ul-li
+              a.footer-partners-ul-li-a href=p.link
+                img.footer-partners-ul-li-a-img src=p.avatar.url() alt=p.avatar_alt
 
 
 
-    #footer-copyright-and-developed-by.columns.large-5.large-push-1
-      #footer-copyright
-        = raw t('layout.footer.copyright')
-      #footer-developed-by
-        a#vs-logo-link href=t('layout.footer.developed-by.studio-site-link')
-          = embedded_svg_from_assets('svg/vs_logo.svg')
-        p#footer-developed-by-text
-          = raw t('layout.footer.developed-by.developed', link_start: "<a href='#{t('layout.footer.developed-by.studio-site-link')}'>", link_end: "</a>")
-          = raw t('layout.footer.developed-by.project-info', link_start: "<a href='#{t('layout.footer.developed-by.project-link')}'>", link_end: "</a>")
+      #footer-copyright-and-developed-by.columns.large-5.large-push-1
+        #footer-copyright
+          = raw t('layout.footer.copyright')
+        #footer-developed-by
+          a#vs-logo-link href=t('layout.footer.developed-by.studio-site-link')
+            = embedded_svg_from_assets('svg/vs_logo.svg')
+          p#footer-developed-by-text
+            = raw t('layout.footer.developed-by.developed', link_start: "<a href='#{t('layout.footer.developed-by.studio-site-link')}'>", link_end: "</a>")
+            = raw t('layout.footer.developed-by.project-info', link_start: "<a href='#{t('layout.footer.developed-by.project-link')}'>", link_end: "</a>")
 
 

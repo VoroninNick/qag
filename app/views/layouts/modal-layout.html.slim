@@ -1,12 +1,15 @@
-input type="checkbox" id="#{@modal_id}-flag" class="flag modal-flag"
-.popup.less-than-screen id="#{@modal_id}"
+/input name="focus" type="radio" id="#{@modal_id}-flag" class="flag modal-flag"
+.popup.less-than-screen id="#{@modal_id}" 
   .popup-reset
     .popup-overlay-container
       .popup-height-keep
         .popup-box-border
           .popup-box
             .popup-box-content
-              label#popup-close-button for="#{@modal_id}-flag"
+              /label#popup-close-button for="#{@modal_id}-flag"
+              label#popup-close-button for="wrap-focus-flag"
+              /label.popup-close-button
               = yield
-        label.popup-height-overlay for="#{@modal_id}-flag"
+        /label.popup-height-overlay for="#{@modal_id}-flag"
+        label.popup-height-overlay for="wrap-focus-flag"
       .popup-overlay

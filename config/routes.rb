@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   scope "(:locale)" do
+    post 'message', to: 'messages#create', as: 'create_message'
+
     get 'contact', to: 'contact#index', as: :contact
 
     get 'articles', to: 'articles#list', as: :articles_list

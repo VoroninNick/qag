@@ -1,6 +1,6 @@
 class Object
 	def const_defined_recursively?(str)
-		if str.is_a(String)
+		if str.is_a?(String)
 			parts = str.split('::')
 			parts_count = parts.count
 			result = 0

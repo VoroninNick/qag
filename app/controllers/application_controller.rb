@@ -74,7 +74,7 @@ class ApplicationController < ActionController::Base
         controller_name = controller_name_parts.join('::')
         controller_class_name = "#{controller_name}Controller"
         #render inline: controller_class_name
-        if Object.const_defined?(controller_class_name)
+        if Object.const_defined_recursively?.const_defined?(controller_class_name)
           controller_class =  Object.const_get(controller_class_name) 
         else
           controller_class = nil

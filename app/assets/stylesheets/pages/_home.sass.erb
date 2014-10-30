@@ -520,6 +520,7 @@ $expired-events-pages-count: $expired-events-count / 5
           .description
             .event-title
               font-size: 2rem
+              color: white
             .event-description
               padding-top: 2rem
               font-weight: 300
@@ -538,7 +539,7 @@ $expired-events-pages-count: $expired-events-count / 5
 
 
             .register-button
-              label
+              .register-button-a
                 height: 3.75rem
                 display: inline-block
                 background: $registration-button-background
@@ -563,6 +564,7 @@ $expired-events-pages-count: $expired-events-count / 5
                   text-transform: uppercase
                   font-size: 1.3rem
                   font-weight: 700
+                  color: white
 
 
 
@@ -722,8 +724,10 @@ $expired-events-pages-count: $expired-events-count / 5
                 .day-number
                   height: 5rem
                   font-size: 6rem
+                  line-height: 5rem
                 .month
                   font-size: 1.5rem
+                  margin-top: 8px
               .bullet
                 .render-bullet
                   background: $featured-events-timeline-active-bullet-background
@@ -740,10 +744,13 @@ $expired-events-pages-count: $expired-events-count / 5
 
 #home-featured-prev-event-arrow, #home-featured-next-event-arrow
   position: absolute
-  top: 150px
+  top: 50%
+  transform: translate3d(0, -50%, 0)
   height: rem-calc(33)
   width: rem-calc(22)
   cursor: pointer
+
+
 #home-featured-prev-event-arrow
   left: -45px
 #home-featured-next-event-arrow

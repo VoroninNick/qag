@@ -1,5 +1,54 @@
 Rails.application.routes.draw do
   scope "(:locale)" do
+
+    devise_for :users, controllers:{ event_subscriptions: 'event_subscriptions' }, skip: [:sessions, :passwords, :confirmations, :registrations] do
+     # get "accounts/signedup", :to => "users/accounts/registrations#signedup", :as => "signedup_registration"
+      #get 'event/*tags/:item/register', to: 'users/event_subscriptions#new', as: :register_on_event
+    end
+
+    devise_scope :user do
+
+    get 'event/:event_id/register', to: 'users/event_subscriptions#new', as: 'new_event_subscription'
+    match 'event/:event_id/register', to: 'users/event_subscriptions#create', as: 'create_event_subscription', via: [ :post, :patch ]
+    get 'event/:event_id/unregister', to: 'users/event_subscriptions#unsubscribe_form', as: 'event_unsubscription_form'
+    post 'event/:event_id/unregister', to: 'users/event_subscriptions#unsubscribe', as: 'event_unsubscribe'
+
+
+    # session handling
+    get     '/my/dashboard/login'  => 'users/sessions#new',     as: 'new_user_session'
+    post    '/my/dashboard/login'  => 'users/sessions#create',  as: 'user_session'
+    match  '/my/dashboard/logout' => 'users/sessions#destroy', as: 'destroy_user_session', via: [:post, :delete]
+    get '/my/dashboard/logout', to: 'users/sessions#destroy_form', as: 'user_session_destroy_form'
+
+
+    # joining
+    get   '/my/dashboard/join' => 'users/registrations#new',    as: 'new_user_registration'
+    post  '/my/dashboard/join' => 'users/registrations#create', as: 'user_registration'
+    put   '/my/dashboard/join' => 'users/registrations#update'
+    delete '/my/dashboard/join' => 'users/registrations#destroy'
+
+    scope '/my/dashboard/account' do
+      # password reset
+      get   '/reset-password'        => 'users/passwords#new',    as: 'new_user_password'
+      put   '/reset-password'        => 'users/passwords#update', as: 'user_password'
+      post  '/reset-password'        => 'users/passwords#create'
+      get   '/reset-password/change' => 'users/passwords#edit',   as: 'edit_user_password'
+
+      # confirmation
+      get   '/confirm'        => 'users/confirmations#show',   as: 'user_confirmation'
+      post  '/confirm'        => 'users/confirmations#create'
+      get   '/confirm/resend' => 'users/confirmations#new',    as: 'new_user_confirmation'
+
+      # settings & cancellation
+      get '/cancel'   => 'users/registrations#cancel', as: 'cancel_user_registration'
+      get '/settings' => 'users/registrations#edit',   as: 'edit_user_registration'
+      put '/settings' => 'users/registrations#update'
+
+      # account deletion
+      delete '' => 'users/registrations#destroy'#, as: 'delete_user_registration'
+    end
+  end
+
     post 'message', to: 'messages#create', as: 'create_message'
 
     get 'contact', to: 'contact#index', as: :contact
@@ -12,7 +61,11 @@ Rails.application.routes.draw do
 
     get 'events/:tag', to: 'events#tag', as: :event_tag
 
+    get 'event/*tags/:item/register', to: 'users/event_subscriptions#new', as: :register_on_event
+
     get 'event/*tags/:item', to: 'events#item', as: :event_item
+
+
 
     get 'about', to: 'about#index', as: :about
 
@@ -23,7 +76,10 @@ Rails.application.routes.draw do
 
     mount Ckeditor::Engine => '/ckeditor'
     mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-    devise_for :users
+    
+    
+    
+
     root to: 'home#index'
   end
 

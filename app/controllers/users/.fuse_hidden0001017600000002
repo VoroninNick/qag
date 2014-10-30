@@ -1,0 +1,51 @@
+class Users::EventSubscriptionsController < ApplicationController
+	#before_filter do
+	#	if !user_signed_in?
+	#		#@user_form = User.new
+	#		flash[:alert] = 'hello2'
+	#	end
+	#end
+
+	#before_action :authenticate_user! do
+	#	flash[:alert] = 'hello'
+	#end
+
+	before_filter [
+	 #:authenticate,
+	 #:authorize, 
+	 #:warn_unless_confirmed
+	]
+
+	def concatenate_flash(&block)
+	  warning = flash[:warning].blank? ? [] : [ flash[:warning] ]
+	  yield
+	  warning << flash[:warning] unless warning.include? flash[:warning]
+	  flash[:warning] = warning
+	end
+
+	def authenticate
+	  concatenate_flash do
+	    authenticate_user!
+	  end
+	end
+
+
+	def warn_unless_confirmed!
+	  concatenate_flash do
+	    unless current_user.confirmed?
+	      flash[:warning]=t(:remember_to_confirm )
+	    end
+	  end
+	end
+
+	def new
+
+		render template: "devise/event_subscriptions/new"
+	end
+
+	def create
+		render template: "devise/event_subscriptions/create"
+	end
+
+
+end

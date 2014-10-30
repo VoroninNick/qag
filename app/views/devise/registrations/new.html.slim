@@ -8,6 +8,7 @@
         = f.input :first_name, required: true, auto_focus: true, label: false, placeholder: "#{t('devise.registrations.placeholders.first_name')}*"
         = f.input :last_name, label: false, required: true, placeholder: "#{t('devise.registrations.placeholders.last_name')}*"
         = f.input :email, required: true, label: false, placeholder: "#{t('devise.registrations.placeholders.email')}*"
+        = f.input :contact_phone, required: true, label: false, placeholder: "#{t('devise.registrations.placeholders.contact_phone')}*"
         = f.input :password, required: true, label: false, placeholder: "#{t('devise.registrations.placeholders.password')}", hint: ("#{@minimum_password_length} characters minimum" if @validatable)
         = f.input :password_confirmation, label: false, required: true, placeholder: "#{t('devise.registrations.placeholders.password_confirmation')}*"
         = f.input :city, label: false, placeholder: t('devise.registrations.placeholders.city')

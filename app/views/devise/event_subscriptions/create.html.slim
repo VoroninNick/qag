@@ -1,0 +1,9 @@
+= flash[:result]
+- if @event
+  br
+  a href=event_item_path(item: @event.slug, tags: @event.tags.join('-'))
+  	= "Read more about this event"
+  
+br
+a href=events_list_path(locale: I18n.locale)
+  = "events list"

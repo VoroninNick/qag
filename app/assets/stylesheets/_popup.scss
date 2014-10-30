@@ -452,7 +452,7 @@ select:-webkit-autofill {
 #devise_registrations-new-get-flag{
   &:checked{
     & ~ #body-inner{
-      #devise_registrations-new-get{
+      #users_registrations-new-get{
         @include transform( translate3d(0, 0, 0) );
         opacity: 1;
       }
@@ -463,7 +463,7 @@ select:-webkit-autofill {
 #devise_sessions-new-get-flag{
   &:checked{
     & ~ #body-inner{
-      #devise_sessions-new-get{
+      #users_sessions-new-get{
         //transform: translateY(0);
         @include transform( translate3d(0, 0, 0) );
         opacity: 1;
@@ -475,7 +475,7 @@ select:-webkit-autofill {
 #devise_confirmations-new-get-flag{
   &:checked{
     & ~ #body-inner{
-      #devise_confirmations-new-get{
+      #users_confirmations-new-get{
         //transform: translateY(0);
         @include transform( translate3d(0, 0, 0) );
         opacity: 1;
@@ -487,7 +487,7 @@ select:-webkit-autofill {
 #devise_unlocks-new-get-flag{
   &:checked{
     & ~ #body-inner{
-      #devise_unlocks-new-get{
+      #users_unlocks-new-get{
         //transform: translateY(0);
         @include transform( translate3d(0, 0, 0) );
         opacity: 1;
@@ -499,7 +499,7 @@ select:-webkit-autofill {
 #devise_passwords-new-get-flag{
   &:checked{
     & ~ #body-inner{
-      #devise_passwords-new-get{
+      #users_passwords-new-get{
         //transform: translateY(0);
         @include transform( translate3d(0, 0, 0) );
         opacity: 1;

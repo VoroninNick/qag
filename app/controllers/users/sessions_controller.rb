@@ -16,6 +16,9 @@ class Users::SessionsController < Devise::SessionsController
   #   super
   # end
 
+  def destroy_form
+  end
+
   # protected
 
   # You can put the params you want to permit in the empty array.

@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
 
 
-  def item
+  def find_event
     params_item = params[:item]
     @event_ids_rows = Event.find_by_sql("select t.event_id as id from #{Event.translation_class.table_name} t where t.locale='#{I18n.locale}' and t.slug='#{params_item}'")
     @event_ids = []
@@ -15,7 +15,11 @@ class EventsController < ApplicationController
       end
 
     end
+  end
 
+  def item
+    
+    find_event
 
     @breadcrumbs = {
         home: {},
@@ -88,5 +92,16 @@ class EventsController < ApplicationController
   def tag
 
     render template: 'events/list'
+  end
+
+
+  def register_on_event_get
+    find_event
+
+    # if !user_signed_in?
+    #   render template: "events/registration_form"
+    # end
+
+    render template: "devise/event_subscriptions/new"
   end
 end

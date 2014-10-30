@@ -29,7 +29,7 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
             .featured-section-event-content
               .image-and-info.columns.large-4
                 .image
-                  a href="#"
+                  a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
                     img src=image_or_stub_url(event.avatar, :event_list_small_thumb, 360, 240, "event #{event.id}")
                 .info
                   .start-date
@@ -51,7 +51,7 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
 
 
               .description.columns.large-8
-                .event-title
+                a.event-title href=event_item_path(item: event.slug, tags: event.tags.join('-'))
                   = event.name
                   / slide.name
                 .event-description
@@ -60,10 +60,10 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
               .event-link-and-register-button
                 .event-link-wrapper.large-4.columns.large-push-4
                   .event-link
-                    a href="#"
+                    a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
                       |Детальніше про подію
                 .register-button.columns.large-4.right
-                  label
+                  a.register-button-a href=new_event_subscription_path(event.id, locale: I18n.locale)
                     = embedded_svg_from_assets('svg/registration.svg')
                     span.registration-text
                       |Зареєструватись

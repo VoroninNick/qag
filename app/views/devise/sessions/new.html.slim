@@ -1,7 +1,16 @@
 #devise-content
   #devise_sessions-new-get-form-wrap.devise-form-wrap
     .form-title
-      = t('devise.sessions.header')
+      = flash[:title] || t('devise.sessions.header')
+    - if !flash["unlogged_text"].nil?
+      .unlogged-text
+        .unlogged-header
+          = flash["unlogged_text"]["unlogged_header"]
+        .unlogged-text-part-1
+          = flash["unlogged_text"]["unlogged_text_1"]
+        .unlogged-text-part-2
+          = flash["unlogged_text"]["unlogged_text_2"]
+
     = simple_form_for(resource, as: resource_name, url: session_path(resource_name, locale: I18n.locale)) do |f|
       .form-inputs
         = f.input :email, required: false, autofocus: true, label: false, placeholder: t('devise.sessions.placeholders.email')

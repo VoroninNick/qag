@@ -27,7 +27,10 @@ class Users::EventSubscriptionsController < ApplicationController
 
 	def authenticate
 	  concatenate_flash do
-	    authenticate_user!
+	    #authenticate_user!
+			if !user_signed_in?
+				flash[:logged_in] = false
+			end
 	  end
 	end
 
@@ -49,10 +52,13 @@ class Users::EventSubscriptionsController < ApplicationController
 		}
 		
 
-		
+
 		authenticate
 		#authorize
-		warn_unless_confirmed!
+		if user_signed_in?
+			@logged_in = false
+			warn_unless_confirmed!
+		end
 
 		#render inline: 'new'
 
@@ -64,7 +70,12 @@ class Users::EventSubscriptionsController < ApplicationController
 		else
 			@event = nil
 		end
+
+		if user_signed_in?
 		render template: "devise/event_subscriptions/new"
+		else
+			render template: "devise/sessions/new"
+		end
 	end
 
 	def create

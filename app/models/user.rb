@@ -64,10 +64,12 @@ class User < ActiveRecord::Base
   rails_admin do
 
     edit do
+      field :role
       field :translations, :globalize_tabs
       field :email
       field :password
       field :password_confirmation
+
       # field :reset_password_sent_at do
       #   read_only true
       # end

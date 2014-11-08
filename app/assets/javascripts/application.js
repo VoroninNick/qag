@@ -12,12 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require translate_functions
-//= require locales
-//= require async_loader
+//= require tiny_validation
+//= require variables
+// require translate_functions
+// require locales
+// require async_loader
 //= require jquery.mousewheel.min
 //= require grayscale.min
-//= require selectize
+// selectize
 // foundation
 // require turbolinks
 //= require rich_marker
@@ -26,9 +28,16 @@
 //= require home
 //= require contact
 //= require events
+// require render
+// require initializers/layout
+// require initializer
 
+//= require fast_code/layout
 
 //$(function(){ $(document).foundation(); });
+
+
+
 
 $(document).on('page:load', function(){
     if(window.location.pathname == '' || window.location.pathname == '/'){
@@ -39,3 +48,4 @@ $(document).on('page:load', function(){
     }
 
 })
+

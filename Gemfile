@@ -158,3 +158,5 @@ gem 'simple_form'
 gem "recaptcha", :require => "recaptcha/rails"
 
 gem 'phony_rails'
+
+gem 'render_anywhere', :require => false

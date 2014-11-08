@@ -1,0 +1,84 @@
+<%
+
+  # include AbstractController::Logger
+  # include AbstractController::Rendering
+  # include AbstractController::Layouts
+  # include AbstractController::Helpers
+  # include AbstractController::Translation
+  # include AbstractController::AssetPaths
+  # include ActionController::UrlFor
+  # include Rails.application.routes.url_helpers
+
+  require Rails.root.join('app/models/renderers/simple_renderer')
+
+	def render_string_from_js(options = {} )
+
+		if !options.include?(:formats)
+			options[:formats] = [:html] 
+		end
+
+		if !options.include?(:handlers)
+			options[:handlers] = [:slim]
+		end
+
+		#html = ActionView::Base.new(Rails.configuration.paths['app/views']).render_to_string(options)
+		html = ActionController::Base.new().render_to_string(options)
+
+		escaped_html = js_escape(html)
+
+		escaped_html
+	end
+
+	def js_escape(str)
+		html = str
+		escaped_html = html.gsub(/\"/, "\\\"").gsub(/\'/, "\\\"")
+		escaped_html
+	end
+
+	def render_anywhere(options = {}, local_assigns = {})
+  		view = ActionView::Base.new(Rails::Configuration.new.view_path, local_assigns)
+  		ActionView::Base.helper_modules.each { |helper| view.extend helper }
+  		view.extend ApplicationHelper
+  		view.render(options, local_assigns)
+	end
+
+	def render_to_js(args = {})
+		rendered_source = SimpleRenderer.self_instance.render(args)
+		escaped_source = js_escape(rendered_source)
+
+		escaped_source
+	end
+
+	def render_to_js_string(args = {})
+		escaped_source = render_to_js(args)
+		"\"#{escaped_source}\""
+	end
+
+
+
+%>
+
+<%# ApplicationController.new.render_to_string(template: 'layouts/modal-layout-html-template.html') %>
+
+window.layouts = {     modal_layout: "<%= render_string_from_js(template:'layouts/modal-layout-html-template.html') %>" 
+}
+
+window.templates = {
+	devise: {
+		sessions: {
+			//new: "<%# render_string_from_js(template: "devise/sessions/new_jsml.html", locales: { flash: {} }) %>"
+			new: <%= render_to_js_string(template: "devise/sessions/new_jsml2.html", layout: false, locals: {controller_name: 'sessions'} ) %>,
+			successfully_signed_in: <%= render_to_js_string(template: "devise/sessions/signed_in_successfully_message.jsml", layout: false) %>
+		},
+		registrations: {
+			new: <%= render_to_js_string(template: "devise/registrations/new_jsml.html", layout: false, locals: { resource: :user, resource_name: :user, controller_name: nil, devise_mapping: nil } ) %>
+		},
+		passwords: {
+			new: <%= render_to_js_string(template: "devise/passwords/new_jsml.html", layout: false, locals: { resource: :user, resource_name: :user, controller_name: nil } ) %>
+		}
+	}
+}
+
+window.partials = {
+
+}

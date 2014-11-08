@@ -346,6 +346,10 @@ $header-height: 90px;
   }
 }
 
+#header-menu-user-wrapper{
+  display: inline-block;
+}
+
 #header-menu-user-menu{
   vertical-align: top;
 
@@ -364,7 +368,8 @@ $header-height: 90px;
   display: block;
 }
 
-#header-menu-user-menu:hover #header-menu-user-dropdown, 
+#header-menu-user-menu:hover #header-menu-user-dropdown,
+#header-menu-user-wrapper:hover #header-menu-user-dropdown,
 #header-menu-user-dropdown:hover {
   display: block;
 }

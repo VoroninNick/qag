@@ -1,0 +1,100 @@
+.progress-bar {
+//  height:20px;
+//  width:200px;
+//  padding:10px;
+//  margin:200px auto 0;
+//  background-color:rgba(0,0,0,.1);
+//  -webkit-border-radius:25px;
+//  -moz-border-radius:25px;
+//  -ms-border-radius:25px;
+//  border-radius:20px;
+//  -webkit-box-shadow:0 1px 0 rgba(255,255,255,.03),inset 0 1px 0 rgba(0,0,0,.1);
+//  -moz-box-shadow:0 1px 0 rgba(255,255,255,.03),inset 0 1px 0 rgba(0,0,0,.1);
+//  -ms-box-shadow:0 1px 0 rgba(255,255,255,.03),inset 0 1px 0 rgba(0,0,0,.1);
+//  box-shadow:0 1px 0 rgba(255,255,255,.03),inset 0 1px 0 rgba(0,0,0,.1);
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+  opacity: 1;
+}
+
+.progress-bar-moving-bg {
+  display:inline-block;
+  height:100%;
+  width:100%;
+  border:1px solid #ff9a1a;
+  border-bottom-color:#ff6201;
+  background-color:#d3d3d3;
+  @include border-radius(20px);
+  @include box-sizing(border-box);
+  background-image:
+  -webkit-linear-gradient(
+                  -45deg,
+                  rgba(255, 154, 26, 1) 25%,
+                  transparent 25%,
+                  transparent 50%,
+                  rgba(255, 154, 26, 1) 50%,
+                  rgba(255, 154, 26, 1) 75%,
+                  transparent 75%,
+                  transparent
+  );
+  background-image:
+  -moz-linear-gradient(
+                  -45deg,
+                  rgba(255, 154, 26, 1) 25%,
+                  transparent 25%,
+                  transparent 50%,
+                  rgba(255, 154, 26, 1) 50%,
+                  rgba(255, 154, 26, 1) 75%,
+                  transparent 75%,
+                  transparent
+  );
+  background-image:
+  -ms-linear-gradient(
+                  -45deg,
+                  rgba(255, 154, 26, 1) 25%,
+                  transparent 25%,
+                  transparent 50%,
+                  rgba(255, 154, 26, 1) 50%,
+                  rgba(255, 154, 26, 1) 75%,
+                  transparent 75%,
+                  transparent
+  );
+  background-image:
+  linear-gradient(
+                  -45deg,
+                  rgba(255, 154, 26, 1) 25%,
+                  transparent 25%,
+                  transparent 50%,
+                  rgba(255, 154, 26, 1) 50%,
+                  rgba(255, 154, 26, 1) 75%,
+                  transparent 75%,
+                  transparent
+  );
+  @include background-size(50px 50px);
+  @include animation(move 2s linear infinite);
+  @include border-radius(20px);
+  overflow: hidden;
+  @include box-shadow(inset 0 10px 0 rgba(255,255,255,.2));
+}
+
+.progress-bar-moving-bg:after {
+  display: none;
+}
+
+
+/*
+Animate the stripes
+*/
+@include keyframes(move){
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 50px 50px;
+  }
+}

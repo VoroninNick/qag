@@ -28,8 +28,14 @@ module Qag
 
     config.assets.precompile += %w( modernizr_load1.js modernizr_svg.min.js )
 
+    Rails.application.config.assets.precompile += %w( views.js )
+
     config.action_mailer.default_url_options = {
-        :host => 'www.qag.voroninstudio.eu',
+        :host => 'qag.voroninstudio.eu',
     }
+
+    if Rails.env != :production
+     #config.assets.compile = false
+    end
   end
 end

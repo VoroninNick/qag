@@ -1,0 +1,231 @@
+$header_menu_user_wrapper = $('#header-menu-user-wrapper')
+logged_in = $html.hasClass('logged_in')
+
+$modal_windows_wrapper = $("#modal-windows-wrapper")
+
+modalOpenClass = 'modal-open'
+modalCloseTriggerClass = 'modal-close-trigger'
+
+submitButtonClass = 'input-submit'
+
+loginLinkClass = 'login'
+logoutLinkClass = 'logout'
+
+popupLinkClass = 'popup-link'
+
+$login_link = $('#header-menu-user-wrapper a.popup-link.login')
+
+registration_location = false
+registration_event_id = false
+
+delay_before_remove_popup = 2000
+
+submitButtonProgressClass = 'progress-bar-moving-bg'
+
+<%
+    def path( name, options = {} )
+        Rails.application.routes.url_helpers.send("#{name}_path", options)
+    end
+
+    def js_path( name, options = {} )
+        "\"#{path(name, options)}\""
+    end
+
+    def routes
+        Rails.application.routes.url_helpers
+    end
+%>
+
+config = {
+    routes: {
+        new_user_session: <%= js_path(:new_user_session, locale: I18n.locale) %>,
+        edit_user_registration: <%= js_path(:edit_user_registration, locale: I18n.locale) %>,
+        my_events: <%= js_path(:root, locale: I18n.locale) %>,
+        user_session_destroy_form: <%= js_path(:user_session_destroy_form, locale: I18n.locale) %>
+
+    }
+}
+
+function path(name){
+    if(config.routes.hasOwnProperty(name)){
+        return config.routes[name]
+    }
+    return false
+}
+
+function remove_with_delay(element_to_remove, delay){
+    delay = delay || delay_before_remove_popup
+    $elem = $(element_to_remove)
+    $elem.remove()
+//    if($elem.length > 0){
+//        setTimeout(function(){
+//            $elem.remove()
+//        }, delay);
+//    }
+
+}
+
+$header_menu_user_wrapper.on('click', '.popup-link', function(event){
+    var $link = $(this)
+    var url = $link.attr('href')
+
+
+
+    if($link.hasClass(loginLinkClass) || !logged_in) {
+        //if (!logged_in) {
+            event.preventDefault()
+            $.ajax({
+                dataType: 'html',
+                url: path('new_user_session'),
+                type: 'GET',
+                data: 'modal=true',
+                success: function (data) {
+                    var $modal = $(data)
+                    $modal.addClass(modalOpenClass)
+                    $modal_windows_wrapper.append($modal)
+                }
+
+            })
+        //}
+        //else{
+
+        //}
+    }
+    else{
+        event.preventDefault()
+        $.ajax({
+            dataType: 'html',
+            url: path('user_session_destroy_form'),
+            type: 'GET',
+            data: 'modal=true',
+            success: function (data) {
+                var $modal = $(data)
+                $modal.addClass(modalOpenClass)
+                $modal_windows_wrapper.append($modal)
+            }
+
+        })
+    }
+
+
+})
+
+
+
+$modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' + submitButtonClass, 'a.' + popupLinkClass].join(','), function(event){
+    var $this = $(this)
+    var $popup = $this.closest('.popup')
+
+    if($this.hasClass(modalCloseTriggerClass)){
+        $popup.removeClass(modalOpenClass)
+        remove_with_delay($popup)
+
+        registration_event_id = false
+        registration_location = false
+    }
+    else if($this.hasClass(submitButtonClass)){
+        event.preventDefault()
+
+        var $submit_button = $this
+
+        var $form = $this.closest('form')
+        var form_data = $form.serialize()
+        var url = $form.attr('action')
+        var method = $form.attr('method')
+        if(registration_location) {
+            form_data += "&registration_location=" + registration_location
+        }
+
+        if(registration_event_id){
+            form_data += "&registration_event_id=" + registration_event_id
+        }
+
+        $submit_button.addClass(submitButtonProgressClass);
+
+        $.ajax({
+            url: url,
+            type: method,
+            data: form_data,
+            dataType: 'html',
+            success: function(data){
+                //console.log('this:', $this)
+
+                $submit_button.removeClass(submitButtonProgressClass)
+
+                var $data = $(data)
+
+                if($submit_button.hasClass('login')) {
+                    $popup.removeClass(modalOpenClass)
+                    remove_with_delay($popup)
+                    logged_in = true
+                    $login_link.attr('href', '/en/my/dashboard')
+                    var $header_menu_user_dropdown = $(['<div id="header-menu-user-dropdown">',
+                        '<a href="', path('edit_user_registration'), '" class="header-menu-user-dropdown-link">dashboard</a>',
+                        '<a href="', path('my_events'), '" class="header-menu-user-dropdown-link">events i am subscribed on</a>',
+                        '<a href="', path('user_session_destroy_form'), '" class="popup-link header-menu-user-dropdown-link logout">log out</a>',
+                        '</div>'].join(''))
+
+                    $header_menu_user_dropdown.appendTo($header_menu_user_wrapper)
+                }
+                else if($submit_button.hasClass('logout')){
+                    $popup.removeClass(modalOpenClass)
+                    remove_with_delay($popup)
+                    logged_in = false
+                    $header_menu_user_wrapper.find('#header-menu-user-dropdown').remove()
+
+
+                }
+                else{
+                    $popup.removeClass(modalOpenClass)
+                    remove_with_delay($popup)
+                    $data.addClass(modalOpenClass)
+                    $modal_windows_wrapper.append($data)
+
+                }
+            }
+        })
+    }
+    else if($this.hasClass(popupLinkClass)){
+        var $popup_link = $this
+        var url = $popup_link.attr('href')
+        $.ajax({
+            type: 'get',
+            url: url,
+            data: 'modal=true',
+            dataType: 'html',
+            success: function(data){
+                var $modal = $(data)
+                $modal.addClass(modalOpenClass)
+                $popup.removeClass(modalOpenClass)
+                remove_with_delay($popup)
+                $modal_windows_wrapper.append($modal)
+            }
+        })
+    }
+
+
+})
+
+if($html.hasClass('controller-home action-index')){
+    $home_featured_event_info_slides_row_ul = $('#home-featured-event-info-slides-row-ul')
+    $home_featured_event_info_slides_row_ul.on('click', 'a.register-button-a', function(event){
+        event.preventDefault()
+        var $link = $(this)
+        var url = $link.attr('href')
+        var $event = $link.closest('li.event')
+        var event_id = $event.attr('data-event-id')
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'html',
+            data: 'modal=true',
+            success: function(data){
+                var $modal = $(data)
+                $modal.addClass(modalOpenClass)
+                $modal_windows_wrapper.append($modal)
+                registration_location = window.location.pathname
+                registration_event_id = event_id
+            }
+        })
+    })
+}

@@ -107,3 +107,24 @@ $popups_wrapper.on('click', 'a.link-to-input', function(e){
 //
 //
 //
+var $modal_windows_wrapper = $('#modal-windows-wrapper')
+
+
+
+
+var show_modal = function(){
+    var html_source = ""
+
+    <% ApplicationController.view_paths = "app/views" %>
+
+    var html_source_from_template = $("<%= json_escape(ActionView::Base.new.render :template => "rich_marker.js") %>")
+
+    //$modal_windows_wrapper.append(html_source)
+};
+
+var $header_user_menu = $('#header-menu-user-menu')
+if($header_user_menu.length > 0){
+    $header_user_menu.on('click', 'a.logout', function(event) {
+        var $logout_link = $(this)
+    })
+}

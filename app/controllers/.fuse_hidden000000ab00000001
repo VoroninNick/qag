@@ -180,29 +180,4 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  before_filter do
-    #render inline: "#{params[:controller]}##{params[:action]}"
-    if (params[:controller] == 'users/confirmations' || params[:controller] == 'users/registrations' ) && params[:action] == 'create'
-      #render inline: 'hello'
-      @token_registration_location = nil
-      @token_registration_event_id = nil
-      #render inline: request.referer.inspect
-      if params[:registration_location]
-        @token_registration_location = params[:registration_location]
-      else
-        @token_registration_location
-      end
-
-      if params[:registration_event_id]
-        @token_registration_event_id = params[:registration_event_id]
-      end
-
-      if !@token_return_to
-        @token_return_to = '/'
-      end
-
-      #render inline: @token_return_to.inspect
-    end
-  end
-
 end

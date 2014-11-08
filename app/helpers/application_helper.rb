@@ -76,4 +76,24 @@ module ApplicationHelper
     ( (paperclip_instance && paperclip_instance.respond_to?(:exists?) && paperclip_instance.exists?(style) && paperclip_instance.respond_to?(:url) )? paperclip_instance.url(style) : stub_image_link(width, height, text) )
   end
 
+
+
+
+  # =====================================================
+  # -----------------------------------------------------
+  # helpers for offline devise
+  # -----------------------------------------------------
+  # =====================================================
+
+  def resource_name
+    :user
+  end
+
+  def resource
+    @resource ||= User.new
+  end
+
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end
 end

@@ -25,7 +25,7 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
 
       ul#home-featured-event-info-slides-row-ul
         - @featured_events.each_with_index do |event, index|
-          li.event.home-featured-event id="event-#{index + 1}"
+          li.event.home-featured-event id="event-#{index + 1}" data-event-id="#{event.id}"
             .featured-section-event-content
               .image-and-info.columns.large-4
                 .image

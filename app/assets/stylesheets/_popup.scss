@@ -167,9 +167,9 @@ select:-webkit-autofill {
 
 
 .simple_form.new_user{
-  width: 500px;
+  //width: 500px;
   .input{
-    width: 500px;
+    //width: 500px;
     display: inline-block;
     margin: 2px 0;
 
@@ -209,6 +209,16 @@ select:-webkit-autofill {
         }
       }
 
+    }
+
+    &.error{
+      input{
+        color: #ff5949;
+        border-color: #ff5549;
+
+
+
+      }
     }
 
     &.boolean{
@@ -335,7 +345,7 @@ select:-webkit-autofill {
   //label{
     height: 3.75rem;
     display: inline-block;
-    background: $registration-button-background;
+    //background: $registration-button-background;
     width: 100%;
     text-align: center;
     border-radius: 4px;
@@ -385,7 +395,7 @@ select:-webkit-autofill {
 }
 
 #menu-focus-flag{
-  &:chacked{
+  &:checked{
     & ~ #body-inner{
       #header-menu-container{
         display: block;
@@ -414,6 +424,14 @@ select:-webkit-autofill {
     text-align: left;
   }
 }
+
+#modal-windows-wrapper{
+  .devise-form-wrap{
+    width: 500px;
+  }
+}
+
+
 
 // style captcha
 #recaptcha_widget_div{
@@ -508,6 +526,32 @@ select:-webkit-autofill {
   }
 }
 
+// ==================================================
+// --------------------------------------------------
+// modal dialogs
+// --------------------------------------------------
+// ==================================================
+
+// .html-modal-open{
+
+// }
+
+.modal-open{
+  opacity: 1;
+  @include transform(translate3d(0,0,0))
+}
+
+
+
+
+
+// ==================================================
+// --------------------------------------------------
+// style forms
+// --------------------------------------------------
+// ==================================================
+
+
 .simple_form.new_user{
   .input.password{
     margin-bottom: 15px;
@@ -528,3 +572,14 @@ select:-webkit-autofill {
 .form-actions{
   margin-top: 3rem;
 }
+
+#message-signed-in-succesfully{
+  width: 500px;
+}
+
+.unlogged-header {
+  font-weight: 500;
+  color: #58595b;
+  font-size: 1.2rem;
+}
+

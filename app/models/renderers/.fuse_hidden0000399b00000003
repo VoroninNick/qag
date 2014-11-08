@@ -1,0 +1,23 @@
+require 'render_anywhere'
+class SimpleRenderer
+	include RenderAnywhere
+
+	def self.self_instance
+		SimpleRenderer.new
+	end
+
+	def self.render_to_js(*args)
+		instance = self.self_instance
+		#rendered_source = instance.render(args)
+		#escaped_source = self.js_escape(rendered_source)
+
+		#escaped_source
+	end
+
+
+	def self.js_escape(str)
+		html = str
+		escaped_html = html.gsub(/\"/, "\\\"").gsub(/\'/, "\\\"")
+		escaped_html
+	end
+end

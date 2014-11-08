@@ -81,6 +81,8 @@ uk:
         subject: 'Інструкції зі скидання паролю'
       unlock_instructions:
         subject: 'Інструкції з розблокування'
+    event_subscriptions:
+      form-subscribe-button: "Зареєструватись!"
 
   shared:
     links:

@@ -1,0 +1,61 @@
+<%
+
+  include AbstractController::Logger
+  include AbstractController::Rendering
+  include AbstractController::Layouts
+  include AbstractController::Helpers
+  include AbstractController::Translation
+  include AbstractController::AssetPaths
+  include ActionController::UrlFor
+  include Rails.application.routes.url_helpers
+
+	def render_string_from_js(options = {} )
+
+		if !options.include?(:formats)
+			options[:formats] = [:html] 
+		end
+
+		if !options.include?(:handlers)
+			options[:handlers] = [:slim]
+		end
+
+		#html = ActionView::Base.new(Rails.configuration.paths['app/views']).render_to_string(options)
+		html = ActionController::Base.new().render_to_string(options)
+
+		escaped_html = js_escape(html)
+
+		escaped_html
+	end
+
+	def js_escape(str)
+		html = str
+		escaped_html = html.gsub(/\"/, "\\\"").gsub(/\'/, "\\\"")
+		escaped_html
+	end
+
+	def render_anywhere(options = {}, local_assigns = {})
+  		view = ActionView::Base.new(Rails::Configuration.new.view_path, local_assigns)
+  		ActionView::Base.helper_modules.each { |helper| view.extend helper }
+  		view.extend ApplicationHelper
+  		view.render(options, local_assigns)
+	end
+
+
+%>
+
+<%# ApplicationController.new.render_to_string(template: 'layouts/modal-layout-html-template.html') %>
+
+window.layouts = {     modal_layout: "<%= render_string_from_js(template:'layouts/modal-layout-html-template.html') %>" 
+}
+
+window.templates = {
+	devise: {
+		sessions: {
+			new: "<%# render_string_from_js(template: "devise/sessions/new_jsml.html", locales: { flash: {} }) %>"
+		}
+	}
+}
+
+window.partials = {
+
+}

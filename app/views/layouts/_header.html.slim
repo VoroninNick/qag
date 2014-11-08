@@ -29,18 +29,19 @@
                 a.header-menu-locale-a.header-menu-inactive-locale-a href=url
                   = locale
 
-      - if !user_signed_in?
-        a#header-menu-user.popup-link data-popup-name="sign_in_popup_form" for="devise_sessions-new-get-flag" href=new_user_session_path(locale: I18n.locale)
-      - else
-        #header-menu-user-menu
-          #header-menu-user.popup-link data-popup-name="sign_in_popup_form" for="devise_sessions-new-get-flag" 
-          #header-menu-user-dropdown
-            a.header-menu-user-dropdown-link href=edit_user_registration_path(locale: I18n.locale)
-              = "dashboard"
-            a.header-menu-user-dropdown-link href="#"
-              = "event i am subscribed on"
-            a.header-menu-user-dropdown-link href=user_session_destroy_form_path(locale: I18n.locale)
-              = "log out"
+      #header-menu-user-wrapper
+        - if !user_signed_in?
+          a#header-menu-user.popup-link.login data-popup-name="sign_in_popup_form" for="devise_sessions-new-get-flag" href=new_user_session_path(locale: I18n.locale)
+        - else
+          #header-menu-user-menu
+            #header-menu-user.popup-link data-popup-name="sign_in_popup_form" for="devise_sessions-new-get-flag" 
+            #header-menu-user-dropdown
+              a.header-menu-user-dropdown-link href=edit_user_registration_path(locale: I18n.locale)
+                = "dashboard"
+              a.header-menu-user-dropdown-link href="#"
+                = "events i am subscribed on"
+              a.popup-link.header-menu-user-dropdown-link.logout href=user_session_destroy_form_path(locale: I18n.locale)
+                = "log out"
 
       #header-menu-search-wrapper
         input#header-menu-search-input type="search"

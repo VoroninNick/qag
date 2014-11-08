@@ -8,5 +8,5 @@
 	  .form-inputs
 	    = f.input :email, required: true, autofocus: true,  label: false, placeholder: "#{t('devise.registrations.placeholders.email')}*"
 	  .form-actions
-	    = f.button :submit, "Resend unlock instructions", class: 'unlock-me-submit-button devise-submit-button'
+	    = f.button :submit, "Resend unlock instructions", class: 'input-submit unlock-me-submit-button devise-submit-button orange-bg'
 	= render "devise/shared/links"

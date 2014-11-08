@@ -2,7 +2,7 @@
   #devise_sessions-new-get-form-wrap.devise-form-wrap
     .form-title
       = t('devise.registrations.header')
-    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name, locale: I18n.locale)) do |f|
+    = simple_form_for(:user, as: :user, url: registration_path(resource_name, locale: I18n.locale)) do |f|
       = f.error_notification
       .form-inputs
         = f.input :first_name, required: true, auto_focus: true, label: false, placeholder: "#{t('devise.registrations.placeholders.first_name')}*"
@@ -17,17 +17,13 @@
         = f.input :description, label: false, placeholder: t('devise.registrations.placeholders.description')
         /= recaptcha_tags display: { lang: I18n.locale }
       .form-actions
-
-
-        = f.button :submit, t('devise.registrations.create_button'), class: 'input-submit sign-up-submit-button devise-submit-button orange-bg'
-        //span.progress-bar
-          span.progress-bar-moving-bg
+        = f.button :submit, t('devise.registrations.create_button'), class: 'sign-up-submit-button devise-submit-button'
     / render "devise/shared/links"
-    - if controller_name != 'sessions'
-      = link_to t('shared.links.sign_in'), new_session_path(resource_name, locale: I18n.locale), class: 'popup-link link-to-input', data: { input: '#devise_sessions-new-get-flag' }
-      br
-    - if devise_mapping.confirmable? && controller_name != 'confirmations'
-      = link_to t('shared.links.confirmations'), new_confirmation_path(resource_name, locale: I18n.locale), class: 'popup-link link-to-input', data: { input: '#devise_confirmations-new-get-flag' }
-      br
-    - if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
-      = link_to t('shared.links.unlocks'), new_unlock_path(resource_name, locale: I18n.locale), class: 'popup-link link-to-input', data: { input: '#devise_unlocks-new-get-flag' }
+    /- if controller_name != 'sessions'
+    = link_to(t('shared.links.sign_in'), new_session_path(resource_name, locale: I18n.locale), class: 'link-to-input', data: { input: '#devise_sessions-new-get-flag' })
+    br
+    /- if devise_mapping.confirmable? && controller_name != 'confirmations'
+    = link_to(t('shared.links.confirmations'), new_confirmation_path(resource_name, locale: I18n.locale), class: 'link-to-input', data: { input: '#devise_confirmations-new-get-flag' })
+    br
+    /- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
+    = link_to t('shared.links.unlocks'), new_unlock_path(resource_name, locale: I18n.locale), class: 'link-to-input', data: { input: '#devise_unlocks-new-get-flag' }

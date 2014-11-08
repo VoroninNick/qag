@@ -1,13 +1,18 @@
 class Users::ConfirmationsController < Devise::ConfirmationsController
+
+
   # GET /resource/confirmation/new
   # def new
   #   super
   # end
 
   # POST /resource/confirmation
-  # def create
-  #   super
-  # end
+  def create
+    #render inline: @token_return_to.inspect
+    resource_params[:token_registration_location] = @token_registration_location
+    resource_params[:token_registration_event_id] = @token_registration_event_id
+    super
+  end
 
   # GET /resource/confirmation?confirmation_token=abcdef
   # def show

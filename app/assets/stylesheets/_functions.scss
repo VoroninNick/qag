@@ -143,5 +143,32 @@
 @mixin box-shadow($value){
   -webkit-box-shadow: $value;
   -moz-box-shadow: $value;
+  -ms-box-shadow: $value;
   box-shadow: $value;
 }
+
+@mixin border-radius($value){
+  @include vendor-prefix(border-radius, $value)
+}
+
+@mixin background-size($value){
+  @include vendor-prefix(background-size, $value)
+}
+
+//@mixin background-image-linear-gradient{
+//  background-image: -webkit-linear-gradient(
+//    @content
+//  );
+//
+//  background-image: -moz-linear-gradient(
+//    @content
+//  );
+//
+//  background-image: -ms-linear-gradient(
+//    @content
+//  );
+//
+//  background-image: linear-gradient(
+//    @content
+//  );
+//}

@@ -1,5 +1,5 @@
 doctype html
-html#html class="locale-#{I18n.locale.to_s} controller-#{params[:controller]} action-#{params[:action]}" lang="en"
+html#html class="locale-#{I18n.locale.to_s} controller-#{params[:controller]} action-#{params[:action]} #{ (user_signed_in?)? "logged_in" : "unlogged" }" lang="en"
   head
     meta charset="utf-8"
     meta name="viewport" content="width=device-width, initial-scale=1.0"
@@ -41,11 +41,19 @@ html#html class="locale-#{I18n.locale.to_s} controller-#{params[:controller]} ac
       /.async-loader data-url=new_user_registration(locale: I18n.locale)
       #modal-windows-wrapper
         - if !@is_devise
-          #new_user_session-popup-wrapper.popup-wrapper.async-loader data-url=new_user_session_url(locale: I18n.locale) data-popup-name="sign_in_popup_form" data-input-id="devise_sessions-new-get-flag"
-          #new_user_registration-popup-wrapper.popup-wrapper.async-loader data-url=new_user_registration_url(locale: I18n.locale) data-popup-name="sign_up_popup_form" data-input-id="devise_registrations-new-get-flag"
-          #new_user_confirmation-popup-wrapper.popup-wrapper.async-loader data-url=new_confirmation_url( :user, locale: I18n.locale) data-popup-name="sign_up_popup_form" data-input-id="devise_confirmations-new-get-flag"
-          #devise_unlocks-new-get-wrapper.popup-wrapper.async-loader data-url=new_unlock_path(:user, locale: I18n.locale) data-input-id="devise_unlocks-new-get-flag"
-          #devise_passwords-new-get-wrapper.popup-wrapper.async-loader data-url=new_password_path(:user, locale: I18n.locale) data-input-id="devise_passwords-new-get-flag"
+          / #new_user_session-popup-wrapper.popup-wrapper.async-loader data-url=new_user_session_url(locale: I18n.locale) data-popup-name="sign_in_popup_form" data-input-id="devise_sessions-new-get-flag"
+          / #new_user_registration-popup-wrapper.popup-wrapper.async-loader data-url=new_user_registration_url(locale: I18n.locale) data-popup-name="sign_up_popup_form" data-input-id="devise_registrations-new-get-flag"
+          / #new_user_confirmation-popup-wrapper.popup-wrapper.async-loader data-url=new_confirmation_url( :user, locale: I18n.locale) data-popup-name="sign_up_popup_form" data-input-id="devise_confirmations-new-get-flag"
+          / #devise_unlocks-new-get-wrapper.popup-wrapper.async-loader data-url=new_unlock_path(:user, locale: I18n.locale) data-input-id="devise_unlocks-new-get-flag"
+          / #devise_passwords-new-get-wrapper.popup-wrapper.async-loader data-url=new_password_path(:user, locale: I18n.locale) data-input-id="devise_passwords-new-get-flag"
+
+
+          #new_user_session-popup-wrapper.popup-wrapper.js-template data-url=new_user_session_url(locale: I18n.locale) data-popup-name="sign_in_popup_form" data-input-id="devise_sessions-new-get-flag"
+
+          #new_user_registration-popup-wrapper.popup-wrapper.js-template data-url=new_user_registration_url(locale: I18n.locale) data-popup-name="sign_up_popup_form" data-input-id="devise_registrations-new-get-flag"
+          #new_user_confirmation-popup-wrapper.popup-wrapper.js-template data-url=new_confirmation_url( :user, locale: I18n.locale) data-popup-name="sign_up_popup_form" data-input-id="devise_confirmations-new-get-flag"
+          #devise_unlocks-new-get-wrapper.popup-wrapper.js-template data-url=new_unlock_path(:user, locale: I18n.locale) data-input-id="devise_unlocks-new-get-flag"
+          #devise_passwords-new-get-wrapper.popup-wrapper.js-template data-url=new_password_path(:user, locale: I18n.locale) data-input-id="devise_passwords-new-get-flag"
 
       /.async
       /.async-partial-loader data-path="devise/registrations/new"
@@ -55,6 +63,7 @@ html#html class="locale-#{I18n.locale.to_s} controller-#{params[:controller]} ac
       script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"
       /script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"
       = javascript_include_tag "application"
+      /= javascript_include_tag "views"
 
       / javascript_include_tag "modernizr_load1"
 

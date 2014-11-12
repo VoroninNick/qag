@@ -2,11 +2,14 @@
   #devise_sessions-new-get-form-wrap.devise-form-wrap
 	.form-title
 	  | Resend confirmation instructions
+
+    .errors
+
 	= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name, locale: I18n.locale), html: { method: :post }) do |f|
 	  = f.error_notification
 	  = f.full_error :confirmation_token
 	  .form-inputs
-	    = f.input :email, required: true, autofocus: true, label: false, placeholder: "#{t('devise.registrations.placeholders.email')}*"
+	    = f.input :email, required: true, autofocus: true, label: false, placeholder: "#{t('devise.registrations.placeholders.email')}*", wrapper_html: { data: { validate: 'email required', :"error-taken" => t('activerecord.errors.models.user.attributes.email.taken'), :"error-empty" => t('activerecord.errors.models.user.attributes.email.empty'), :"error-invalid" => t('activerecord.errors.models.user.attributes.email.invalid') , help: t('activerecord.help.models.user.attributes.email') } }
 	  .form-actions
 	    = f.button :submit, "Resend confirmation instructions", class: 'input-submit resend-me-confirmation-submit-button devise-submit-button orange-bg'
 	= render "devise/shared/links"

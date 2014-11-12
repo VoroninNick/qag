@@ -140,8 +140,8 @@ group :development, :test do
  # gem 'jazz_hands'
 end
 
-gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
-gem 'pry-byebug'   # This may or may not work with 2.1.2 either, so remove if you still get errorrs
+#gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
+#gem 'pry-byebug'   # This may or may not work with 2.1.2 either, so remove if you still get errorrs
 
 #gem 'debugger'
 
@@ -160,3 +160,5 @@ gem "recaptcha", :require => "recaptcha/rails"
 gem 'phony_rails'
 
 gem 'render_anywhere', :require => false
+
+#gem 'debugger-xml'

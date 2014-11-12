@@ -6,9 +6,29 @@ en:
           attributes:
             first_name:
               too_short: "First name must be 2 symbols at least"
+              empty: "please enter first name"
             last_name:
+              empty: "please enter last name"
               too_short: "Last name must be 2 symbols at least"
             email:
+              empty: "Please enter email"
               taken: "Email already taken"
+              invalid: "email is invalid"
+            password:
+              empty: "please enter password"
+              invalid: "password is invalid"
+              tip: "password must contain 8 symbols as minimum"
             password_confirmation:
+              empty: "Please confirm password"
               confirmation: "Passwords are different"
+              invalid: "Password"
+
+    help:
+      models:
+        user:
+          attributes:
+            first_name: ""
+            last_name: ""
+            email: ""
+            password: "password must contain 8 symbols as minimum"
+            password_confirmation: ""

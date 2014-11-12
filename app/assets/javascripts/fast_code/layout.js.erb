@@ -22,6 +22,12 @@ delay_before_remove_popup = 2000
 
 submitButtonProgressClass = 'progress-bar-moving-bg'
 
+sendMePasswordSubmitButtonClass = 'send-me-password-submit-button'
+signUpSubmitButtonClass = 'sign-up-submit-button'
+signInSubmitButtonClass = 'sign-in-submit-button'
+resendMeConfirmationSubmitButtonClass = 'resend-me-confirmation-submit-button'
+unlockMeSubmitButtonClass = 'unlock-me-submit-button'
+
 <%
     def path( name, options = {} )
         Rails.application.routes.url_helpers.send("#{name}_path", options)
@@ -129,9 +135,14 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
         var $submit_button = $this
 
         var $form = $this.closest('form')
+        var $devise_form_wrap = $('.devise-form-wrap')
+        var $errors = $devise_form_wrap.find('> div.errors')
         var form_data = $form.serialize()
         var url = $form.attr('action')
         var method = $form.attr('method')
+
+        form_data += "&modal=true"
+
         if(registration_location) {
             form_data += "&registration_location=" + registration_location
         }
@@ -140,50 +151,133 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
             form_data += "&registration_event_id=" + registration_event_id
         }
 
-        $submit_button.addClass(submitButtonProgressClass);
 
-        $.ajax({
-            url: url,
-            type: method,
-            data: form_data,
-            dataType: 'html',
-            success: function(data){
-                //console.log('this:', $this)
+        valid_form = true
 
-                $submit_button.removeClass(submitButtonProgressClass)
+        //if($submit_button.hasClass(signUpSubmitButtonClass)){
 
-                var $data = $(data)
+        //}
+        //else if($submit_button.hasClass(signInSubmitButtonClass)){
 
-                if($submit_button.hasClass('login')) {
-                    $popup.removeClass(modalOpenClass)
-                    remove_with_delay($popup)
-                    logged_in = true
-                    $login_link.attr('href', '/en/my/dashboard')
-                    var $header_menu_user_dropdown = $(['<div id="header-menu-user-dropdown">',
-                        '<a href="', path('edit_user_registration'), '" class="header-menu-user-dropdown-link">dashboard</a>',
-                        '<a href="', path('my_events'), '" class="header-menu-user-dropdown-link">events i am subscribed on</a>',
-                        '<a href="', path('user_session_destroy_form'), '" class="popup-link header-menu-user-dropdown-link logout">log out</a>',
-                        '</div>'].join(''))
+        //}
+        //else if($submit_button.hasClass())
 
-                    $header_menu_user_dropdown.appendTo($header_menu_user_wrapper)
+        valid_form = validateForm($form)
+
+
+        if(valid_form) {
+
+            $submit_button.addClass(submitButtonProgressClass);
+
+            $.ajax({
+                url: url,
+                type: method,
+                data: form_data,
+                dataType: 'json',
+                complete: function (jqXHR, textStatus) {
+                    //console.log('this:', $this)
+
+                    $submit_button.removeClass(submitButtonProgressClass)
+                    var response_text = jqXHR.responseText
+                    var data = $.parseJSON(response_text)
+
+
+                    console.log('data: ', data)
+
+                    var errors = {}
+                    if(data.hasOwnProperty('errors')){
+                        errors = data['errors']
+                    }
+
+                    DATA = data
+
+                    var html_source = ""
+                    var $html_source
+                    if(data.hasOwnProperty('html')){
+                        html_source = data['html']
+                        $html_source = $(html_source)
+
+                    }
+
+
+                    //var $data = $(data)
+
+                    var default_handler = true
+
+
+                    if (textStatus == 'success') {
+                        //var $data = $(data)
+
+                        console.log('data: ', data)
+
+                        if ($submit_button.hasClass('login')) {
+
+                            $popup.removeClass(modalOpenClass)
+                            remove_with_delay($popup)
+                            logged_in = true
+                            $login_link.attr('href', '/en/my/dashboard')
+                            var $header_menu_user_dropdown = $(['<div id="header-menu-user-dropdown">',
+                                '<a href="', path('edit_user_registration'), '" class="header-menu-user-dropdown-link">dashboard</a>',
+                                '<a href="', path('my_events'), '" class="header-menu-user-dropdown-link">events i am subscribed on</a>',
+                                '<a href="', path('user_session_destroy_form'), '" class="popup-link header-menu-user-dropdown-link logout">log out</a>',
+                                '</div>'].join(''))
+
+                            $header_menu_user_dropdown.appendTo($header_menu_user_wrapper)
+
+                            default_handler = false
+                        }
+                        else if ($submit_button.hasClass('logout')) {
+                            $popup.removeClass(modalOpenClass)
+                            remove_with_delay($popup)
+                            logged_in = false
+                            $header_menu_user_wrapper.find('#header-menu-user-dropdown').remove()
+
+                            default_handler = false
+
+
+                        }
+                        else if($submit_button.hasClass(signUpSubmitButtonClass)){
+
+                            if(errors.hasOwnProperty('email') && errors['email'] == 'Email already taken'){
+                                $form.find('div.input.email').manipulateClasses(['error', 'taken'],['valid'])
+                                default_handler = false
+                            }
+                            else{
+                                default_handler = true
+                                alert('ok')
+                            }
+                        }
+
+                        if(default_handler){
+                            //alert('ok2')
+                            if(Object.keys(errors).length == 0) {
+                                 console.log('errors: ', errors)
+                                $popup.removeClass(modalOpenClass)
+                                remove_with_delay($popup)
+                                $html_source.addClass(modalOpenClass)
+                                $modal_windows_wrapper.append($html_source)
+                            }
+                        }
+                    }
+                    else {
+
+                        if ($submit_button.hasClass('login')) {
+                            var $error_container = $(['<div class="error">', data, '</div>'].join(''))
+                            $errors.html($error_container)
+                        }
+
+                        else if ($submit_button.hasClass(sendMePasswordSubmitButtonClass)) {
+                            var $error_container = $(['<div class="error">', data, '</div>'].join(''))
+
+                            $errors.html($error_container)
+                        }
+
+
+                    }
                 }
-                else if($submit_button.hasClass('logout')){
-                    $popup.removeClass(modalOpenClass)
-                    remove_with_delay($popup)
-                    logged_in = false
-                    $header_menu_user_wrapper.find('#header-menu-user-dropdown').remove()
-
-
-                }
-                else{
-                    $popup.removeClass(modalOpenClass)
-                    remove_with_delay($popup)
-                    $data.addClass(modalOpenClass)
-                    $modal_windows_wrapper.append($data)
-
-                }
-            }
-        })
+            })
+        }
+        //
     }
     else if($this.hasClass(popupLinkClass)){
         var $popup_link = $this

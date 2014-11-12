@@ -12,7 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require tiny_validation
+//= require jquery.manipulate_classes
+// require tiny_validation
+//= require validation
 //= require variables
 // require translate_functions
 // require locales

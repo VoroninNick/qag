@@ -554,7 +554,9 @@ select:-webkit-autofill {
 
 .simple_form.new_user{
   .input.password{
-    margin-bottom: 15px;
+    &:focus {
+      margin-bottom: 15px;
+    }
   }
 
   .input.boolean{

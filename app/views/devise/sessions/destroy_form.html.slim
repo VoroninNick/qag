@@ -1,6 +1,10 @@
-form action=destroy_user_session_path method="post"
-  p
-    = "are you sure you want to logout?"
-  input.input-submit.logout type="submit" value="Yes"
-  a href="#" 
-    = "No" 
+#devise-content
+  #devise_sessions-destroy_form-get-form-wrap.devise-form-wrap
+    .form-title
+      = "Logout"
+
+    = simple_form_for(:user, url: destroy_user_session_path( locale: I18n.locale)) do |f|
+      p.text
+        = "are you sure you want to logout?"
+      = f.button :submit, "Yes", class: 'input-submit login sign-in-submit-button devise-submit-button orange-bg'
+      = link_to "No", "#"

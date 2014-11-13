@@ -179,7 +179,13 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
 
                     $submit_button.removeClass(submitButtonProgressClass)
                     var response_text = jqXHR.responseText
-                    var data = $.parseJSON(response_text)
+                    console.log('before parse json. response_text: ')
+                    var data = {}
+                    if(typeof response_text == 'string' && response_text.length > 0){
+                        data = $.parseJSON(response_text)
+                    }
+
+                    console.log('after parse json')
 
 
                     console.log('data: ', data)
@@ -216,8 +222,8 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
 
                         if ($submit_button.hasClass('login')) {
 
-                            $popup.removeClass(modalOpenClass)
-                            remove_with_delay($popup)
+                            //$popup.removeClass(modalOpenClass)
+                            //remove_with_delay($popup)
                             logged_in = true
                             $login_link.attr('href', '/en/my/dashboard')
                             var $header_menu_user_dropdown = $(['<div id="header-menu-user-dropdown">',
@@ -228,7 +234,7 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
 
                             $header_menu_user_dropdown.appendTo($header_menu_user_wrapper)
 
-                            default_handler = false
+                            //default_handler = false
                         }
                         else if ($submit_button.hasClass('logout')) {
                             $popup.removeClass(modalOpenClass)
@@ -319,9 +325,10 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
 
 })
 
-if($html.hasClass('controller-home action-index')){
+//if($html.hasClass('controller-home action-index')){
     $home_featured_event_info_slides_row_ul = $('#home-featured-event-info-slides-row-ul')
-    $home_featured_event_info_slides_row_ul.on('click', 'a.register-button-a', function(event){
+    var $event_collections = $('.events-collection')
+    $event_collections.on('click', 'a.register-button-a', function(event){
         event.preventDefault()
         var $link = $(this)
         var url = $link.attr('href')
@@ -330,15 +337,67 @@ if($html.hasClass('controller-home action-index')){
         $.ajax({
             type: 'GET',
             url: url,
-            dataType: 'html',
+            dataType: 'json',
             data: 'modal=true',
-            success: function(data){
-                var $modal = $(data)
-                $modal.addClass(modalOpenClass)
-                $modal_windows_wrapper.append($modal)
-                registration_location = window.location.pathname
-                registration_event_id = event_id
+            complete: function(jqXHR, textStatus){
+                // ================================================
+                // ------------------------------------------------
+                // initialize data
+                // ------------------------------------------------
+                // ================================================
+                var response_text = jqXHR.responseText
+                console.log('before parse json. response_text: ')
+                var data = {}
+                if(typeof response_text == 'string' && response_text.length > 0){
+                    data = $.parseJSON(response_text)
+                }
+
+                console.log('after parse json')
+
+
+                console.log('data: ', data)
+
+                var errors = {}
+                if(data.hasOwnProperty('errors')){
+                    errors = data['errors']
+                }
+
+                if(data.hasOwnProperty('error')){
+                    errors['form'] = data['error']
+                }
+
+                DATA = data
+
+                var html_source = ""
+                var $html_source
+                if(data.hasOwnProperty('html')){
+                    html_source = data['html']
+                    $html_source = $(html_source)
+
+                }
+
+                if(textStatus == 'success') {
+                    console.log('success')
+                    console.log('before $modal')
+                    var $modal = $html_source
+                    console.log('after $modal')
+                    $modal.addClass(modalOpenClass)
+                    $modal_windows_wrapper.append($modal)
+                    registration_location = window.location.pathname
+                    registration_event_id = event_id
+                }
+                else{
+                    console.log('error')
+                }
             }
         })
     })
-}
+//}
+
+//$('.events-collection').on('click', 'a.register-button-a', function(){
+//    var $this = $(this)
+//
+//    if($this.hasClass('register-button-a')){
+//        //if('')
+//    }
+//})

@@ -71,10 +71,23 @@ class Users::EventSubscriptionsController < ApplicationController
 			@event = nil
 		end
 
+		required_template = ''
+
 		if user_signed_in?
-		render template: "devise/event_subscriptions/new"
+			required_template = "devise/event_subscriptions/new"
+			#render template: "devise/event_subscriptions/new"
 		else
-			render template: "devise/sessions/new"
+			required_template = "devise/sessions/new"
+			#render template: "devise/sessions/new"
+		end
+
+		if modal?
+			html_source = render_to_string template: required_template
+			data = { html: html_source }
+			render inline: "#{data.to_json}"
+		else
+			#respond_to_on_destroy
+			render template: required_template
 		end
 	end
 
@@ -103,6 +116,52 @@ class Users::EventSubscriptionsController < ApplicationController
 		end
 
 		render template: "devise/event_subscriptions/create"
+	end
+
+	def unsubscribe_form
+		params_event_id = params[:event_id]
+		if user_signed_in? && params_event_id
+			@event = Event.where(id: params_event_id)
+			if @event.count > 0
+				@event = @event.first
+
+				if modal?
+					html_source = render_to_string template: 'devise/event_subscriptions/unsubscribe_form.html'
+					data = { html: html_source }
+					render inline: "#{data.to_json}"
+				else
+					#respond_to_on_destroy
+					render template: "devise/event_subscriptions/unsubscribe_form.html"
+				end
+			end
+		else
+			render inline: "error"
+		end
+	end
+
+	def unsubscribe
+		required_template = "devise/event_subscriptions/error"
+			params_event_id = params[:event_id]
+			if subscribed_on_event?(params_event_id)
+				render inline:"breakpoint"
+				subscribed_events = current_user.events
+				matched_events = subscribed_events.where(id: params_event_id)
+				if matched_events.count > 0
+					@event = matched_events.first
+					subscribed_events.delete(@event)
+					required_template = "devise/event_subscriptions/unsubscribed_successfully"
+				end
+			end
+
+			if modal?
+				html_source = render_to_string template: required_template
+				data = { html: html_source }
+				render inline: "#{data.to_json}"
+			else
+				#respond_to_on_destroy
+				render template: required_template
+			end
+
 	end
 
 

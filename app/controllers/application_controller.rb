@@ -211,4 +211,29 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # =====================================================
+  # -----------------------------------------------------
+  # helpers for events
+  # -----------------------------------------------------
+  # =====================================================
+
+  helper_method :subscribed_on_event?
+
+  def subscribed_on_event?(event_id)
+    event_id = event_id.to_i
+    if user_signed_in?
+      @events_i_am_subscribed_on ||= ActiveRecord::Base.connection.execute("select s.event_id as event_id from event_subscriptions s where s.user_id = #{current_user.id}")
+      @event_ids_i_am_subscribed_on ||= []
+      if @event_ids_i_am_subscribed_on.count == 0 && @events_i_am_subscribed_on.count > 0
+        @events_i_am_subscribed_on.each do |e|
+          @event_ids_i_am_subscribed_on.push e['event_id']
+        end
+      end
+      #return @events_i_am_subscribed_on.where("event_id = #{event_id}").count > 0
+      return @event_ids_i_am_subscribed_on.index(event_id) != nil
+    else
+      return nil
+    end
+  end
+
 end

@@ -23,7 +23,7 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
         span#home-featured-next-event-arrow
           = embedded_svg_from_assets('svg/arrow_right.svg')
 
-      ul#home-featured-event-info-slides-row-ul
+      ul#home-featured-event-info-slides-row-ul.events-collection
         - @featured_events.each_with_index do |event, index|
           li.event.home-featured-event id="event-#{index + 1}" data-event-id="#{event.id}"
             .featured-section-event-content
@@ -62,11 +62,18 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
                   .event-link
                     a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
                       |Детальніше про подію
-                .register-button.columns.large-4.right
-                  a.register-button-a href=new_event_subscription_path(event.id, locale: I18n.locale)
-                    = embedded_svg_from_assets('svg/registration.svg')
-                    span.registration-text
-                      |Зареєструватись
+                - if !subscribed_on_event?(event.id)
+                  .register-button.columns.large-4.right
+                    a.register-button-a href=new_event_subscription_path(event_id: event.id, locale: I18n.locale)
+                      = embedded_svg_from_assets('svg/registration.svg')
+                      span.registration-text
+                        |Зареєструватись
+                - else
+                  .register-button.decline.columns.large-4.right
+                    a.register-button-a href=event_unsubscription_form_path(event_id: event.id, locale: I18n.locale)
+                      = embedded_svg_from_assets('svg/registration.svg')
+                      span.registration-text
+                        |Decline
 
 
 

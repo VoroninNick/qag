@@ -18,7 +18,7 @@
           = f.input :contact_phone, label: t('devise.registrations.placeholders.contact_phone'), placeholder: t('devise.registrations.placeholders.contact_phone'), value: @user.contact_phone 
           /- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
         .sign-in-submit-button-wrapper
-          = f.button :submit, t('devise.event_subscriptions.form-subscribe-button'), class: 'sign-in-submit-button devise-submit-button'
+          = f.button :submit, t('devise.event_subscriptions.form-subscribe-button'), class: 'subscribe-submit-button devise-submit-button input-submit orange-bg'
 
     / render "devise/shared/links"
 

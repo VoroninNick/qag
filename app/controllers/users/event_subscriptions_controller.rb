@@ -143,13 +143,13 @@ class Users::EventSubscriptionsController < ApplicationController
 		required_template = "devise/event_subscriptions/error"
 			params_event_id = params[:event_id]
 			if subscribed_on_event?(params_event_id)
-				render inline:"breakpoint"
+				#render inline:"breakpoint"
 				subscribed_events = current_user.events
 				matched_events = subscribed_events.where(id: params_event_id)
 				if matched_events.count > 0
 					@event = matched_events.first
 					subscribed_events.delete(@event)
-					required_template = "devise/event_subscriptions/unsubscribed_successfully"
+					required_template = "devise/event_subscriptions/unsubscribed_successfully.html.slim"
 				end
 			end
 

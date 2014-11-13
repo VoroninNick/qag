@@ -189,6 +189,10 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
                         errors = data['errors']
                     }
 
+                    if(data.hasOwnProperty('error')){
+                        errors['form'] = data['error']
+                    }
+
                     DATA = data
 
                     var html_source = ""
@@ -257,13 +261,28 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
                                 $html_source.addClass(modalOpenClass)
                                 $modal_windows_wrapper.append($html_source)
                             }
+                            else{
+
+                            }
                         }
                     }
                     else {
 
                         if ($submit_button.hasClass('login')) {
-                            var $error_container = $(['<div class="error">', data, '</div>'].join(''))
-                            $errors.html($error_container)
+                            var error_keys = Object.keys(errors)
+                            var error_keys_length = error_keys.length
+                            if(error_keys_length > 0) {
+                                $errors.children().remove()
+                                for( var j = 0; j< error_keys_length; j++ ) {
+                                    var error_key = error_keys[j]
+                                    var error_text = errors[error_key]
+                                    var $error_container = $(['<div class="error">',error_text , '</div>'].join(''))
+                                    $errors.append($error_container)
+                                }
+                            }
+                            else{
+
+                            }
                         }
 
                         else if ($submit_button.hasClass(sendMePasswordSubmitButtonClass)) {

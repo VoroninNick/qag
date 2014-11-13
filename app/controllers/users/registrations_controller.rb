@@ -35,7 +35,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def create
-    modal = params[:modal] == "true"
+
 
     build_resource(sign_up_params)
 
@@ -45,7 +45,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_flashing_format?
         sign_up(resource_name, resource)
-        if modal
+        if modal?
           respond_to do |format|
             format.html do
               render inline: "signed_in_successfully"
@@ -57,7 +57,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       else
         set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_flashing_format?
         expire_data_after_sign_in!
-        if modal
+        if modal?
           html_source = render_to_string template: 'devise/registrations/signed_up_successfully'
           data = { html: html_source }
           render inline: "#{data.to_json}"
@@ -74,7 +74,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         @minimum_password_length = resource_class.password_length.min
       end
 
-      if modal
+      if modal?
         respond_to do |format|
 
           format.json do

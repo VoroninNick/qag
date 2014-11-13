@@ -5,6 +5,12 @@ class ApplicationController < ActionController::Base
 
   layout 'application_foundation'
 
+  helper_method :modal?
+
+  def modal?
+    @is_modal ||= params[:modal] == "true"
+  end
+
   before_filter do
     params_locale = params[:locale]
     if params_locale
@@ -80,7 +86,7 @@ class ApplicationController < ActionController::Base
           controller_class = nil
         end
 
-      if params[:modal] == 'true'
+      if modal?
         #render inline: params.inspect
         #self.class.layout 'modal-layout'
         #params[:controller] = 'devise/aPP/home_page_index'

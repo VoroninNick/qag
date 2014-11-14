@@ -12,63 +12,10 @@
 
 
 
-#events-list
-  - @events.each_with_index do |event, index|
-    .events-list-event class="#{ (Date.today > event.end_date)? 'expired-event' : ( Date.today >= event.start_date )? 'started-event' : 'future-event' }#{(index % 2 == 1)? ' right-image' : nil}"
-      a.event-bg-link href=event_item_path(item: event.slug, tags: event.tags.join('-'), locale: I18n.locale)
-      .events-list-event-row.row
-        .image-and-info.columns.large-3
-          .image
-            a href="#"
-              /img.grayscale src=( (event.avatar.exists?(:event_list_avatar) )? event.avatar.url(:event_list_avatar) : stub_image_link(255, 170, "event #{event.id}") )
-              img.grayscale src=image_or_stub_url(event.avatar, :event_list_avatar, 255, 170, "event #{event.id}")
-          .info
-            .start-date
-              span.tip
-                = t('pages.events-list.event-template.info.start-date-tip')
-              span.value
-                = "#{event.start_date.day}.#{event.start_date.month}.#{event.start_date.year}"
-            .end-date
-              span.tip
-                = t('pages.events-list.event-template.info.end-date-tip')
-              span.value
-                = "#{event.end_date.day}.#{event.end_date.month}.#{event.end_date.year}"
-
-            .participants-count
-              = raw t('pages.events-list.event-template.info.participants-count', svg: embedded_svg_from_assets('svg/participant.svg'), count: "<span class='count'>#{event.participants_count}</span>", span_start: "<span class='participants-tip'>", span_end: "</span>")
+#events-list.events-collection.infinity-scroll-list
+  /- @paginated_events.each_with_index do |event, index|
+  = render partial: 'events/list_item', locals: { events: @paginated_events }
 
 
-        .description.columns.large-9
-          .event-title
-            a.event-title-a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
-              = event.name
-          / slide.name
-          .event-description
-            = event.short_description
-          - if Date.today <= event.end_date
-            .hover-event-date-range-and-participants
-              .hover-event-start-date
-                = "#{event.start_date.day}.#{event.start_date.month}.#{event.start_date.year}"
-              .hover-event-end-date
-                = "#{event.end_date.day}.#{event.end_date.month}.#{event.end_date.year}"
-              .hover-event-participants
-                = t('pages.events-list.event-template.hover.participants-count', participants_count: event.participants_count)
-            .event-link-and-register-button
-              .register-button.columns.large-4.large-centered
-                label
-                  = embedded_svg_from_assets('svg/registration.svg')
-                  span.registration-text
-                    = t('pages.events-list.event-template.hover.register-button')
-
-          - else
-            .hover-expired-event-images
-              .hover-expired-event-title
-                = t('pages.events-list.event-template.hover.expired-event.title')
-              .hover-expired-event-images-carousel-wrapper
-                .hover-expired-event-images-carousel-ul
-                  - event.images.each_with_index do |image, index|
-                    li.hover-expired-event-images-carousel-ul-li
-                      a.hover-expired-event-images-carousel-ul-li-a href=( (image.image.exists?(:original) )? image.image.url(:original) : stub_image_link(600, 400, "image #{index + 1}") )
-                        img.hover-expired-event-images-carousel-ul-li-a-img src=image_or_stub_url(image.image, :event_list_image, 150, 100, "image #{index+1}")
-
-
+.pagination-wrapper
+  = will_paginate @paginated_events

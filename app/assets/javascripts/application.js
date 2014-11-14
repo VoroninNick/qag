@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require misc
 //= require jquery.manipulate_classes
 // require tiny_validation
 //= require validation

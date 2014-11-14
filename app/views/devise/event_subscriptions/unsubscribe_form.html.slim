@@ -6,6 +6,6 @@
     = simple_form_for(:user, url: event_unsubscribe_path( locale: I18n.locale)) do |f|
       p.text
         = raw "are you sure you want to unsubscribe from event <a href=\"#{event_item_path(item: @event.slug, tags: @event.tags.join('-'), locale: I18n.locale)}\">&laquo;#{ @event.name }&raquo;?"
-      = f.button :submit, "Yes", class: 'input-submit logout sign-in-submit-button devise-submit-button orange-bg'
+      = f.button :submit, "Yes", class: 'unsubscribe-submit-button devise-submit-button input-submit orange-bg'
       = link_to "No", "#"
       = link_to "Детальніше про подію", event_item_path(item: @event.slug, tags: @event.tags.join('-'), locale: I18n.locale)

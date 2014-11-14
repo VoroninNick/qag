@@ -12,32 +12,49 @@
         var add_classes_length = add_classes.length
         remove_classes = remove_classes || []
         var remove_classes_length = remove_classes.length
-        var self = this
-        var elements_count = self.length
 
-        for(var i = 0; i < elements_count; i++ ){
-            var elem = self[i]
-            var class_name = elem.className
-            var classes = class_name.match(/[a-zA-Z][a-zA-Z0-9\_]{0,}/g) || []
-            for(var j = 0; j < add_classes_length; j++){
-                var new_class = add_classes[j]
-                if(classes.indexOf(new_class) < 0){
-                    classes.push(new_class)
-                }
-            }
-
-            for(var j = 0; j < remove_classes_length; j++){
-                var new_class = remove_classes[j]
-                var class_index = classes.indexOf(new_class)
-                if(class_index >= 0){
-                    classes.splice(class_index, 1)
-                }
-            }
-
-            var str_classes = classes.join(' ')
-            elem.className = str_classes
-
+        if(typeof add_classes == 'string'){
+            add_classes = add_classes.split(' ')
         }
+
+        if(typeof remove_classes == 'string'){
+            remove_classes = remove_classes.split(' ')
+        }
+        //var self = this
+        //var elements_count = self.length
+        //
+        //for(var i = 0; i < elements_count; i++ ){
+        //    var elem = self[i]
+        //    var class_name = elem.className
+        //    var classes = class_name.match(/[a-z]([a-z0-9\_\-]{0,}[a-z0-9])?]/gi) || []
+        //    for(var j = 0; j < add_classes_length; j++){
+        //        var new_class = add_classes[j]
+        //        if(classes.indexOf(new_class) < 0){
+        //            classes.push(new_class)
+        //        }
+        //    }
+        //
+        //    for(var j = 0; j < remove_classes_length; j++){
+        //        var new_class = remove_classes[j]
+        //        var class_index = classes.indexOf(new_class)
+        //        if(class_index >= 0){
+        //            classes.splice(class_index, 1)
+        //        }
+        //    }
+        //
+        //    var str_classes = classes.join(' ')
+        //    elem.className = str_classes
+        //
+        //}
+
+        if(remove_classes_length > 0){
+            this.removeClass(remove_classes.join(' '))
+        }
+
+        if(add_classes_length > 0){
+            this.addClass(add_classes.join(' '))
+        }
+
 
         return this
     }

@@ -33,3 +33,7 @@ uk:
       about_us: 'Про нас'
       contact: 'Контакти'
       events_list: 'Заходи'
+
+    buttons:
+      register: "Зареєструватися"
+      unregister: "Відмовитися"

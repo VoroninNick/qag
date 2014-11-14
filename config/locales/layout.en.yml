@@ -36,3 +36,6 @@ en:
       contact: 'Contact us'
       events_list: 'Events'
 
+    buttons:
+      register: "Register"
+      unregister: "Decline"

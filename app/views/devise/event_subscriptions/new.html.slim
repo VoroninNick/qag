@@ -8,7 +8,7 @@
       	  = raw "#{@user.first_name}, Ви збираєтесь зареєструватись на курс &laquo;#{@event.name}&raquo;."
       	.event-reg-2
       	  = "Перевірте особисті дані, якщо необхідно введіть корективи та підтвердіть реєстрайцію."
-      = simple_form_for(@user, as: :user, url: create_event_subscription_path(@event.id, locale: I18n.locale), type: 'POST') do |f|
+      = simple_form_for(@user, as: :user, url: create_event_subscription_path(event_id: @event.id, locale: I18n.locale), type: 'POST') do |f|
         .form-inputs
           = f.input :first_name, required: false, autofocus: true, label: t('devise.registrations.placeholders.first_name'), placeholder: t('devise.registrations.placeholders.first_name'), value: @user.first_name
           = f.input :last_name, required: false, label: t('devise.registrations.placeholders.last_name'), placeholder: t('devise.registrations.placeholders.last_name'), value: @user.last_name

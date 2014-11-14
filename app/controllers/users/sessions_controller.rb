@@ -18,13 +18,55 @@ class Users::SessionsController < Devise::SessionsController
     set_flash_message(:notice, :signed_in) if is_flashing_format?
     sign_in(resource_name, resource)
     yield resource if block_given?
+
+    required_template = "devise/sessions/signed_in_successfully_message.html"
+
+    params_registration_location = params[:registration_location]
+    params_registration_event_id = params[:registration_event_id]
+
+    #redirect_to_location = params_registration_location
+
+    #if !redirect_to_location
+    #  redirect_to_location = '/'
+    #end
+
+    @event = nil
+
+    if params_registration_event_id
+      matched_events = Event.where(id: params_registration_event_id.to_i)
+      if matched_events.count > 0
+        @event = matched_events.first
+
+        required_template = "devise/event_subscriptions/new"
+      end
+    end
+
     if modal?
-      html_source = render_to_string template: 'devise/sessions/signed_in_successfully_message.html'
+      html_source = render_to_string template: required_template
       data = { html: html_source }
+
+      params_loaded_events = params[:loaded_events]
+      loaded_event_ids = []
+      loaded_event_ids_string = ""
+      if params_loaded_events
+        #loaded_event_ids = params_loaded_events.split(',')
+        loaded_event_ids_string = params_loaded_events
+        event_ids_i_am_subscribed_on = subscribed_event_ids_from_range(loaded_event_ids_string)
+        #ActiveRecord::Base.connection.execute("select id from events where id in(#{loaded_event_ids_string})")
+        data[:event_ids_i_am_subscribed_on] = event_ids_i_am_subscribed_on
+        data[:events_i_am_subscribed_on] = []
+        event_ids_i_am_subscribed_on.each do |event_id|
+          event_data = { :"event_id" => event_id, :decline_button_link => event_unsubscription_form_path(event_id: event_id, locale: I18n.locale) }
+          data[:events_i_am_subscribed_on].push event_data
+        end
+
+        data[:decline_button_text] = t("layout.buttons.unregister")
+      end
+
       render inline: "#{data.to_json}"
     else
       #respond_with resource, location: after_sign_in_path_for(resource)
-      render template: "devise/sessions/signed_in_successfully_message.html"
+      render template: required_template
     end
   end
 
@@ -34,17 +76,39 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   def destroy
+    if user_signed_in?
+      user_id = current_user.id
+    end
     signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
     set_flash_message :notice, :signed_out if signed_out && is_flashing_format?
     yield if block_given?
     if modal?
       html_source = render_to_string template: 'devise/sessions/signed_out_successfully_message.html'
       data = { html: html_source }
+
+      params_loaded_events = params[:loaded_events]
+
+      if params_loaded_events
+
+        loaded_event_ids_string = params_loaded_events
+        event_ids_i_am_subscribed_on = subscribed_event_ids_from_range_for_user(user_id, loaded_event_ids_string)
+
+        data[:event_ids_i_am_subscribed_on] = event_ids_i_am_subscribed_on
+        data[:events_i_am_subscribed_on] = []
+        event_ids_i_am_subscribed_on.each do |event_id|
+          event_data = { :"event_id" => event_id, :subscribe_button_link => event_unsubscription_form_path(event_id: event_id, locale: I18n.locale) }
+          data[:events_i_am_subscribed_on].push event_data
+        end
+
+        data[:subscribe_button_text] = t("layout.buttons.register")
+      end
+
       render inline: "#{data.to_json}"
     else
       #respond_to_on_destroy
       render template: "devise/sessions/signed_out_successfully_message.html"
     end
+
   end
 
   def destroy_form

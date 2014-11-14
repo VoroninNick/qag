@@ -25,7 +25,7 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
 
       ul#home-featured-event-info-slides-row-ul.events-collection
         - @featured_events.each_with_index do |event, index|
-          li.event.home-featured-event id="event-#{index + 1}" data-event-id="#{event.id}"
+          li.event.home-featured-event.event-collection-item id="event-#{index + 1}" data-event-id="#{event.id}" class="#{ "event-i-am-subscribed-on" if subscribed_on_event?(event.id) }"
             .featured-section-event-content
               .image-and-info.columns.large-4
                 .image
@@ -62,18 +62,13 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
                   .event-link
                     a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
                       |Детальніше про подію
-                - if !subscribed_on_event?(event.id)
-                  .register-button.columns.large-4.right
-                    a.register-button-a href=new_event_subscription_path(event_id: event.id, locale: I18n.locale)
-                      = embedded_svg_from_assets('svg/registration.svg')
-                      span.registration-text
-                        |Зареєструватись
-                - else
-                  .register-button.decline.columns.large-4.right
-                    a.register-button-a href=event_unsubscription_form_path(event_id: event.id, locale: I18n.locale)
-                      = embedded_svg_from_assets('svg/registration.svg')
-                      span.registration-text
-                        |Decline
+
+                .register-button.columns.large-4.right class=( "decline" if subscribed_on_event?(event.id) )
+                  a.register-button-a href=( subscribed_on_event?(event.id) ? event_unsubscription_form_path(event_id: event.id, locale: I18n.locale) : new_event_subscription_path(event_id: event.id, locale: I18n.locale)  )
+                    = embedded_svg_from_assets('svg/registration.svg')
+                    span.registration-text
+                      = t("layout.buttons.#{ "un" if subscribed_on_event?(event.id) }register")
+
 
 
 

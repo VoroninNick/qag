@@ -35,3 +35,6 @@ ru:
       contact: 'Контакты'
       events_list: 'События'
 
+    buttons:
+      register: "Зарегистрироваться"
+      unregister: "Отказаться"

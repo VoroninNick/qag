@@ -83,7 +83,7 @@ class Users::EventSubscriptionsController < ApplicationController
 
 		if modal?
 			html_source = render_to_string template: required_template
-			data = { html: html_source }
+			data = {controller: "users/event_subscriptions", action: "new", html: html_source }
 			render inline: "#{data.to_json}"
 		else
 			#respond_to_on_destroy
@@ -115,11 +115,28 @@ class Users::EventSubscriptionsController < ApplicationController
 			
 		end
 
-		render template: "devise/event_subscriptions/create"
+		required_template = "devise/event_subscriptions/create"
+
+		if modal?
+			html_source = render_to_string template: required_template
+			data = {controller: "users/event_subscriptions", action: "new", html: html_source, decline_button_text: t("layout.buttons.unregister")  }
+
+			if @event
+				data[:decline_button_link] = event_unsubscription_form_path(event_id: @event.id, locale: I18n.locale)
+			end
+
+			render inline: "#{data.to_json}"
+		else
+			#respond_to_on_destroy
+			render template: required_template
+		end
 	end
 
 	def unsubscribe_form
 		params_event_id = params[:event_id]
+
+		#required_template = "devise/event_subscriptions/error"
+
 		if user_signed_in? && params_event_id
 			@event = Event.where(id: params_event_id)
 			if @event.count > 0
@@ -135,7 +152,19 @@ class Users::EventSubscriptionsController < ApplicationController
 				end
 			end
 		else
-			render inline: "error"
+			if modal?
+				html_source = render_to_string template: 'devise/event_subscriptions/error'
+				data = {}
+				data = { html: html_source }
+
+				@errors = { form: :already_unsubscribed }
+
+				data[:errors] = { :form => 'invalid event' }
+
+				render inline: "#{data.to_json}"
+			else
+				render template: 'devise/event_subscriptions/error'
+			end
 		end
 	end
 
@@ -155,7 +184,12 @@ class Users::EventSubscriptionsController < ApplicationController
 
 			if modal?
 				html_source = render_to_string template: required_template
-				data = { html: html_source }
+				data = { html: html_source, subscribe_button_text: t("layout.buttons.register") }
+
+				if @event
+					data[:subscribe_button_link] = new_event_subscription_path(event_id: @event.id, locale: I18n.locale)
+				end
+
 				render inline: "#{data.to_json}"
 			else
 				#respond_to_on_destroy

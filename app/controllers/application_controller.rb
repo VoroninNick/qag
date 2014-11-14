@@ -11,6 +11,12 @@ class ApplicationController < ActionController::Base
     @is_modal ||= params[:modal] == "true"
   end
 
+  helper_method :ajax?
+
+  def ajax?
+    @is_ajax ||= params[:ajax] == "true"
+  end
+
   before_filter do
     params_locale = params[:locale]
     if params_locale
@@ -234,6 +240,48 @@ class ApplicationController < ActionController::Base
     else
       return nil
     end
+  end
+
+  helper_method :subscribed_event_ids_from_range_for_user
+
+  # def subscribed_event_ids_from_range_for_user(user_id,event_ids)
+  #   event_ids_string = event_ids
+  #   event_ids_array = event_ids.split(',')
+  #   if user_signed_in?
+  #
+  #     @events_i_am_subscribed_on ||= ActiveRecord::Base.connection.execute("select s.event_id as event_id from event_subscriptions s where s.user_id = #{current_user.id}")
+  #     @event_ids_i_am_subscribed_on ||= []
+  #     if @event_ids_i_am_subscribed_on.count == 0 && @events_i_am_subscribed_on.count > 0
+  #       @events_i_am_subscribed_on.each do |e|
+  #         @event_ids_i_am_subscribed_on.push e['event_id']
+  #       end
+  #     end
+  #     #return @events_i_am_subscribed_on.where("event_id = #{event_id}").count > 0
+  #     result = @event_ids_i_am_subscribed_on.select {|num| event_ids_array.include?(num)  }
+  #
+  #     #return @event_ids_i_am_subscribed_on.index(event_id) != nil
+  #     return result
+  #   else
+  #     return nil
+  #   end
+  # end
+
+  helper_method :subscribed_event_ids_from_range
+  def subscribed_event_ids_from_range(event_ids)
+    if user_signed_in?
+      User.subscribed_event_ids_from_range_for_user(current_user.id, event_ids)
+    else
+      nil
+    end
+  end
+
+  def subscribed_event_ids_from_range_for_user(user_id, event_ids)
+    #if user_signed_in?
+      #return subscribed_event_ids_from_range_for_user(current_user.id, event_ids)
+      return User.subscribed_event_ids_from_range_for_user(user_id, event_ids)
+    #else
+    #  return nil
+    #end
   end
 
 end

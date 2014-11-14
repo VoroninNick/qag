@@ -7,6 +7,7 @@
 // 1. header
 // 2. footer
 // 3. breadcrumbs
+// 4. pagination
 
 
 $header-height: 90px;
@@ -30,7 +31,7 @@ $header-height: 90px;
 
 // =========================================
 // -----------------------------------------
-// header
+// 1. header
 // -----------------------------------------
 // =========================================
 
@@ -853,4 +854,46 @@ $header-height: 90px;
   text-align: center;
   font-weight: 800;
   font-size: 3rem;
+}
+
+
+// =========================================
+// -----------------------------------------
+// 4. pagination
+// -----------------------------------------
+// =========================================
+
+.js{
+  .pagination{
+    display: none;
+  }
+}
+
+.no-js{
+  .pagination-wrapper {
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .pagination{
+    display: inline-block;
+
+    span{
+      display: inline-block;
+    }
+
+    em, a {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+    }
+
+    a {
+      background: #ff594a;
+      color: white;
+    }
+  }
+
 }

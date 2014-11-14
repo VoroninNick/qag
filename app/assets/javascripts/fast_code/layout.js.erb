@@ -28,6 +28,23 @@ signInSubmitButtonClass = 'sign-in-submit-button'
 resendMeConfirmationSubmitButtonClass = 'resend-me-confirmation-submit-button'
 unlockMeSubmitButtonClass = 'unlock-me-submit-button'
 
+logoutSubmitButtonClass = 'logout-submit-button'
+
+subscribeSubmitButtonClass = 'subscribe-submit-button'
+unsubscribeSubmitButtonClass = 'unsubscribe-submit-button'
+
+eventCollectionItemClass = 'event-collection-item'
+
+infinityScrollListClass = 'infinity-scroll-list'
+
+event_register_request = false
+
+popup_event_id = false
+
+eventIAmSubscribedOnClass = 'event-i-am-subscribed-on'
+
+
+
 <%
     def path( name, options = {} )
         Rails.application.routes.url_helpers.send("#{name}_path", options)
@@ -128,6 +145,7 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
 
         registration_event_id = false
         registration_location = false
+        registration_event_id = false
     }
     else if($this.hasClass(submitButtonClass)){
         event.preventDefault()
@@ -149,6 +167,19 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
 
         if(registration_event_id){
             form_data += "&registration_event_id=" + registration_event_id
+        }
+
+        if($submit_button.hasClass(signInSubmitButtonClass) || $submit_button.hasClass(logoutSubmitButtonClass)){
+            var $events = $('.'+eventCollectionItemClass)
+            if($submit_button.hasClass(logoutSubmitButtonClass)){
+                $events = $events.filter('.'+eventIAmSubscribedOnClass)
+            }
+            var events_count = $events.length
+            var event_ids = []
+            for(var i = 0; i < events_count; i++){
+                event_ids[i] = +$events.eq(i).attr('data-event-id')
+            }
+            form_data += "&loaded_events="+event_ids.join(',')
         }
 
 
@@ -234,6 +265,10 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
 
                             $header_menu_user_dropdown.appendTo($header_menu_user_wrapper)
 
+                            //event['events_i_am_subscribed_on']
+
+                            changeRegistrationButtonForEvents({registered: true, button_text: data['decline_button_text'], events: data['events_i_am_subscribed_on'] })
+
                             //default_handler = false
                         }
                         else if ($submit_button.hasClass('logout')) {
@@ -244,7 +279,7 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
 
                             default_handler = false
 
-
+                            changeRegistrationButtonForEvents({registered: false, button_text: data['subscribe_button_text'], events: data['events_i_am_subscribed_on'] })
                         }
                         else if($submit_button.hasClass(signUpSubmitButtonClass)){
 
@@ -256,6 +291,53 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
                                 default_handler = true
                                 alert('ok')
                             }
+                        }
+
+                        else if($submit_button.hasClass(subscribeSubmitButtonClass)){
+                            //alert(registration_event_id)
+                            // abcdef
+                            changeRegistrationButtonForEvents({registered: true, button_text: data['decline_button_text'], events: [{event_id: popup_event_id, decline_button_link: data['decline_button_link']}]})
+
+                        }
+
+                        else if($submit_button.hasClass(unsubscribeSubmitButtonClass)){
+                            //alert("registration_event_id: ", registration_event_id)
+
+
+                            // ======================================================
+                            // ------------------------------------------------------
+                            // saved for history
+                            // ------------------------------------------------------
+                            // ======================================================
+
+//                            var $matched_events = $('.'+eventCollectionItemClass+'[data-event-id='+popup_event_id+']')
+//                            var matched_events_count = $matched_events.length
+//
+//                            var subscribe_button_url = data['subscribe_button_link']
+//                            var subscribe_button_text = data['subscribe_button_text']
+//
+//                            for(var k = 0; k< matched_events_count; k++ ){
+//                                var $event = $matched_events.eq(k)
+//                                var $register_button = $event.find('div.register-button')
+//                                var $register_button_link = $register_button.find('a.register-button-a')
+//
+//                                $register_button_link.attr('href', subscribe_button_url)
+//                                //alert('hello')
+//                                $register_button.manipulateClasses([], ['decline'])
+//                                var $registration_text_tag = $register_button.find('.registration-text')
+//
+//                                $registration_text_tag.text(subscribe_button_text)
+//                            }
+
+                            // ======================================================
+                            // ------------------------------------------------------
+                            // saved for history end
+                            // ------------------------------------------------------
+                            // ======================================================
+
+
+                            changeRegistrationButtonForEvents({registered: true, button_text: data['subscribe_button_text'], events: [{event_id: popup_event_id, decline_button_link: data['subscribe_button_link']}]})
+                            popup_event_id = false
                         }
 
                         if(default_handler){
@@ -332,8 +414,8 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
         event.preventDefault()
         var $link = $(this)
         var url = $link.attr('href')
-        var $event = $link.closest('li.event')
-        var event_id = $event.attr('data-event-id')
+        var $event = $link.closest('.'+eventCollectionItemClass)
+        var event_id = + $event.attr('data-event-id')
         $.ajax({
             type: 'GET',
             url: url,
@@ -377,6 +459,10 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
                 }
 
                 if(textStatus == 'success') {
+
+                    if(data['controller'] == 'users/event_subscriptions' && data['action'] == 'new'){
+                        event_register_request = true
+                    }
                     console.log('success')
                     console.log('before $modal')
                     var $modal = $html_source
@@ -385,6 +471,7 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
                     $modal_windows_wrapper.append($modal)
                     registration_location = window.location.pathname
                     registration_event_id = event_id
+                    popup_event_id = event_id
                 }
                 else{
                     console.log('error')
@@ -401,3 +488,118 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
 //        //if('')
 //    }
 //})
+
+
+
+var $infinity_scroll_list= $('.infinity-scroll-list')
+var infinity_scroll_list_count = $infinity_scroll_list.length
+var load_started = false
+
+if(infinity_scroll_list_count > 0) {
+    var current_pagination_page = 1
+    var max_pagination_page = +$('.pagination a:not(.next_page):last').text()
+    if(max_pagination_page > current_pagination_page) {
+        var url = window.location.pathname
+
+        $window.on('scroll', function (event) {
+
+            if(!load_started && current_pagination_page < max_pagination_page && nearBottomOfPage()) {
+                load_started = true
+                var required_page = current_pagination_page + 1
+                current_pagination_page++
+
+                $.ajax({
+                    url: url,
+                    type: 'get',
+                    data: 'ajax=true&page=' + required_page,
+                    dataType: 'json',
+                    complete: function (jqXHR, textStatus) {
+                        var response_text = jqXHR.responseText
+                        var data = $.parseJSON(response_text)
+                        var html_source = data['html']
+                        //var $html_source
+                        if(textStatus == 'success'){
+                            $infinity_scroll_list.append(html_source)
+                        }
+                        load_started = false
+                    }
+                })
+            }
+        })
+    }
+}
+
+function changeRegistrationButtonForEvents(options){
+    var defaults = { registered: true, decline_button_link: false, button_text: false, events: [] }
+    options = Object.merge(defaults, options )
+    var events_count = options.events.length
+    if( options.button_text && events_count > 0){
+        var event_selector_array = []
+        var event_selector_string;
+        for(var i=0; i< events_count; i++){
+            var event_info = options.events[i]
+            var event_id = event_info['event_id']
+            event_selector_array[i] = '[data-event-id='+event_id+']'
+        }
+        event_selector_string = event_selector_array.join(',')
+
+        var $all_events
+        //if(!options.registered){
+        $all_events = $('.'+eventCollectionItemClass)
+        //}
+        //else{
+        //    $all_events = $('.'+eventCollectionItemClass)
+        //}
+
+        var $matched_events = $all_events.filter(event_selector_string)
+
+        if(options.registered){
+           $matched_events.manipulateClasses([eventIAmSubscribedOnClass], [])
+        }
+        else{
+            $matched_events.manipulateClasses([], [eventIAmSubscribedOnClass])
+        }
+
+        console.log('matched_events_count', $matched_events.length)
+        var matched_events_count = $matched_events.length
+        for(var k = 0; k< matched_events_count; k++ ){
+            var event_info = options.events[k]
+            var event_button_url = ''
+            if(options.registered){
+                event_button_url = event_info['decline_button_link']
+            }
+            else{
+                event_button_url = event_info['subscribe_button_link']
+            }
+            var $event = $matched_events.eq(k)
+            var $register_button = $event.find('div.register-button')
+            var $register_button_link = $register_button.find('a.register-button-a')
+            //var decline_button_url = data['decline_button_link']
+            $register_button_link.attr('href', event_button_url)
+            //alert('hello')
+            if(options.registered){
+                $register_button.manipulateClasses(['decline'],[])
+            }
+            else{
+                $register_button.manipulateClasses([], ['decline'])
+            }
+
+            var $registration_text_tag = $register_button.find('.registration-text')
+
+            $registration_text_tag.text(options.button_text)
+        }
+    }
+
+}
+
+function nearBottomOfPage() {
+    return scrollDistanceFromBottom() < 150;
+}
+
+function scrollDistanceFromBottom(argument) {
+    return pageHeight() - (window.pageYOffset + self.innerHeight);
+}
+
+function pageHeight() {
+    return Math.max(document.body.scrollHeight, document.body.offsetHeight);
+}

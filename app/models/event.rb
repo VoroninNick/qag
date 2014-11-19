@@ -62,6 +62,8 @@ class Event < ActiveRecord::Base
     :day_sunday,
     :day_sunday_start_time
 
+  attr_accessible :registration_enabled
+
 
   def images
     query_album_images = "select ai.event_gallery_image_id as 'id' from event_gallery_albums_and_event_gallery_images ai, events_and_gallery_albums ea where ea.event_id = #{self.id} and ai.event_gallery_album_id = ea.event_gallery_album_id "
@@ -79,6 +81,14 @@ class Event < ActiveRecord::Base
     end
 
     tags_arr
+  end
+
+  def expired?
+    end_date > DateTime.now
+  end
+
+  def up_to_date?
+    !expired?
   end
 
   attr_accessible :days_and_time_string

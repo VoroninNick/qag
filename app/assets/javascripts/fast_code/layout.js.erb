@@ -432,7 +432,8 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
 
 //if($html.hasClass('controller-home action-index')){
     $home_featured_event_info_slides_row_ul = $('#home-featured-event-info-slides-row-ul')
-    var $event_collections = $('.events-collection')
+    var $event_collections = $('.events-collection, #event-item-page-event-info-part-details')
+
     $event_collections.on('click', 'a.register-button-a', function(event){
         event.preventDefault()
         var $link = $(this)

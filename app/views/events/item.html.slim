@@ -25,20 +25,31 @@
 
     #event-item-page-event-info-column.columns.large-4
       #event-item-page-event-info
-        #event-item-page-event-info-title
-          = t('pages.event-item.event-info.title')
-        #event-item-page-event-info-address.event-item-page-event-info-list-item
-          = embedded_svg_from_assets('svg/map_link.svg')
-          #event-item-page-event-info-address-text.event-item-page-event-info-text
-            = @event.address
-        #event-item-page-event-info-date-range.event-item-page-event-info-list-item
-          = embedded_svg_from_assets('svg/calendar.svg')
-          #event-item-page-event-info-date-range-text.event-item-page-event-info-text
-            = raw t('pages.event-item.event-info.date-range', start_date_day: @event.start_date.day, start_date_month: @event.start_date.month, start_date_year: @event.start_date.year, end_date_day: @event.end_date.day, end_date_month: @event.end_date.month, end_date_year: @event.end_date.year)
-        #event-item-page-event-info-participants-quantity.event-item-page-event-info-list-item
-          = raw t('pages.event-item.event-info.participants-count', svg: embedded_svg_from_assets('svg/participant.svg'), span_start: '<span id="event-item-page-event-info-participants-quantity-text" class="event-item-page-event-info-text">', span_end: '</span>', participants_count: @event.participants_count)
-        #event-item-page-event-info-days-and-time.event-item-page-event-info-list-item
-          = embedded_svg_from_assets('svg/clock.svg')
-          #event-item-page-event-info-days-and-time-text.event-item-page-event-info-text
-            = @event.days_and_time_string
+        #event-item-page-event-info-part-details.event-item-page-event-info-part
+          #event-item-page-event-info-title
+            = t('pages.event-item.event-info.title')
+          #event-item-page-event-info-address.event-item-page-event-info-list-item
+            = embedded_svg_from_assets('svg/map_link.svg')
+            #event-item-page-event-info-address-text.event-item-page-event-info-text
+              = @event.address
+          #event-item-page-event-info-date-range.event-item-page-event-info-list-item
+            = embedded_svg_from_assets('svg/calendar.svg')
+            #event-item-page-event-info-date-range-text.event-item-page-event-info-text
+              = raw t('pages.event-item.event-info.date-range', start_date_day: @event.start_date.day, start_date_month: @event.start_date.month, start_date_year: @event.start_date.year, end_date_day: @event.end_date.day, end_date_month: @event.end_date.month, end_date_year: @event.end_date.year)
+          #event-item-page-event-info-participants-quantity.event-item-page-event-info-list-item
+            = raw t('pages.event-item.event-info.participants-count', svg: embedded_svg_from_assets('svg/participant.svg'), span_start: '<span id="event-item-page-event-info-participants-quantity-text" class="event-item-page-event-info-text">', span_end: '</span>', participants_count: @event.participants_count)
+          #event-item-page-event-info-days-and-time.event-item-page-event-info-list-item
+            = embedded_svg_from_assets('svg/clock.svg')
+            #event-item-page-event-info-days-and-time-text.event-item-page-event-info-text
+              = @event.days_and_time_string
 
+
+          - if @event.up_to_date?
+            .register-button class=( "decline" if subscribed_on_event?(@event.id) )
+                a.register-button-a href=( subscribed_on_event?(@event.id) ? event_unsubscription_form_path(event_id: @event.id, locale: I18n.locale) : new_event_subscription_path(event_id: @event.id, locale: I18n.locale)  )
+                  = embedded_svg_from_assets('svg/registration.svg')
+                  span.registration-text
+                    = t("layout.buttons.#{ "un" if subscribed_on_event?(@event.id) }register")
+
+
+        #event-item-page-event-info-part-images.event-item-page-event-info-part

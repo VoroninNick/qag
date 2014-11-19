@@ -6,9 +6,15 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :lockable, :timeoutable
 
-  attr_accessible :email, :password, :password_confirmation
+  attr_accessible :email, :password, :password_confirmation, :confirmed_at
 
   attr_accessible :name, :status, :role
+
+  belongs_to :registration_event, foreign_key: :registration_event_id, class_name: "Event"
+
+  attr_accessible :registration_event
+
+  attr_accessible :registration_location, :registration_event_id
 
   attr_accessible :first_name, :last_name, :contact_phone, :city, :company, :description
   #t.string :work_position

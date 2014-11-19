@@ -4,6 +4,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
 
 
+
+
   # GET /resource/sign_up
   # def new
   #   super
@@ -38,6 +40,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
 
     build_resource(sign_up_params)
+
+
+
+
+    if resource.respond_to?(:registration_event_id)
+      resource.registration_event_id = params[:registration_event_id]
+    end
+
+    if resource.respond_to?(:registration_location)
+      resource.registration_location = params[:registration_location]
+    end
 
     resource_saved = resource.save
     yield resource if block_given?

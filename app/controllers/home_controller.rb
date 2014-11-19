@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   def index
 
+
    # if params.include?(:featured_events) && params.include?(:ajax)
    #   @featured_events_json = featured_events
    #   render inline: @featured_events_json
@@ -61,7 +62,17 @@ class HomeController < ApplicationController
 
 
 
-    render layout: 'application_foundation'
+    if !flash[:notice].nil?
+      #render inline: "#{flash[:notice]['locals'].inspect}"
+
+
+
+      render layout: 'application_foundation'
+
+    else
+      render layout: 'application_foundation'
+    end
+    #
     #end
   end
 

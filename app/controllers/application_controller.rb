@@ -94,16 +94,16 @@ class ApplicationController < ActionController::Base
 
       if modal?
         #render inline: params.inspect
-        #self.class.layout 'modal-layout'
+        #self.class.layout 'modal_layout'
         #params[:controller] = 'devise/aPP/home_page_index'
 
         
         #render inline: controller_class_name
         if !controller_class.nil?
           #render inline: 'hello'
-          controller_class.layout 'modal-layout'
+          controller_class.layout 'modal_layout'
         end
-        #render layout: 'modal-layout'
+        #render layout: 'modal_layout'
         #render inline: params.inspect
         @modal_id = "#{params[:controller].parameterize.underscore}-#{params[:action]}-#{@_request.method.downcase}"
 
@@ -122,7 +122,7 @@ class ApplicationController < ActionController::Base
   end
 
   # if params[:load_partial]
-  #   self.class.layout 'modal-layout'
+  #   self.class.layout 'modal_layout'
   # end
 
   before_filter do
@@ -214,6 +214,13 @@ class ApplicationController < ActionController::Base
       end
 
       #render inline: @token_return_to.inspect
+    end
+  end
+
+  before_filter do
+    flash_notice = flash[:notice]
+    if flash_notice && flash_notice['locals'] && flash_notice['locals']['registration_event_id']
+      @registration_event = Event.where("id = #{flash_notice['locals']['registration_event_id']}").first
     end
   end
 

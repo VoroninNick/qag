@@ -1,0 +1,27 @@
+#devise-content
+  #message-signed-in-succesfully.message
+    .form-title
+      = "Ви успішно залогінились"
+    /- if respond_to?(:registration_location)
+      .log
+        |@registration_location =
+        = registration_location
+        br
+    /- if respond_to?(:registration_event)
+      |@registration_event.name =
+      = registration_event.name
+      br
+    /= registration_event.id
+    .message
+      = "тепер ви можете підписатися на подію або відмовитись. також у вас є особистий кабінет, де ви можете переглянути улюблені події, ті, на які ви підписались, переглянути історію змін. Також ви можете відредагувати свої дані. Будемо вдячні за ваш відгук. Приємного користування"
+    - if @registration_event
+      .registration-event-wrapper
+        = "Ви почали реєструватись на подію "
+        = link_to("#{@registration_event.name}", event_item_path(item: @registration_event.slug, tags: @registration_event.tags.join('-')))
+        /.sign-in-submit-button-wrapper
+          = link_to t('devise.sessions.sign_in_button'), new_event_subscription_path(locale: I18n.locale, event_id: registration_event.id), class: 'popup-link orange-bg', html: { style: "color:white;" }
+        .standard-button class=( "decline" if subscribed_on_event?(@registration_event.id) )
+          a.standard-button-a.orange-bg.popup-link href=( subscribed_on_event?(@registration_event.id) ? event_unsubscription_form_path(event_id: @registration_event.id, locale: I18n.locale) : new_event_subscription_path(event_id: @registration_event.id, locale: I18n.locale)  )
+            = embedded_svg_from_assets('svg/registration.svg')
+            span.registration-text
+              = t("layout.buttons.continue_registration")

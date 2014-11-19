@@ -37,3 +37,4 @@ uk:
     buttons:
       register: "Зареєструватися"
       unregister: "Відмовитися"
+      continue_registration: "Продовжити реєстрацію на подію"

@@ -387,19 +387,42 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
         //
     }
     else if($this.hasClass(popupLinkClass)){
+        //alert('hello')
+        event.preventDefault()
         var $popup_link = $this
         var url = $popup_link.attr('href')
         $.ajax({
             type: 'get',
             url: url,
             data: 'modal=true',
-            dataType: 'html',
-            success: function(data){
-                var $modal = $(data)
-                $modal.addClass(modalOpenClass)
-                $popup.removeClass(modalOpenClass)
-                remove_with_delay($popup)
-                $modal_windows_wrapper.append($modal)
+            dataType: 'text',
+            complete: function(jqXHR, textStatus){
+                var response_text = jqXHR.responseText
+                var data, $html_source;
+                try {
+                    data = $.parseJSON(response_text)
+                    $html_source = $(data['html'])
+                }
+                catch(err){
+                    data = {}
+                    $html_source = $.parseHTML(response_text)
+                    $html_source = $($html_source)
+                    alert($html_source.attr('class'))
+
+                }
+
+                //alert(textStatus)
+                if(textStatus == 'success') {
+                    //var $html_source = $(data['html'])
+                    var $modal = $html_source
+                    $modal.addClass(modalOpenClass)
+                    $popup.removeClass(modalOpenClass)
+                    PUBLIC_MODAL = $modal
+                    //alert('hello')
+                    remove_with_delay($popup)
+
+                    $modal_windows_wrapper.append($modal)
+                }
             }
         })
     }

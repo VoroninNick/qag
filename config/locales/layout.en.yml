@@ -39,3 +39,4 @@ en:
     buttons:
       register: "Register"
       unregister: "Decline"
+      continue_registration: "Continue registration on event"

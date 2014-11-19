@@ -2,6 +2,10 @@
   #devise_sessions-new-get-form-wrap.devise-form-wrap
     .form-title
       = flash[:title] || t('devise.sessions.header')
+
+    - if !flash[:notice].nil?
+      .notice
+        = flash[:notice]
     - if !flash[:unlogged_text].nil?
       .unlogged-text
         .unlogged-header

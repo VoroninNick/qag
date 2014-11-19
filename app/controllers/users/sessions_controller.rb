@@ -41,9 +41,19 @@ class Users::SessionsController < Devise::SessionsController
       end
     end
 
+    if current_user.sign_in_count == 1
+
+      @registration_location = current_user.registration_location
+      @registration_event = current_user.registration_event
+    end
+    #render inline: "hello"
+
+
     if modal?
       html_source = render_to_string template: required_template
       data = { html: html_source }
+
+
 
       params_loaded_events = params[:loaded_events]
       loaded_event_ids = []
@@ -66,7 +76,29 @@ class Users::SessionsController < Devise::SessionsController
       render inline: "#{data.to_json}"
     else
       #respond_with resource, location: after_sign_in_path_for(resource)
-      render template: required_template
+
+      redirect_location = current_user.registration_location
+      if !redirect_location
+        redirect_location = root_path(locale: I18n.locale)
+      end
+
+
+
+      redirect_to redirect_location, notice: {
+                                       # html: render_to_string(template: required_template,
+                                       #                        layout: 'modal_layout',
+                                       #                        locals:
+                                       #                            {
+                                       #                                active: true,
+                                       #                                registration_event: @registration_event
+                                       #                            }),
+                                       template: required_template,
+                                       layout: 'modal_layout',
+                                       locals: {active: true, registration_event_id: (@registration_event.id rescue nil)},
+                                       title: "Ви успішно залогінились",
+                                       message: "тепер ви можете підписатися на подію або відмовитись. також у вас є особистий кабінет, де ви можете переглянути улюблені події, ті, на які ви підписались, переглянути історію змін. Також ви можете відредагувати свої дані. Будемо вдячні за ваш відгук. Приємного користування"
+                                   }
+      #render template: required_template
     end
   end
 

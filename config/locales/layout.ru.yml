@@ -38,3 +38,4 @@ ru:
     buttons:
       register: "Зарегистрироваться"
       unregister: "Отказаться"
+      continue_registration: "Продолжить регистрацию на событие"

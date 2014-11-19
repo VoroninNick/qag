@@ -1,5 +1,6 @@
+- active_alert = active rescue false
 /input name="focus" type="radio" id="#{@modal_id}-flag" class="flag modal-flag"
-.popup.less-than-screen id="#{@modal_id}" 
+.popup.less-than-screen id="#{@modal_id}" class=("modal-open" if active_alert)
   .popup-reset
     .popup-overlay-container
       .popup-height-keep
@@ -9,7 +10,14 @@
               /label#popup-close-button for="#{@modal_id}-flag"
               label#popup-close-button.modal-close-trigger for="wrap-focus-flag"
               /label.popup-close-button
-              = yield
+              - if content_for?(:popup_content)
+                = yield :popup_content
+              - else
+                - if (template rescue false)
+                  = render partial: template,locals: ( template_locals rescue {} )
+                - else
+                  = yield
+
         /label.popup-height-overlay for="#{@modal_id}-flag"
         label.popup-height-overlay.modal-close-trigger for="wrap-focus-flag"
       .popup-overlay

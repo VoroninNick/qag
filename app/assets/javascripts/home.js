@@ -153,6 +153,8 @@ var initialize = function() {
 
 
         $home_featured_event_info_slides_row.on('click', '#home-featured-prev-event-arrow, #home-featured-next-event-arrow', function () {
+            var $this = $(this)
+            if($this.hasClass('.nav-arrow'))
             var $arrow = $(this)
             var arrow = $arrow.get(0)
             var direction = arrow.id == 'home-featured-next-event-arrow'

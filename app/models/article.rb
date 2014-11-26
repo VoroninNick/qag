@@ -27,7 +27,7 @@ class Article < ActiveRecord::Base
   end
 
   translates :name, :short_description, :full_description, :avatar_alt, :banner_alt, :versioning => :paper_trail
-  accepts_nested_attributes_for :translations
+  accepts_nested_attributes_for :translations, allow_destroy: true
   attr_accessible :translations_attributes, :translations
 
   class Translation

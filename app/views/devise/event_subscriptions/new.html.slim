@@ -1,8 +1,8 @@
 - if user_signed_in?
   #devise-content
-    #devise_sessions-new-get-form-wrap.devise-form-wrap
+    #devise_event_subscriptions-new-get-form-wrap.devise-form-wrap
       .form-title
-        = "Реєстрація на подію"
+        = ""
       .event-reg
       	.event-reg-1
       	  = raw "#{@user.first_name}, Ви збираєтесь зареєструватись на курс &laquo;#{@event.name}&raquo;."
@@ -10,15 +10,18 @@
       	  = "Перевірте особисті дані, якщо необхідно введіть корективи та підтвердіть реєстрайцію."
       = simple_form_for(@user, as: :user, url: create_event_subscription_path(event_id: @event.id, locale: I18n.locale), type: 'POST') do |f|
         .form-inputs
-          = f.input :first_name, required: false, autofocus: true, label: t('devise.registrations.placeholders.first_name'), placeholder: t('devise.registrations.placeholders.first_name'), value: @user.first_name
-          = f.input :last_name, required: false, label: t('devise.registrations.placeholders.last_name'), placeholder: t('devise.registrations.placeholders.last_name'), value: @user.last_name
+          = f.input :first_name, required: false, autofocus: true, label: t('devise.registrations.placeholders.first_name'), placeholder: t('devise.registrations.placeholders.first_name'), value: @user.first_name, wrapper_html: { class: "#{"empty" if !@user.first_name || @user.first_name == ''}" }
+          = f.input :last_name, required: false, label: t('devise.registrations.placeholders.last_name'), placeholder: t('devise.registrations.placeholders.last_name'), value: @user.last_name, wrapper_html: { class: "#{"empty" if !@user.last_name || @user.last_name == ''}" }
 
-          = f.input :email, label: false, placeholder: t('devise.registrations.placeholders.email'), value: @user.email
+          = f.input :email, label: t('devise.registrations.placeholders.email'), placeholder: t('devise.registrations.placeholders.email'), value: @user.email, wrapper_html: { class: "#{"empty" if !@user.email || @user.email == ''}" }
 
-          = f.input :contact_phone, label: t('devise.registrations.placeholders.contact_phone'), placeholder: t('devise.registrations.placeholders.contact_phone'), value: @user.contact_phone 
+          = f.input :contact_phone, label: t('devise.registrations.placeholders.contact_phone'), placeholder: t('devise.registrations.placeholders.contact_phone'), value: @user.contact_phone, wrapper_html: { class: "#{"empty" if !@user.contact_phone || @user.contact_phone == ''}" }
           /- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+        .sign-up-link-wrapper
+          = link_to "Редагувати дані", '#', class: 'popup-link sign-up link-to-input', data: {input: "#devise_registrations-new-get-flag"}
         .sign-in-submit-button-wrapper
           = f.button :submit, t('devise.event_subscriptions.form-subscribe-button'), class: 'subscribe-submit-button devise-submit-button input-submit orange-bg'
+
 
     / render "devise/shared/links"
 

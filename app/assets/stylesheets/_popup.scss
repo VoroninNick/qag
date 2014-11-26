@@ -91,7 +91,7 @@
   max-width: 100%;
   position: relative;
   //padding: 50px;
-  padding: 40px 50px 50px 50px;
+  padding: 35px 50px 50px 50px;
   //background: white;
 
   text-align: left;
@@ -178,9 +178,7 @@ select:-webkit-autofill {
       display: none;
     }
 
-    .error{
-      color: #ff5949;
-    }
+
 
 
 
@@ -214,15 +212,7 @@ select:-webkit-autofill {
 
     }
 
-    &.error{
-      input{
-        color: #ff5949;
-        border-color: #ff5549;
 
-
-
-      }
-    }
 
     &.boolean{
       &, input {
@@ -253,7 +243,7 @@ select:-webkit-autofill {
   margin: 0 0 30px 0;
   font-weight: 900;
   font-size: 23px;
-  color: #58595b;
+  color: $modal-dark-gray-color;
   border-radius: 4px;
 }
 
@@ -642,12 +632,134 @@ select:-webkit-autofill {
 
 .unlogged-header {
   font-weight: 500;
-  color: #58595b;
+  color: $modal-dark-gray-color;
   font-size: 1.2rem;
 }
 
 .devise-form-wrap{
   > .errors{
     color: #ff5949;
+  }
+}
+
+#new_user{
+  .popup-link.forgot-password{
+    margin-top: 10px;
+  }
+
+  .input.boolean.optional.user_remember_me{
+    margin-top: 9px;
+  }
+
+  .form-actions{
+    margin-top: 1.5rem;
+  }
+}
+
+// ===============================
+// -------------------------------
+// TODO:
+//   1. .input.boolean.optional.user_remember_me{ margin-top: 9px; }
+//   2. menu close button must be 30px from right. ask Nick
+//   3. РЕЄСТРАЦІЯ НА ПОДІЮ font-weight: 300; color: standard
+//   4. РЕЄСТРАЦІЯ НА ПОДІЮ remove field labels
+// -------------------------------
+// ===============================
+
+
+.shared-links{
+  a{
+    margin-top: 10px;
+    display: block;
+    &:first-child{
+      margin-top: 13px;
+    }
+  }
+}
+
+.popup-box-content{
+  font-weight: 300;
+  color: $modal-dark-gray-color;
+
+  .popup-link{
+    font-weight: 400;
+  }
+}
+
+
+
+.input{
+
+  &.error, &.help{
+    &:after{
+      display: none; // was: block
+      margin: 0 0 10px 0;
+    }
+  }
+
+  &.help{
+    content: attr(data-help);
+  }
+
+  &.error{
+    input{
+      color: #ff5949;
+      border-color: #ff5549;
+
+      & + .hint{
+        display: none;
+      }
+    }
+
+    &:after{
+      content: attr(data-error);
+    }
+  }
+
+  .hint {
+    margin-bottom: 0.6rem;
+    padding: 0 20px;
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+}
+
+.event-reg{
+  .event-reg-1{
+    font-weight: 500;
+    font-size: 1.2rem;
+  }
+
+  &:after {
+    margin: 40px 0 30px 0;
+    display: block;
+    height: 1px;
+    content: "";
+    background: rgba(#d0d0d0, 1);
+  }
+}
+
+#devise_event_subscriptions-new-get-form-wrap.devise-form-wrap{
+  #html.no-js &, &.modeEdit{
+    .input{
+      label{
+        display: none;
+      }
+    }
+  }
+  &.modeView{
+    .input{
+      input{
+        background: none;
+        border: none;
+        font-weight: 500;
+        font-size: 1.2rem;
+
+        &:focus{
+          font-size: 17px;
+          font-weight: 300;
+        }
+      }
+    }
   }
 }

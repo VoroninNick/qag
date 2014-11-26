@@ -17,7 +17,13 @@ class ApplicationController < ActionController::Base
     @is_ajax ||= params[:ajax] == "true"
   end
 
+  #before_filter :set_locale
   before_filter do
+    I18n.locale = :uk
+  end
+
+
+  def set_locale
     params_locale = params[:locale]
     if params_locale
       params_locale = params_locale.to_sym

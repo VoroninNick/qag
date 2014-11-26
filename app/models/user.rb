@@ -67,25 +67,33 @@ class User < ActiveRecord::Base
   end
 
   def self.subscribed_event_ids_from_range_for_user(user_id,event_ids)
-    event_ids_string = event_ids
-    event_ids_array = event_ids.split(',')
-    event_ids_array_count = event_ids_array.count
-    for i in 0..(event_ids_array_count - 1)
-      event_ids_array[i] = event_ids_array[i].to_i
+    event_ids_array = nil
+    if event_ids.is_a?(Array)
+      event_ids_array = event_ids
+      event_ids_array_count = event_ids_array.count
+    elsif event_ids.is_a?(String)
+      event_ids_array = event_ids.split(',')
+      event_ids_array_count = event_ids_array.count
+      for i in 0..(event_ids_array_count - 1)
+        event_ids_array[i] = event_ids_array[i].to_i
+      end
     end
 
-      @events_i_am_subscribed_on ||= ActiveRecord::Base.connection.execute("select s.event_id as event_id from event_subscriptions s where s.user_id = #{user_id}")
-      @event_ids_i_am_subscribed_on ||= []
-      if @event_ids_i_am_subscribed_on.count == 0 && @events_i_am_subscribed_on.count > 0
-        @events_i_am_subscribed_on.each do |e|
-          @event_ids_i_am_subscribed_on.push e['event_id']
-        end
-      end
-      #return @events_i_am_subscribed_on.where("event_id = #{event_id}").count > 0
-      result = @event_ids_i_am_subscribed_on.select {|num| event_ids_array.include?(num)  }
 
-      #return @event_ids_i_am_subscribed_on.index(event_id) != nil
-      return result
+
+
+    @events_i_am_subscribed_on ||= ActiveRecord::Base.connection.execute("select s.event_id as event_id from event_subscriptions s where s.user_id = #{user_id}")
+    @event_ids_i_am_subscribed_on ||= []
+    if @event_ids_i_am_subscribed_on.count == 0 && @events_i_am_subscribed_on.count > 0
+      @events_i_am_subscribed_on.each do |e|
+        @event_ids_i_am_subscribed_on.push e['event_id']
+      end
+    end
+    #return @events_i_am_subscribed_on.where("event_id = #{event_id}").count > 0
+    result = @event_ids_i_am_subscribed_on.select {|num| event_ids_array.include?(num)  }
+
+    #return @event_ids_i_am_subscribed_on.index(event_id) != nil
+    return result
 
   end
 

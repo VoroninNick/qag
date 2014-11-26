@@ -19,15 +19,17 @@
       label#header-menu-button-label for="menu-focus-flag"
       label#header-menu-close-button-label for="wrap-focus-flag"
     #header-menu-container
-      #header-menu-locales-bar
-        span#header-menu-active-locale.header-menu-locale
-          = I18n.locale
-        ul#header-menu-locales-list
-          - @page_locale_links.each_pair do |locale, url|
-            - if locale.to_sym != I18n.locale.to_sym
-              li.header-menu-locale.header-menu-inactive-locale
-                a.header-menu-locale-a.header-menu-inactive-locale-a href=url
-                  = locale
+      - if 1 == 2
+        #header-menu-locales-bar
+
+          span#header-menu-active-locale.header-menu-locale
+            = I18n.locale
+          ul#header-menu-locales-list
+            - @page_locale_links.each_pair do |locale, url|
+              - if locale.to_sym != I18n.locale.to_sym
+                li.header-menu-locale.header-menu-inactive-locale
+                  a.header-menu-locale-a.header-menu-inactive-locale-a href=url
+                    = locale
 
       #header-menu-user-wrapper
         - if !user_signed_in?

@@ -17,10 +17,10 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
             li class="label-for-event-#{index + 1}"
               label for="home-featured-events-timeline-flag-#{index + 1}"
       - else
-        span#home-featured-prev-event-arrow
+        span#home-featured-prev-event-arrow.nav-arrow.prev
           = embedded_svg_from_assets('svg/arrow_left.svg')
 
-        span#home-featured-next-event-arrow
+        span#home-featured-next-event-arrow.nav-arrow.next
           = embedded_svg_from_assets('svg/arrow_right.svg')
 
       ul#home-featured-event-info-slides-row-ul.events-collection

@@ -1,5 +1,5 @@
 doctype html
-html#html class="locale-#{I18n.locale.to_s} controller-#{params[:controller]} action-#{params[:action]} #{ (user_signed_in?)? "logged_in" : "unlogged" }" lang="en"
+html#html class="no-js locale-#{I18n.locale.to_s} controller-#{params[:controller]} action-#{params[:action]} #{ (user_signed_in?)? "logged_in" : "unlogged" }" lang="en"
   head
     meta charset="utf-8"
     meta name="viewport" content="width=device-width, initial-scale=1.0"
@@ -19,6 +19,8 @@ html#html class="locale-#{I18n.locale.to_s} controller-#{params[:controller]} ac
           height: 100%
 
   body#body
+    /style id="main_style"
+      = Rails.application.assets.find_asset('application').to_s.length
     input name="modal" id="modal-none" class="flag" type="radio" checked="checked"
     input type="radio" id="wrap-focus-flag" name="focus" class="flag focus-flag" checked="checked"
     input type="radio" id="menu-focus-flag" name="focus" class="flag focus-flag"

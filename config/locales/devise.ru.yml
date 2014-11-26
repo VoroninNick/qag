@@ -71,6 +71,7 @@ ru:
       unlocked: "Ваша учётная запись разблокирована. Теперь Вы вошли в систему."
     event_subscriptions:
       form-subscribe-button: "Зарегестрироваться!"
+      header: "Регистрация на событие"
   errors:
     messages:
       already_confirmed: "уже подтверждена. Пожалуйста, попробуйте войти в систему"

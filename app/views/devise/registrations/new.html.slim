@@ -11,8 +11,11 @@
       = f.error_notification
       .form-inputs
         = f.input :first_name, required: true, auto_focus: true, label: false, placeholder: "#{t('devise.registrations.placeholders.first_name')}*", wrapper_html: { data: { validate: 'first_name required' } }
+        label for="#{resource_name}_first_name" data-error-too-short=t("activerecord.errors.models.user.attributes.first_name.too_short") data-error-empty=t("activerecord.errors.models.user.attributes.first_name.empty")
         = f.input :last_name, label: false, required: true, placeholder: "#{t('devise.registrations.placeholders.last_name')}*", wrapper_html: { data: { validate: 'last_name required' } }
+        label for="#{resource_name}_last_name" data-error-too-short=t("activerecord.errors.models.user.attributes.last_name.too_short") data-error-empty=t("activerecord.errors.models.user.attributes.last_name.empty")
         = f.input :email, required: true, label: false, placeholder: "#{t('devise.registrations.placeholders.email')}*", wrapper_html: { data: { validate: 'email required',  :"error-taken" => t('activerecord.errors.models.user.attributes.email.taken'), :"error-empty" => t('activerecord.errors.models.user.attributes.email.empty'), :"error-invalid" => t('activerecord.errors.models.user.attributes.email.invalid') , help: t('activerecord.help.models.user.attributes.email') } }
+        label for="#{resource_name}_email" data-error-too-short=t("activerecord.errors.models.user.attributes.last_name.too_short") data-error-empty=t("activerecord.errors.models.user.attributes.last_name.empty")
         = f.input :contact_phone, required: true, label: false, placeholder: "#{t('devise.registrations.placeholders.contact_phone')}*", wrapper_html: { data: { validate: 'phone required' } }
         = f.input :password, required: true, label: false, placeholder: "#{t('devise.registrations.placeholders.password')}", hint: ("#{@minimum_password_length} characters minimum" if @validatable), wrapper_html: { data: { validate: 'password required' } }
         = f.input :password_confirmation, label: false, required: true, placeholder: "#{t('devise.registrations.placeholders.password_confirmation')}*", wrapper_html: { data: { validate: 'password_confirmation required' } }
@@ -28,11 +31,12 @@
         //span.progress-bar
           span.progress-bar-moving-bg
     / render "devise/shared/links"
-    - if controller_name != 'sessions'
-      = link_to t('shared.links.sign_in'), new_session_path(resource_name, locale: I18n.locale), class: 'popup-link link-to-input', data: { input: '#devise_sessions-new-get-flag' }
-      br
-    - if devise_mapping.confirmable? && controller_name != 'confirmations'
-      = link_to t('shared.links.confirmations'), new_confirmation_path(resource_name, locale: I18n.locale), class: 'popup-link link-to-input', data: { input: '#devise_confirmations-new-get-flag' }
-      br
-    - if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
-      = link_to t('shared.links.unlocks'), new_unlock_path(resource_name, locale: I18n.locale), class: 'popup-link link-to-input', data: { input: '#devise_unlocks-new-get-flag' }
+    .shared-links
+      - if controller_name != 'sessions'
+        = link_to t('shared.links.sign_in'), new_session_path(resource_name, locale: I18n.locale), class: 'popup-link link-to-input', data: { input: '#devise_sessions-new-get-flag' }
+
+      - if devise_mapping.confirmable? && controller_name != 'confirmations'
+        = link_to t('shared.links.confirmations'), new_confirmation_path(resource_name, locale: I18n.locale), class: 'popup-link link-to-input', data: { input: '#devise_confirmations-new-get-flag' }
+
+      - if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
+        = link_to t('shared.links.unlocks'), new_unlock_path(resource_name, locale: I18n.locale), class: 'popup-link link-to-input', data: { input: '#devise_unlocks-new-get-flag' }

@@ -31,11 +31,13 @@ uk:
         password: 'Пароль'
 
     passwords:
+      header: "Забули пароль?"
       send_instructions: 'Ви отримаєте інструкції зі скидання паролю через декілька хвилин.'
       updated: 'Ваш пароль було успішно змінено.'
       updated_not_active: 'Ваш пароль було успішно змінено.'
       send_paranoid_instructions: "Ваш email існує у нашій базі даних, Вам надіслано посилання для відновлення вашого паролю"
     confirmations:
+      header: "Підтвердження реєстрації"
       send_instructions: 'На Ваш email надіслано інструкції з підтвердження облікового запису.'
       send_paranoid_instructions: 'Якщо Ваш email існує у нашій базі даних, Вам надіслано інструкції з підтвердження облікового запису.'
       confirmed: 'Ваш обліковий запис було успішно підтверджено.'
@@ -83,10 +85,11 @@ uk:
         subject: 'Інструкції з розблокування'
     event_subscriptions:
       form-subscribe-button: "Зареєструватись!"
+      header: "Реєстрація на подію"
 
   shared:
     links:
-      sign_in: "Увыйти"
+      sign_in: "Увійти"
       sign_up: "Новий користувач"
       forgot_password: "Забули пароль?"
       confirmations: "Не отримали email з підтвердженням?"

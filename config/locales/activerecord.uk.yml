@@ -6,9 +6,31 @@ uk:
           attributes:
             first_name:
               too_short: "Ім'я повинне бути щонайменше 2 символи"
+              empty: "Введіть ім'я"
             last_name:
+              empty: "Введіть прізвище"
               too_short: "Прізвище повинне бути щонайменше 2 символи"
             email:
+              empty: "Введіть email"
+              invalid: "email неправльний"
               taken: "Такий email вже використовується"
+            password:
+              empty: "Введіть пароль"
+              invalid: "Пароль введено невірно"
+              tip: "Пароль повинен бути щонайменше 8 символів"
             password_confirmation:
-              confirmation: "Пароли повинні бути однаковими"
+              empty: "Повторіть пароль"
+              invalid: "Пароль введено невірно"
+              confirmation: "Паролі повинні бути однаковими"
+
+
+
+    help:
+      models:
+        user:
+          attributes:
+            first_name: ""
+            last_name: ""
+            email: ""
+            password: "Пароль повинен бути щонайменше 8 символів"
+            password_confirmation: ""

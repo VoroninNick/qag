@@ -6,9 +6,31 @@ ru:
           attributes:
             first_name:
               too_short: "Имя должно состоять хотя бы из 2 символов"
+              empty: "please enter first name"
             last_name:
+              empty: "please enter last name"
               too_short: "Фамилия должна состоять хотя бы из 2 символов"
             email:
+              empty: "Please enter email"
+              invalid: "email is invalid"
               taken: "Такой email уже используется"
+            password:
+              empty: "please enter password"
+              invalid: "password is invalid"
+              tip: "password must contain 8 symbols as minimum"
             password_confirmation:
+              empty: "Please confirm password"
+              invalid: "Password"
               confirmation: "Пароли должны совпадать"
+
+
+
+    help:
+      models:
+        user:
+          attributes:
+            first_name: ""
+            last_name: ""
+            email: ""
+            password: "password must contain 8 symbols as minimum"
+            password_confirmation: ""

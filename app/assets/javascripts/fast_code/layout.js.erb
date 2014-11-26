@@ -279,7 +279,13 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
 
                             default_handler = false
 
-                            changeRegistrationButtonForEvents({registered: false, button_text: data['subscribe_button_text'], events: data['events_i_am_subscribed_on'] })
+
+                            var data_events_i_am_subscribed_on = data['events_i_am_subscribed_on']
+
+                            console.log('data_events_i_am_subscribed_on: ', data_events_i_am_subscribed_on)
+
+
+                            changeRegistrationButtonForEvents({registered: false, button_text: data['subscribe_button_text'], events: data_events_i_am_subscribed_on })
                         }
                         else if($submit_button.hasClass(signUpSubmitButtonClass)){
 
@@ -289,7 +295,7 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
                             }
                             else{
                                 default_handler = true
-                                alert('ok')
+                                //alert('ok')
                             }
                         }
 
@@ -407,13 +413,25 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
                     data = {}
                     $html_source = $.parseHTML(response_text)
                     $html_source = $($html_source)
-                    alert($html_source.attr('class'))
+                    //alert($html_source.attr('class'))
 
                 }
+
+                HTML_SOURCE = $html_source
 
                 //alert(textStatus)
                 if(textStatus == 'success') {
                     //var $html_source = $(data['html'])
+                    var $modal = $html_source
+                    $modal.addClass(modalOpenClass)
+                    $popup.removeClass(modalOpenClass)
+                    PUBLIC_MODAL = $modal
+                    //alert('hello')
+                    remove_with_delay($popup)
+
+                    $modal_windows_wrapper.append($modal)
+                }
+                else if($html_source){
                     var $modal = $html_source
                     $modal.addClass(modalOpenClass)
                     $popup.removeClass(modalOpenClass)
@@ -452,16 +470,30 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
                 // ------------------------------------------------
                 // ================================================
                 var response_text = jqXHR.responseText
-                console.log('before parse json. response_text: ')
-                var data = {}
-                if(typeof response_text == 'string' && response_text.length > 0){
+                var data, $html_source;
+
+                try {
                     data = $.parseJSON(response_text)
+                    $html_source = $(data['html'])
+                }
+                catch(err){
+                    data = {}
+                    $html_source = $.parseHTML(response_text)
+                    $html_source = $($html_source)
+                    //alert($html_source.attr('class'))
+
                 }
 
-                console.log('after parse json')
+                //console.log('before parse json. response_text: ')
+                //var data = {}
+                //if(typeof response_text == 'string' && response_text.length > 0){
+                //    data = $.parseJSON(response_text)
+                //}
+
+                //console.log('after parse json')
 
 
-                console.log('data: ', data)
+                //console.log('data: ', data)
 
                 var errors = {}
                 if(data.hasOwnProperty('errors')){
@@ -474,15 +506,18 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
 
                 DATA = data
 
-                var html_source = ""
-                var $html_source
-                if(data.hasOwnProperty('html')){
-                    html_source = data['html']
-                    $html_source = $(html_source)
+                //var html_source = ""
+                //var $html_source
+                //if(data.hasOwnProperty('html')){
+                //    html_source = data['html']
+                //    $html_source = $(html_source)
 
-                }
+                //}
 
-                if(textStatus == 'success') {
+
+
+                //if(textStatus == 'success') {
+                if($html_source){
 
                     if(data['controller'] == 'users/event_subscriptions' && data['action'] == 'new'){
                         event_register_request = true
@@ -496,9 +531,16 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
                     registration_location = window.location.pathname
                     registration_event_id = event_id
                     popup_event_id = event_id
+
+                    var $devise_event_subscriptions_form_wrap = $html_source.find('#devise_event_subscriptions-new-get-form-wrap.devise-form-wrap')
+                    if($devise_event_subscriptions_form_wrap.length > 0){
+                        $devise_event_subscriptions_form_wrap.addClass('modeView')
+                    }
                 }
+
                 else{
                     console.log('error')
+                    console.log('text_status: ', textStatus)
                 }
             }
         })
@@ -576,13 +618,15 @@ function changeRegistrationButtonForEvents(options){
         //}
 
         var $matched_events = $all_events.filter(event_selector_string)
-
+        console.log('options.registered', options.registered)
         if(options.registered){
            $matched_events.manipulateClasses([eventIAmSubscribedOnClass], [])
         }
         else{
             $matched_events.manipulateClasses([], [eventIAmSubscribedOnClass])
         }
+
+        console.log('event_selector_string: ', event_selector_string)
 
         console.log('matched_events_count', $matched_events.length)
         var matched_events_count = $matched_events.length
@@ -610,7 +654,13 @@ function changeRegistrationButtonForEvents(options){
 
             var $registration_text_tag = $register_button.find('.registration-text')
 
+            console.log('$registration_text_tag: ', $registration_text_tag)
+            console.log('button_text: ', options.button_text)
+
+            public_registration_text_tag = $registration_text_tag
+
             $registration_text_tag.text(options.button_text)
+            alert("test")
         }
     }
 
@@ -627,3 +677,17 @@ function scrollDistanceFromBottom(argument) {
 function pageHeight() {
     return Math.max(document.body.scrollHeight, document.body.offsetHeight);
 }
+
+
+
+// ======================================================
+// ------------------------------------------------------
+// home page featured events carousel
+// ------------------------------------------------------
+// ======================================================
+
+//$home_featured_events_section = $('#home-featured-events-section')
+//$home_featured_events_section.on('click', '.nav-arrow', function(){
+//    var $this = $(this)
+//
+//})

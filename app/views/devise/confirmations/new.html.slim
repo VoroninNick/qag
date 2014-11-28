@@ -5,11 +5,15 @@
 
     .errors
 
-	= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name, locale: I18n.locale), html: { method: :post }) do |f|
-	  = f.error_notification
-	  = f.full_error :confirmation_token
+	= simple_form_for(resource, as: resource_name, url: create_user_confirmation_path(locale: I18n.locale), html: { method: :post }) do |f|
+	  .form-errors
+        - if f.error_notification
+          = "Помилки форми"
+          br
+        - if f.full_error :confirmation_token
+          = "неправильний ключ для підтвердження"
 	  .form-inputs
 	    = f.input :email, required: true, autofocus: true, label: false, placeholder: "#{t('devise.registrations.placeholders.email')}*", wrapper_html: { data: { validate: 'email required', :"error-taken" => t('activerecord.errors.models.user.attributes.email.taken'), :"error-empty" => t('activerecord.errors.models.user.attributes.email.empty'), :"error-invalid" => t('activerecord.errors.models.user.attributes.email.invalid') , help: t('activerecord.help.models.user.attributes.email') } }
 	  .form-actions
-	    = f.button :submit, "Resend confirmation instructions", class: 'input-submit resend-me-confirmation-submit-button devise-submit-button orange-bg'
+	    = f.button :submit, "Надіслати інструкції для підтвердження", class: 'input-submit resend-me-confirmation-submit-button devise-submit-button orange-bg'
 	= render "devise/shared/links"

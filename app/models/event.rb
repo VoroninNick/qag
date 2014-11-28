@@ -40,8 +40,9 @@ class Event < ActiveRecord::Base
     attr_accessor "delete_#{paperclip_field_name}".to_sym
   end
 
-  has_and_belongs_to_many :users, join_table: 'event_subscriptions'
-
+  #has_and_belongs_to_many :users, join_table: 'event_subscriptions'
+  has_many :event_subscriptions
+  has_many :users, through: :event_subscriptions
 
   attr_accessible :published, :name, :slug, :short_description, :full_description
 

@@ -43,6 +43,35 @@ popup_event_id = false
 
 eventIAmSubscribedOnClass = 'event-i-am-subscribed-on'
 
+jsTriggerClass = 'js-trigger'
+modeClass = 'mode'
+modeEditClass = 'mode-edit'
+modeViewClass = 'mode-view';
+editDataSubmitClass = 'edit';
+
+
+
+edit_data_button_text = 'Відредагувати';
+register_submit_button_text = 'Зареєструватись';
+register_button_text = "Зареєструватись";
+unregister_button_text = "Відмовитись";
+
+
+
+(function($){
+    $.fn.init_form = function(){
+        var $this = $(this)
+        var $inputs = $this.find('div.input')
+        var $phone_inputs = $inputs.filter('div.phone')
+        var phone_inputs_length = $phone_inputs.length
+        for(var i = 0; i< phone_inputs_length; i++){
+            var $phone_input_wrap = $phone_inputs.eq(i)
+            $phone_input_wrap.find('input').mask("+99 (999) 999 99 99")
+        }
+
+    }
+})(jQuery)
+
 
 
 <%
@@ -135,186 +164,272 @@ $header_menu_user_wrapper.on('click', '.popup-link', function(event){
 
 
 
-$modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' + submitButtonClass, 'a.' + popupLinkClass].join(','), function(event){
+$modal_windows_wrapper.on('click focusin focusout field_valid', ['label.' + modalCloseTriggerClass, 'input.' + submitButtonClass, '.input input', 'a.' + popupLinkClass, '.'+jsTriggerClass+'.'+modeClass].join(','), function(event) {
     var $this = $(this)
     var $popup = $this.closest('.popup')
 
-    if($this.hasClass(modalCloseTriggerClass)){
-        $popup.removeClass(modalOpenClass)
-        remove_with_delay($popup)
+    //var $a = $this.closest('#devise_event_subscriptions-new-get-form-wrap.devise-form-wrap')
 
-        registration_event_id = false
-        registration_location = false
-        registration_event_id = false
+    if (event.type == 'focusin') {
+        var $parent = $this.parent()
+        if ($parent.hasClass('input')) {
+            $parent.addClass('focus')
+        }
     }
-    else if($this.hasClass(submitButtonClass)){
-        event.preventDefault()
 
-        var $submit_button = $this
-
-        var $form = $this.closest('form')
-        var $devise_form_wrap = $('.devise-form-wrap')
-        var $errors = $devise_form_wrap.find('> div.errors')
-        var form_data = $form.serialize()
-        var url = $form.attr('action')
-        var method = $form.attr('method')
-
-        form_data += "&modal=true"
-
-        if(registration_location) {
-            form_data += "&registration_location=" + registration_location
+    if (event.type == 'focusout') {
+        var $parent = $this.parent()
+        if ($parent.hasClass('input')) {
+            $parent.removeClass('focus')
         }
+    }
 
-        if(registration_event_id){
-            form_data += "&registration_event_id=" + registration_event_id
-        }
+    else if (event.type == 'click') {
 
-        if($submit_button.hasClass(signInSubmitButtonClass) || $submit_button.hasClass(logoutSubmitButtonClass)){
-            var $events = $('.'+eventCollectionItemClass)
-            if($submit_button.hasClass(logoutSubmitButtonClass)){
-                $events = $events.filter('.'+eventIAmSubscribedOnClass)
+        if ($this.hasClass(jsTriggerClass)) {
+            var $js_trigger = $this
+
+            event.preventDefault()
+
+            if($js_trigger.hasClass(modeClass)){
+                var $devise_form_wrap = $js_trigger.closest('#devise_event_subscriptions-new-get-form-wrap.devise-form-wrap')
+                if($devise_form_wrap.length > 0){
+                    if($devise_form_wrap.hasClass(modeViewClass)){
+                        $devise_form_wrap.removeClass(modeViewClass)
+                        $devise_form_wrap.addClass(modeEditClass)
+                        var $subscribe_submit_button = $devise_form_wrap.find('.'+subscribeSubmitButtonClass)
+                        $subscribe_submit_button.addClass([jsTriggerClass, editDataSubmitClass].join(' '))
+                        $subscribe_submit_button.val(edit_data_button_text)
+
+                        var $form = $devise_form_wrap.find('form')
+                        $form.validate_form()
+                    }
+
+
+                }
             }
-            var events_count = $events.length
-            var event_ids = []
-            for(var i = 0; i < events_count; i++){
-                event_ids[i] = +$events.eq(i).attr('data-event-id')
+            else{
+                var $devise_form_wrap = $js_trigger.closest('#devise_event_subscriptions-new-get-form-wrap.devise-form-wrap')
+                if($devise_form_wrap.length > 0){
+                    if($devise_form_wrap.hasClass(modeEditClass) && $js_trigger.hasClass(editDataSubmitClass)){
+                        var $form = $devise_form_wrap.find('form');
+                        valid_form = $form.validate_form()
+                        if(valid_form) {
+                            $devise_form_wrap.removeClass(modeEditClass).addClass(modeViewClass)
+                            $js_trigger.removeClass([jsTriggerClass, editDataSubmitClass].join(' '))
+                            $js_trigger.val(register_submit_button_text)
+                        }
+                    }
+                }
             }
-            form_data += "&loaded_events="+event_ids.join(',')
         }
 
+        else {
 
-        valid_form = true
+            if ($this.hasClass(modalCloseTriggerClass)) {
+                $popup.removeClass(modalOpenClass)
+                remove_with_delay($popup)
 
-        //if($submit_button.hasClass(signUpSubmitButtonClass)){
+                registration_event_id = false
+                registration_location = false
+                registration_event_id = false
+            }
+            else if ($this.hasClass(submitButtonClass)) {
+                event.preventDefault()
 
-        //}
-        //else if($submit_button.hasClass(signInSubmitButtonClass)){
+                var $submit_button = $this
 
-        //}
-        //else if($submit_button.hasClass())
+                var $form = $this.closest('form')
+                var $devise_form_wrap = $('.devise-form-wrap')
+                var $errors = $devise_form_wrap.find('> div.errors')
+                var form_data = $form.serialize()
+                var url = $form.attr('action')
+                var method = $form.attr('method')
 
-        valid_form = validateForm($form)
+                form_data += "&modal=true"
 
+                if (registration_location) {
+                    form_data += "&registration_location=" + registration_location
+                }
 
-        if(valid_form) {
+                if (registration_event_id) {
+                    form_data += "&registration_event_id=" + registration_event_id
+                }
 
-            $submit_button.addClass(submitButtonProgressClass);
-
-            $.ajax({
-                url: url,
-                type: method,
-                data: form_data,
-                dataType: 'json',
-                complete: function (jqXHR, textStatus) {
-                    //console.log('this:', $this)
-
-                    $submit_button.removeClass(submitButtonProgressClass)
-                    var response_text = jqXHR.responseText
-                    console.log('before parse json. response_text: ')
-                    var data = {}
-                    if(typeof response_text == 'string' && response_text.length > 0){
-                        data = $.parseJSON(response_text)
+                if ($submit_button.hasClass(signInSubmitButtonClass) || $submit_button.hasClass(logoutSubmitButtonClass)) {
+                    var $events = $('.' + eventCollectionItemClass)
+                    if ($submit_button.hasClass(logoutSubmitButtonClass)) {
+                        $events = $events.filter('.' + eventIAmSubscribedOnClass)
                     }
-
-                    console.log('after parse json')
-
-
-                    console.log('data: ', data)
-
-                    var errors = {}
-                    if(data.hasOwnProperty('errors')){
-                        errors = data['errors']
+                    var events_count = $events.length
+                    var event_ids = []
+                    for (var i = 0; i < events_count; i++) {
+                        event_ids[i] = +$events.eq(i).attr('data-event-id')
                     }
-
-                    if(data.hasOwnProperty('error')){
-                        errors['form'] = data['error']
-                    }
-
-                    DATA = data
-
-                    var html_source = ""
-                    var $html_source
-                    if(data.hasOwnProperty('html')){
-                        html_source = data['html']
-                        $html_source = $(html_source)
-
-                    }
+                    form_data += "&loaded_events=" + event_ids.join(',')
+                }
 
 
-                    //var $data = $(data)
+                valid_form = true
 
-                    var default_handler = true
+                //if($submit_button.hasClass(signUpSubmitButtonClass)){
 
+                //}
+                //else if($submit_button.hasClass(signInSubmitButtonClass)){
 
-                    if (textStatus == 'success') {
-                        //var $data = $(data)
+                //}
+                //else if($submit_button.hasClass())
 
-                        console.log('data: ', data)
-
-                        if ($submit_button.hasClass('login')) {
-
-                            //$popup.removeClass(modalOpenClass)
-                            //remove_with_delay($popup)
-                            logged_in = true
-                            $login_link.attr('href', '/en/my/dashboard')
-                            var $header_menu_user_dropdown = $(['<div id="header-menu-user-dropdown">',
-                                '<a href="', path('edit_user_registration'), '" class="header-menu-user-dropdown-link">dashboard</a>',
-                                '<a href="', path('my_events'), '" class="header-menu-user-dropdown-link">events i am subscribed on</a>',
-                                '<a href="', path('user_session_destroy_form'), '" class="popup-link header-menu-user-dropdown-link logout">log out</a>',
-                                '</div>'].join(''))
-
-                            $header_menu_user_dropdown.appendTo($header_menu_user_wrapper)
-
-                            //event['events_i_am_subscribed_on']
-
-                            changeRegistrationButtonForEvents({registered: true, button_text: data['decline_button_text'], events: data['events_i_am_subscribed_on'] })
-
-                            //default_handler = false
-                        }
-                        else if ($submit_button.hasClass('logout')) {
-                            $popup.removeClass(modalOpenClass)
-                            remove_with_delay($popup)
-                            logged_in = false
-                            $header_menu_user_wrapper.find('#header-menu-user-dropdown').remove()
-
-                            default_handler = false
+                valid_form = $form.validate_form()
 
 
-                            var data_events_i_am_subscribed_on = data['events_i_am_subscribed_on']
+                if (valid_form) {
 
-                            console.log('data_events_i_am_subscribed_on: ', data_events_i_am_subscribed_on)
+                    $submit_button.addClass(submitButtonProgressClass);
 
+                    $.ajax({
+                        url: url,
+                        type: method,
+                        data: form_data,
+                        dataType: 'json',
+                        complete: function (jqXHR, textStatus) {
+                            //console.log('this:', $this)
 
-                            changeRegistrationButtonForEvents({registered: false, button_text: data['subscribe_button_text'], events: data_events_i_am_subscribed_on })
-                        }
-                        else if($submit_button.hasClass(signUpSubmitButtonClass)){
-
-                            if(errors.hasOwnProperty('email') && errors['email'] == 'Email already taken'){
-                                $form.find('div.input.email').manipulateClasses(['error', 'taken'],['valid'])
-                                default_handler = false
+                            $submit_button.removeClass(submitButtonProgressClass)
+                            var response_text = jqXHR.responseText
+                            //console.log('before parse json. response_text: ')
+                            var data = {}, $html_source
+                            if (typeof response_text == 'string' && response_text.length > 0) {
+                                try {
+                                    data = $.parseJSON(response_text)
+                                    $html_source = $(data['html'])
+                                }
+                                catch (err) {
+                                    data = {}
+                                    $html_source = $($.parseHTML(response_text))
+                                }
                             }
-                            else{
-                                default_handler = true
-                                //alert('ok')
+
+                            //console.log('after parse json')
+
+
+                            console.log('data: ', data)
+
+                            var errors = {}
+                            if (data.hasOwnProperty('errors')) {
+                                errors = data['errors']
                             }
-                        }
 
-                        else if($submit_button.hasClass(subscribeSubmitButtonClass)){
-                            //alert(registration_event_id)
-                            // abcdef
-                            changeRegistrationButtonForEvents({registered: true, button_text: data['decline_button_text'], events: [{event_id: popup_event_id, decline_button_link: data['decline_button_link']}]})
+                            if (data.hasOwnProperty('error')) {
+                                errors['form'] = data['error']
+                            }
 
-                        }
+                            DATA = data
 
-                        else if($submit_button.hasClass(unsubscribeSubmitButtonClass)){
-                            //alert("registration_event_id: ", registration_event_id)
+                            //var html_source = ""
+
+                            if (data.hasOwnProperty('html')) {
+                                html_source = data['html']
+                                $html_source = $(html_source)
+
+                            }
 
 
-                            // ======================================================
-                            // ------------------------------------------------------
-                            // saved for history
-                            // ------------------------------------------------------
-                            // ======================================================
+                            //var $data = $(data)
+
+                            var default_handler = true
+
+
+                            if (textStatus == 'success') {
+                                //var $data = $(data)
+
+                                console.log('data: ', data)
+
+                                if ($submit_button.hasClass('login')) {
+
+                                    //$popup.removeClass(modalOpenClass)
+                                    //remove_with_delay($popup)
+                                    logged_in = true
+                                    $login_link.attr('href', '/en/my/dashboard')
+                                    var $header_menu_user_dropdown = $(['<div id="header-menu-user-dropdown">',
+                                        '<a href="', path('edit_user_registration'), '" class="header-menu-user-dropdown-link">dashboard</a>',
+                                        '<a href="', path('my_events'), '" class="header-menu-user-dropdown-link">events i am subscribed on</a>',
+                                        '<a href="', path('user_session_destroy_form'), '" class="popup-link header-menu-user-dropdown-link logout">log out</a>',
+                                        '</div>'].join(''))
+
+                                    $header_menu_user_dropdown.appendTo($header_menu_user_wrapper)
+
+                                    //event['events_i_am_subscribed_on']
+
+                                    changeRegistrationButtonForEvents({
+                                        registered: true,
+                                        button_text: data['decline_button_text'],
+                                        events: data['events_i_am_subscribed_on']
+                                    })
+
+                                    //default_handler = false
+
+                                    var $devise_event_subscriptions_form_wrap = $html_source.find('#devise_event_subscriptions-new-get-form-wrap.devise-form-wrap')
+                                    if ($devise_event_subscriptions_form_wrap.length > 0) {
+                                        $devise_event_subscriptions_form_wrap.addClass(modeViewClass)
+
+                                    }
+                                }
+                                else if ($submit_button.hasClass('logout')) {
+                                    $popup.removeClass(modalOpenClass)
+                                    remove_with_delay($popup)
+                                    logged_in = false
+                                    $header_menu_user_wrapper.find('#header-menu-user-dropdown').remove()
+
+                                    default_handler = false
+
+
+                                    var data_events_i_am_subscribed_on = data['events_i_am_subscribed_on']
+
+                                    console.log('data_events_i_am_subscribed_on: ', data_events_i_am_subscribed_on)
+
+
+                                    changeRegistrationButtonForEvents({
+                                        registered: false,
+                                        button_text: data['subscribe_button_text'],
+                                        events: data_events_i_am_subscribed_on
+                                    })
+                                }
+                                else if ($submit_button.hasClass(signUpSubmitButtonClass)) {
+
+                                    if (errors.hasOwnProperty('email') && errors['email'] == 'Email already taken') {
+                                        $form.find('div.input.email').manipulateClasses(['error', 'taken'], ['valid'])
+                                        default_handler = false
+                                    }
+                                    else {
+                                        default_handler = true
+                                        //alert('ok')
+                                    }
+                                }
+
+                                else if ($submit_button.hasClass(subscribeSubmitButtonClass)) {
+                                    //alert(registration_event_id)
+                                    // abcdef
+                                    changeRegistrationButtonForEvents({
+                                        registered: true,
+                                        button_text: data['decline_button_text'],
+                                        events: [{
+                                            event_id: popup_event_id,
+                                            decline_button_link: data['decline_button_link']
+                                        }]
+                                    })
+
+                                }
+
+                                else if ($submit_button.hasClass(unsubscribeSubmitButtonClass)) {
+                                    //alert("registration_event_id: ", registration_event_id)
+
+
+                                    // ======================================================
+                                    // ------------------------------------------------------
+                                    // saved for history
+                                    // ------------------------------------------------------
+                                    // ======================================================
 
 //                            var $matched_events = $('.'+eventCollectionItemClass+'[data-event-id='+popup_event_id+']')
 //                            var matched_events_count = $matched_events.length
@@ -335,117 +450,148 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
 //                                $registration_text_tag.text(subscribe_button_text)
 //                            }
 
-                            // ======================================================
-                            // ------------------------------------------------------
-                            // saved for history end
-                            // ------------------------------------------------------
-                            // ======================================================
+                                    // ======================================================
+                                    // ------------------------------------------------------
+                                    // saved for history end
+                                    // ------------------------------------------------------
+                                    // ======================================================
 
 
-                            changeRegistrationButtonForEvents({registered: true, button_text: data['subscribe_button_text'], events: [{event_id: popup_event_id, decline_button_link: data['subscribe_button_link']}]})
-                            popup_event_id = false
-                        }
-
-                        if(default_handler){
-                            //alert('ok2')
-                            if(Object.keys(errors).length == 0) {
-                                 console.log('errors: ', errors)
-                                $popup.removeClass(modalOpenClass)
-                                remove_with_delay($popup)
-                                $html_source.addClass(modalOpenClass)
-                                $modal_windows_wrapper.append($html_source)
-                            }
-                            else{
-
-                            }
-                        }
-                    }
-                    else {
-
-                        if ($submit_button.hasClass('login')) {
-                            var error_keys = Object.keys(errors)
-                            var error_keys_length = error_keys.length
-                            if(error_keys_length > 0) {
-                                $errors.children().remove()
-                                for( var j = 0; j< error_keys_length; j++ ) {
-                                    var error_key = error_keys[j]
-                                    var error_text = errors[error_key]
-                                    var $error_container = $(['<div class="error">',error_text , '</div>'].join(''))
-                                    $errors.append($error_container)
+                                    changeRegistrationButtonForEvents({
+                                        registered: true,
+                                        button_text: data['subscribe_button_text'],
+                                        events: [{
+                                            event_id: popup_event_id,
+                                            decline_button_link: data['subscribe_button_link']
+                                        }]
+                                    })
+                                    popup_event_id = false
                                 }
+
+
+                                if (default_handler) {
+                                    //alert('ok2')
+                                    if (Object.keys(errors).length == 0) {
+                                        console.log('errors: ', errors)
+                                        $popup.removeClass(modalOpenClass)
+                                        remove_with_delay($popup)
+                                        $html_source.addClass(modalOpenClass)
+                                        $popup.init_form()
+                                        $modal_windows_wrapper.append($html_source)
+
+                                    }
+                                    else {
+
+                                    }
+                                }
+
+                                // ======================================================
+                                // ------------------------------------------------------
+                                // after default handler
+                                // ------------------------------------------------------
+                                // ======================================================
+                                if ($submit_button.hasClass('login')) {
+                                    var $devise_event_subscriptions_form_wrap = $html_source.find('#devise_event_subscriptions-new-get-form-wrap.devise-form-wrap')
+                                    if ($devise_event_subscriptions_form_wrap.length > 0) {
+                                        $devise_event_subscriptions_form_wrap.addClass(modeViewClass)
+                                        var $empty_fields = $devise_event_subscriptions_form_wrap.find('.input.empty')
+                                        $empty_fields.first().find('input').first().focus()
+                                    }
+                                }
+
+
                             }
-                            else{
+                            else {
+
+                                if ($submit_button.hasClass('login')) {
+                                    var error_keys = Object.keys(errors)
+                                    var error_keys_length = error_keys.length
+                                    if (error_keys_length > 0) {
+                                        $errors.children().remove()
+                                        for (var j = 0; j < error_keys_length; j++) {
+                                            var error_key = error_keys[j]
+                                            var error_text = errors[error_key]
+                                            var $error_container = $(['<div class="error">', error_text, '</div>'].join(''))
+                                            $errors.append($error_container)
+                                        }
+                                    }
+                                    else {
+
+                                    }
+                                }
+
+                                else if ($submit_button.hasClass(sendMePasswordSubmitButtonClass)) {
+                                    var $error_container = $(['<div class="error">', data, '</div>'].join(''))
+
+                                    $errors.html($error_container)
+                                }
+
 
                             }
                         }
-
-                        else if ($submit_button.hasClass(sendMePasswordSubmitButtonClass)) {
-                            var $error_container = $(['<div class="error">', data, '</div>'].join(''))
-
-                            $errors.html($error_container)
-                        }
-
-
-                    }
+                    })
                 }
-            })
-        }
-        //
-    }
-    else if($this.hasClass(popupLinkClass)){
-        //alert('hello')
-        event.preventDefault()
-        var $popup_link = $this
-        var url = $popup_link.attr('href')
-        $.ajax({
-            type: 'get',
-            url: url,
-            data: 'modal=true',
-            dataType: 'text',
-            complete: function(jqXHR, textStatus){
-                var response_text = jqXHR.responseText
-                var data, $html_source;
-                try {
-                    data = $.parseJSON(response_text)
-                    $html_source = $(data['html'])
-                }
-                catch(err){
-                    data = {}
-                    $html_source = $.parseHTML(response_text)
-                    $html_source = $($html_source)
-                    //alert($html_source.attr('class'))
-
-                }
-
-                HTML_SOURCE = $html_source
-
-                //alert(textStatus)
-                if(textStatus == 'success') {
-                    //var $html_source = $(data['html'])
-                    var $modal = $html_source
-                    $modal.addClass(modalOpenClass)
-                    $popup.removeClass(modalOpenClass)
-                    PUBLIC_MODAL = $modal
-                    //alert('hello')
-                    remove_with_delay($popup)
-
-                    $modal_windows_wrapper.append($modal)
-                }
-                else if($html_source){
-                    var $modal = $html_source
-                    $modal.addClass(modalOpenClass)
-                    $popup.removeClass(modalOpenClass)
-                    PUBLIC_MODAL = $modal
-                    //alert('hello')
-                    remove_with_delay($popup)
-
-                    $modal_windows_wrapper.append($modal)
-                }
+                //
             }
-        })
+            else if ($this.hasClass(popupLinkClass)) {
+                //alert('hello')
+                event.preventDefault()
+                var $popup_link = $this
+                var url = $popup_link.attr('href')
+                $.ajax({
+                    type: 'get',
+                    url: url,
+                    data: 'modal=true',
+                    dataType: 'text',
+                    complete: function (jqXHR, textStatus) {
+                        var response_text = jqXHR.responseText
+                        var data, $html_source;
+                        try {
+                            data = $.parseJSON(response_text)
+                            $html_source = $(data['html'])
+                        }
+                        catch (err) {
+                            data = {}
+                            $html_source = $.parseHTML(response_text)
+                            $html_source = $($html_source)
+                            //alert($html_source.attr('class'))
+
+                        }
+
+                        HTML_SOURCE = $html_source
+
+                        //alert(textStatus)
+                        if (textStatus == 'success') {
+                            //var $html_source = $(data['html'])
+                            var $modal = $html_source
+                            $modal.addClass(modalOpenClass)
+                            $popup.removeClass(modalOpenClass)
+                            PUBLIC_MODAL = $modal
+                            //alert('hello')
+                            remove_with_delay($popup)
+
+                            $modal_windows_wrapper.append($modal)
+
+                            $modal.init_form()
+                        }
+                        else if ($html_source) {
+                            var $modal = $html_source
+                            $modal.addClass(modalOpenClass)
+                            $popup.removeClass(modalOpenClass)
+                            PUBLIC_MODAL = $modal
+                            //alert('hello')
+                            remove_with_delay($popup)
+
+                            $modal_windows_wrapper.append($modal)
+
+                            $modal.init_form()
+                        }
+                    }
+
+                })
+            }
+        }
     }
-
-
 })
 
 //if($html.hasClass('controller-home action-index')){
@@ -534,8 +680,12 @@ $modal_windows_wrapper.on('click', ['label.' + modalCloseTriggerClass, 'input.' 
 
                     var $devise_event_subscriptions_form_wrap = $html_source.find('#devise_event_subscriptions-new-get-form-wrap.devise-form-wrap')
                     if($devise_event_subscriptions_form_wrap.length > 0){
-                        $devise_event_subscriptions_form_wrap.addClass('modeView')
+                        $devise_event_subscriptions_form_wrap.addClass(modeViewClass)
+                        var $empty_fields = $devise_event_subscriptions_form_wrap.find('.input.empty')
+                        $empty_fields.first().find('input').first().focus()
                     }
+
+                    $modal.init_form()
                 }
 
                 else{
@@ -660,7 +810,7 @@ function changeRegistrationButtonForEvents(options){
             public_registration_text_tag = $registration_text_tag
 
             $registration_text_tag.text(options.button_text)
-            alert("test")
+            //alert("test")
         }
     }
 

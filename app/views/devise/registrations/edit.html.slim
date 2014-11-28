@@ -1,22 +1,56 @@
-h2
-  | Edit 
-  = resource_name.to_s.humanize
-= simple_form_for(resource, as: resource_name, url: registration_path(resource_name, locale: I18n.locale), html: { method: :put }) do |f|
-  = f.error_notification
-  .form-inputs
-    = f.input :email, required: true, autofocus: true
-    - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+= render partial: "devise/shared/dashboard_banner"
+
+#breadcrumbs-container
+  #breadcrumbs-row.row
+    ul#breadcrumbs-ul
+      li#breadcrumb-home.breadcrumb.inactive_breadcrumb
+        a#breadcrumb-home-a href=root_path
+          = embedded_svg_from_assets('svg/home.svg')
+      li#active-breadcrumb.breadcrumb
+        span#active-breadcrumb-text
+          = @breadcrumbs[:dashboard][:title]
+
+#dashboard-content
+  #dashboard-content-row.row
+    = render partial: 'devise/shared/dashboard_menu'
+    #dashboard-profile-column.columns.large-8
+      div#greetings
+        .title
+          = "#{current_user.first_name}, вітаємо в особистому кабінеті!"
+        .text
+          = "Тут ви маєте змогу редагувати свої особисті дані, а також переглядати історію заходів, які ви відвідували або збираєтесь відвідати."
+      = simple_form_for(resource, as: resource_name, url: registration_path(resource_name, locale: I18n.locale), html: { method: :put }) do |f|
+        = f.error_notification
+        .form-inputs
+          /= f.input :first_name, required: true, autofocus: true
+          - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+            p
+              | Currently waiting confirmation for:
+              = resource.unconfirmed_email
+          /= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false
+          /= f.input :password_confirmation, required: false
+          /= f.input :current_password, hint: "we need your current password to confirm your changes", required: true
+
+          = f.input :first_name, required: false, auto_focus: true, label: "#{t('devise.registrations.placeholders.first_name')}*", placeholder: "#{t('devise.registrations.placeholders.first_name')}*", wrapper_html: {data: {validate: 'first_name required'}}, input_html: { size: nil }
+          /label for="#{resource_name}_first_name" data-error-too-short=t("activerecord.errors.models.user.attributes.first_name.too_short") data-error-empty=t("activerecord.errors.models.user.attributes.first_name.empty")
+          = f.input :last_name, label: "#{t('devise.registrations.placeholders.last_name')}*", required: false, placeholder: "#{t('devise.registrations.placeholders.last_name')}*", wrapper_html: {data: {validate: 'last_name required'}}, input_html: { size: nil }
+          /label for="#{resource_name}_last_name" data-error-too-short=t("activerecord.errors.models.user.attributes.last_name.too_short") data-error-empty=t("activerecord.errors.models.user.attributes.last_name.empty")
+          = f.input :email, required: false, label: "#{t('devise.registrations.placeholders.email')}*", placeholder: "#{t('devise.registrations.placeholders.email')}*", wrapper_html: {data: {validate: 'email required', :"error-taken" => t('activerecord.errors.models.user.attributes.email.taken'), :"error-empty" => t('activerecord.errors.models.user.attributes.email.empty'), :"error-invalid" => t('activerecord.errors.models.user.attributes.email.invalid'), help: t('activerecord.help.models.user.attributes.email')}}, input_html: { size: nil }
+          /label for="#{resource_name}_email" data-error-too-short=t("activerecord.errors.models.user.attributes.last_name.too_short") data-error-empty=t("activerecord.errors.models.user.attributes.last_name.empty")
+          = f.input :contact_phone, required: false, label: "#{t('devise.registrations.placeholders.contact_phone')}", placeholder: "#{t('devise.registrations.placeholders.contact_phone')}", wrapper_html: {data: {validate: 'phone'}, class: 'phone'}, input_html: { size: nil }
+          /= f.input :password, required: true, label: false, placeholder: "#{t('devise.registrations.placeholders.password')}", hint: ("#{@minimum_password_length} characters minimum" if @validatable), wrapper_html: {data: {validate: 'password required'}}
+          /= f.input :password_confirmation, label: false, required: true, placeholder: "#{t('devise.registrations.placeholders.password_confirmation')}*", wrapper_html: {data: {validate: 'password_confirmation required'}}
+          = f.input :city, label: t('devise.registrations.placeholders.city'), placeholder: t('devise.registrations.placeholders.city'), wrapper_html: {data: {validate: 'city'}}, input_html: { size: nil }
+          = f.input :company, label: t('devise.registrations.placeholders.company'), placeholder: t('devise.registrations.placeholders.company'), wrapper_html: {data: {validate: 'company'}}, input_html: { size: nil }
+          = f.input :status, label: t('devise.registrations.placeholders.status'), placeholder: t('devise.registrations.placeholders.status'), wrapper_html: {data: {validate: 'status'}}, input_html: { size: nil }
+          /= f.input :description, as: :text, label: "Коментар", placeholder: t('devise.registrations.placeholders.description'), wrapper_html: {data: {validate: 'description'}}
+
+
+        .form-actions
+          = f.button :submit, "Update"
+      h3
+        | Cancel my account
       p
-        | Currently waiting confirmation for: 
-        = resource.unconfirmed_email
-    = f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false
-    = f.input :password_confirmation, required: false
-    = f.input :current_password, hint: "we need your current password to confirm your changes", required: true
-  .form-actions
-    = f.button :submit, "Update"
-h3
-  | Cancel my account
-p
-  | Unhappy? 
-  = link_to "Cancel my account", registration_path(resource_name, locale: I18n.locale), data: { confirm: "Are you sure?" }, method: :delete
-= link_to "Back", :back
+        | Unhappy?
+        = link_to "Cancel my account", registration_path(resource_name, locale: I18n.locale), data: { confirm: "Are you sure?" }, method: :delete
+      = link_to "Back", :back

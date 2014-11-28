@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get 'event/:event_id/unregister', to: 'users/event_subscriptions#unsubscribe_form', as: 'event_unsubscription_form'
     post 'event/:event_id/unregister', to: 'users/event_subscriptions#unsubscribe', as: 'event_unsubscribe'
 
+    get "events/history", to: "events#history", as: :events_history
 
     # session handling
     get     '/my/dashboard/login'  => 'users/sessions#new',     as: 'new_user_session'
@@ -36,7 +37,7 @@ Rails.application.routes.draw do
 
       # confirmation
       get   '/confirm'        => 'users/confirmations#show',   as: 'user_confirmation'
-      post  '/confirm'        => 'users/confirmations#create'
+      post  '/confirm/send'        => 'users/confirmations#create', as: 'create_user_confirmation'
       get   '/confirm/resend' => 'users/confirmations#new',    as: 'new_user_confirmation'
 
       # settings & cancellation

@@ -1,0 +1,20 @@
+#dashboard-menu-column.columns.large-4.right
+  #dashboard-menu-wrap
+    .title
+      = "Мій особистий кабінет"
+    ul#dashboard-menu-links-ul
+      li.dashboard-menu-link-li
+        span.dashboard-menu-link-span href="#{edit_user_registration_path(locale: I18n.locale)}"
+          .dashboard-menu-link-icon
+            = embedded_svg_from_assets('svg/user_icon.svg')
+          .dashboard-menu-link-text
+            = "Особисті дані"
+
+      li.dashboard-menu-link-li
+        a.dashboard-menu-link-a href="#{events_history_path(locale: I18n.locale)}"
+          .dashboard-menu-link-icon
+            = embedded_svg_from_assets('svg/user_icon.svg')
+          span.dashboard-menu-link-text
+            = "Історія заходів"
+
+

@@ -42,9 +42,29 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   end
 
   # GET /resource/confirmation?confirmation_token=abcdef
-  # def show
-  #   super
-  # end
+  def show
+    #super
+
+    self.resource = resource_class.confirm_by_token(params[:confirmation_token])
+    yield resource if block_given?
+
+    if resource.errors.empty?
+      set_flash_message(:notice, :confirmed) if is_flashing_format?
+
+      sign_in(resource_name, resource)
+      required_template = "devise/confirmations/confirmed_successfully"
+      #respond_with_navigational(resource){ redirect_to after_confirmation_path_for(resource_name, resource) }
+      redirect_to root_path(locale: I18n.locale), notice: {
+                                                    template: required_template,
+                                                    layout: 'modal_layout',
+                                                    locals: {active: true, registration_event_id: (@registration_event.id rescue nil)},
+                                                    title: "Ви успішно залогінились",
+                                                    message: "тепер ви можете підписатися на подію або відмовитись. також у вас є особистий кабінет, де ви можете переглянути улюблені події, ті, на які ви підписались, переглянути історію змін. Також ви можете відредагувати свої дані. Будемо вдячні за ваш відгук. Приємного користування"
+                                                }
+    else
+      respond_with_navigational(resource.errors, status: :unprocessable_entity){ render :new }
+    end
+  end
 
   # protected
 
@@ -57,4 +77,20 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   # def after_confirmation_path_for(resource_name, resource)
   #   super(resource_name, resource)
   # end
+
+  protected
+
+  # The path used after resending confirmation instructions.
+  def after_resending_confirmation_instructions_path_for(resource_name)
+    is_navigational_format? ? new_session_path(resource_name) : '/'
+  end
+
+  # The path used after confirmation.
+  def after_confirmation_path_for(resource_name, resource)
+    if signed_in?(resource_name)
+      signed_in_root_path(resource)
+    else
+      new_session_path(resource_name)
+    end
+  end
 end

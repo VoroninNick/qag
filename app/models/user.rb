@@ -39,7 +39,9 @@ class User < ActiveRecord::Base
     attr_accessor "delete_#{paperclip_field_name}".to_sym
   end
 
-  has_and_belongs_to_many :events, join_table: 'event_subscriptions'
+  #has_and_belongs_to_many :events, join_table: 'event_subscriptions'
+  has_many :event_subscriptions
+  has_many :events, through: :event_subscriptions
 
   has_many :comments
 
@@ -103,9 +105,18 @@ class User < ActiveRecord::Base
     edit do
       field :role
       field :translations, :globalize_tabs
+      field :first_name
+      field :last_name
       field :email
+      field :contact_phone
       field :password
       field :password_confirmation
+      field :city
+      field :company
+      field :status
+      field :description
+
+
 
       # field :reset_password_sent_at do
       #   read_only true

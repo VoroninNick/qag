@@ -34,7 +34,7 @@ RailsAdmin.config do |config|
 
   ([
    Article, Comment, Event, FormConfig, HomeAboutUsSlide, HomeContactInfo, HomeForm, HomePage, MainSliderSlide, User, Participant, TeamMember, Setting, Partner, AboutPageSliderSlide,
-   EventTag, EventGalleryAlbum, EventGalleryImage
+   EventTag, EventGalleryAlbum, EventGalleryImage, EventSubscription
    #ActsAsTaggableOn::Tag, ActsAsTaggableOn::Tagging
 
 

@@ -78,7 +78,7 @@ class EventsController < ApplicationController
 
     if selected_event_tag == 0
       #@events = Event.all.limit(max_events_count)
-      @events = Event.all
+      @events = Event.all#.order('id desc')
 
     else
       #@events = selected_event_tag.events.limit(max_events_count)
@@ -86,6 +86,8 @@ class EventsController < ApplicationController
       @selected_event_tag = selected_event_tag
       @event_tags = @event_tags.where("id <> #{selected_event_tag.id}")
     end
+
+
 
     params_page = params[:page]
     if !params_page

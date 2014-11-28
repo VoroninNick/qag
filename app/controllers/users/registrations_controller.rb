@@ -103,9 +103,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    @breadcrumbs = {
+        home: {},
+        dashboard: {
+            title: "Особистий кабінет",
+            link: {
+                url: edit_user_registration_path(locale: locale)
+            }
+        }
+    }
+
+    super
+
+
+  end
 
   # PUT /resource
   # def update

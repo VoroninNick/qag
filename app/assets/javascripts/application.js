@@ -35,7 +35,11 @@
 // require initializers/layout
 // require initializer
 
+//= require jquery.maskedinput
+
+
 //= require fast_code/layout
+//= require fast_code/dashboard
 
 //$(function(){ $(document).foundation(); });
 

@@ -147,18 +147,33 @@ class Users::EventSubscriptionsController < ApplicationController
 
 		@user = current_user
 
-
+		event_subscription_data = params[:user]
 
 		if @event
-			@subscribed_event = @user.events.where(id: @event.id)
-			if @subscribed_event.length > 0
+			@event_subscription = EventSubscription.where(event_id: @event.id, user_id: current_user.id)
+			#@subscribed_event = @user.events.where(id: @event.id)
+			if @event_subscription.count > 0
 				flash[:result] = "You already subscribed on this event"
 			else
-				flash[:result] = "You successfully subscribed on event"
-				@event.users.push(@user)
+				@event_subscription = EventSubscription.new
+				@event_subscription.user_id = current_user.id
+				@event_subscription.event_id = @event.id
+
+				event_subscription_data.each_pair do |key, value|
+					@event_subscription.send("#{key}=", value)
+				end
+
+				if @event_subscription.save
+					flash[:result] = "You successfully subscribed on event"
+					#@event.users.push(@user)
+				end
 			end
 			
 		end
+
+
+
+
 
 		required_template = "devise/event_subscriptions/create"
 

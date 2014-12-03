@@ -748,71 +748,102 @@ select:-webkit-autofill {
 }
 
 #devise_event_subscriptions-new-get-form-wrap.devise-form-wrap{
-  .input{
-    margin: 0.5rem 0;
+//  .input{
+//    margin: 0.5rem 0;
+//
+//
+//  }
 
+//  #html.no-js &, &.mode-edit{
+//    .input{
+//
+//      label{
+//        display: none;
+//      }
+//    }
+//  }
+//  &.mode-view{
+//    .input{
+//
+//      &:not(.empty) {
+//        label{
+//          font-size: 1.1rem;
+//        }
+//        input {
+//          background: none;
+//          border: none;
+//          font-weight: 500;
+//          font-size: 1.2rem;
+//          &:not(:focus){
+//            padding: 0;
+//          }
+//
+//
+//
+//          &:focus {
+//            font-size: 17px;
+//            font-weight: 300;
+//            background: #86c7e7;
+//
+//          }
+//        }
+//      }
+//
+//      &.focus{
+//        label{
+//          display: none;
+//        }
+//      }
+//
+//      &:not(.focus){
+//        input{
+//          transform: translateY(-5px);
+//        }
+//      }
+//
+//
+//      &.empty{
+//        label{
+//          display: none;
+//        }
+//      }
+//    }
+//  }
 
-  }
+//  &.mode-edit{
+//    .js-trigger.mode{
+//      display: none;
+//    }
+//  }
+}
 
-  #html.no-js &, &.mode-edit{
-    .input{
-
-      label{
-        display: none;
-      }
-    }
-  }
-  &.mode-view{
-    .input{
-
-      &:not(.empty) {
-        label{
-          font-size: 1.1rem;
-        }
-        input {
-          background: none;
-          border: none;
-          font-weight: 500;
-          font-size: 1.2rem;
-          &:not(:focus){
-            padding: 0;
-          }
-
-
-
-          &:focus {
-            font-size: 17px;
-            font-weight: 300;
-            background: #86c7e7;
-
-          }
-        }
-      }
-
-      &.focus{
-        label{
-          display: none;
-        }
-      }
-
-      &:not(.focus){
-        input{
-          transform: translateY(-5px);
-        }
-      }
-
-
-      &.empty{
-        label{
-          display: none;
-        }
-      }
-    }
-  }
-
+.simple_form{
   &.mode-edit{
     .js-trigger.mode{
       display: none;
+    }
+
+    .input{
+      label{
+        display: none;
+      }
+      input{
+        width: auto;
+        border: 1px solid #d3d3d3;
+        line-height: 40px;
+      }
+    }
+
+  }
+}
+
+#message-signed-in-succesfully{
+  .message{
+    text-align: center;
+
+    .message-bold-text{
+      font-size: 1.1rem;
+      font-weight: 500;
     }
   }
 }
@@ -823,5 +854,15 @@ select:-webkit-autofill {
 
   .text{
     text-align: center;
+  }
+}
+
+#devise_event_subscriptions-new-get-form-wrap{
+  .input.phone.error{
+    &:after{
+      content: "Будь ласка введіть контактний телефон";
+      display: block;
+      color: red;
+    }
   }
 }

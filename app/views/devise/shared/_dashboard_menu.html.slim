@@ -16,5 +16,16 @@
             = embedded_svg_from_assets('svg/user_icon.svg')
           span.dashboard-menu-link-text
             = "Історія заходів"
+  ul#dashboard-menu-another-links-ul
+    li.dashboard-menu-another-link-li
+      a.dashboard-menu-another-link-li-a.js-trigger.quit-dashboard href="#{user_session_destroy_form_path(locale: I18n.locale)}"
+        = "Повернутись на сайт"
+
+    li.dashboard-menu-another-link-li
+      a.dashboard-menu-another-link-li-a.popup-link.logout href="#{user_session_destroy_form_path(locale: I18n.locale)}"
+        = "Вийти з кабінету"
+
+    li.dashboard-menu-another-link-li
+      = link_to "Видалити аккаунт", registration_path(resource_name, locale: I18n.locale), data: { confirm: "Are you sure?" }, method: :delete, class: "dashboard-menu-another-link-li-a"
 
 

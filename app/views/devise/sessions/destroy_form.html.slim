@@ -1,10 +1,10 @@
 #devise-content
   #devise_sessions-destroy_form-get-form-wrap.devise-form-wrap
     .form-title
-      = "Logout"
+      = "Вихід"
 
     = simple_form_for(:user, url: destroy_user_session_path( locale: I18n.locale)) do |f|
       p.text
-        = "are you sure you want to logout?"
-      = f.button :submit, "Yes", class: 'input-submit logout logout-submit-button devise-submit-button orange-bg'
-      = link_to "No", "#"
+        = "Ви впевнені, що хочете вийти з системи?"
+      = f.button :submit, "Так", class: 'input-submit logout logout-submit-button devise-submit-button orange-bg'
+      /= link_to "No", "#"

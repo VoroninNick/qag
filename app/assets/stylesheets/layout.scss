@@ -99,12 +99,18 @@ $header-height: 90px;
 
   padding: 0;
   margin: 30px 5% 0 0;
+  margin: 30px 5% 0 0;
 
 
   @include transition-duration(0.6s);
   @include transition-property(all);
   @include transition-timing-function( cubic-bezier(0.7, 0.01, 0.3, 1) );
+
+  #menu-focus-flag:checked ~ &{
+    //margin: 30px 30px 0 0;
+  }
 }
+
 
 
 
@@ -168,6 +174,7 @@ $header-height: 90px;
   position: relative;
   display: block;
 
+
   &:before{
       top: 5px;
   }
@@ -199,6 +206,10 @@ $header-height: 90px;
   &:after {
     @include transform(rotate(45deg));
   }
+
+  #menu-focus-flag:checked ~ &{
+    //margin: 30px 1.5rem 0 0;
+  }
 }
 
 #header-menu-button{
@@ -214,6 +225,8 @@ $header-height: 90px;
       }
     }
   }
+
+
 }
 
 #menu-focus-flag{
@@ -221,12 +234,15 @@ $header-height: 90px;
 
     & ~ #body-inner{
       #header-menu-button {
+        margin: 30px 1.5rem 0 0;
+
         #header-menu-button-label {
           display: none;
         }
 
         #header-menu-close-button-label{
           display: block;
+          //right: 1.5rem;
         }
       }
 
@@ -249,6 +265,11 @@ $header-height: 90px;
   background: white;
   z-index: 10;
   padding: 1.5rem;
+}
+
+#header-menu-container-reset{
+  height: 100%;
+  position: relative;
 }
 
 #header-menu-locales-bar{
@@ -349,20 +370,53 @@ $header-height: 90px;
 
 #header-menu-user-wrapper{
   display: inline-block;
+
+  &:hover{
+    #header-menu-user{
+      svg{
+        fill: $orange-color;
+      }
+    }
+  }
 }
 
-#header-menu-user-menu{
+.header-menu-user-link{
   vertical-align: top;
 
   display: inline-block;
   width: 5rem;
+  width: auto;
   height: 32px;
   position: static;
+
+  svg{
+    top: 10px;
+  }
+
+  &:hover{
+    #header-menu-user{
+        //&:before, &:after{
+        //  background: rgba(255, 154, 0, 0.7);
+        //}
+      svg{
+        fill: $orange-color;
+      }
+    }
+
+    #header-menu-user-email{
+      color: #ffb700;
+    }
+  }
+
+
 }
+
+
 
 #header-menu-user-dropdown {
   display: none;
   position: absolute;
+  display: none !important;
 }
 
 .header-menu-user-dropdown-link{
@@ -379,44 +433,65 @@ $header-height: 90px;
 
   display: inline-block;
   width: 32px;
+  width: auto;
   height: 32px;
   position: relative;
   border-radius: 50%;
   padding: 0;
   margin: 0 1.5rem 0 1.5rem;
-  top: 10px;
-  overflow: hidden;
+  margin: 0 0.5rem 0 1.5rem;
+  //top: 10px;
+  //overflow: hidden;
   cursor: pointer;
 
-  &:before, &:after{
-    position: absolute;
-    content: "";
-    display: block;
-    background: $gray-color;
-    border-radius: 50%;
-    @include transition-duration(1s);
-    @include transition-property(background-color)
+  svg{
+    height: 32px;
+    width: 32px;
+
+    position: relative;
+    //top: 10px;
+    fill: #b7c9d3;
+    @include transition(1s fill);
 
   }
 
-  &:before{
-    width: 14px;
-    height: 14px;
-    left: 9px;
-  }
+//  &:before, &:after{
+//    position: absolute;
+//    content: "";
+//    display: block;
+//    background: $gray-color;
+//    border-radius: 50%;
+//    @include transition-duration(1s);
+//    @include transition-property(background-color)
+//
+//  }
+//
+//  &:before{
+//    width: 14px;
+//    height: 14px;
+//    left: 9px;
+//  }
+//
+//  &:after{
+//    width: 40px;
+//    height: 40px;
+//    left: -4px;
+//    top: 17px;
+//  }
+//
+//  &:hover{
+//    &:before, &:after{
+//      background: rgba($orange-color, 0.7);
+//    }
+//  }
+}
 
-  &:after{
-    width: 40px;
-    height: 40px;
-    left: -4px;
-    top: 17px;
-  }
-
-  &:hover{
-    &:before, &:after{
-      background: rgba($orange-color, 0.7);
-    }
-  }
+#header-menu-user-email{
+  display: inline-block;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #aaa;
+  @include transition(1s color)
 }
 
 #header-menu-search-wrapper{
@@ -543,6 +618,7 @@ $header-height: 90px;
   bottom: 0;
   position: absolute;
   text-align: right;
+  width: 100%;
 }
 
 .header-menu-contact-tip{
@@ -772,6 +848,17 @@ $header-height: 90px;
   font-size: 0.9rem;
 
 
+  a, span{
+    color: #58595b;
+  }
+
+  a{
+    &:hover{
+      color: $orange-color;
+    }
+  }
+
+
   &:before{
     position: relative;
     display: inline-block;
@@ -784,6 +871,10 @@ $header-height: 90px;
     margin: 0 8px 0 5px;
     transform: rotate(45deg);
   }
+}
+
+#active-breadcrumb-text{
+  //color: $orange-color;
 }
 
 #breadcrumb-home{
@@ -819,7 +910,7 @@ $header-height: 90px;
 }
 
 #active-breadcrumb-text{
-  color: $orange-color;
+  //color: $orange-color;
 }
 
 

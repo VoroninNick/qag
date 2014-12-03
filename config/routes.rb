@@ -35,6 +35,9 @@ Rails.application.routes.draw do
       post  '/reset-password'        => 'users/passwords#create'
       get   '/reset-password/change' => 'users/passwords#edit',   as: 'edit_user_password'
 
+      get '/change-password', to: 'users/passwords#edit_password', as: 'my_edit_user_password'
+      match '/change-password', to: 'users/passwords#update_password', as: 'my_update_user_password', via: [:post, :put]
+
       # confirmation
       get   '/confirm'        => 'users/confirmations#show',   as: 'user_confirmation'
       post  '/confirm/send'        => 'users/confirmations#create', as: 'create_user_confirmation'
@@ -62,9 +65,9 @@ Rails.application.routes.draw do
 
     get 'events/:tag', to: 'events#tag', as: :event_tag
 
-    get 'event/*tags/:item/register', to: 'users/event_subscriptions#new', as: :register_on_event
+    get 'event(/*tags)/:item/register', to: 'users/event_subscriptions#new', as: :register_on_event
 
-    get 'event/*tags/:item', to: 'events#item', as: :event_item
+    get 'event(/*tags)/:item', to: 'events#item', as: :event_item
 
 
 

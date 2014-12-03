@@ -19,101 +19,107 @@
       label#header-menu-button-label for="menu-focus-flag"
       label#header-menu-close-button-label for="wrap-focus-flag"
     #header-menu-container
-      - if 1 == 2
-        #header-menu-locales-bar
+      #header-menu-container-reset
+        - if 1 == 2
+          #header-menu-locales-bar
 
-          span#header-menu-active-locale.header-menu-locale
-            = I18n.locale
-          ul#header-menu-locales-list
-            - @page_locale_links.each_pair do |locale, url|
-              - if locale.to_sym != I18n.locale.to_sym
-                li.header-menu-locale.header-menu-inactive-locale
-                  a.header-menu-locale-a.header-menu-inactive-locale-a href=url
-                    = locale
+            span#header-menu-active-locale.header-menu-locale
+              = I18n.locale
+            ul#header-menu-locales-list
+              - @page_locale_links.each_pair do |locale, url|
+                - if locale.to_sym != I18n.locale.to_sym
+                  li.header-menu-locale.header-menu-inactive-locale
+                    a.header-menu-locale-a.header-menu-inactive-locale-a href=url
+                      = locale
 
-      #header-menu-user-wrapper
-        - if !user_signed_in?
-          a#header-menu-user.popup-link.login data-popup-name="sign_in_popup_form" for="devise_sessions-new-get-flag" href=new_user_session_path(locale: I18n.locale)
-        - else
-          #header-menu-user-menu
-            #header-menu-user.popup-link data-popup-name="sign_in_popup_form" for="devise_sessions-new-get-flag" 
-            #header-menu-user-dropdown
-              a.header-menu-user-dropdown-link href=edit_user_registration_path(locale: I18n.locale)
-                = "dashboard"
-              a.header-menu-user-dropdown-link href="#"
-                = "events i am subscribed on"
-              a.popup-link.header-menu-user-dropdown-link.logout href=user_session_destroy_form_path(locale: I18n.locale)
-                = "log out"
+        #header-menu-user-wrapper
+          - if !user_signed_in?
+            a#header-menu-user.header-menu-user-link.popup-link.login data-popup-name="sign_in_popup_form" for="devise_sessions-new-get-flag" href=new_user_session_path(locale: I18n.locale)
+              = embedded_svg_from_assets('svg/account.svg')
+          - else
+            a#header-menu-user-menu.header-menu-user-link href="#{edit_user_registration_path(locale: I18n.locale)}"
+              #header-menu-user data-popup-name="sign_in_popup_form" for="devise_sessions-new-get-flag"
+                = embedded_svg_from_assets('svg/account.svg')
+              #header-menu-user-email
+                = current_user.email
 
-      #header-menu-search-wrapper
-        input#header-menu-search-input type="search"
-        label#header-menu-search-icon for="header-menu-search-input"
+              #header-menu-user-dropdown
+                a.header-menu-user-dropdown-link href=edit_user_registration_path(locale: I18n.locale)
+                  = "dashboard"
+                a.header-menu-user-dropdown-link href="#"
+                  = "events i am subscribed on"
+                a.popup-link.header-menu-user-dropdown-link.logout href=user_session_destroy_form_path(locale: I18n.locale)
+                  = "log out"
 
-
-
-
-      ul#header-menu-pages
-        li.header-menu-page
-          a.header-menu-page-a href=about_path
-            = t('layout.header.menu.about')
-        li.header-menu-page
-          a.header-menu-page-a href=events_list_path
-            = t('layout.header.menu.events')
-        li.header-menu-page
-          a.header-menu-page-a href=articles_list_path
-            = t('layout.header.menu.articles')
-        li.header-menu-page
-          a.header-menu-page-a href=contact_path
-            = t('layout.header.menu.contact')
-
-      #header-menu-contact
-        span#header-menu-contact-info-service-tip.header-menu-contact-tip
-          = t('layout.header.contact-info.info-service.tip')
-        ul#header-menu-contact-info-service-ul
-          li.header-menu-contact-email
-            a#header-menu-contact-info-service-email.header-menu-contact-email-a href="mailto:#{ t('layout.header.contact-info.info-service.email') }"
-              span.header-menu-contact-email-text
-                = t('layout.header.contact-info.info-service.email')
-              = embedded_svg_from_assets('svg/mail.svg')
-
-          li#header-menu-contact-info-service-phone.header-menu-contact-phone
-            a#header-menu-contact-info-service-email.header-menu-contact-phone-a href="tel:#{ t('layout.header.contact-info.info-service.phone') }"
-              span.header-menu-contact-phone-text
-                = t('layout.header.contact-info.info-service.phone')
-              = embedded_svg_from_assets('svg/tel.svg')
+        /#header-menu-search-wrapper
+          input#header-menu-search-input type="search"
+          label#header-menu-search-icon for="header-menu-search-input"
 
 
 
-        span#header-menu-contact-support-tip.header-menu-contact-tip
-          = t('layout.header.contact-info.support.tip')
-        ul#header-menu-contact-support-ul
-          li.header-menu-contact-email
-            a#header-menu-contact-support-email.header-menu-contact-email-a href="mailto:#{ t('layout.header.contact-info.info-service.email') }"
-              span.header-menu-contact-email-text
-                = t('layout.header.contact-info.support.email')
-              = embedded_svg_from_assets('svg/mail.svg')
+
+        ul#header-menu-pages
+          li.header-menu-page
+            a.header-menu-page-a href=about_path
+              = t('layout.header.menu.about')
+          li.header-menu-page
+            a.header-menu-page-a href=events_list_path
+              = t('layout.header.menu.events')
+          li.header-menu-page
+            a.header-menu-page-a href=articles_list_path
+              = t('layout.header.menu.articles')
+          li.header-menu-page
+            a.header-menu-page-a href=contact_path
+              = t('layout.header.menu.contact')
+
+        #header-menu-contact
+          span#header-menu-contact-info-service-tip.header-menu-contact-tip
+            = t('layout.header.contact-info.info-service.tip')
+          ul#header-menu-contact-info-service-ul
+            li.header-menu-contact-email
+              a#header-menu-contact-info-service-email.header-menu-contact-email-a href="mailto:#{ t('layout.header.contact-info.info-service.email') }"
+                span.header-menu-contact-email-text
+                  = t('layout.header.contact-info.info-service.email')
+                = embedded_svg_from_assets('svg/mail.svg')
+
+            li#header-menu-contact-info-service-phone.header-menu-contact-phone
+              a#header-menu-contact-info-service-email.header-menu-contact-phone-a href="tel:#{ t('layout.header.contact-info.info-service.phone') }"
+                span.header-menu-contact-phone-text
+                  = t('layout.header.contact-info.info-service.phone')
+                = embedded_svg_from_assets('svg/tel.svg')
 
 
 
-        ul#header-menu-social-icons
-          li#header-menu-social-icon-twitter.header-menu-social-icon
-            a#header-menu-social-icon-twitter-a.header-menu-social-icon-a href="#"
-              = embedded_svg_from_assets('svg/twitter.svg')
-          li#header-menu-social-icon-facebook.header-menu-social-icon
-            a#header-menu-social-icon-facebook-a.header-menu-social-icon-a href="#"
-              = embedded_svg_from_assets('svg/facebook.svg')
-          li#header-menu-social-icon-odnoklassniki.header-menu-social-icon
-            a#header-menu-social-icon-odnoklassniki-a.header-menu-social-icon-a href="#"
-              = embedded_svg_from_assets('svg/odnoklassniki.svg')
-          li#header-menu-social-icon-linked_in.header-menu-social-icon
-            a#header-menu-social-icon-linked_in-a.header-menu-social-icon-a href="#"
-              = embedded_svg_from_assets('svg/linked_in.svg')
-          li#header-menu-social-icon-blogger.header-menu-social-icon
-            a#header-menu-social-icon-blogger-a.header-menu-social-icon-a href="#"
-              = embedded_svg_from_assets('svg/blogger.svg')
-          li#header-menu-social-icon-vk.header-menu-social-icon
-            a#header-menu-social-icon-vk-a.header-menu-social-icon-a href="#"
-              = embedded_svg_from_assets('svg/vk.svg')
-          li#header-menu-social-icon-google_plus.header-menu-social-icon
-            a#header-menu-social-icon-google_plus-a.header-menu-social-icon-a href="#"
-              = embedded_svg_from_assets('svg/google_plus.svg')
+          span#header-menu-contact-support-tip.header-menu-contact-tip
+            = t('layout.header.contact-info.support.tip')
+          ul#header-menu-contact-support-ul
+            li.header-menu-contact-email
+              a#header-menu-contact-support-email.header-menu-contact-email-a href="mailto:#{ t('layout.header.contact-info.info-service.email') }"
+                span.header-menu-contact-email-text
+                  = t('layout.header.contact-info.support.email')
+                = embedded_svg_from_assets('svg/mail.svg')
+
+
+
+          ul#header-menu-social-icons
+            li#header-menu-social-icon-twitter.header-menu-social-icon
+              a#header-menu-social-icon-twitter-a.header-menu-social-icon-a href="#"
+                = embedded_svg_from_assets('svg/twitter.svg')
+            li#header-menu-social-icon-facebook.header-menu-social-icon
+              a#header-menu-social-icon-facebook-a.header-menu-social-icon-a href="#"
+                = embedded_svg_from_assets('svg/facebook.svg')
+            li#header-menu-social-icon-odnoklassniki.header-menu-social-icon
+              a#header-menu-social-icon-odnoklassniki-a.header-menu-social-icon-a href="#"
+                = embedded_svg_from_assets('svg/odnoklassniki.svg')
+            li#header-menu-social-icon-linked_in.header-menu-social-icon
+              a#header-menu-social-icon-linked_in-a.header-menu-social-icon-a href="#"
+                = embedded_svg_from_assets('svg/linked_in.svg')
+            li#header-menu-social-icon-blogger.header-menu-social-icon
+              a#header-menu-social-icon-blogger-a.header-menu-social-icon-a href="#"
+                = embedded_svg_from_assets('svg/blogger.svg')
+            li#header-menu-social-icon-vk.header-menu-social-icon
+              a#header-menu-social-icon-vk-a.header-menu-social-icon-a href="#"
+                = embedded_svg_from_assets('svg/vk.svg')
+            li#header-menu-social-icon-google_plus.header-menu-social-icon
+              a#header-menu-social-icon-google_plus-a.header-menu-social-icon-a href="#"
+                = embedded_svg_from_assets('svg/google_plus.svg')

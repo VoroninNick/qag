@@ -2,10 +2,15 @@
   margin-top: 1.5rem;
 }
 
+#dashboard-menu-column{
+  text-align: center;
+}
+
 #dashboard-menu-wrap{
   border-radius: 3px;
   padding: 20px 30px 30px 30px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+  text-align: justify;
 
   .title{
     font-size: 1.4rem;
@@ -57,6 +62,18 @@
 
 }
 
+#dashboard-menu-another-links-ul{
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  text-align: justify;
+  text-transform: uppercase;
+}
+
+.dashboard-menu-another-link-li-a{
+  color: #aaa;
+}
+
 
 #dashboard-profile-column{
   #greetings{
@@ -69,10 +86,17 @@
     }
   }
 
-  .input{
-    //border-bottom: 1px solid;
 
-    label{
+}
+
+#dashboard-profile-column, .simple_form.form-with-labels {
+  .input {
+    //border-bottom: 1px solid;
+    height: 40px;
+    display: block;
+    margin: 8px 0 0 0;
+
+    label {
       display: inline-block;
       width: 200px;
       overflow: hidden;
@@ -81,18 +105,132 @@
       color: $modal-dark-gray-color;
       height: 40px;
       //line-break: 40px;
-      border-bottom: 1px solid;
+      //border-bottom: 1px solid #d3d3d3;
       line-height: 50px;
     }
 
-    input{
+    input {
       display: inline-block;
       width: auto;
+      width: 262px;
       border: none;
       vertical-align: top;
-      border-bottom: 1px solid;
+      border-bottom: 1px solid #d3d3d3;
       line-height: 50px;
+      background: transparent;
+
+      &:focus{
+        background: #86c7e7;
+      }
+    }
+
+    &.focus {
+      label {
+        //display: none;
+      }
+      input {
+        //width: 100%;
+        //max-width: 462px;
+        //line-height: 40px;
+      }
+
+      .save-field-button {
+        display: inline-block;
+        width: 50px;
+        height: 40px;
+        background: $registration-button-background;
+        margin: 0 0 0 10px;
+        cursor: pointer;
+
+        &:after {
+          content: "";
+          width: 14px;
+          height: 25px;
+
+          border-bottom: 2px solid white;
+          border-right: 2px solid white;
+          display: block;
+          transform: translate3d(-50%, -50%, 0) rotate(45deg);
+          top: 39%;
+          left: 50%;
+          position: relative;
+        }
+      }
     }
   }
 }
 
+#dashboard-content {
+  #edit_user_password {
+    .input {
+      label {
+        display: inline-block;
+      }
+      input{
+        width: 262px;
+        line-height: 50px;
+      }
+    }
+  }
+}
+
+#dashboard-content{
+  form.simple_form.form-with-labels{
+
+    &.mode-view{
+      .button.devise-submit-button.orange-bg{
+        display: none;
+      }
+    }
+
+    &.mode-edit, &:not(.mode-view){
+      .js-trigger.mode{
+        display: none;
+      }
+
+      .input{
+        label{
+          display: none;
+        }
+
+        input{
+          border: 1px #e9e9e9 solid;
+          width: 100%;
+          max-width: 462px;
+          line-height: 40px;
+
+        }
+      }
+    }
+
+    .form-actions{
+      margin-top: 2rem;
+
+      .change-password-link{
+        display: inline-block;
+        float: none;
+        width: 200px;
+        text-align: center;
+        vertical-align: top;
+        line-height: 50px;
+      }
+
+      .js-trigger.mode{
+        display: inline-block;
+        width: 262px;
+        text-align: center;
+        height: 50px;
+        vertical-align: top;
+        line-height: 50px;
+      }
+    }
+  }
+}
+
+.change-password-link{
+  color: #58595b;
+  line-height: 50px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}

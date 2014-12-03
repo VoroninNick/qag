@@ -1,4 +1,5 @@
 class Users::PasswordsController < Devise::PasswordsController
+  skip_before_filter :require_no_authentication, only: [:edit_password, :update_password]
   # GET /resource/password/new
   # def new
   #   super
@@ -58,6 +59,68 @@ class Users::PasswordsController < Devise::PasswordsController
       end
     else
       respond_with resource
+    end
+  end
+
+  def edit_password
+    if user_signed_in?
+      @breadcrumbs = {
+          home: {},
+          dashboard: {
+              title: "Особистий кабінет",
+              link: {
+                  url: edit_user_registration_path(locale: locale)
+              }
+          },
+          change_password: {
+              title: "Змінити пароль",
+              link: {
+                  url: my_edit_user_password_path(locale: I18n.locale)
+              }
+          }
+      }
+
+      @user = current_user
+      # render
+    else
+      redirect_to new_user_session_path(locale: I18n.locale)
+    end
+  end
+
+  def update_password
+    if user_signed_in?
+      required_template = "devise/passwords/edit_password"
+      @breadcrumbs = {
+          home: {},
+          dashboard: {
+              title: "Особистий кабінет",
+              link: {
+                  url: edit_user_registration_path(locale: locale)
+              }
+          },
+          change_password: {
+              title: "Змінити пароль",
+              link: {
+                  url: my_edit_user_password_path(locale: I18n.locale)
+              }
+          }
+      }
+
+      @user = current_user
+
+      current_password = params[:current_password]
+      new_password = params[:new_password]
+      new_password_confirmation = params[:new_password_confirmation]
+
+      if @user.valid_password?(params[:current_password]) && new_password == new_password_confirmation && new_password.length >= 8
+        @user.password = new_password
+      end
+
+      render inline: "#{(@user.valid_password?(current_password) && new_password == new_password_confirmation ).inspect} #{new_password} #{new_password_confirmation} #{ new_password == new_password_confirmation } #{@user.valid_password?(current_password)}"
+
+      #render template: required_template
+    else
+      redirect_to new_user_session_path(locale: I18n.locale)
     end
   end
 

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   scope "(:locale)" do
 
+    get 'featured_events', to: 'home#featured_events', as: :featured_events
+
     devise_for :users, controllers:{ event_subscriptions: 'event_subscriptions' }, skip: [:sessions, :passwords, :confirmations, :registrations] do
      # get "accounts/signedup", :to => "users/accounts/registrations#signedup", :as => "signedup_registration"
       #get 'event/*tags/:item/register', to: 'users/event_subscriptions#new', as: :register_on_event
@@ -8,49 +10,49 @@ Rails.application.routes.draw do
 
     devise_scope :user do
 
-    get 'event/:event_id/register', to: 'users/event_subscriptions#new', as: 'new_event_subscription'
-    match 'event/:event_id/register', to: 'users/event_subscriptions#create', as: 'create_event_subscription', via: [ :post, :patch ]
-    get 'event/:event_id/unregister', to: 'users/event_subscriptions#unsubscribe_form', as: 'event_unsubscription_form'
-    post 'event/:event_id/unregister', to: 'users/event_subscriptions#unsubscribe', as: 'event_unsubscribe'
+      get 'event/:event_id/register', to: 'users/event_subscriptions#new', as: 'new_event_subscription'
+      match 'event/:event_id/register', to: 'users/event_subscriptions#create', as: 'create_event_subscription', via: [ :post, :patch ]
+      get 'event/:event_id/unregister', to: 'users/event_subscriptions#unsubscribe_form', as: 'event_unsubscription_form'
+      post 'event/:event_id/unregister', to: 'users/event_subscriptions#unsubscribe', as: 'event_unsubscribe'
 
-    get "events/history", to: "events#history", as: :events_history
+      get "events/history", to: "events#history", as: :events_history
 
-    # session handling
-    get     '/my/dashboard/login'  => 'users/sessions#new',     as: 'new_user_session'
-    post    '/my/dashboard/login'  => 'users/sessions#create',  as: 'user_session'
-    match  '/my/dashboard/logout' => 'users/sessions#destroy', as: 'destroy_user_session', via: [:post, :delete]
-    get '/my/dashboard/logout', to: 'users/sessions#destroy_form', as: 'user_session_destroy_form'
+      # session handling
+      get     '/my/dashboard/login'  => 'users/sessions#new',     as: 'new_user_session'
+      post    '/my/dashboard/login'  => 'users/sessions#create',  as: 'user_session'
+      match  '/my/dashboard/logout' => 'users/sessions#destroy', as: 'destroy_user_session', via: [:post, :delete]
+      get '/my/dashboard/logout', to: 'users/sessions#destroy_form', as: 'user_session_destroy_form'
 
 
-    # joining
-    get   '/my/dashboard/join' => 'users/registrations#new',    as: 'new_user_registration'
-    post  '/my/dashboard/join' => 'users/registrations#create', as: 'user_registration'
-    put   '/my/dashboard/join' => 'users/registrations#update'
-    delete '/my/dashboard/join' => 'users/registrations#destroy'
+      # joining
+      get   '/my/dashboard/join' => 'users/registrations#new',    as: 'new_user_registration'
+      post  '/my/dashboard/join' => 'users/registrations#create', as: 'user_registration'
+      put   '/my/dashboard/join' => 'users/registrations#update'
+      delete '/my/dashboard/join' => 'users/registrations#destroy'
 
-    scope '/my/dashboard/account' do
-      # password reset
-      get   '/reset-password'        => 'users/passwords#new',    as: 'new_user_password'
-      put   '/reset-password'        => 'users/passwords#update', as: 'user_password'
-      post  '/reset-password'        => 'users/passwords#create'
-      get   '/reset-password/change' => 'users/passwords#edit',   as: 'edit_user_password'
+      scope '/my/dashboard/account' do
+        # password reset
+        get   '/reset-password'        => 'users/passwords#new',    as: 'new_user_password'
+        put   '/reset-password'        => 'users/passwords#update', as: 'user_password'
+        post  '/reset-password'        => 'users/passwords#create'
+        get   '/reset-password/change' => 'users/passwords#edit',   as: 'edit_user_password'
 
-      get '/change-password', to: 'users/passwords#edit_password', as: 'my_edit_user_password'
-      match '/change-password', to: 'users/passwords#update_password', as: 'my_update_user_password', via: [:post, :put]
+        get '/change-password', to: 'users/passwords#edit_password', as: 'my_edit_user_password'
+        match '/change-password', to: 'users/passwords#update_password', as: 'my_update_user_password', via: [:post, :put]
 
-      # confirmation
-      get   '/confirm'        => 'users/confirmations#show',   as: 'user_confirmation'
-      post  '/confirm/send'        => 'users/confirmations#create', as: 'create_user_confirmation'
-      get   '/confirm/resend' => 'users/confirmations#new',    as: 'new_user_confirmation'
+        # confirmation
+        get   '/confirm'        => 'users/confirmations#show',   as: 'user_confirmation'
+        post  '/confirm/send'        => 'users/confirmations#create', as: 'create_user_confirmation'
+        get   '/confirm/resend' => 'users/confirmations#new',    as: 'new_user_confirmation'
 
-      # settings & cancellation
-      get '/cancel'   => 'users/registrations#cancel', as: 'cancel_user_registration'
-      get '/settings' => 'users/registrations#edit',   as: 'edit_user_registration'
-      put '/settings' => 'users/registrations#update'
+        # settings & cancellation
+        get '/cancel'   => 'users/registrations#cancel', as: 'cancel_user_registration'
+        get '/settings' => 'users/registrations#edit',   as: 'edit_user_registration'
+        put '/settings' => 'users/registrations#update'
 
-      # account deletion
-      delete '' => 'users/registrations#destroy'#, as: 'delete_user_registration'
-    end
+        # account deletion
+        delete '' => 'users/registrations#destroy'#, as: 'delete_user_registration'
+      end
   end
 
     post 'message', to: 'messages#create', as: 'create_message'

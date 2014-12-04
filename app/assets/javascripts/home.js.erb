@@ -1,0 +1,449 @@
+// Place all the behaviors and hooks related to the matching controller here.
+// All this logic will automatically be available in application.js.
+// You can use CoffeeScript in this file: http://coffeescript.org/
+
+
+var initialize = function() {
+    $('html.controller-home.action-index').each(function () {
+        var $page = $(this)
+
+// =====================================
+// -------------------------------------
+// initialize autoscroll banner
+// -------------------------------------
+// =====================================
+
+ var initialize_home_slider = function() {
+     var $home_slider_section = $page.find('#home-slider-section')
+     var auto_interval = 6000
+     setInterval(function(){
+         var $flags = $('input.home-slider-slide-flag')
+         var $checked_flag = $flags.filter(':checked')
+         var flags_count = $flags.length
+         var checked_flag_index = $checked_flag.index()
+
+         var future_index = checked_flag_index + 1
+         if(checked_flag_index >= flags_count){
+             future_index = 0
+         }
+         var $future_flag = $flags.eq(future_index)
+         $checked_flag.prop('checked', false);
+         $future_flag.prop('checked', true)
+     }, auto_interval)
+ }
+
+ initialize_home_slider()
+
+
+
+//    $.ajax(
+//        {
+//            url: '/?featured_events&ajax',
+//            type: 'GET',
+//            dataType: 'json',
+//            success: function(data){
+//                var $events_section = $('.home-featured-events-section')
+//
+//            }
+//
+//        } )
+
+//    var event = 'onwheel' in document ? 'wheel' : 'onmousewheel' in document ? 'mousewheel' : 'DOMMouseScroll';
+//    window.addEventListener(event, function(){
+//        console.log('wheel')
+//    });
+
+        //$('body').bind('mousewheel', function(e) {
+//        if(e.originalEvent.wheelDelta / 120 > 0) {
+//            alert('up');
+//        } else {
+//            alert('down');
+//        }
+
+        //      console.log('mousewheel')
+        //  });
+
+        counter = 0
+
+        $('body').mousewheel(function (event) {
+
+            if (counter == 0) {
+
+
+                console.log("hello:" + event.deltaX, event.deltaY, event.deltaFactor);
+
+                var $flags = $('.home-page-section-flag')
+                var $checked_flag = $flags.filter(':checked')
+                var checked_flag_index = $checked_flag.index()
+                var checked_section_number = parseInt($checked_flag.attr('data-to'))
+
+                var next_number = 0;
+                var min_number = 1;
+                var max_number = 6;
+                if (event.deltaY > 0)
+                    next_number = (checked_section_number > min_number) ? checked_section_number - 1 : min_number;
+                else {
+                    next_number = (checked_section_number < max_number) ? checked_section_number + 1 : max_number
+                }
+
+
+                if (checked_section_number != next_number) {
+                    console.log('checked:' + checked_section_number + '; next: ' + next_number)
+                    $next_flag = $flags.filter('#home-page-section-flag-from-' + (checked_section_number) + '-to-' + (next_number))
+                    //$checked_flag.removeAttr('checked')
+                    //$next_flag.attr('checked', 'checked')
+                    $checked_flag.prop('checked', false)
+                    $next_flag.prop('checked', true)
+
+
+                }
+            }
+            if (counter == 3)
+                counter = 0
+            else
+                counter++
+        });
+
+    })
+
+
+    var $home_featured_event_info_slides_row = $('#home-featured-event-info-slides-row')
+    var $home_featured_events_section = $('#home-featured-events-section')
+    if ($home_featured_event_info_slides_row.length > 0) {
+        //$home_featured_event_info_slides_row.
+
+
+//        prev_start = 4
+//        next_start = 8
+//        $.ajax(
+//        {
+//            url: '/data/featured_events/?ajax=true&direction=both&prev_start=' + prev_start + '&prev_count=14&next_start='+next_start + '&next_count=14',
+//            type: 'GET',
+//            dataType: 'json',
+//            success: function(data){
+//
+//                //$home_featured_events_section
+//               $data  = $(data)
+//               data = data
+//
+//                $data = $data.get(0)
+//               next_events = $data.next_events
+//               prev_events = $data.prev_events
+//               total_count = $data.total_count
+//               prev_remaining = $data.prev_remaining
+//               next_remaining = $data.next_remaining
+//
+//
+//               var $home_featured_event_info_slides_row_ul = $('#home-featured-event-info-slides-row-ul')
+//
+//               $(prev_events).each(function(){
+//                   e = $(this)
+//                   var $event = $('<li class="event home-featured-event" id="event-'+ e.number+'" ><div class="image-and-info columns large-4"><div class="image"><a href="#"><img src="'+ e.img_src+'"/></a></div><div class="info">' +
+//                       '<div class="start_date"><span class="tip">Початок:</span><span class="value">08.09.2014</span>' + '<span class="end-date"><span class="span.tip">Завершення:</span><span class="value">'+'03.10.2014'+'</span>' +
+//                       '<div class="participants-count"></div>' +
+//
+//                       '</div></div></li>')
+//               })
+//
+//
+//
+//            }
+//
+//        } )
+
+
+        $home_featured_event_info_slides_row.on('click', '#home-featured-prev-event-arrow, #home-featured-next-event-arrow', function () {
+            // var $this = $(this)
+            // if($this.hasClass('.nav-arrow'))
+            // var $arrow = $(this)
+            // var arrow = $arrow.get(0)
+            // var direction = arrow.id == 'home-featured-next-event-arrow'
+
+            // var $flags = $home_featured_events_section.find('input.home-featured-events-timeline-flag')
+            // var flags_count = $flags.length
+            // var $checked_flag = $flags.filter(':checked')
+            // var checked_event_number = parseInt($checked_flag.attr('data-event-number'))
+
+            // var challenge_event_number = checked_event_number
+            // if (direction) {
+            //     if (checked_event_number < flags_count) {
+            //         challenge_event_number++
+            //     }
+            //     else {
+            //         challenge_event_number = 1
+            //     }
+            // }
+            // else {
+            //     if (checked_event_number > 1) {
+            //         challenge_event_number--
+            //     }
+            //     else {
+            //         challenge_event_number = flags_count
+            //     }
+            // }
+
+            // var $challenge_event = $('#home-featured-events-timeline-flag-' + challenge_event_number)
+
+            // $checked_flag.prop('checked', false)
+            // $challenge_event.prop('checked', true)
+
+            // var str_direction = direction ? 'next' : 'prev'
+            // $challenge_event
+            //     .removeClass('prev-arrow-hide-event-animation')
+            //     .removeClass('next-arrow-hide-event-animation')
+            //     .addClass(str_direction + '-arrow-show-event-animation')
+
+            // $checked_flag
+            //     .removeClass('prev-arrow-show-event-animation')
+            //     .removeClass('next-arrow-show-event-animation')
+            //     .addClass(str_direction + '-arrow-hide-event-animation')
+
+
+        })
+
+
+    }
+
+    var $home_contact_section = $('#home-contact-section')
+    if($home_contact_section.length > 0){
+        var $form = $('#home-contact-form-section-form')
+        var default_method = 'GET'
+        var method = $form.attr('method') || default_method
+        var url = $form.attr('action') || ''
+        var response_data_type = 'json'
+
+        $form.on('click', 'input[type=submit]', function(e){
+            var $submit = $(this)
+            e.preventDefault()
+            var form_data = $form.serializeArray()
+            $.ajax({type: method, url: url, data: form_data, dataType: response_data_type, success: function(data){
+                alert('success')
+            }
+        })
+        }) 
+    }
+}
+
+
+
+
+$(document).on('page:load', initialize)
+
+initialize();
+
+
+window.svgs = {
+//     participant: ['<svg version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 370.5 303.5" enable-background="new 0 0 370.5 303.5" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">',
+// '<g>',
+//     '<path fill-rule="evenodd" clip-rule="evenodd" d="M4.1,221.7c2.8-14.1,12-23.4,23.2-31.2c5.1-3.6,11.4-2.9,14.8,1.7'
+//         'c3.6,4.7,2.7,10.7-2.1,14.8c-1.4,1.1-2.8,2.1-4.2,3.2c-6.2,4.9-9.8,10.8-9.2,19.2c0.5,8,0.1,16.1,0.1,24.1'
+//         'c0.1,12.8,9.9,22.8,22.6,22.8c60.6,0.1,121.2,0.1,181.7,0c12.3,0,22.3-10,22.5-22.3c0.1-9.4,0-18.9,0-28.3c0-5.2-2.3-9.3-5.8-12.9'
+//         'c-6.8-7-15.5-11.1-24.5-14.5c-20-7.5-40.8-10.6-62-12c-11.5-0.8-23.2-0.4-34.6-2.3c-28.2-4.7-51.1-29.4-53.9-57.8'
+//         'c-1.1-11.5-0.7-23.1-0.8-34.7c-0.1-11.6-0.1-23.2,0-34.7C72.3,27.6,95.5,3.3,125,4.1c10.3,0.3,20.5,0.1,30.8,0'
+//         'c28.3-0.1,51.5,22,52.1,50.4c0.5,22,0.2,43.9,0,65.9c-0.1,8.8-2.4,17.3-6.2,25.3c-2.6,5.7-8.6,8-14.2,5.9'
+//         'c-5.5-2.1-8.8-8.1-6.7-13.5c3.5-9.1,4.6-18.2,4.2-28c-0.7-17.3,0.3-34.7,0.3-52c0-15.9-10.5-28.5-26.1-30.9'
+//         'c-5.2-0.8-10.6-0.4-15.9-0.4c-8,0.1-16.1-0.4-24,0.7c-14,2.1-24.5,14.6-24.7,28.7c-0.2,16.3-0.2,32.6,0,48.9'
+//         'c0.1,7.7-0.2,15.7,1.4,23.1c4.4,20.4,22.8,34.5,43.7,34.6c28.7,0.2,57,3.6,84.2,13.4c12.5,4.5,24.4,10.2,34.7,18.7'
+//         'c8.7,7.1,15.6,15.6,16.9,27.2c0.6,5.7,0.5,11.6,0.3,17.3c-0.2,7.9,0.3,16-1.2,23.6c-4.3,21.3-22.7,35.7-44.5,35.7'
+//         'c-43.1,0-86.2,0-129.3,0c-17,0-34,0-51,0c-22.9-0.1-41.2-15.4-45.3-38c-0.1-0.8-0.5-1.6-0.7-2.3C4.1,246.2,4.1,234,4.1,221.7z"></path>''
+//     '<path fill-rule="evenodd" clip-rule="evenodd" d="M366.9,201.8c-0.5,2.1-1,4.1-1.5,6.2c-4.8,19.5-22.6,33.7-42.8,34.2'
+//         'c-4.1,0.1-8.3,0.1-12.4,0c-6.4-0.1-11.3-5-11.4-11.2c0-6.3,4.9-11.2,11.5-11.4c5.3-0.2,10.7,0.2,15.9-0.7'
+//         'c10.5-1.9,17.8-11,17.9-21.6c0.1-11.2,0.1-22.4,0-33.7c0-5.8-3.1-10.2-7.8-12.7c-5.6-3-11.8-5.5-18-7c-22.6-5.6-45.1-5.2-67.4,1.7'
+//         'c-5.6,1.7-10.8,3.8-15.6,7.2c-4.6,3.3-10.9,1.8-14.1-2.8c-3.3-4.8-2.3-11.2,2.7-14.3c7.3-4.5,14.9-8.5,22.7-12.8'
+//         'c-0.3-0.3-1-1.2-1.7-2c-9.4-10.7-14.1-23.3-14.3-37.5c-0.1-11.2,0-22.4,0-33.7c0.1-25.4,20-45.5,45.4-45.5c9.8,0,19.7-0.5,29.3,0.7'
+//         'c21.3,2.5,37.9,21.1,38.5,42.5c0.3,12,0.2,24.1,0.1,36.1c0,6.4-5.1,11.3-11.3,11.2c-6.2,0-11.1-4.8-11.2-11.3'
+//         'c-0.1-10.9-0.1-21.7,0-32.6c0-14.4-9.6-24.1-23.9-24.1c-7.2,0-14.4-0.1-21.6,0c-12.8,0.1-22.6,9.9-22.6,22.8'
+//         'c-0.1,11.3-0.1,22.7,0,34c0.1,18.7,14.9,33.7,33.7,34c18.9,0.2,37.1,3.3,54,12.1c8.3,4.3,15.8,9.7,20.7,17.8'
+//         'c2.2,3.7,3.4,7.9,5,11.9C366.9,173.5,366.9,187.7,366.9,201.8z"></path>'
+//     '<path fill-rule="evenodd" clip-rule="evenodd" d="M66.4,168.6c6.3,0,11.4,5.2,11.3,11.5c-0.1,6.1-5.3,11.2-11.4,11'
+//         'c-6.2-0.1-11.1-5.2-11.1-11.4C55.2,173.7,60.3,168.6,66.4,168.6z"></path>'
+// </g>
+// </svg>'].join(''),
+// register_button: '<svg version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 357.3 367.3" enable-background="new 0 0 357.3 367.3" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+// <g>
+//     <path d="M196.3,181.1l-47.5,32c-2-0.7-4.1-1-6.3-1c-4.2,0-7.9,1.3-11.1,3.5l-52.9-39.9c-2.5-1.9-6.1-1.4-8,1.1
+//         c-1.9,2.5-1.4,6.1,1.1,8l52.9,39.9c-0.7,2-1.1,4.1-1.1,6.4c0,10.5,8.5,19.1,19.1,19.1c10.2,0,18.5-8.1,19.1-18.1l47.5-32.1
+//         c5.3-3.5,6.6-10.6,3.1-15.9C208.6,178.9,201.5,177.5,196.3,181.1z" class="clock-arrow"></path>
+//     <path d="M141.8,90C65.9,90,4.4,151.5,4.4,227.3c0,75.9,61.5,137.4,137.4,137.4c75.9,0,137.4-61.5,137.4-137.4
+//         C279.2,151.5,217.7,90,141.8,90z M222.7,308.3c-21.6,21.6-50.4,33.5-80.9,33.5c-30.6,0-59.4-11.9-81-33.5
+//         c-21.6-21.6-33.5-50.4-33.5-81c0-30.6,11.9-59.3,33.5-80.9c21.6-21.6,50.4-33.6,81-33.6c30.6,0,59.3,11.9,80.9,33.6
+//         c21.6,21.6,33.6,50.4,33.6,80.9C256.3,257.9,244.3,286.7,222.7,308.3z" class="clock-round"></path>
+//     <path d="M300.3,164c20.1-4.1,63.6-9.9,53.9-81c-14.7,19.3-46.6,42.2-61.5,32.6c72.5-41.5,59.5-104.1,57.5-113.7
+//         c-22.9,38.2-71,49.9-104.1,46.5c5.3,34.4-59,48.1-25.7,0.5c-34.2,1.8-73.9,9.3-98.3,28.8c6.4-0.8,13-1.2,19.7-1.2
+//         c83.3,0,150.7,67.5,150.7,150.7c0,15.6-2.3,30.7-6.8,44.8c25.9-24.1,37.8-57.9,44.1-88.3C295.7,216.7,276.9,168.8,300.3,164z" class="clock-fire"></path>
+// </g>
+// </svg>'
+    participant: '<%= ApplicationHelper.self_js_embedded_svg('svg/participant.svg') %>',
+    registration: '<%= ApplicationHelper.self_js_embedded_svg('svg/registration.svg') %>'
+}
+
+window.partials = {
+    home: {
+        featured_events_carousel_item: ['<li class="event home-featured-event event-collection-item" data-event-id="{{event_id}}" id="event-4"><div class="featured-section-event-content"><div class="image-and-info columns large-4"><div class="image"><a href="{{event_url}}"><img src="{{event_image_url}}"></a></div><div class="info"><div class="start-date"><span class="tip">Початок:</span><span class="value">{{start_date_day}}.{{start_date_month}}.{{start_date_year}}</span></div><div class="end-date"><span class="tip">Завершення:</span><span class="value">{{end_date_day}}.{{end_date_month}}.{{end_date_year}}</span></div><div class="participants-count">{{participant_svg}}',
+'<span class="count">{{participants_count}}</span><span class="participants-tip">&nbsp;учасників зареєстровано</span></div></div></div><div class="description columns large-8"><a class="event-title" href="{{event_url}}">{{event_name}}</a><div class="event-description">{{event_short_description}}</div></div><div class="event-link-and-register-button"><div class="event-link-wrapper large-4 columns large-push-4"><div class="event-link"><a href="{{event_url}}">Детальніше про подію</a></div></div><div class="register-button columns large-4 right"><a class="register-button-a" href="{{register_button_url}}">{{register_button_svg}}',
+'<span class="registration-text">{{register_button_text}}</span></a></div></div></div></li>'].join(''),
+        featured_events_carousel_point: ['<div class="event" ><label class="event-label" id="event-1-label"><div class="date" ><div class="day-number" id="event-1-date-day-number">{{event_day}}</div><div class="month" id="event-1-date-month-name">{{event_month_name}}</div></div><div class="bullet" id="event-1-bullet"><span class="render-bullet" id="event-1-render-bullet"></span></div></label></div>'].join('')
+    }
+};
+
+window.month_names = ['січня', 'лютого', 'березня', 'квітня', 'травня', 'червня', 'липня', 'серпня', 'вересня', 'жовтня', 'листопада', 'грудня']
+
+
+// ajax loading for home carousel
+;
+(function($){
+    function load_events(prev_page, future_page){
+        prev_page = prev_page || 2
+        future_page = future_page || 2
+
+        $.ajax({
+            type: 'get',
+            dataType: 'json',
+            data: {
+                prev_events_page: prev_page,
+                future_events_page: future_page
+            },
+            url: '/featured_events',
+            success: function(data, textStatus, jqXHR){
+                console.log("data: ", data)
+                var prev_events = data['prev_events']
+                var future_events = data['future_events']
+                var $home_featured_event_info_slides_row_ul = $('#home-featured-event-info-slides-row-ul')
+                var prev_events_str = '' 
+                var timeline_prev_str = ''
+                for(var i = 0; i < prev_events.length; i++){
+                    var e = prev_events[i]
+                    //console.log('prev: ' + i + ': ', e['name'])
+                    //var $event_item_li = $('<li class="event home-featured-event event-collection-item" data-event-id="'+e.id+'"></li>')
+                    //var $event_item_li_content = $('<div class="featured-section-event-content"></div>')
+                    //var $image_and_info_column = $('<div class="image-and-info columns large-4"></div>').append('<div class="image"><a href="'+e.event_link+'"><img src="'+e.image_url+'" /></a></div>')
+                    //$image_and_info_column.append('<div class="info"><div class="start-date"></div><div class="end-date"></div><div class="participants-count"></div></div>')
+                    var str = window.partials.home.featured_events_carousel_item.interpolate({event_id: e.id, event_url: e.event_link, event_name: e.name, participants_count: e.participants_count, event_short_description: e.short_description, register_button_text: "Зареєструватися", event_image_url: e.image_url, start_date_day: e.date_range.start_date.day, start_date_month: e.date_range.start_date.month, start_date_year: e.date_range.start_date.year, end_date_day: e.date_range.end_date.day, end_date_month: e.date_range.end_date.month, end_date_year: e.date_range.end_date.year, participant_svg: window.svgs.participant, register_button_svg: window.svgs.registration})
+                    var timeline_str = window.partials.home.featured_events_carousel_point.interpolate({event_day: e.date_range.start_date.day, event_month_name: window.month_names[e.date_range.start_date.month - 1]}) 
+                    prev_events_str += str
+                    timeline_prev_str += timeline_str
+                    
+                }
+
+                var $first_li = $home_featured_event_info_slides_row_ul.children().first()
+                $(prev_events_str).insertBefore($first_li)
+                var $timeline_container = $('#home-featured-timeline-row-container')
+                var $timeline_first_item = $timeline_container.children().first()
+                $(timeline_prev_str).insertBefore($timeline_first_item)
+
+
+
+
+                var future_events_str = '' 
+                var timeline_future_str = ''
+                for(var i = 0; i < future_events.length; i++){
+                    var e = future_events[i]
+                    //console.log('prev: ' + i + ': ', e['name'])
+                    //var $event_item_li = $('<li class="event home-featured-event event-collection-item" data-event-id="'+e.id+'"></li>')
+                    //var $event_item_li_content = $('<div class="featured-section-event-content"></div>')
+                    //var $image_and_info_column = $('<div class="image-and-info columns large-4"></div>').append('<div class="image"><a href="'+e.event_link+'"><img src="'+e.image_url+'" /></a></div>')
+                    //$image_and_info_column.append('<div class="info"><div class="start-date"></div><div class="end-date"></div><div class="participants-count"></div></div>')
+                    var str = window.partials.home.featured_events_carousel_item.interpolate({event_id: e.id, event_url: e.event_link, event_name: e.name, participants_count: e.participants_count, event_short_description: e.short_description, register_button_text: "Зареєструватися", event_image_url: e.image_url, start_date_day: e.date_range.start_date.day, start_date_month: e.date_range.start_date.month, start_date_year: e.date_range.start_date.year, end_date_day: e.date_range.end_date.day, end_date_month: e.date_range.end_date.month, end_date_year: e.date_range.end_date.year, participant_svg: window.svgs.participant, register_button_svg: window.svgs.registration})
+                    var timeline_str = window.partials.home.featured_events_carousel_point.interpolate({event_day: e.date_range.start_date.day, event_month_name: window.month_names[e.date_range.start_date.month - 1]}) 
+                    future_events_str += str
+                    timeline_future_str += timeline_str
+                    
+                }
+
+                //var $first_li = $home_featured_event_info_slides_row_ul
+                $home_featured_event_info_slides_row_ul.append(prev_events_str)
+
+                //var $timeline_first_item = $('#home-featured-timeline-row-container').children().first()
+                $timeline_container.append(timeline_prev_str)
+
+                var $timeline_items = $timeline_container.children()
+                $timeline_container.css({width: '' + ($timeline_items.length / 7 * 100) + '%' })
+                $timeline_items.css({width: '' + (100 / $timeline_items.length) + '%' })
+            }
+        })
+    }
+
+    if($html.hasClass('controller-home action-index')){
+        load_events() 
+
+        var $timeline_row_container = $('#home-featured-timeline-row-container')
+        var $event_info_slides_row_ul = $('#home-featured-event-info-slides-row-ul')
+
+        function activateEvent(id){
+            required_event_id = + id
+            var $event_info_slides_row_ul_lis = $event_info_slides_row_ul.children()  
+            var $timeline_row_container_children = $timeline_row_container.children()          
+            var $required_timeline_event = null;
+            var $required_event_info = null;
+            var $active_event_info = $event_info_slides_row_ul_lis.filter('.active')
+            var active_event_id = + $active_event_info.attr('data-event-id')
+            var required_event_id = null
+
+
+            if(typeof(id) == 'object' ){
+                //$required_event_info = required_event_id
+                if(id.get(0).tagName == 'LI'){
+                    $required_event_info = id
+                    required_event_id = + $required_event_info.attr('data-event-id')
+                    $required_timeline_event = $timeline_row_container_children.filter('[data-event-id='+required_event_id+']')
+
+                }
+                else{
+                    $required_timeline_event = id
+                    required_event_id = + $required_timeline_event.attr('data-event-id')
+                    $required_event_info = $event_info_slides_row_ul_lis.filter('[data-event-id='+required_event_id+']')
+                }
+
+
+            }
+            else{
+                $required_event_info = $event_info_slides_row_ul_lis.filter('[data-event-id='+required_event_id+']')
+                $required_timeline_event = $timeline_row_container_children.filter('[data-event-id='+required_event_id+']')
+            }
+             
+
+            if(!$required_timeline_event.hasClass('active')){
+                var $active_timeline_event = $timeline_row_container.children().filter('.active')
+                var active_event_id = + $active_timeline_event.attr('data-event-id')
+                var $active_event_info = $event_info_slides_row_ul_lis.filter('[data-event-id='+active_event_id+']')
+
+                $active_event_info.removeClass('active')
+                $active_timeline_event.removeClass('active')
+
+                $required_event_info.addClass('active')
+                $required_timeline_event.addClass('active')
+            }
+
+        }
+
+        $timeline_row_container.on('click', 'div.event', function(){
+            var $timeline_event = $(this)
+            if(!$timeline_event.hasClass('active')){
+                var $required_timeline_event = $timeline_event
+                var required_event_id = + $timeline_event.attr('data-event-id')
+
+                activateEvent($required_timeline_event)
+            }
+        })
+
+        var $home_featured_event_info_slides_row = $('#home-featured-event-info-slides-row')
+
+        $home_featured_event_info_slides_row.on('click', 'span.nav-arrow', function(){
+            var $this = $(this)
+            var $arrow = $this
+            var $event_info_lis = $event_info_slides_row_ul.children()
+            if(!$arrow.hasClass('inactive')){
+                var $active_event_info = $event_info_lis.filter('.active')
+                var $required_event_info = null
+                if($arrow.hasClass('next')){
+                    $required_event_info = $active_event_info.next()
+                }
+                else{
+                    $required_event_info = $active_event_info.prev()
+                }
+                //$active_event_info.removeClass('active')
+                activateEvent($active_event_info)
+            }
+        })
+    }
+})(jQuery)

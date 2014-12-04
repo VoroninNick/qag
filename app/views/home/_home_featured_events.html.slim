@@ -1,7 +1,8 @@
 - @pure_css = false
 div#home-featured-events-section.page-section.page-section-number-2.home-featured-events-section
-  - @featured_events.each_with_index do |event, index|
-    input data-event-number="#{index + 1}" type="radio" name="home-featured-events-timeline-flag" class="home-featured-events-timeline-flag flag #{(index >= @featured_events_active_event_index)? 'future-event' : 'expired-event'}" id="home-featured-events-timeline-flag-#{index + 1}" checked=( (index == @featured_events_active_event_index)? 'checked' : false )
+  - if @pure_css
+    - @featured_events.each_with_index do |event, index|
+      input data-event-number="#{index + 1}" type="radio" name="home-featured-events-timeline-flag" class="home-featured-events-timeline-flag flag #{(index >= @featured_events_active_event_index)? 'future-event' : 'expired-event'}" id="home-featured-events-timeline-flag-#{index + 1}" checked=( (index == @featured_events_active_event_index)? 'checked' : false )
 
 
   #event-info-slides.event-info-slides
@@ -25,7 +26,7 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
 
       ul#home-featured-event-info-slides-row-ul.events-collection
         - @featured_events.each_with_index do |event, index|
-          li.event.home-featured-event.event-collection-item id="event-#{index + 1}" data-event-id="#{event.id}" class="#{ "event-i-am-subscribed-on" if subscribed_on_event?(event.id) }"
+          li.event.home-featured-event.event-collection-item id="event-#{index + 1}" data-event-id="#{event.id}" class="#{ "event-i-am-subscribed-on" if subscribed_on_event?(event.id) } #{"active" if index == @featured_events_active_event_index }"
             .featured-section-event-content
               .image-and-info.columns.large-4
                 .image
@@ -73,11 +74,11 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
 
 
 
-  #home-featured-timeline.timeline
+  #home-featured-timeline.timeline data-active-id="#{@featured_events_active_event_index}"
     #home-featured-timeline-row.time-line-row.row
-      #home-featured-timepline-row-container.events-container
+      #home-featured-timeline-row-container.events-container
         - @featured_events.each_with_index do |event, index|
-          .event id="event-#{index + 1}"
+          .event id="event-#{index + 1}" data-event-id="#{event.id}" class="#{"active" if index == @featured_events_active_event_index }"
             label id="event-#{index + 1}-label" class="event-label" for="home-featured-events-timeline-flag-#{index + 1}"
               .date id="event-#{index + 1}-date"
                 .day-number id="event-#{index + 1}-date-day-number"

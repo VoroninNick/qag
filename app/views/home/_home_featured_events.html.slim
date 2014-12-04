@@ -24,7 +24,7 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
         span#home-featured-next-event-arrow.nav-arrow.next
           = embedded_svg_from_assets('svg/arrow_right.svg')
 
-      ul#home-featured-event-info-slides-row-ul.events-collection
+      ul#home-featured-event-info-slides-row-ul.events-collection 
         - @featured_events.each_with_index do |event, index|
           li.event.home-featured-event.event-collection-item id="event-#{index + 1}" data-event-id="#{event.id}" class="#{ "event-i-am-subscribed-on" if subscribed_on_event?(event.id) } #{"active" if index == @featured_events_active_event_index }"
             .featured-section-event-content
@@ -76,7 +76,7 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
 
   #home-featured-timeline.timeline data-active-id="#{@featured_events_active_event_index}"
     #home-featured-timeline-row.time-line-row.row
-      #home-featured-timeline-row-container.events-container
+      #home-featured-timeline-row-container.events-container style="width: #{140*(@featured_events.count)}px;"
         - @featured_events.each_with_index do |event, index|
           .event id="event-#{index + 1}" data-event-id="#{event.id}" class="#{"active" if index == @featured_events_active_event_index }"
             label id="event-#{index + 1}-label" class="event-label" for="home-featured-events-timeline-flag-#{index + 1}"

@@ -357,14 +357,14 @@ window.month_names = ['січня', 'лютого', 'березня', 'квіт�
                 $timeline_container.append(timeline_prev_str)
 
                 var $timeline_items = $timeline_container.children()
-                $timeline_container.css({width: '' + ($timeline_items.length / 7 * 100) + '%' })
-                $timeline_items.css({width: '' + (100 / $timeline_items.length) + '%' })
+                //$timeline_container.css({width: '' + ($timeline_items.length / 7 * 100) + '%' })
+                //$timeline_items.css({width: '' + (100 / $timeline_items.length) + '%' })
             }
         })
     }
 
     if($html.hasClass('controller-home action-index')){
-        load_events() 
+        //load_events() 
 
         var $timeline_row_container = $('#home-featured-timeline-row-container')
         var $event_info_slides_row_ul = $('#home-featured-event-info-slides-row-ul')

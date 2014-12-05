@@ -1,0 +1,11 @@
+.event id="event-#{index + 1}" data-event-id="#{event.id}" class="#{"active" if index == @featured_events_active_event_index }"
+  label id="event-#{index + 1}-label" class="event-label" for="home-featured-events-timeline-flag-#{index + 1}"
+    .date id="event-#{index + 1}-date"
+      .day-number id="event-#{index + 1}-date-day-number"
+        = event.start_date.day
+        /26
+      .month id="event-#{index + 1}-date-month-name"
+        = t("pages.home.timeline.month-names.month-#{event.start_date.month}")
+        /'вересня'
+    .bullet id="event-#{index + 1}-bullet"
+      span.render-bullet id="event-#{index + 1}-render-bullet"

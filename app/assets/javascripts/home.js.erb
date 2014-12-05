@@ -291,159 +291,159 @@ window.month_names = ['січня', 'лютого', 'березня', 'квіт�
 
 // ajax loading for home carousel
 ;
-(function($){
-    function load_events(prev_page, future_page){
-        prev_page = prev_page || 2
-        future_page = future_page || 2
+ (function($){
+//     function load_events(prev_page, future_page){
+//         prev_page = prev_page || 2
+//         future_page = future_page || 2
 
-        $.ajax({
-            type: 'get',
-            dataType: 'json',
-            data: {
-                prev_events_page: prev_page,
-                future_events_page: future_page
-            },
-            url: '/featured_events',
-            success: function(data, textStatus, jqXHR){
-                console.log("data: ", data)
-                var prev_events = data['prev_events']
-                var future_events = data['future_events']
-                var $home_featured_event_info_slides_row_ul = $('#home-featured-event-info-slides-row-ul')
-                var prev_events_str = '' 
-                var timeline_prev_str = ''
-                for(var i = 0; i < prev_events.length; i++){
-                    var e = prev_events[i]
-                    //console.log('prev: ' + i + ': ', e['name'])
-                    //var $event_item_li = $('<li class="event home-featured-event event-collection-item" data-event-id="'+e.id+'"></li>')
-                    //var $event_item_li_content = $('<div class="featured-section-event-content"></div>')
-                    //var $image_and_info_column = $('<div class="image-and-info columns large-4"></div>').append('<div class="image"><a href="'+e.event_link+'"><img src="'+e.image_url+'" /></a></div>')
-                    //$image_and_info_column.append('<div class="info"><div class="start-date"></div><div class="end-date"></div><div class="participants-count"></div></div>')
-                    var str = window.partials.home.featured_events_carousel_item.interpolate({event_id: e.id, event_url: e.event_link, event_name: e.name, participants_count: e.participants_count, event_short_description: e.short_description, register_button_text: "Зареєструватися", event_image_url: e.image_url, start_date_day: e.date_range.start_date.day, start_date_month: e.date_range.start_date.month, start_date_year: e.date_range.start_date.year, end_date_day: e.date_range.end_date.day, end_date_month: e.date_range.end_date.month, end_date_year: e.date_range.end_date.year, participant_svg: window.svgs.participant, register_button_svg: window.svgs.registration})
-                    var timeline_str = window.partials.home.featured_events_carousel_point.interpolate({event_day: e.date_range.start_date.day, event_month_name: window.month_names[e.date_range.start_date.month - 1]}) 
-                    prev_events_str += str
-                    timeline_prev_str += timeline_str
+//         $.ajax({
+//             type: 'get',
+//             dataType: 'json',
+//             data: {
+//                 prev_events_page: prev_page,
+//                 future_events_page: future_page
+//             },
+//             url: '/featured_events',
+//             success: function(data, textStatus, jqXHR){
+//                 console.log("data: ", data)
+//                 var prev_events = data['prev_events']
+//                 var future_events = data['future_events']
+//                 var $home_featured_event_info_slides_row_ul = $('#home-featured-event-info-slides-row-ul')
+//                 var prev_events_str = '' 
+//                 var timeline_prev_str = ''
+//                 for(var i = 0; i < prev_events.length; i++){
+//                     var e = prev_events[i]
+//                     //console.log('prev: ' + i + ': ', e['name'])
+//                     //var $event_item_li = $('<li class="event home-featured-event event-collection-item" data-event-id="'+e.id+'"></li>')
+//                     //var $event_item_li_content = $('<div class="featured-section-event-content"></div>')
+//                     //var $image_and_info_column = $('<div class="image-and-info columns large-4"></div>').append('<div class="image"><a href="'+e.event_link+'"><img src="'+e.image_url+'" /></a></div>')
+//                     //$image_and_info_column.append('<div class="info"><div class="start-date"></div><div class="end-date"></div><div class="participants-count"></div></div>')
+//                     var str = window.partials.home.featured_events_carousel_item.interpolate({event_id: e.id, event_url: e.event_link, event_name: e.name, participants_count: e.participants_count, event_short_description: e.short_description, register_button_text: "Зареєструватися", event_image_url: e.image_url, start_date_day: e.date_range.start_date.day, start_date_month: e.date_range.start_date.month, start_date_year: e.date_range.start_date.year, end_date_day: e.date_range.end_date.day, end_date_month: e.date_range.end_date.month, end_date_year: e.date_range.end_date.year, participant_svg: window.svgs.participant, register_button_svg: window.svgs.registration})
+//                     var timeline_str = window.partials.home.featured_events_carousel_point.interpolate({event_day: e.date_range.start_date.day, event_month_name: window.month_names[e.date_range.start_date.month - 1]}) 
+//                     prev_events_str += str
+//                     timeline_prev_str += timeline_str
                     
-                }
+//                 }
 
-                var $first_li = $home_featured_event_info_slides_row_ul.children().first()
-                $(prev_events_str).insertBefore($first_li)
-                var $timeline_container = $('#home-featured-timeline-row-container')
-                var $timeline_first_item = $timeline_container.children().first()
-                $(timeline_prev_str).insertBefore($timeline_first_item)
-
-
+//                 var $first_li = $home_featured_event_info_slides_row_ul.children().first()
+//                 $(prev_events_str).insertBefore($first_li)
+//                 var $timeline_container = $('#home-featured-timeline-row-container')
+//                 var $timeline_first_item = $timeline_container.children().first()
+//                 $(timeline_prev_str).insertBefore($timeline_first_item)
 
 
-                var future_events_str = '' 
-                var timeline_future_str = ''
-                for(var i = 0; i < future_events.length; i++){
-                    var e = future_events[i]
-                    //console.log('prev: ' + i + ': ', e['name'])
-                    //var $event_item_li = $('<li class="event home-featured-event event-collection-item" data-event-id="'+e.id+'"></li>')
-                    //var $event_item_li_content = $('<div class="featured-section-event-content"></div>')
-                    //var $image_and_info_column = $('<div class="image-and-info columns large-4"></div>').append('<div class="image"><a href="'+e.event_link+'"><img src="'+e.image_url+'" /></a></div>')
-                    //$image_and_info_column.append('<div class="info"><div class="start-date"></div><div class="end-date"></div><div class="participants-count"></div></div>')
-                    var str = window.partials.home.featured_events_carousel_item.interpolate({event_id: e.id, event_url: e.event_link, event_name: e.name, participants_count: e.participants_count, event_short_description: e.short_description, register_button_text: "Зареєструватися", event_image_url: e.image_url, start_date_day: e.date_range.start_date.day, start_date_month: e.date_range.start_date.month, start_date_year: e.date_range.start_date.year, end_date_day: e.date_range.end_date.day, end_date_month: e.date_range.end_date.month, end_date_year: e.date_range.end_date.year, participant_svg: window.svgs.participant, register_button_svg: window.svgs.registration})
-                    var timeline_str = window.partials.home.featured_events_carousel_point.interpolate({event_day: e.date_range.start_date.day, event_month_name: window.month_names[e.date_range.start_date.month - 1]}) 
-                    future_events_str += str
-                    timeline_future_str += timeline_str
+
+
+//                 var future_events_str = '' 
+//                 var timeline_future_str = ''
+//                 for(var i = 0; i < future_events.length; i++){
+//                     var e = future_events[i]
+//                     //console.log('prev: ' + i + ': ', e['name'])
+//                     //var $event_item_li = $('<li class="event home-featured-event event-collection-item" data-event-id="'+e.id+'"></li>')
+//                     //var $event_item_li_content = $('<div class="featured-section-event-content"></div>')
+//                     //var $image_and_info_column = $('<div class="image-and-info columns large-4"></div>').append('<div class="image"><a href="'+e.event_link+'"><img src="'+e.image_url+'" /></a></div>')
+//                     //$image_and_info_column.append('<div class="info"><div class="start-date"></div><div class="end-date"></div><div class="participants-count"></div></div>')
+//                     var str = window.partials.home.featured_events_carousel_item.interpolate({event_id: e.id, event_url: e.event_link, event_name: e.name, participants_count: e.participants_count, event_short_description: e.short_description, register_button_text: "Зареєструватися", event_image_url: e.image_url, start_date_day: e.date_range.start_date.day, start_date_month: e.date_range.start_date.month, start_date_year: e.date_range.start_date.year, end_date_day: e.date_range.end_date.day, end_date_month: e.date_range.end_date.month, end_date_year: e.date_range.end_date.year, participant_svg: window.svgs.participant, register_button_svg: window.svgs.registration})
+//                     var timeline_str = window.partials.home.featured_events_carousel_point.interpolate({event_day: e.date_range.start_date.day, event_month_name: window.month_names[e.date_range.start_date.month - 1]}) 
+//                     future_events_str += str
+//                     timeline_future_str += timeline_str
                     
-                }
+//                 }
 
-                //var $first_li = $home_featured_event_info_slides_row_ul
-                $home_featured_event_info_slides_row_ul.append(prev_events_str)
+//                 //var $first_li = $home_featured_event_info_slides_row_ul
+//                 $home_featured_event_info_slides_row_ul.append(prev_events_str)
 
-                //var $timeline_first_item = $('#home-featured-timeline-row-container').children().first()
-                $timeline_container.append(timeline_prev_str)
+//                 //var $timeline_first_item = $('#home-featured-timeline-row-container').children().first()
+//                 $timeline_container.append(timeline_prev_str)
 
-                var $timeline_items = $timeline_container.children()
-                //$timeline_container.css({width: '' + ($timeline_items.length / 7 * 100) + '%' })
-                //$timeline_items.css({width: '' + (100 / $timeline_items.length) + '%' })
-            }
-        })
-    }
+//                 var $timeline_items = $timeline_container.children()
+//                 //$timeline_container.css({width: '' + ($timeline_items.length / 7 * 100) + '%' })
+//                 //$timeline_items.css({width: '' + (100 / $timeline_items.length) + '%' })
+//             }
+//         })
+//     }
 
-    if($html.hasClass('controller-home action-index')){
-        //load_events() 
+//     if($html.hasClass('controller-home action-index')){
+//         //load_events() 
 
-        var $timeline_row_container = $('#home-featured-timeline-row-container')
-        var $event_info_slides_row_ul = $('#home-featured-event-info-slides-row-ul')
+//         var $timeline_row_container = $('#home-featured-timeline-row-container')
+//         var $event_info_slides_row_ul = $('#home-featured-event-info-slides-row-ul')
 
-        function activateEvent(id){
-            required_event_id = + id
-            var $event_info_slides_row_ul_lis = $event_info_slides_row_ul.children()  
-            var $timeline_row_container_children = $timeline_row_container.children()          
-            var $required_timeline_event = null;
-            var $required_event_info = null;
-            var $active_event_info = $event_info_slides_row_ul_lis.filter('.active')
-            var active_event_id = + $active_event_info.attr('data-event-id')
-            var required_event_id = null
-
-
-            if(typeof(id) == 'object' ){
-                //$required_event_info = required_event_id
-                if(id.get(0).tagName == 'LI'){
-                    $required_event_info = id
-                    required_event_id = + $required_event_info.attr('data-event-id')
-                    $required_timeline_event = $timeline_row_container_children.filter('[data-event-id='+required_event_id+']')
-
-                }
-                else{
-                    $required_timeline_event = id
-                    required_event_id = + $required_timeline_event.attr('data-event-id')
-                    $required_event_info = $event_info_slides_row_ul_lis.filter('[data-event-id='+required_event_id+']')
-                }
+//         function activateEvent(id){
+//             required_event_id = + id
+//             var $event_info_slides_row_ul_lis = $event_info_slides_row_ul.children()  
+//             var $timeline_row_container_children = $timeline_row_container.children()          
+//             var $required_timeline_event = null;
+//             var $required_event_info = null;
+//             var $active_event_info = $event_info_slides_row_ul_lis.filter('.active')
+//             var active_event_id = + $active_event_info.attr('data-event-id')
+//             var required_event_id = null
 
 
-            }
-            else{
-                $required_event_info = $event_info_slides_row_ul_lis.filter('[data-event-id='+required_event_id+']')
-                $required_timeline_event = $timeline_row_container_children.filter('[data-event-id='+required_event_id+']')
-            }
+//             if(typeof(id) == 'object' ){
+//                 //$required_event_info = required_event_id
+//                 if(id.get(0).tagName == 'LI'){
+//                     $required_event_info = id
+//                     required_event_id = + $required_event_info.attr('data-event-id')
+//                     $required_timeline_event = $timeline_row_container_children.filter('[data-event-id='+required_event_id+']')
+
+//                 }
+//                 else{
+//                     $required_timeline_event = id
+//                     required_event_id = + $required_timeline_event.attr('data-event-id')
+//                     $required_event_info = $event_info_slides_row_ul_lis.filter('[data-event-id='+required_event_id+']')
+//                 }
+
+
+//             }
+//             else{
+//                 $required_event_info = $event_info_slides_row_ul_lis.filter('[data-event-id='+required_event_id+']')
+//                 $required_timeline_event = $timeline_row_container_children.filter('[data-event-id='+required_event_id+']')
+//             }
              
 
-            if(!$required_timeline_event.hasClass('active')){
-                var $active_timeline_event = $timeline_row_container.children().filter('.active')
-                var active_event_id = + $active_timeline_event.attr('data-event-id')
-                var $active_event_info = $event_info_slides_row_ul_lis.filter('[data-event-id='+active_event_id+']')
+//             if(!$required_timeline_event.hasClass('active')){
+//                 var $active_timeline_event = $timeline_row_container.children().filter('.active')
+//                 var active_event_id = + $active_timeline_event.attr('data-event-id')
+//                 var $active_event_info = $event_info_slides_row_ul_lis.filter('[data-event-id='+active_event_id+']')
 
-                $active_event_info.removeClass('active')
-                $active_timeline_event.removeClass('active')
+//                 $active_event_info.removeClass('active')
+//                 $active_timeline_event.removeClass('active')
 
-                $required_event_info.addClass('active')
-                $required_timeline_event.addClass('active')
-            }
+//                 $required_event_info.addClass('active')
+//                 $required_timeline_event.addClass('active')
+//             }
 
-        }
+//         }
 
-        $timeline_row_container.on('click', 'div.event', function(){
-            var $timeline_event = $(this)
-            if(!$timeline_event.hasClass('active')){
-                var $required_timeline_event = $timeline_event
-                var required_event_id = + $timeline_event.attr('data-event-id')
+//         $timeline_row_container.on('click', 'div.event', function(){
+//             var $timeline_event = $(this)
+//             if(!$timeline_event.hasClass('active')){
+//                 var $required_timeline_event = $timeline_event
+//                 var required_event_id = + $timeline_event.attr('data-event-id')
 
-                activateEvent($required_timeline_event)
-            }
-        })
+//                 activateEvent($required_timeline_event)
+//             }
+//         })
 
-        var $home_featured_event_info_slides_row = $('#home-featured-event-info-slides-row')
+//         var $home_featured_event_info_slides_row = $('#home-featured-event-info-slides-row')
 
-        $home_featured_event_info_slides_row.on('click', 'span.nav-arrow', function(){
-            var $this = $(this)
-            var $arrow = $this
-            var $event_info_lis = $event_info_slides_row_ul.children()
-            if(!$arrow.hasClass('inactive')){
-                var $active_event_info = $event_info_lis.filter('.active')
-                var $required_event_info = null
-                if($arrow.hasClass('next')){
-                    $required_event_info = $active_event_info.next()
-                }
-                else{
-                    $required_event_info = $active_event_info.prev()
-                }
-                //$active_event_info.removeClass('active')
-                activateEvent($active_event_info)
-            }
-        })
-    }
+//         $home_featured_event_info_slides_row.on('click', 'span.nav-arrow', function(){
+//             var $this = $(this)
+//             var $arrow = $this
+//             var $event_info_lis = $event_info_slides_row_ul.children()
+//             if(!$arrow.hasClass('inactive')){
+//                 var $active_event_info = $event_info_lis.filter('.active')
+//                 var $required_event_info = null
+//                 if($arrow.hasClass('next')){
+//                     $required_event_info = $active_event_info.next()
+//                 }
+//                 else{
+//                     $required_event_info = $active_event_info.prev()
+//                 }
+//                 //$active_event_info.removeClass('active')
+//                 activateEvent($active_event_info)
+//             }
+//         })
+//     }
 })(jQuery)

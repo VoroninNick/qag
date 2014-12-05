@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   scope "(:locale)" do
 
+    get 'home/future_events_thumbnails', to: 'home#future_events_thumbnails'
+    get 'home/prev_events_thumbnails', to: 'home#prev_events_thumbnails'
+
+    get 'home/event_info', to: 'home#event_info'
+
     get 'featured_events', to: 'home#featured_events', as: :featured_events
 
     devise_for :users, controllers:{ event_subscriptions: 'event_subscriptions' }, skip: [:sessions, :passwords, :confirmations, :registrations] do

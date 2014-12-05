@@ -191,4 +191,41 @@ class HomeController < ApplicationController
         @prev_events ||= @all_events.where("start_date < '#{Date.today}'").order('start_date asc')
         @future_events ||= @all_events.where("start_date >= '#{Date.today}'").order('start_date asc')
   end
+
+  def get_all_events
+    @all_events ||= Event.where("published='t'").includes(:translations)
+  end
+
+  def future_events_thumbnails
+    page = params[:page]
+    events_per_page = 7
+
+    @future_events ||= get_all_events.where("start_date >= '#{Date.today}'").order('start_date asc')
+    @paginated_future_events ||= @future_events.paginate(page: page, per_page: events_per_page)
+
+    future_events_html = ''
+    @paginated_future_events.each_with_index do |event, index|
+      future_events_html += render_to_string template: 'home/_home_timeline_thumbnail', layout: false, locals: { event: event, index: index }
+    end
+
+    render inline: future_events_html
+  end
+
+  def prev_events_thumbnails
+    page = params[:page]
+    events_per_page = 7
+
+    @prev_events ||= get_all_events.where("start_date < '#{Date.today}'").order('start_date desc')
+    @paginated_prev_events ||= @prev_events.paginate(page: page, per_page: events_per_page)
+
+    prev_events_html = ''
+    @paginated_prev_events.each_with_index do |event, index|
+      prev_events_html += render_to_string template: 'home/_home_timeline_thumbnail', layout: false, locals: { event: event, index: index }
+    end
+
+    render inline: prev_events_html
+  end
+
+  def event_info
+  end
 end

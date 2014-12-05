@@ -1,4 +1,4 @@
-.event id="event-#{index + 1}" data-event-id="#{event.id}" class="#{"active" if index == @featured_events_active_event_index }"
+.event id="event-#{index + 1}" data-event-id="#{event.id}" class="#{"active" if index == @featured_events_active_event_index } #{'loaded' if loaded}"
   label id="event-#{index + 1}-label" class="event-label" for="home-featured-events-timeline-flag-#{index + 1}"
     .date id="event-#{index + 1}-date"
       .day-number id="event-#{index + 1}-date-day-number"

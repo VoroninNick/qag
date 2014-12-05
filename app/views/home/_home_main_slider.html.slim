@@ -5,7 +5,7 @@ div#home-slider-section.page-section.page-section-number-1.home-slider-section
   ul#home-slides-ul.slides
     - @main_slider_slides.each_with_index do |slide, index|
       li.slide id="slide-#{index + 1}"
-        .image-background style="background: url('#{ image_or_stub_url(slide.background, :banner, 2100, 1200, '') }')"
+        .image-background style="background: url('#{ image_or_stub_url(slide.background, :banner, 2100, 1200, '') }') no-repeat center center"
           img.home-slider-slide-img src=image_or_stub_url(slide.background, :banner, 2100, 1200, '') alt=slide.background_alt
         .home-slider-description.description
           .home-slider-slide-title.slide-title

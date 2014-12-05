@@ -43,8 +43,17 @@ class HomeController < ApplicationController
 
     events_per_page = 7
 
+    @prev_events_total = @prev_events.count
+    @prev_events_total_pages = (@prev_events_total.to_f / events_per_page).ceil
+    @future_events_total = @future_events.count
+    @future_events_total_pages = (@future_events_total.to_f / events_per_page).ceil
+
     @paginated_prev_events = @prev_events.paginate(page: 1, per_page: events_per_page)
     @paginated_future_events = @future_events.paginate(page: 1, per_page: events_per_page)
+
+    @paginated_prev_events_count = events_per_page
+
+
 
     #@featured_events_active_event_index = @prev_events.count
     #@featured_events_active_event_index = @paginated_prev_events.count
@@ -227,5 +236,14 @@ class HomeController < ApplicationController
   end
 
   def event_info
+    event_ids = params[:event_ids].split(',').map(&:to_i)
+    events = Event.where(published: true, id: event_ids)
+    events_html = ''
+    events.each_with_index do |event, index|
+      event_html = render_to_string template: 'home/_home_timeline_event_info', layout: false, locals: { event: event, index: index }
+      events_html += event_html
+    end
+
+    render inline: events_html
   end
 end

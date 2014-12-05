@@ -446,4 +446,83 @@ window.month_names = ['січня', 'лютого', 'березня', 'квіт�
 //             }
 //         })
 //     }
+
+     var $event_thumbnails_container = $('#home-featured-timeline-row-container')
+     var $events_info_container = $('#home-featured-event-info-slides-row-ul')
+
+     $('#home-featured-timeline').on('click', 'div.home-featured-timeline-arrow, div.event', function(){
+         var $this = $(this)
+
+         if($this.hasClass('home-featured-timeline-arrow')){
+
+             var $arrow = $this
+             var $left_arrow, $right_arrow
+             var $timeline_events_container = $('#home-featured-timeline-row-container')
+             if($arrow.hasClass('left')){
+                 $left_arrow = $arrow
+             }
+             else{
+                 $right_arrow = $arrow
+             }
+
+             var one_item_width = 140
+             var items_per_scroll = 3
+             var change
+             if($left_arrow){
+                 change = one_item_width * items_per_scroll
+             }
+             else{
+                 change = -1 * one_item_width * items_per_scroll
+             }
+
+             var current_left = $timeline_events_container.css('left')
+             if(current_left == 'auto'){
+                 current_left = 0
+             }
+             else{
+                 current_left = parseInt(current_left)
+             }
+
+
+             var style_left = '' + ( current_left + change ) + 'px'
+
+             $timeline_events_container.css({left: style_left  })
+
+         }
+         else if($this.hasClass('event')){
+             var $event_thumbnail = $this
+             if(!$event_thumbnail.hasClass('active')){
+                 var $event_thumbnails = $event_thumbnails_container.children()
+                 var $active_event_thumbnail = $event_thumbnails.filter('.active')
+                 $active_event_thumbnail.removeClass('active')
+                 var loaded = $event_thumbnail.hasClass('loaded')
+                 $event_thumbnail.addClass('active ' + ( loaded ? '' : 'loading' ) )
+
+                 if(!loaded) {
+                     var event_id = +$event_thumbnail.attr('data-event-id')
+                     $.ajax({
+                         url: '/home/event_info',
+                         data: {event_ids: [event_id].join(',')},
+                         dataType: 'html',
+                         success: function (data, textStatus, jqXHR) {
+                             var $data = $(data)
+                             var $items = $data
+                             $events_info_container.append($data)
+                             var $required_item = $data.first()
+                             var $required_item_thumbnails = $()
+                             var eve
+                             $items.each(function(){
+                                 var $this = $(this)
+                                 var id = $this.attr('data-event-id')
+                                 var $required_item_thumbnail = $event_thumbnails_container.children().filter('[data-event-id='+id+']')
+                                 $required_item_thumbnails.add($this)
+                             })
+                             $required_item.addClass('active')
+                             console.log('data: ', $data.first())
+                         }
+                     })
+                 }
+             }
+         }
+     })
 })(jQuery)

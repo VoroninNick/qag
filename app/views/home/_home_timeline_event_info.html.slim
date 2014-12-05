@@ -1,0 +1,43 @@
+li.event.home-featured-event.event-collection-item id="event-#{index + 1}" data-event-id="#{event.id}" class="#{ "event-i-am-subscribed-on" if subscribed_on_event?(event.id) } #{"active" if index == @featured_events_active_event_index }"
+  .featured-section-event-content
+    .image-and-info.columns.large-4
+      .image
+        a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
+          img src=image_or_stub_url(event.avatar, :event_list_small_thumb, 360, 240, "event #{event.id}")
+      .info
+        .start-date
+          span.tip
+            |Початок:
+          span.value
+            = "#{event.start_date.day}.#{event.start_date.month}.#{event.start_date.year}"
+        .end-date
+          span.tip
+            |Завершення:
+          span.value
+            = "#{event.end_date.day}.#{event.end_date.month}.#{event.end_date.year}"
+        .participants-count
+          = embedded_svg_from_assets('svg/participant.svg')
+          span.count
+            |150
+          span.participants-tip
+            |&nbsp;учасників зареєстровано
+
+
+    .description.columns.large-8
+      a.event-title href=event_item_path(item: event.slug, tags: event.tags.join('-'))
+        = event.name
+      / slide.name
+      .event-description
+        = event.short_description
+
+    .event-link-and-register-button
+      .event-link-wrapper.large-4.columns.large-push-4
+        .event-link
+          a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
+            |Детальніше про подію
+
+      .register-button.columns.large-4.right class=( "decline" if subscribed_on_event?(event.id) )
+        a.register-button-a href=( subscribed_on_event?(event.id) ? event_unsubscription_form_path(event_id: event.id, locale: I18n.locale) : new_event_subscription_path(event_id: event.id, locale: I18n.locale)  )
+          = embedded_svg_from_assets('svg/registration.svg')
+          span.registration-text
+            = t("layout.buttons.#{ "un" if subscribed_on_event?(event.id) }register")

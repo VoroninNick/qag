@@ -65,10 +65,19 @@ $expired-events-pages-count: $expired-events-count / 5
 #home-featured-timeline-arrows-wrapper
   position: absolute
   width: 100%
+  top: 105px
+  height: 0
 
 .home-featured-timeline-arrow
   width: 22px
-  height: 30px  
+  height: 30px
+  position: relative
+  cursor: pointer
+
+  &.left
+    left: -30px
+  &.right
+    right: -30px
 
 
 
@@ -401,7 +410,8 @@ $expired-events-pages-count: $expired-events-count / 5
       .image-background
         height: 100%
         display: block
-        background-size: cover
+        @include vendor-prefix(background-size, cover !important)
+
         img
           opacity: 0
 
@@ -413,7 +423,8 @@ $expired-events-pages-count: $expired-events-count / 5
   .bullets
     display: inline-block
     position: absolute
-    bottom: 150px
+    //bottom: 150px
+    bottom: 15%
     z-index: #{$main-slider-slides-count + 2}
 
     li
@@ -590,11 +601,12 @@ $expired-events-pages-count: $expired-events-count / 5
 
     .time-line-row
       position: relative
-      overflow: hidden
+      overflow: visible
 
       .events-container
         position: relative
         width: #{100% * ($featured-events-timeline-pages-count)}
+        @include transition(1s left)
 
 
 

@@ -214,7 +214,7 @@ class HomeController < ApplicationController
 
     future_events_html = ''
     @paginated_future_events.each_with_index do |event, index|
-      future_events_html += render_to_string template: 'home/_home_timeline_thumbnail', layout: false, locals: { event: event, index: index }
+      future_events_html += render_to_string template: 'home/_home_timeline_thumbnail', layout: false, locals: { event: event, index: index, prev: false, future: true, carousel_event_index: 1 }
     end
 
     render inline: future_events_html
@@ -229,7 +229,7 @@ class HomeController < ApplicationController
 
     prev_events_html = ''
     @paginated_prev_events.each_with_index do |event, index|
-      prev_events_html += render_to_string template: 'home/_home_timeline_thumbnail', layout: false, locals: { event: event, index: index }
+      prev_events_html += render_to_string template: 'home/_home_timeline_thumbnail', layout: false, locals: { event: event, index: index, prev: true, future: false, carousel_event_index: 1 }
     end
 
     render inline: prev_events_html

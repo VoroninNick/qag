@@ -450,6 +450,28 @@ window.month_names = ['січня', 'лютого', 'березня', 'квіт�
      var $event_thumbnails_container = $('#home-featured-timeline-row-container')
      var $events_info_container = $('#home-featured-event-info-slides-row-ul')
 
+     var prev_events_total = + $event_thumbnails_container.attr('data-total-prev'),
+         future_events_total = + $event_thumbnails_container.attr('data-total-future'),
+         prev_event_thumbnails_pages_loaded = 1 ,
+         future_event_thumbnails_pages_loaded = 1,
+         thumbnail_pages_in_load = [],
+
+
+         event_info_items_in_load = [],
+         event_thumbnails_total = prev_events_total + future_events_total,
+         $event_thumbnails = $event_thumbnails_container.children(),
+         $prev_event_thumbnails = $event_thumbnails.filter('.prev'),
+         $future_event_thumbnails = $event_thumbnails.filter('.future'),
+         prev_event_thumbnails_loaded = $prev_event_thumbnails.length,
+         prev_event_thumbnails_loaded = $future_event_thumbnails.length,
+         displayed_thumbnails_indexes = [],
+         displayed_thumbnails_start_index, displayed_thumbnails_end_index,
+         max_index
+
+
+
+
+
      $('#home-featured-timeline').on('click', 'div.home-featured-timeline-arrow, div.event', function(){
          var $this = $(this)
 
@@ -465,17 +487,85 @@ window.month_names = ['січня', 'лютого', 'березня', 'квіт�
                  $right_arrow = $arrow
              }
 
+             var $loaded_event_thumbnails = $event_thumbnails_container.children()
+
+             var $loaded_prev_events_thumbnails = $loaded_event_thumbnails.filter('.prev')
+                     .sort(function(a,b){
+                         var $a = $(a), $b = $(b)
+                         var a_event_index = + $a.attr('data-carousel-event-index');
+                         var b_event_index = + $b.attr('data-carousel-event-index');
+                         return a_event_index - b_event_index
+                     })
+
+             var $loaded_future_events_thumbnails = $loaded_event_thumbnails.filter('.future')
+                     .sort(function(a,b){
+                         var $a = $(a), $b = $(b)
+                         var a_event_index = + $a.attr('data-carousel-event-index');
+                         var b_event_index = + $b.attr('data-carousel-event-index');
+                         return a_event_index - b_event_index
+                     })
+
+             var last_loaded_prev_number = + $loaded_prev_events_thumbnails.first().attr('data-carousel-event-index') * -1
+             var last_loaded_future_number = + $loaded_future_events_thumbnails.last().attr('data-carousel-event-index')
+             //alert('prev:'+last_loaded_prev_number+' future:'+last_loaded_future_number)
+             //var current_visible_start_index
+
              var one_item_width = 140
              var items_per_scroll = 3
-             var change
-             if($left_arrow){
-                 change = one_item_width * items_per_scroll
-             }
-             else{
-                 change = -1 * one_item_width * items_per_scroll
-             }
+             var visible_items_count = 7
+
 
              var current_left = $timeline_events_container.css('left')
+
+
+             var current_displayed_thumbnails_start_index = -1 * (current_left / one_item_width )
+             var current_displayed_thumbnails_end_index = current_displayed_thumbnails_start_index + visible_items_count - 1
+
+
+             var thumbnails_required_start_index, thumbnails_required_end_index
+
+             var $thumbnails = $event_thumbnails_container.children()
+             var $current_first_visible_thumbnail = $thumbnails.eq(current_displayed_thumbnails_start_index)
+
+             var current_first_visible_thumbnail_number = + $current_first_visible_thumbnail.attr('data-carousel-event-index')
+             if(current_first_visible_thumbnail_number < 0){
+                 current_first_visible_thumbnail_number *= -1
+             }
+
+             var $current_last_visible_thumbnail = $thumbnails.eq(current_displayed_thumbnails_end_index)
+
+             var current_last_visible_thumbnail_number = + $current_last_visible_thumbnail.attr('data-carousel-event-index')
+             if(current_last_visible_thumbnail_number < 0){
+                 current_last_visible_thumbnail_number *= -1
+             }
+
+             var current_carousel_state = {
+                first_visible_item: {
+                  carousel_index: current_displayed_thumbnails_start_index,
+                  prev: $current_first_visible_thumbnail.hasClass('prev'),
+                  future: $current_first_visible_thumbnail.hasClass('future'),
+                  number: current_first_visible_thumbnail_number
+                },
+
+                last_visible_item: {
+                    carousel_index: current_displayed_thumbnails_start_index,
+                     prev: $current_first_visible_thumbnail.hasClass('prev'),
+                     future: $current_first_visible_thumbnail.hasClass('future'),
+                     number: current_first_visible_thumbnail_number
+                 }
+             }
+
+             var change
+             if($left_arrow){
+                 thumbnails_required_start_index = current_displayed_thumbnails_start_index - items_per_scroll
+                 //change = one_item_width * items_per_scroll
+             }
+             else{
+                 //change = -1 * one_item_width * items_per_scroll
+
+             }
+
+
              if(current_left == 'auto'){
                  current_left = 0
              }
@@ -483,10 +573,47 @@ window.month_names = ['січня', 'лютого', 'березня', 'квіт�
                  current_left = parseInt(current_left)
              }
 
+             max_index = event_thumbnails_total - 1
 
-             var style_left = '' + ( current_left + change ) + 'px'
+             var max_left = 0
+             var min_left = -1 * max_index * one_item_width
+             var counted_left = current_left + change
 
-             $timeline_events_container.css({left: style_left  })
+             if( counted_left > max_left){
+                 counted_left = max_left
+             }
+             else if(counted_left < min_left){
+                 counted_left = min_left
+             }
+
+
+
+
+
+             var required_displayed_thumbnails_start_index = -1 * (counted_left / one_item_width )
+             var required_displayed_thumbnails_end_index = displayed_thumbnails_start_index + visible_items_count - 1
+
+             var required_displayed_thumbnail
+
+             var $local_event_thumbnails = $event_thumbnails_container.children()
+             var $local_prev_event_thumbnails = $local_event_thumbnails.filter('.prev')
+             var $local_future_event_thumbnails = $local_event_thumbnails.filter('.future')
+
+
+
+             if(counted_left != current_left) {
+
+                 var style_left = '' + ( counted_left ) + 'px'
+                 $timeline_events_container.css({left: style_left})
+
+                 //$.ajax({
+                 //    url: ( count.)
+                 //})
+             }
+
+
+
+
 
          }
          else if($this.hasClass('event')){
@@ -509,14 +636,18 @@ window.month_names = ['січня', 'лютого', 'березня', 'квіт�
                              var $items = $data
                              $events_info_container.append($data)
                              var $required_item = $data.first()
-                             var $required_item_thumbnails = $()
-                             var eve
+                             var $required_item_thumbnails
+                             var event_id_strings_arr = []
                              $items.each(function(){
                                  var $this = $(this)
                                  var id = $this.attr('data-event-id')
-                                 var $required_item_thumbnail = $event_thumbnails_container.children().filter('[data-event-id='+id+']')
-                                 $required_item_thumbnails.add($this)
+                                 //var $required_item_thumbnail = $event_thumbnails_container.children().filter('[data-event-id='+id+']')
+                                 //$required_item_thumbnails.add($this)
+                                 event_id_strings_arr.push('[data-event-id='+id+']')
                              })
+
+                             $required_item_thumbnails = $event_thumbnails_container.children().filter(event_id_strings_arr.join(','))
+                             $required_item_thumbnails.addClass('loaded')
                              $required_item.addClass('active')
                              console.log('data: ', $data.first())
                          }

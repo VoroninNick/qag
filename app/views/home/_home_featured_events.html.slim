@@ -44,4 +44,4 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
       #home-featured-timeline-row-overflow-hidden.overflow-hidden
         #home-featured-timeline-row-container.events-container style="width: #{140*(@featured_events.count)}px;left: -#{(@paginated_prev_events_count) * 140 }px;" data-total-prev="#{@prev_events_total}" data-total-future="#{@future_events_total}" data-total-prev-pages="#{@prev_events_total_pages}" data-total-future-pages="#{@future_events_total_pages}"
           - @featured_events.each_with_index do |event, index|
-            = render partial: "home/home_timeline_thumbnail", locals: { event: event, index: index, loaded: index == @featured_events_active_event_index }
+            = render partial: "home/home_timeline_thumbnail", locals: { event: event, index: index, loaded: index == @featured_events_active_event_index, prev: ( index < @featured_events_active_event_index ), future: ( index >= @featured_events_active_event_index ), carousel_event_index: (index - @featured_events_active_event_index < 0)? (index - @featured_events_active_event_index ) : (index - @featured_events_active_event_index + 1 )  }

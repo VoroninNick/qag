@@ -34,7 +34,7 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
 
 
 
-  #home-featured-timeline.timeline data-active-id="#{@featured_events_active_event_index}"
+  /#home-featured-timeline.timeline data-active-id="#{@featured_events_active_event_index}"
     #home-featured-timeline-row.time-line-row.row
       #home-featured-timeline-arrows-wrapper
         .home-featured-timeline-arrow.left
@@ -45,3 +45,29 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
         #home-featured-timeline-row-container.events-container style="width: #{140*(@featured_events.count)}px;left: -#{(@paginated_prev_events_count) * 140 }px;" data-total-prev="#{@prev_events_total}" data-total-future="#{@future_events_total}" data-total-prev-pages="#{@prev_events_total_pages}" data-total-future-pages="#{@future_events_total_pages}"
           - @featured_events.each_with_index do |event, index|
             = render partial: "home/home_timeline_thumbnail", locals: { event: event, index: index, loaded: index == @featured_events_active_event_index, prev: ( index < @featured_events_active_event_index ), future: ( index >= @featured_events_active_event_index ), carousel_event_index: (index - @featured_events_active_event_index < 0)? (index - @featured_events_active_event_index ) : (index - @featured_events_active_event_index + 1 )  }
+
+
+  #home-featured-timeline-container
+    #home-featured-timeline-wrapper.row.position-relative
+      .owl-nav-arrows
+        .owl-nav-arrow.prev
+          = embedded_svg_from_assets('svg/arrow_left.svg')
+        .owl-nav-arrow.next
+          = embedded_svg_from_assets('svg/arrow_right.svg')
+
+      #home-featured-timeline.timeline.owl-carousel data-active-id="#{@featured_events_active_event_index}" data-total-prev="#{@prev_events_total}" data-total-future="#{@future_events_total}" data-total-prev-pages="#{@prev_events_total_pages}" data-total-future-pages="#{@future_events_total_pages}"
+
+
+        /#home-featured-timeline-row.time-line-row.row
+          #home-featured-timeline-arrows-wrapper
+            .home-featured-timeline-arrow.left
+              = embedded_svg_from_assets('svg/arrow_left.svg')
+            .home-featured-timeline-arrow.right
+              = embedded_svg_from_assets('svg/arrow_right.svg')
+          #home-featured-timeline-row-overflow-hidden.overflow-hidden
+            #home-featured-timeline-row-container.events-container style="width: #{140*(@featured_events.count)}px;left: -#{(@paginated_prev_events_count) * 140 }px;"
+        - total_index = 0
+        - [@prev_events, @future_events].each_with_index do |event_collection, event_collection_index|
+          - event_collection.each_with_index do |event, event_index|
+            - total_index += 1
+            = render partial: "home/home_timeline_thumbnail", locals: { event: event, active: (event_collection_index == 1 && event_index == 0 ), index: index, loaded: (event_collection_index == 1 && event_index == 0 ), prev: event_collection_index == 0, future: event_collection_index == 1, carousel_event_index: (event_collection_index == 0)? (index - @featured_events_active_event_index ) : (index - @featured_events_active_event_index + 1 ), total_index: 0  }

@@ -15,6 +15,7 @@
 //= require misc
 //= require interpolate
 //= require jquery.manipulate_classes
+//= require owl_carousel_1_full.min
 // require tiny_validation
 //= require validation
 //= require variables

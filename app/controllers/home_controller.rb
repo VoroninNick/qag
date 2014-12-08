@@ -209,12 +209,19 @@ class HomeController < ApplicationController
     page = params[:page]
     events_per_page = 7
 
+    start_number = params[:start_number].to_i
+    end_number = params[:end_number].to_i
+
+    result_events = []
+
     @future_events ||= get_all_events.where("start_date >= '#{Date.today}'").order('start_date asc')
-    @paginated_future_events ||= @future_events.paginate(page: page, per_page: events_per_page)
+    #@paginated_future_events ||= @future_events.paginate(page: page, per_page: events_per_page)
+    result_events = @future_events.limit(end_number).last(end_number-start_number+1)
+
 
     future_events_html = ''
-    @paginated_future_events.each_with_index do |event, index|
-      future_events_html += render_to_string template: 'home/_home_timeline_thumbnail', layout: false, locals: { event: event, index: index, prev: false, future: true, carousel_event_index: 1 }
+    result_events.each_with_index do |event, index|
+      future_events_html += render_to_string template: 'home/_home_timeline_thumbnail', layout: false, locals: { event: event, index: index, prev: false, future: true, carousel_event_index: (start_number-1+index), loaded: false }
     end
 
     render inline: future_events_html
@@ -224,13 +231,22 @@ class HomeController < ApplicationController
     page = params[:page]
     events_per_page = 7
 
-    @prev_events ||= get_all_events.where("start_date < '#{Date.today}'").order('start_date desc')
-    @paginated_prev_events ||= @prev_events.paginate(page: page, per_page: events_per_page)
+    start_number = params[:start_number].to_i
+    end_number = params[:end_number].to_i
 
+    result_events = []
+
+
+    @prev_events ||= get_all_events.where("start_date < '#{Date.today}'").order('start_date desc')
+    #@paginated_prev_events ||= @prev_events.paginate(page: page, per_page: events_per_page)
+
+    result_events = @prev_events.limit(end_number).last(end_number-start_number+1)
     prev_events_html = ''
-    @paginated_prev_events.each_with_index do |event, index|
-      prev_events_html += render_to_string template: 'home/_home_timeline_thumbnail', layout: false, locals: { event: event, index: index, prev: true, future: false, carousel_event_index: 1 }
+    result_events.each_with_index do |event, index|
+      prev_events_html += render_to_string template: 'home/_home_timeline_thumbnail', layout: false, locals: { event: event, index: index, prev: true, future: false, carousel_event_index: (start_number+index), loaded: false }
     end
+
+
 
     render inline: prev_events_html
   end

@@ -465,7 +465,15 @@ $expired-events-pages-count: $expired-events-count / 5
 
 
 
+#home-featured-timeline-container
+  background: $light-skyblue-color
+  width: 100%
+  height: $featured-events-timeline-height
+  bottom: 0
+  position: absolute
 
+#home-featured-timeline-wrapper
+  height: 100%
 
 
 #home-featured-events-section
@@ -597,7 +605,7 @@ $expired-events-pages-count: $expired-events-count / 5
     position: absolute
     bottom: 0
     width: 100%
-    background: $light-skyblue-color
+    //background: $light-skyblue-color
 
     .time-line-row
       position: relative
@@ -791,8 +799,28 @@ $expired-events-pages-count: $expired-events-count / 5
         .bullet
           .render-bullet
             background: $featured-events-timeline-active-bullet-background
-            cursor: default   
+            cursor: default
 
+
+
+
+.owl-nav-arrows
+  position: absolute
+  top: 0
+  width: 100%
+  height: 0
+
+  .prev, .next
+    width: 22px
+    height: 30px
+    position: absolute
+    top: 40px
+    cursor: pointer
+
+  .prev
+    left: -30px
+  .next
+    right: -30px
 
 
 

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  scope "(:locale)" do
+  scope "(:locale)", locale: /[a-zA-Z]{2}/ do
 
     get 'home/future_events_thumbnails', to: 'home#future_events_thumbnails'
     get 'home/prev_events_thumbnails', to: 'home#prev_events_thumbnails'

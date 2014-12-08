@@ -1,4 +1,4 @@
-.event id="event-#{index + 1}" data-event-id="#{event.id}" class="#{"active" if index == @featured_events_active_event_index } #{'loaded' if loaded} #{ if prev then 'prev' else 'future' end }" data-carousel-event-index="#{carousel_event_index}"
+.event.item id="event-#{index + 1}" data-event-id="#{event.id}" class="#{"active" if active } #{'loaded' if loaded} #{ if prev then 'prev' else 'future' end }" data-carousel-event-index="#{carousel_event_index}"
   label id="event-#{index + 1}-label" class="event-label" for="home-featured-events-timeline-flag-#{index + 1}"
     .date id="event-#{index + 1}-date"
       .day-number id="event-#{index + 1}-date-day-number"

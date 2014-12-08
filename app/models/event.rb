@@ -71,7 +71,10 @@ class Event < ActiveRecord::Base
     query_event_images = "select ei.event_gallery_image_id as 'id' from events_and_gallery_images ei where ei.event_id = #{self.id}"
     result_images = EventGalleryImage.find_by_sql(query_album_images) + EventGalleryImage.find_by_sql(query_event_images)
 
-    result_images
+    image_ids = result_images.map(&:id)
+    image_objects = EventGalleryImage.where(id: image_ids)
+
+    image_objects
   end
 
   def tags

@@ -1,5 +1,7 @@
 = render partial: "devise/shared/dashboard_banner"
 
+
+
 #breadcrumbs-container
   #breadcrumbs-row.row
     ul#breadcrumbs-ul
@@ -14,6 +16,12 @@
 #dashboard-content
   #dashboard-content-row.row
     = render partial: 'devise/shared/dashboard_menu'
+    #dashboard-profile-column.columns.large-8
+      div#greetings
+        .title
+          = "Історія заходів"
+        .text
+          = "Тут зберігається список всіх подій, на які ви реєструвались"
 
 
   #events-list.events-collection.infinity-scroll-list

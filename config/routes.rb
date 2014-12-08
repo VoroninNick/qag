@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       get 'event/:event_id/unregister', to: 'users/event_subscriptions#unsubscribe_form', as: 'event_unsubscription_form'
       post 'event/:event_id/unregister', to: 'users/event_subscriptions#unsubscribe', as: 'event_unsubscribe'
 
-      get "events/history", to: "events#history", as: :events_history
+      get "events/history", to: "events#history", as: :events_history, defaults: { route_name: 'events_history' }
 
       # session handling
       get     '/my/dashboard/login'  => 'users/sessions#new',     as: 'new_user_session'
@@ -52,7 +52,7 @@ Rails.application.routes.draw do
 
         # settings & cancellation
         get '/cancel'   => 'users/registrations#cancel', as: 'cancel_user_registration'
-        get '/settings' => 'users/registrations#edit',   as: 'edit_user_registration'
+        get '/settings' => 'users/registrations#edit',   as: 'edit_user_registration', defaults: { route_name: 'edit_user_registration' }
         put '/settings' => 'users/registrations#update'
 
         # account deletion

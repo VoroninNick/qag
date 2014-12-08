@@ -4,14 +4,15 @@
       = "Мій особистий кабінет"
     ul#dashboard-menu-links-ul
       li.dashboard-menu-link-li
-        span.dashboard-menu-link-span href="#{edit_user_registration_path(locale: I18n.locale)}"
+        = content_tag ( params[:route_name].to_sym == :edit_user_registration ? :span : :a ), class: "dashboard-menu-link-#{( params[:route_name].to_sym == :edit_user_registration ? :span : :a )}", href: "#{edit_user_registration_path(locale: I18n.locale)}" do
           .dashboard-menu-link-icon
             = embedded_svg_from_assets('svg/user_icon.svg')
           .dashboard-menu-link-text
             = "Особисті дані"
 
       li.dashboard-menu-link-li
-        a.dashboard-menu-link-a href="#{events_history_path(locale: I18n.locale)}"
+        .dashboard-menu-link-a href="#{events_history_path(locale: I18n.locale)}"
+        = content_tag ( params[:route_name].to_sym == :events_history ? :span : :a ), class: "dashboard-menu-link-#{( params[:route_name].to_sym == :events_history ? :span : :a )}", href: "#{events_history_path(locale: I18n.locale)}"  do
           .dashboard-menu-link-icon
             = embedded_svg_from_assets('svg/user_icon.svg')
           span.dashboard-menu-link-text

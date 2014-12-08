@@ -130,7 +130,7 @@ class EventsController < ApplicationController
 
 
       params_page = params[:page]
-      @paginated_events = @events.paginate(page: params_page, per_page: 10)
+      @paginated_events = @events.paginate(page: params_page, per_page: events_per_page)
 
       @breadcrumbs = {
           home: {},
@@ -141,6 +141,13 @@ class EventsController < ApplicationController
               }
           }
       }
+
+      if ajax?
+        events_html = render_to_string template: 'events/_list_item', layout: false, locals: { events: @paginated_events }
+        #html_source = render_to_string template: 'devise/event_subscriptions/unsubscribe_form.html'
+        data = { html: events_html }
+        render inline: "#{data.to_json}"
+      end
 
     else
       redirect_to new_user_session_path(locale: I18n.locale)

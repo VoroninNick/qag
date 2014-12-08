@@ -45,7 +45,7 @@ RailsAdmin.config do |config|
     #visible false
     config.included_models += [model]
     if model.respond_to?(:translates?) && model.translates? && model.respond_to?(:translation_class)
-      config.included_models += [model.translation_class]
+      config.included_models += ["#{model.translation_class}"]
     end
     #end
   end

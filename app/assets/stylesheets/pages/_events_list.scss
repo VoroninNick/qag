@@ -596,7 +596,9 @@ $events-list-dropdown-tags-count: 13;
     font-weight: 700;
     color: #ff594a;
     height: 3.75rem;
-    display: inline-block;
+    //display: inline-block;
+    display: none;
+
     background: white;
     width: 100%;
     text-align: center;
@@ -604,6 +606,14 @@ $events-list-dropdown-tags-count: 13;
     cursor: pointer;
     max-width: 300px;
     line-height: 3.75rem;
+
+
+    position: relative;
+    margin: 2.5rem auto 0 auto;
+
+    .events-list-event:hover &{
+      display: block;
+    }
   }
 
   .event-link-and-register-button {

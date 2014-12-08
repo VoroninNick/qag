@@ -979,22 +979,26 @@ window.month_names = ['січня', 'лютого', 'березня', 'квіт�
 
          $thumbnails_carousel.on('click', 'div.owl-item', function () {
              var $item = $(this)
-             var $thumbnail = $item.children()
-             var loaded = $thumbnail.hasClass('loaded')
-             var $active_thumbnail = $thumbnails.filter('.active')
-             $thumbnail.removeClass('inactive').addClass('active')
-             $active_thumbnail.removeClass('active').addClass('inactive')
-             var $slides = $home_featured_event_info_slides_row_ul.children()
-             var $active_slide = $slides.filter('.active')
-             $active_slide.removeClass('active').addClass('inactive')
-             var event_id = +$thumbnail.attr('data-event-id')
-             if (!loaded) {
-                 loadEvent(event_id, $thumbnail)
-             }
-             else {
-                 var $new_slide = $slides.filter('[data-event-id=' + event_id + ']')
-                 $new_slide.removeClass('inactive').addClass('active')
 
+             var $thumbnail = $item.children()
+             var active = $thumbnail.hasClass('active')
+             if(!active) {
+                 var loaded = $thumbnail.hasClass('loaded')
+                 var $active_thumbnail = $thumbnails.filter('.active')
+                 $thumbnail.removeClass('inactive').addClass('active')
+                 $active_thumbnail.removeClass('active').addClass('inactive')
+                 var $slides = $home_featured_event_info_slides_row_ul.children()
+                 var $active_slide = $slides.filter('.active')
+                 $active_slide.removeClass('active').addClass('inactive')
+                 var event_id = +$thumbnail.attr('data-event-id')
+                 if (!loaded) {
+                     loadEvent(event_id, $thumbnail)
+                 }
+                 else {
+                     var $new_slide = $slides.filter('[data-event-id=' + event_id + ']')
+                     $new_slide.removeClass('inactive').addClass('active')
+
+                 }
              }
          })
 

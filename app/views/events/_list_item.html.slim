@@ -55,7 +55,7 @@
                   - event.images.each_with_index do |image, index|
                     .hover-expired-event-images-carousel-ul-li.item-inner
                       a.hover-expired-event-images-carousel-ul-li-a href=( (image.image.exists?(:original) )? image.image.url(:original) : stub_image_link(600, 400, "image #{index + 1}") )
-                        = content_tag(:img, nil, class: "hover-expired-event-images-carousel-ul-li-a-img",  :"#{ index <= 5 ? "src" : "data-src" }" => image_or_stub_url(image.image, :event_list_image, 150, 100, "image #{index+1}"))
+                        = content_tag(:img, nil, class: "hover-expired-event-images-carousel-ul-li-a-img #{'lazyOwl' if index > 5}",  :"#{ index <= 5 ? "src" : "data-src" }" => image_or_stub_url(image.image, :event_list_image, 150, 100, "image #{index+1}"))
 
         - if @events_history
           .counter-outer

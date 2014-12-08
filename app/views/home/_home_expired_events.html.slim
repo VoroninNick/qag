@@ -3,9 +3,9 @@ div#home-expired-events-section.page-section.page-section-number-4.home-expired-
     input type="radio" name="expired-events-flag" class="expired-events-flag flag" id="expired-event-flag-#{index + 1}"
 
   .events-slider
-    ul
+    div#home-expired-events-collection
       - @expired_events.each_with_index do |event, index|
-        li.event id="event-#{index + 1}"
+        .item.event id="event-#{index + 1}"
           a href="#"
             svg width="500" height="1250"
               filter id="colorMeSaturate"

@@ -120,4 +120,30 @@ class EventsController < ApplicationController
 
     render template: "devise/event_subscriptions/new"
   end
+
+  def history
+    if user_signed_in?
+      @events = current_user.events
+      @events_history = true
+
+      events_per_page = 10
+
+
+      params_page = params[:page]
+      @paginated_events = @events.paginate(page: params_page, per_page: 10)
+
+      @breadcrumbs = {
+          home: {},
+          dashboard: {
+              title: "Особистий кабінет",
+              link: {
+                  url: edit_user_registration_path(locale: locale)
+              }
+          }
+      }
+
+    else
+      redirect_to new_user_session_path(locale: I18n.locale)
+    end
+  end
 end

@@ -1,0 +1,25 @@
+= render partial: "devise/shared/dashboard_banner"
+
+#breadcrumbs-container
+  #breadcrumbs-row.row
+    ul#breadcrumbs-ul
+      li#breadcrumb-home.breadcrumb.inactive_breadcrumb
+        a#breadcrumb-home-a href=root_path
+          = embedded_svg_from_assets('svg/home.svg')
+      li#active-breadcrumb.breadcrumb
+        span#active-breadcrumb-text
+          = @breadcrumbs[:dashboard][:title]
+
+
+#dashboard-content
+  #dashboard-content-row.row
+    = render partial: 'devise/shared/dashboard_menu'
+
+
+  #events-list.events-collection.infinity-scroll-list
+    /- @paginated_events.each_with_index do |event, index|
+    = render partial: 'events/list_item', locals: { events: @paginated_events }
+
+
+  .pagination-wrapper
+    = will_paginate @paginated_events

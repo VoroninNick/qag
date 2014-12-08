@@ -789,3 +789,95 @@ $events-list-dropdown-tags-count: 13;
   }
 
 }
+
+
+#dashboard-content{
+  .events-collection{
+    .events-list-event{
+
+
+
+
+      .events-list-event-row{
+        height: 100%;
+
+        .description{
+          height: 100%;
+          padding-bottom: 80px;
+        }
+      }
+      &:first-child {
+        border-top: 1px #f2f2f2 solid;
+        &:hover{
+          border-top: none;
+        }
+      }
+
+      &:hover{
+        .counter-outer{
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.counter-outer{
+  position: absolute;
+  bottom: 0;
+
+  .date-range{
+    .days-count, .hours-count, .minutes-count, .days-title, .hours-title, .minutes-title{
+      display: inline-block;
+    }
+
+    .days-title, .hours-title, .minutes-title{
+      //transform: rotate(270deg);
+      @include transform(rotate(270deg));
+      font-weight: 100;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: #333;
+      //left: -5px;
+      position: relative;
+      width: 16px;
+    }
+
+    .days-count, .hours-count, .minutes-count{
+
+      background: $light-orange-color;
+      height: 60px;
+      width: 60px;
+
+      line-height: 60px;
+      text-align: center;
+      font-size: 36px;
+      font-weight: 900;
+      color: white;
+      vertical-align: bottom;
+
+    }
+  }
+
+  .event-expired{
+    font-weight: 900;
+    font-size: 23px;
+    color: #58595b;
+    text-transform: uppercase;
+  }
+}
+
+.description-inner{
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.events-list-event{
+  &:hover{
+    .description{
+      padding-bottom: 0 !important;
+    }
+  }
+}

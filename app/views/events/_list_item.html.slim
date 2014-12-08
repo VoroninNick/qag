@@ -24,34 +24,59 @@
 
 
       .description.columns.large-9
-        .event-title
-          a.event-title-a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
-            = event.name
-        / slide.name
-        .event-description
-          = event.short_description
-        - if Date.today <= event.end_date
-          .hover-event-date-range-and-participants
-            .hover-event-start-date
-              = "#{event.start_date.day}.#{event.start_date.month}.#{event.start_date.year}"
-            .hover-event-end-date
-              = "#{event.end_date.day}.#{event.end_date.month}.#{event.end_date.year}"
-            .hover-event-participants
-              = t('pages.events-list.event-template.hover.participants-count', participants_count: event.participants_count)
-          .event-link-and-register-button
-            .register-button.columns.large-4.large-centered class=( "decline" if subscribed_on_event?(event.id) )
-              a.register-button-a href=( subscribed_on_event?(event.id) ? event_unsubscription_form_path(event_id: event.id, locale: I18n.locale) : new_event_subscription_path(event_id: event.id, locale: I18n.locale)  )
-                = embedded_svg_from_assets('svg/registration.svg')
-                span.registration-text
-                  = t("layout.buttons.#{ "un" if subscribed_on_event?(event.id) }register")
+        .description-inner
+          .event-title
+            a.event-title-a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
+              = event.name
+          / slide.name
+          .event-description
+            = event.short_description
+          - if Date.today <= event.end_date
+            .hover-event-date-range-and-participants
+              .hover-event-start-date
+                = "#{event.start_date.day}.#{event.start_date.month}.#{event.start_date.year}"
+              .hover-event-end-date
+                = "#{event.end_date.day}.#{event.end_date.month}.#{event.end_date.year}"
+              .hover-event-participants
+                = t('pages.events-list.event-template.hover.participants-count', participants_count: event.participants_count)
+            .event-link-and-register-button
+              .register-button.columns.large-4.large-centered class=( "decline" if subscribed_on_event?(event.id) )
+                a.register-button-a href=( subscribed_on_event?(event.id) ? event_unsubscription_form_path(event_id: event.id, locale: I18n.locale) : new_event_subscription_path(event_id: event.id, locale: I18n.locale)  )
+                  = embedded_svg_from_assets('svg/registration.svg')
+                  span.registration-text
+                    = t("layout.buttons.#{ "un" if subscribed_on_event?(event.id) }register")
 
-        - else
-          .hover-expired-event-images
-            .hover-expired-event-title
-              = t('pages.events-list.event-template.hover.expired-event.title')
-            .hover-expired-event-images-carousel-wrapper
-              .hover-expired-event-images-carousel-ul
-                - event.images.each_with_index do |image, index|
-                  li.hover-expired-event-images-carousel-ul-li
-                    a.hover-expired-event-images-carousel-ul-li-a href=( (image.image.exists?(:original) )? image.image.url(:original) : stub_image_link(600, 400, "image #{index + 1}") )
-                      img.hover-expired-event-images-carousel-ul-li-a-img src=image_or_stub_url(image.image, :event_list_image, 150, 100, "image #{index+1}")
+          - else
+            .hover-expired-event-images
+              .hover-expired-event-title
+                = t('pages.events-list.event-template.hover.expired-event.title')
+              .hover-expired-event-images-carousel-wrapper
+                .hover-expired-event-images-carousel-ul
+                  - event.images.each_with_index do |image, index|
+                    li.hover-expired-event-images-carousel-ul-li
+                      a.hover-expired-event-images-carousel-ul-li-a href=( (image.image.exists?(:original) )? image.image.url(:original) : stub_image_link(600, 400, "image #{index + 1}") )
+                        img.hover-expired-event-images-carousel-ul-li-a-img src=image_or_stub_url(image.image, :event_list_image, 150, 100, "image #{index+1}")
+
+        .counter-outer
+          - date_range_remaining_before_start = event.start_date - DateTime.now
+          - date_range_remaining_before_end = event.end_date - DateTime.now
+          - if date_range_remaining_before_end > 0
+            span.counter-title
+              = (date_range_remaining_before_start > 0)? "До старту залишилось:" : "До кінця залишилось:"
+            .date-range
+              span.days-count
+                = (date_range_remaining_before_start > 0)? date_range_remaining_before_start.days : date_range_remaining_before_end.days
+              span.days-title
+                = "днів"
+              span.hours-count
+                = (date_range_remaining_before_start > 0)? date_range_remaining_before_start.hours : date_range_remaining_before_end.hours
+              span.hours-title
+                = "годин"
+              span.minutes-count
+                = (date_range_remaining_before_start > 0)? date_range_remaining_before_start.minutes : date_range_remaining_before_end.minutes
+              span.minutes-title
+                = "хвилин"
+
+          - elsif event.end_date
+            .event-expired
+              = "Захід завершено"

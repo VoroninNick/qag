@@ -802,6 +802,10 @@ $expired-events-pages-count: $expired-events-count / 5
             cursor: default
 
 
+#event-info-slides
+  .owl-wrapper-outer, .owl-wrapper, .owl-item
+    height: 100%
+
 
 
 .owl-nav-arrows
@@ -814,7 +818,7 @@ $expired-events-pages-count: $expired-events-count / 5
     width: 22px
     height: 30px
     position: absolute
-    top: 40px
+    top: 105px
     cursor: pointer
 
   .prev
@@ -831,6 +835,12 @@ $expired-events-pages-count: $expired-events-count / 5
   height: 100%
 .home-featured-event
   position: absolute
+
+#home-featured-timeline
+  .owl-item
+    vertical-align: bottom
+    float: none !important
+    display: inline-block
 
 
 #home-featured-prev-event-arrow, #home-featured-next-event-arrow
@@ -883,14 +893,23 @@ $expired-events-pages-count: $expired-events-count / 5
 #home-expired-events-section
   .events-slider
     height: 100%
-    ul
+
+    #home-expired-events-collection
       margin: 0
       padding: 0
-      width: #{100% * $expired-events-pages-count}
+      //width: #{100% * $expired-events-pages-count}
+      width: 100%
       height: 100%
-      li
+
+      .owl-wrapper-outer, .owl-wrapper, .owl-item
+        height: 100%
+
+
+
+      .item
         display: inline-block
-        width: #{100% / $expired-events-count}
+        //width: #{100% / $expired-events-count}
+        width: 100%
         height: 100%
 
         a

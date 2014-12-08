@@ -669,8 +669,15 @@ window.month_names = ['січня', 'лютого', 'березня', 'квіт�
 //     })
 
 
-     var $carousel = $('.owl-carousel')
-     var $thumbnails = $carousel.find('div.event')
+     var $expired_events_carousel = $('#home-expired-events-collection')
+     $expired_events_carousel.owlCarousel({
+         items: 5
+     })
+
+     var $thumbnails_carousel = $('#home-featured-timeline')
+     var $slides_carousel = $('#home-featured-event-info-slides-row-ul')
+
+     var $thumbnails = $thumbnails_carousel.find('div.event')
 
 
      var $event_info_slides_container = $('#event-info-slides')
@@ -700,7 +707,7 @@ window.month_names = ['січня', 'лютого', 'березня', 'квіт�
 //         }
 //     })
 
-     $carousel.owlCarousel({
+     $thumbnails_carousel.owlCarousel({
          items : 7,
          itemsCustom : false,
          itemsDesktop : [1199,5],
@@ -712,16 +719,21 @@ window.month_names = ['січня', 'лютого', 'березня', 'квіт�
          itemsScaleUp : false
      })
 
+     //$slides_carousel.owlCarousel({
+     //    items: 1
+     //})
+
      var step = 3
 
-     var carousel_data = $carousel.data('owlCarousel')
-     var total_prev_items = + $carousel.attr('data-total-prev')
-     var total_future_items = + $carousel.attr('data-total-future')
+     var thumbnails_carousel_data = $thumbnails_carousel.data('owlCarousel')
+     var total_prev_items = + $thumbnails_carousel.attr('data-total-prev')
+     var total_future_items = + $thumbnails_carousel.attr('data-total-future')
 
-     var total_prev_items_loaded_or_in_process = $carousel.find('div.prev').length
-     var total_future_items_loaded_or_in_process = $carousel.find('div.event.future').length
+     var total_prev_items_loaded_or_in_process = $thumbnails_carousel.find('div.prev').length
+     var total_future_items_loaded_or_in_process = $thumbnails_carousel.find('div.event.future').length
 
-     carousel_data.jumpTo($carousel.find('div.event.active').parent().index() - ( (carousel_data.options.items - 1) / 2 ) )
+     //carousel_data.jumpTo($carousel.find('div.event.active').parent().index() - ( (carousel_data.options.items - 1) / 2 ) )
+     thumbnails_carousel_data.jumpTo($thumbnails_carousel.find('div.event.active').parent().index() - ( (thumbnails_carousel_data.options.items - 1) / 2 ) )
 
 //     function validateNewItemIndex(new_item){
 //         if(new_item != undefined){
@@ -750,7 +762,7 @@ window.month_names = ['січня', 'лютого', 'березня', 'квіт�
          var $this = $(this)
          var $arrow = $(this)
 
-         var current_item = carousel_data.currentItem
+         var current_item = thumbnails_carousel_data.currentItem
 
          var new_item
 
@@ -762,123 +774,239 @@ window.month_names = ['січня', 'лютого', 'березня', 'квіт�
              new_item = current_item + step
          }
 
-         new_item = validateNewItemIndex(new_item)
+         //new_item = validateNewItemIndex(new_item)
 
+         var maxIndex = thumbnails_carousel_data.itemsAmount
+         var minIndex = 0
+
+         if(new_item > maxIndex){
+             new_item = maxIndex
+         }
+         else if(new_item < minIndex){
+             new_item = minIndex
+         }
 
          if(current_item != new_item){
-             carousel_data.goTo(new_item)
+             thumbnails_carousel_data.goTo(new_item)
          }
      })
+
+//     $event_info_slides_container.on('click', 'span.nav-arrow', function(){
+//         var $this = $(this)
+//         var $arrow = $this
+//
+//         var arrow_next = $arrow.hasClass('next')
+//         var arrow_prev = !arrow_next
+//
+//
+//         var max_index = thumbnails_carousel_data.itemsAmount - 1
+//         if(arrow_prev){
+//             var current_thumbnail_item = thumbnails_carousel_data.currentItem
+//             var new_thumbnail_item = validateNewItemIndex(current_thumbnail_item-1)
+//             if(new_thumbnail_item != current_thumbnail_item){
+//                 thumbnails_carousel_data.goTo(new_thumbnail_item)
+//                 //carousel_data.prev()
+//             }
+//             if(current_thumbnail_item - 1 >= 0){
+////                 var $current_thumbnail_item = $(carousel_data.$owlItems[current_thumbnail_item])
+////                 $current_thumbnail_item.children().removeClass('active')
+////                 var $new_thumbnail_item = $(carousel_data.$owlItems[current_thumbnail_item-1])
+////                 $new_thumbnail_item.children().addClass('active')
+//
+//
+//             }
+//         }
+//         else{
+//             // next
+//             //carousel_data.next()
+//
+//             var current_thumbnail_item = thumbnails_carousel_data.currentItem
+//             var new_thumbnail_item = validateNewItemIndex(current_thumbnail_item+1)
+//             if(new_thumbnail_item != current_thumbnail_item){
+//                 thumbnails_carousel_data.goTo(new_thumbnail_item)
+//             }
+//
+//             if(current_thumbnail_item + 1 <= max_index){
+//                 //var $current_thumbnail_item = $(carousel_data.$owlItems[current_thumbnail_item])
+////                 $current_thumbnail_item.children().removeClass('active')
+////                 var $new_thumbnail_item = $(carousel_data.$owlItems[current_thumbnail_item+1])
+////                 $new_thumbnail_item.children().addClass('active')
+//             }
+//         }
+//
+//         var $active_thumbnail = $thumbnails.filter('.active')
+//         var $slides = $home_featured_event_info_slides_row_ul.children()
+//         var $active_slide = $slides.filter('.active')
+//         var $active_thumbnail_wrapper = $active_thumbnail.parent()
+//         var $new_thumbnail_wrapper
+//         var new_exists = false
+//         if(arrow_next){
+//             $new_thumbnail_wrapper = $active_thumbnail_wrapper.next()
+//         }
+//         else{
+//             $new_thumbnail_wrapper = $active_thumbnail_wrapper.prev()
+//         }
+//
+//         new_exists = $new_thumbnail_wrapper.length > 0
+//         if(new_exists){
+//             var $new_thumbnail = $new_thumbnail_wrapper.children()
+//
+//             // apply changes
+//             $active_thumbnail.removeClass('active')
+//             $active_slide.removeClass('active')
+//
+//             $new_thumbnail.addClass('active')
+//             var $new_slide
+//             var new_slide_loaded = $new_thumbnail.hasClass('loaded')
+//             var new_event_id = + $new_thumbnail.attr('data-event-id')
+//             if(!new_slide_loaded){
+//
+//
+//                 $.ajax({
+//                         url: '/home/event_info',
+//                         data: {event_ids: [new_event_id].join(',')},
+//                         dataType: 'html',
+//                         success: function (data, textStatus, jqXHR) {
+//                             var $data = $(data)
+//                             var $items = $data
+//                             $items.first().addClass('active')
+//                             $home_featured_event_info_slides_row_ul.append($items)
+//                             var $required_item = $data.first()
+//                             var $required_item_thumbnails
+//                             var event_id_strings_arr = []
+//                             var event_id = + $items.first().attr('data-event-id')
+//
+//                             //$items.each(function(){
+//                             //    var $this = $(this)
+//                             //    var id = $this.attr('data-event-id')
+//                             //    //var $required_item_thumbnail = $event_thumbnails_container.children().filter('[data-event-id='+id+']')
+//                             //    //$required_item_thumbnails.add($this)
+//                             //    event_id_strings_arr.push('[data-event-id='+id+']')
+//                             //})
+//
+//                             //$required_item_thumbnails = $event_thumbnails_container.children().filter(event_id_strings_arr.join(','))
+//                             //$required_item_thumbnails.addClass('loaded')
+//                             //$required_item.addClass('active')
+//                             var $thumbnail = $thumbnails.filter('[data-event-id='+event_id+']')
+//                             $thumbnail.addClass('loaded')
+//
+//                             //console.log('data: ', $data.first())
+//                         }
+//                     })
+//             }
+//             else{
+//                $new_slide = $slides.filter('[data-event-id='+new_event_id+']')
+//             }
+//         }
+//
+//     })
+
+     var loadedSlides = []
+     var slidesInLoad = []
 
      $event_info_slides_container.on('click', 'span.nav-arrow', function(){
-         var $this = $(this)
-         var $arrow = $this
-
-         var arrow_next = $arrow.hasClass('next')
-         var arrow_prev = !arrow_next
-
-
-         var max_index = carousel_data.itemsAmount - 1
-         if(arrow_prev){
-             var current_thumbnail_item = carousel_data.currentItem
-             var new_thumbnail_item = validateNewItemIndex(current_thumbnail_item-1)
-             if(new_thumbnail_item != current_thumbnail_item){
-                 carousel_data.goTo(new_thumbnail_item)
-                 //carousel_data.prev()
-             }
-             if(current_thumbnail_item - 1 >= 0){
-//                 var $current_thumbnail_item = $(carousel_data.$owlItems[current_thumbnail_item])
-//                 $current_thumbnail_item.children().removeClass('active')
-//                 var $new_thumbnail_item = $(carousel_data.$owlItems[current_thumbnail_item-1])
-//                 $new_thumbnail_item.children().addClass('active')
-
-
-             }
-         }
-         else{
-             // next
-             //carousel_data.next()
-
-             var current_thumbnail_item = carousel_data.currentItem
-             var new_thumbnail_item = validateNewItemIndex(current_thumbnail_item+1)
-             if(new_thumbnail_item != current_thumbnail_item){
-                 carousel_data.goTo(new_thumbnail_item)
-             }
-
-             if(current_thumbnail_item + 1 <= max_index){
-                 //var $current_thumbnail_item = $(carousel_data.$owlItems[current_thumbnail_item])
-//                 $current_thumbnail_item.children().removeClass('active')
-//                 var $new_thumbnail_item = $(carousel_data.$owlItems[current_thumbnail_item+1])
-//                 $new_thumbnail_item.children().addClass('active')
-             }
-         }
+         var $arrow = $(this)
+         var prev_arrow = $arrow.hasClass('prev')
+         var next_arrow = !prev_arrow
 
          var $active_thumbnail = $thumbnails.filter('.active')
+         var $active_thumbnail_wrapper = $active_thumbnail.parent()
+         var active_item_index = $active_thumbnail_wrapper.index()
+
          var $slides = $home_featured_event_info_slides_row_ul.children()
          var $active_slide = $slides.filter('.active')
-         var $active_thumbnail_wrapper = $active_thumbnail.parent()
-         var $new_thumbnail_wrapper
-         var new_exists = false
-         if(arrow_next){
-             $new_thumbnail_wrapper = $active_thumbnail_wrapper.next()
+
+
+
+         var new_item_index
+         if(prev_arrow){
+             new_item_index = active_item_index - 1
          }
          else{
-             $new_thumbnail_wrapper = $active_thumbnail_wrapper.prev()
+             new_item_index = active_item_index + 1
          }
 
-         new_exists = $new_thumbnail_wrapper.length > 0
-         if(new_exists){
-             var $new_thumbnail = $new_thumbnail_wrapper.children()
-
-             // apply changes
-             $active_thumbnail.removeClass('active')
-             $active_slide.removeClass('active')
-
-             $new_thumbnail.addClass('active')
-             var $new_slide
-             var new_slide_loaded = $new_thumbnail.hasClass('loaded')
-             var new_event_id = + $new_thumbnail.attr('data-event-id')
-             if(!new_slide_loaded){
 
 
-                 $.ajax({
-                         url: '/home/event_info',
-                         data: {event_ids: [new_event_id].join(',')},
-                         dataType: 'html',
-                         success: function (data, textStatus, jqXHR) {
-                             var $data = $(data)
-                             var $items = $data
-                             $items.first().addClass('active')
-                             $home_featured_event_info_slides_row_ul.append($items)
-                             var $required_item = $data.first()
-                             var $required_item_thumbnails
-                             var event_id_strings_arr = []
-                             var event_id = + $items.first().attr('data-event-id')
+         if(new_item_index <= thumbnails_carousel_data.itemsAmount - 1 && new_item_index >= 0) {
 
-                             //$items.each(function(){
-                             //    var $this = $(this)
-                             //    var id = $this.attr('data-event-id')
-                             //    //var $required_item_thumbnail = $event_thumbnails_container.children().filter('[data-event-id='+id+']')
-                             //    //$required_item_thumbnails.add($this)
-                             //    event_id_strings_arr.push('[data-event-id='+id+']')
-                             //})
 
-                             //$required_item_thumbnails = $event_thumbnails_container.children().filter(event_id_strings_arr.join(','))
-                             //$required_item_thumbnails.addClass('loaded')
-                             //$required_item.addClass('active')
-                             var $thumbnail = $thumbnails.filter('[data-event-id='+event_id+']')
-                             $thumbnail.addClass('loaded')
 
-                             //console.log('data: ', $data.first())
-                         }
-                     })
+             var is_visible_item = thumbnails_carousel_data.visibleItems.indexOf(new_item_index) >= 0
+             if(!is_visible_item){
+                 thumbnails_carousel_data.goTo(new_item_index)
              }
-             else{
-                $new_slide = $slides.filter('[data-event-id='+new_event_id+']')
+
+             var $new_item = thumbnails_carousel_data.$owlItems.eq(new_item_index)
+             var $new_item_thumbnail = $new_item.children()
+             var new_event_id =  + $new_item_thumbnail.attr('data-event-id')
+             var loaded = $new_item_thumbnail.hasClass('loaded')
+             ///////
+
+             $active_slide.removeClass('active').addClass('inactive')
+
+
+             $new_item_thumbnail.removeClass('inactive').addClass('active')
+             $active_thumbnail.removeClass('active').addClass('inactive')
+
+             if (!loaded) {
+                 loadEvent(new_event_id, $new_item_thumbnail)
+             }
+             else {
+
+                 var $new_slide = $slides.filter('[data-event-id=' + new_event_id + ']')
+
+                 $new_slide.removeClass('inactive').addClass('active')
+
              }
          }
 
      })
+
+
+
+     function loadEvent(event_id, $thumbnail){
+         console.log('load_event: ', event_id)
+         if(slidesInLoad.indexOf(event_id) < 0){
+             slidesInLoad.push(event_id)
+             $.ajax({
+                 url: '/home/event_info',
+                 data: { event_ids: [event_id].join(',') },
+                 type: 'get',
+                 dataType: 'html',
+                 success: function(data){
+                     var $html_source = $(data)
+                     $thumbnail.addClass('loaded')
+
+                     $home_featured_event_info_slides_row_ul.append($html_source)
+
+                 }
+             })
+         }
+     }
+
+     $thumbnails_carousel.on('click', 'div.owl-item', function(){
+         var $item = $(this)
+         var $thumbnail = $item.children()
+         var loaded = $thumbnail.hasClass('loaded')
+         var $active_thumbnail = $thumbnails.filter('.active')
+         $thumbnail.removeClass('inactive').addClass('active')
+         $active_thumbnail.removeClass('active').addClass('inactive')
+         var $slides = $home_featured_event_info_slides_row_ul.children()
+         var $active_slide = $slides.filter('.active')
+         $active_slide.removeClass('active').addClass('inactive')
+         var event_id = + $thumbnail.attr('data-event-id')
+         if(!loaded){
+             loadEvent(event_id, $thumbnail)
+         }
+         else{
+             var $new_slide = $slides.filter('[data-event-id='+event_id+']')
+             $new_slide.removeClass('inactive').addClass('active')
+
+         }
+     })
+
+
 
 
 

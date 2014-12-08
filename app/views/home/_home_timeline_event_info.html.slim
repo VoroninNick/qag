@@ -18,7 +18,7 @@ li.event.home-featured-event.event-collection-item id="event-#{index + 1}" data-
         .participants-count
           = embedded_svg_from_assets('svg/participant.svg')
           span.count
-            |150
+            = event.users.count
           span.participants-tip
             |&nbsp;учасників зареєстровано
 

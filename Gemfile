@@ -164,3 +164,5 @@ gem 'render_anywhere', :require => false
 #gem 'debugger-xml'
 
 gem 'will_paginate', '~> 3.0'
+
+gem 'fancybox2-rails'

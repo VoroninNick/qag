@@ -3,3 +3,8 @@ $body = $('#body')
 $body_inner = $('#body-inner')
 $window = $(window)
 initializers = {}
+
+
+// class names
+
+var event_list_item_images_carousel_class = 'hover-expired-event-images-carousel-ul'

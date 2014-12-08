@@ -94,6 +94,8 @@ class EventsController < ApplicationController
       params_page = 1
     end
 
+    @events = @events.order('start_date desc')
+
     @paginated_events =  @events.paginate(page: params_page, per_page: 10)
 
     if ajax?

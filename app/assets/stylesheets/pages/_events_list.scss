@@ -611,9 +611,7 @@ $events-list-dropdown-tags-count: 13;
     position: relative;
     margin: 2.5rem auto 0 auto;
 
-    .events-list-event:hover &{
-      display: block;
-    }
+
   }
 
   .event-link-and-register-button {
@@ -813,6 +811,10 @@ $events-list-dropdown-tags-count: 13;
       @include animation-duration(10s);
       @include animation-name(rotateup-back);
 
+    }
+
+    .hover-read-button{
+      display: block;
     }
   }
 

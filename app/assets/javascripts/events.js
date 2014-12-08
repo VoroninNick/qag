@@ -158,5 +158,7 @@ $event_list_expired_image_carousels.each(function(index){
 })
 
 $event_list_expired_image_carousels.owlCarousel({
-    items: 6
+    items: 6,
+    navigation : true,
+    lazyLoad : true
 })

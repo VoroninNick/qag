@@ -123,7 +123,7 @@ class Event < ActiveRecord::Base
       self.slug = self.name.parameterize if !self.slug || self.slug == ''
       self.slug = self.slug.parameterize.underscore
 
-      self.participants_count = allowed_subscriptions_count
+
     end
 
     # def published=(value)
@@ -148,6 +148,10 @@ class Event < ActiveRecord::Base
 
       end
     end
+  end
+
+  before_save do
+    self.participants_count = allowed_subscriptions_count
   end
 
   rails_admin do

@@ -20,7 +20,7 @@
               = "#{event.end_date.day}.#{event.end_date.month}.#{event.end_date.year}"
 
           .participants-count
-            = raw t('pages.events-list.event-template.info.participants-count', svg: embedded_svg_from_assets('svg/participant.svg'), count: "<span class='count'>#{event.participants_count}</span>", span_start: "<span class='participants-tip'>", span_end: "</span>")
+            = raw t('pages.events-list.event-template.info.participants-count', svg: embedded_svg_from_assets('svg/participant.svg'), count: "<span class='count participants-count-number'>#{event.participants_count}</span>", span_start: "<span class='participants-tip'>", span_end: "</span>")
 
 
       .description.columns.large-9
@@ -38,7 +38,7 @@
               .hover-event-end-date
                 = "#{event.end_date.day}.#{event.end_date.month}.#{event.end_date.year}"
               .hover-event-participants
-                = t('pages.events-list.event-template.hover.participants-count', participants_count: event.participants_count)
+                = raw t('pages.events-list.event-template.hover.participants-count', participants_count: event.participants_count)
             .event-link-and-register-button
               .register-button.columns.large-4.large-centered class=( "decline" if subscribed_on_event?(event.id) )
                 a.register-button-a href=( subscribed_on_event?(event.id) ? event_unsubscription_form_path(locale: I18n.locale, event_id: event.id) : new_event_subscription_path(locale: I18n.locale, event_id: event.id)  )

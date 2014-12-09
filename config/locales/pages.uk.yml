@@ -31,7 +31,7 @@ uk:
 
       event-template:
         hover:
-          participants-count: "%{participants_count} учасників"
+          participants-count: "<span class=\"participants-count-number\">%{participants_count}</span> учасників"
           register-button: "Зареєструватись"
           expired-event:
             title: "Подія завершена"

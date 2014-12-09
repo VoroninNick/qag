@@ -26,9 +26,9 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
 
       ul#home-featured-event-info-slides-row-ul.events-collection 
         /- @featured_events.each_with_index do |event, index|
-        - event = @featured_events[@featured_events_active_event_index]
+        - event = @paginated_future_events_count > 0 ? @featured_events[@featured_events_active_event_index] : @featured_events.last
         - index = @featured_events_active_event_index
-        = render partial: 'home/home_timeline_event_info', locals: { event: event, index: index }
+        = render partial: 'home/home_timeline_event_info', locals: { event: event, index: index, active: true }
 
 
 
@@ -70,4 +70,5 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
         - [@prev_events, @future_events].each_with_index do |event_collection, event_collection_index|
           - event_collection.each_with_index do |event, event_index|
             - total_index += 1
-            = render partial: "home/home_timeline_thumbnail", locals: { event: event, active: (event_collection_index == 1 && event_index == 0 ), index: index, loaded: (event_collection_index == 1 && event_index == 0 ), prev: event_collection_index == 0, future: event_collection_index == 1, carousel_event_index: (event_collection_index == 0)? (index - @featured_events_active_event_index ) : (index - @featured_events_active_event_index + 1 ), total_index: 0  }
+            - local_active = ( @future_events.count > 0 ? event_collection_index == 1 && event_index == 0 : event_collection_index == 0 && event_index == event_collection.count - 1 )
+            = render partial: "home/home_timeline_thumbnail", locals: { event: event, active: local_active, index: index, loaded: local_active, prev: event_collection_index == 0, future: event_collection_index == 1, carousel_event_index: (event_collection_index == 0)? (index - @featured_events_active_event_index ) : (index - @featured_events_active_event_index + 1 ), total_index: 0  }

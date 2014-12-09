@@ -488,6 +488,12 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                                         }]
                                     })
 
+                                    var $event = $('[data-event-id='+registration_event_id+']')
+                                    var $participants_count_number = $event.find('.participants-count-number')
+                                    var count = parseInt( $participants_count_number.text() )
+                                    $participants_count_number.text(count + 1)
+
+
                                 }
 
                                 else if ($submit_button.hasClass(unsubscribeSubmitButtonClass)) {
@@ -534,7 +540,20 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                                             decline_button_link: data['subscribe_button_link']
                                         }]
                                     })
+                                    //alert(popup_event_id)
+                                    var $event = $('[data-event-id='+registration_event_id+']')
+                                    var $participants_count_numbers = $event.find('.participants-count-number')
+                                    $participants_count_numbers.each(function(){
+                                        var $number = $(this)
+                                        var count = parseInt( $number.text() )
+                                        $number.text((count - 1).toString())
+                                    })
+
+
+
                                     popup_event_id = false
+
+
                                 }
 
 

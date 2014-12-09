@@ -1,4 +1,4 @@
-li.event.home-featured-event.event-collection-item id="event-#{index + 1}" data-event-id="#{event.id}" class="#{ "event-i-am-subscribed-on" if subscribed_on_event?(event.id) } #{"active" if index == @featured_events_active_event_index }"
+li.event.home-featured-event.event-collection-item id="event-#{index + 1}" data-event-id="#{event.id}" class="#{ "event-i-am-subscribed-on" if subscribed_on_event?(event.id) } #{"active" if active }"
   .featured-section-event-content
     .image-and-info.columns.large-4
       .image
@@ -17,7 +17,7 @@ li.event.home-featured-event.event-collection-item id="event-#{index + 1}" data-
             = "#{event.end_date.day}.#{event.end_date.month}.#{event.end_date.year}"
         .participants-count
           = embedded_svg_from_assets('svg/participant.svg')
-          span.count
+          span.count.participants-count-number
             = event.users.count
           span.participants-tip
             |&nbsp;учасників зареєстровано

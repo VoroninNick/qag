@@ -51,18 +51,25 @@ class HomeController < ApplicationController
     @paginated_prev_events = @prev_events.paginate(page: 1, per_page: events_per_page)
     @paginated_future_events = @future_events.paginate(page: 1, per_page: events_per_page)
 
-    @paginated_prev_events_count = events_per_page
+    @paginated_prev_events_count = @paginated_prev_events.count < events_per_page ? @prev_events.count : events_per_page
+    @paginated_future_events_count = @paginated_future_events.count < events_per_page ? @paginated_future_events.count : events_per_page
 
 
 
     #@featured_events_active_event_index = @prev_events.count
     #@featured_events_active_event_index = @paginated_prev_events.count
-    @featured_events_active_event_index = events_per_page
+    #@featured_events_active_event_index = events_per_page
 
 
     @featured_events = @paginated_prev_events + @paginated_future_events
 
     #render inline: "#{@featured_events_active_event_index}"
+
+    if @featured_events.count > 0
+      @featured_events_active_event_index = @prev_events.count
+    else
+      @featured_events_active_event_index = @prev_events.count - 1
+    end
 
 
 
@@ -256,7 +263,7 @@ class HomeController < ApplicationController
     events = Event.where(published: true, id: event_ids)
     events_html = ''
     events.each_with_index do |event, index|
-      event_html = render_to_string template: 'home/_home_timeline_event_info', layout: false, locals: { event: event, index: index }
+      event_html = render_to_string template: 'home/_home_timeline_event_info', layout: false, locals: { event: event, index: index, active: false }
       events_html += event_html
     end
 

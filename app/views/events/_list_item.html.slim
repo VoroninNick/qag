@@ -1,6 +1,6 @@
 - events.each_with_index do |event, index|
   .events-list-event.event-collection-item data-event-id="#{event.id}" class="#{"event-i-am-subscribed-on" if subscribed_on_event?(event.id) } #{ (Date.today > event.end_date)? 'expired-event' : ( Date.today >= event.start_date )? 'started-event' : 'future-event' }#{(index % 2 == 1)? ' right-image' : nil}"
-    a.event-bg-link href=event_item_path(item: event.slug, tags: event.tags.join('-'), locale: I18n.locale)
+    a.event-bg-link href=event_item_path(locale: I18n.locale, item: event.slug, tags: event.tags.join('-'))
     .events-list-event-row.row
       .image-and-info.columns.large-3
         .image
@@ -26,7 +26,7 @@
       .description.columns.large-9
         .description-inner
           .event-title
-            a.event-title-a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
+            a.event-title-a href=event_item_path(locale: I18n.locale, item: event.slug, tags: event.tags.join('-'))
               = event.name
           / slide.name
           .event-description
@@ -41,8 +41,9 @@
                 = t('pages.events-list.event-template.hover.participants-count', participants_count: event.participants_count)
             .event-link-and-register-button
               .register-button.columns.large-4.large-centered class=( "decline" if subscribed_on_event?(event.id) )
-                a.register-button-a href=( subscribed_on_event?(event.id) ? event_unsubscription_form_path(event_id: event.id, locale: I18n.locale) : new_event_subscription_path(event_id: event.id, locale: I18n.locale)  )
+                a.register-button-a href=( subscribed_on_event?(event.id) ? event_unsubscription_form_path(locale: I18n.locale, event_id: event.id) : new_event_subscription_path(locale: I18n.locale, event_id: event.id)  )
                   = embedded_svg_from_assets('svg/registration.svg')
+                  span.registration-text
                   span.registration-text
                     = t("layout.buttons.#{ "un" if subscribed_on_event?(event.id) }register")
 
@@ -57,7 +58,7 @@
                       a.hover-expired-event-images-carousel-ul-li-a href=( (image.image.exists?(:original) )? image.image.url(:original) : stub_image_link(600, 400, "image #{index + 1}") )
                         = content_tag(:img, nil, class: "hover-expired-event-images-carousel-ul-li-a-img #{'lazyOwl' if index > 5}",  :"#{ index <= 5 ? "src" : "data-src" }" => image_or_stub_url(image.image, :event_list_image, 150, 100, "image #{index+1}"))
 
-            a.hover-read-button
+            a.hover-read-button href="#{event_item_path(locale: I18n.locale, item: event.slug, tags: event.tags.join('-'))}"
               = "Переглянути"
 
 

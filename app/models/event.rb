@@ -65,6 +65,14 @@ class Event < ActiveRecord::Base
 
   attr_accessible :registration_enabled
 
+  def allowed_subscriptions_count
+    #variable_name = "@event_#{id}_allowed_subscriptions_count"
+    #return instance_variable_get(variable_name) if instance_variable_defined?(variable_name)
+
+    #return instance_variable_set(variable_name, self.event_subscriptions.where(disabled: false).count)
+    self.event_subscriptions.where(disabled: false).count
+  end
+
 
   def images
     query_album_images = "select ai.event_gallery_image_id as 'id' from event_gallery_albums_and_event_gallery_images ai, events_and_gallery_albums ea where ea.event_id = #{self.id} and ai.event_gallery_album_id = ea.event_gallery_album_id "
@@ -88,14 +96,20 @@ class Event < ActiveRecord::Base
   end
 
   def expired?
-    end_date > DateTime.now
+    end_date <= DateTime.now
   end
 
   def up_to_date?
     !expired?
   end
 
+  def enabled_registration?
+    disabled_registration != true
+  end
+
   attr_accessible :days_and_time_string
+
+  attr_accessible :disabled_registration
 
 
   translates :name, :slug, :short_description, :full_description, :address, :days_and_time_string, :versioning => :paper_trail
@@ -108,6 +122,8 @@ class Event < ActiveRecord::Base
     before_save do
       self.slug = self.name.parameterize if !self.slug || self.slug == ''
       self.slug = self.slug.parameterize.underscore
+
+      self.participants_count = allowed_subscriptions_count
     end
 
     # def published=(value)
@@ -141,6 +157,7 @@ class Event < ActiveRecord::Base
     list do
       field :id
       field :published
+      field :disabled_registration
       field :name
       field :short_description
       field :avatar
@@ -150,7 +167,10 @@ class Event < ActiveRecord::Base
 
     edit do
       field :published
-
+      field :disabled_registration
+      field :participants_count do
+        read_only true
+      end
       # field :tag_list do
       #   label 'Категорія (може бути декілька)'
       #   help 'Використовуйте кому як розділювач'
@@ -163,10 +183,12 @@ class Event < ActiveRecord::Base
 
 
 
-      field :start_date
+      field :start_date, :datetime
       field :end_date
 
       group :days do
+        hide
+
         field :day_monday
         field :day_monday_start_time
         field :day_tuesday
@@ -183,8 +205,6 @@ class Event < ActiveRecord::Base
         field :day_sunday_start_time
       end
 
-
-      field :participants_count
 
       field :avatar
       field :banner

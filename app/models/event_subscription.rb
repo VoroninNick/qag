@@ -16,5 +16,16 @@ class EventSubscription < ActiveRecord::Base
   rails_admin do
     navigation_label "Events"
     weight 1
+
+    edit do
+      field :disabled
+      field :user
+      field :event
+      field :first_name
+      field :last_name
+      field :email
+      field :contact_phone
+
+    end
   end
 end

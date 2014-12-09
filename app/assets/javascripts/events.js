@@ -142,24 +142,80 @@
 ////initializeEventsList()
 
 
+
+
+$.fn.init_images_carousel = function() {
+
+    var $images_carousel = $(this)
+
+    $images_carousel.each(function (index) {
+
+        var $carousel = $(this)
+        $carousel.attr('data-carousel-index', '' + index)
+        XXX = $carousel
+        var $image_links = $carousel.find('a.hover-expired-event-images-carousel-ul-li-a')
+        $image_links.attr('rel', 'group-' + index)
+        $image_links.attr('data-fancybox-group', 'group-' + index)
+        $image_links.fancybox({
+            width: '100%',
+            scrolling   : 'hidden',
+            helpers: {
+                overlay: {
+                    locked: true
+                },
+                title: {
+                    type: "outside"
+                },
+
+                thumbs: {
+                    width: 75,
+                    height: 50
+                }
+            }
+        })
+        //$carousel
+
+        $carousel.owlCarousel({
+            items: 6,
+            navigation: false,
+            pagination: true,
+            lazyLoad: true
+        })
+
+    })
+
+    //$images_carousel.owlCarousel({
+    //    items: 6,
+    //    navigation: false,
+    //    pagination: true,
+    //    lazyLoad: true
+    //})
+};
+
 var $event_list_expired_image_carousels = $('.'+event_list_item_images_carousel_class)
+$event_list_expired_image_carousels.init_images_carousel()
 
 
+var $event_item_images = $('#event-item-page-event-info-column #event-item-images .content a')
+$event_item_images.attr('rel', 'group').attr('data-fancybox-group', 'group')
+$event_item_images.fancybox({
+    width: '100%',
+    scrolling   : 'hidden',
+    helpers: {
+        overlay: {
+            locked: true
+        },
+        title: {
+            type: "outside"
+        },
 
-$event_list_expired_image_carousels.each(function(index){
-
-    var $carousel = $(this)
-    $carousel.attr('data-carousel-index', ''+index)
-    var $image_links= $carousel.find('a.hover-expired-event-images-carousel-ul-li-a')
-    $image_links.attr('rel', 'group-'+index)
-    $image_links.attr('data-fancybox-group', 'group-'+index)
-    $image_links.fancybox({})
-
+        thumbs: {
+            width: 75,
+            height: 50
+        }
+    }
 })
 
-$event_list_expired_image_carousels.owlCarousel({
-    items: 6,
-    navigation : false,
-    pagination : true,
-    lazyLoad : true
+$('a#more-images.js-trigger').on('click', function(){
+    $event_item_images.first().trigger('click')
 })

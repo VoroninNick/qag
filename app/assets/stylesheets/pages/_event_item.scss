@@ -11,18 +11,25 @@
   overflow: hidden;
   position: relative;
 
-  &:after{
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    display: block;
-    right: 0;
-    background: $orange-color;
-    opacity: 0.1;
-  }
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+//  &:after{
+//    content: "";
+//    position: absolute;
+//    left: 0;
+//    top: 0;
+//    bottom: 0;
+//    display: block;
+//    right: 0;
+//    background: $orange-color;
+//    opacity: 0.1;
+//  }
 
+}
+
+#event-item-banner-img{
+  opacity: 0;
 }
 
 
@@ -88,7 +95,7 @@
 
 #event-item-page-event-info{
   .register-button{
-    .register-button-a{
+    .register-button-a, .register-button-span{
       height: 3.75rem;
       display: inline-block;
       background: #ffb700;
@@ -116,8 +123,109 @@
         color: white;
       }
     }
+
+    .register-button-span{
+      line-height: 60px;
+      cursor: default;
+    }
+
+    &.registration-disabled{
+      .register-button-span{
+        background-color: #86c7e7;
+
+        .registration-text{
+          color: #2781a4;
+        }
+      }
+    }
+
+
   }
 }
+
+#event-item-images{
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+  margin: 45px 0 45px 0;
+
+  .header{
+    height: 4rem;
+    line-height: 4rem;
+    padding: 0 30px;
+    overflow: hidden;
+  }
+
+  .title{
+    font-weight: 500;
+    font-size: 20px;
+    color: #2781a4;
+    display: inline-block;
+    vertical-align: top;
+
+
+  }
+  .photos-count{
+    display: inline-block;
+    position: relative;
+    float: right;
+
+
+    svg{
+      path{
+        fill: #aaa !important;
+      }
+    }
+  }
+  .count{
+    display: inline-block;
+    font-size: 24px;
+    color: #ccc;
+  }
+
+  .content{
+    padding: 1px;
+
+    a{
+      display: inline-block;
+      width: 50%;
+      position: relative;
+
+      &.lazy{
+        display: none;
+      }
+
+      &:after{
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        display: block;
+        right: 0;
+        background: $orange-color;
+        opacity: 0.05;
+
+
+      }
+
+      &:hover{
+        &:after {
+          display: none;
+        }
+      }
+    }
+
+
+  }
+  .footer{
+    height: 50px;
+    line-height: 50px;
+    text-align: right;
+    padding: 0 30px;
+  }
+
+
+}
+
 
 #event-item-page-event-info-title{
   font-size: 1.4rem;

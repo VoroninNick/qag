@@ -805,9 +805,15 @@ if(infinity_scroll_list_count > 0) {
                         var html_source = data['html']
                         //var $html_source
                         if(textStatus == 'success'){
-                            $infinity_scroll_list.append(html_source)
+                            var $html_source = $(html_source)
+                            var $event_list_expired_image_carousels = $html_source.find('.'+event_list_item_images_carousel_class)
+                            $event_list_expired_image_carousels.init_images_carousel()
+                            //alert($event_list_expired_image_carousels.length)
+                            $infinity_scroll_list.append($html_source)
                         }
                         load_started = false
+
+
                     }
                 })
             }

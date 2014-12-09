@@ -1,8 +1,7 @@
 - if @event
   #event-item-banner
-    #event-item-banner-image-wrapper
-      img#event-item-banner-img.grayscale src=image_or_stub_url(@event.banner, :banner, 2100, 500, "event #{@event.id}")
-
+    #event-item-banner-image-wrapper.grayscale style="background-image: url(#{image_or_stub_url(@event.banner, :banner, 2100, 500, "event #{@event.id}")})"
+      img#event-item-banner-img src=image_or_stub_url(@event.banner, :banner, 2100, 500, "event #{@event.id}")
   #breadcrumbs-container
     #breadcrumbs-row.row
       ul#breadcrumbs-ul
@@ -37,7 +36,7 @@
             #event-item-page-event-info-date-range-text.event-item-page-event-info-text
               = raw t('pages.event-item.event-info.date-range', start_date_day: @event.start_date.day, start_date_month: @event.start_date.month, start_date_year: @event.start_date.year, end_date_day: @event.end_date.day, end_date_month: @event.end_date.month, end_date_year: @event.end_date.year)
           #event-item-page-event-info-participants-quantity.event-item-page-event-info-list-item
-            = raw t('pages.event-item.event-info.participants-count', svg: embedded_svg_from_assets('svg/participant.svg'), span_start: '<span id="event-item-page-event-info-participants-quantity-text" class="event-item-page-event-info-text">', span_end: '</span>', participants_count: @event.participants_count)
+            = raw t('pages.event-item.event-info.participants-count', svg: embedded_svg_from_assets('svg/participant.svg'), span_start: '<span id="event-item-page-event-info-participants-quantity-text" class="event-item-page-event-info-text">', span_end: '</span>', participants_count: @event.allowed_subscriptions_count)
           #event-item-page-event-info-days-and-time.event-item-page-event-info-list-item
             = embedded_svg_from_assets('svg/clock.svg')
             #event-item-page-event-info-days-and-time-text.event-item-page-event-info-text
@@ -45,11 +44,48 @@
 
 
           - if @event.up_to_date?
-            .register-button class=( "decline" if subscribed_on_event?(@event.id) )
-                a.register-button-a href=( subscribed_on_event?(@event.id) ? event_unsubscription_form_path(event_id: @event.id, locale: I18n.locale) : new_event_subscription_path(event_id: @event.id, locale: I18n.locale)  )
-                  = embedded_svg_from_assets('svg/registration.svg')
+            - if @event.enabled_registration?
+              .register-button class=( "decline" if subscribed_on_event?(@event.id) )
+                  a.register-button-a href=( subscribed_on_event?(@event.id) ? event_unsubscription_form_path(event_id: @event.id, locale: I18n.locale) : new_event_subscription_path(event_id: @event.id, locale: I18n.locale)  )
+                    = embedded_svg_from_assets('svg/registration.svg')
+                    span.registration-text
+                      = t("layout.buttons.#{ "un" if subscribed_on_event?(@event.id) }register")
+            - else
+              .register-button class=( "registration-disabled" )
+                span.register-button-span
                   span.registration-text
-                    = t("layout.buttons.#{ "un" if subscribed_on_event?(@event.id) }register")
+                    = "Реєстрацію завершено"
+          - else
+            .register-button class=( "registration-disabled" )
+              span.register-button-span
+                span.registration-text
+                  = "Захід завершено"
+
+        - if @event.expired?
+          #event-item-images
+            .header
+              .title
+                = "Фотозвіт"
+
+              .photos-count
+                = embedded_svg_from_assets('svg/photo.svg')
+                .count
+                  = @event.images.count
+
+            .content
+              - if @event.images.count > 0
+                - @event.images.each_with_index do |image, index|
+                  a class="#{'lazy' if index > 9}" href="#{image_or_stub_url(image.image, :original, 1200, 800, "event #{@event.id}")}"
+                    - if index < 10
+                      img.grayscale.grayscale-fade src="#{image_or_stub_url(image.image, :event_list_image, 180, 120, "event #{@event.id}")}"
+
+              - else
+                = "Немає жодної фотографії"
+            .footer
+              - if @event.images.count > 10
+                a#more-images.js-trigger
+                  = "Всі фотографії"
+
 
 
         #event-item-page-event-info-part-images.event-item-page-event-info-part

@@ -74,4 +74,4 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
           - event_collection.each_with_index do |event, event_index|
             - total_index += 1
             - local_active = ( @future_events.count > 0 ? (event_collection_index == 1 && event_index == 0) : ( event_collection_index == 0 && event_index == (@prev_events.count - 1) ) )
-            = render partial: "home/home_timeline_thumbnail", locals: { event: event, active: local_active, index: index, loaded: local_active, prev: event_collection_index == 0, future: event_collection_index == 1, carousel_event_index: total_index, total_index: 0  }
+            = render partial: "home/home_timeline_thumbnail", locals: { event: event, active: local_active, index: event_index, loaded: local_active, prev: event_collection_index == 0, future: event_collection_index == 1, carousel_event_index: total_index, total_index: 0  }

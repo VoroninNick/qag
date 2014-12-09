@@ -24,11 +24,13 @@ div#home-featured-events-section.page-section.page-section-number-2.home-feature
         span#home-featured-next-event-arrow.nav-arrow.next
           = embedded_svg_from_assets('svg/arrow_right.svg')
 
-      ul#home-featured-event-info-slides-row-ul.events-collection 
-        /- @featured_events.each_with_index do |event, index|
-        - event = @paginated_future_events_count > 0 ? @future_events[@featured_events_active_event_index] : @featured_events.last
-        - index = @featured_events_active_event_index
-        = render partial: 'home/home_timeline_event_info', locals: { event: event, index: index, active: true }
+      - if @future_events.count == 0
+        ul#home-featured-event-info-slides-row-ul.events-collection
+          /- @featured_events.each_with_index do |event, index|
+
+          - event = @paginated_future_events_count > 0 ? @featured_events[@featured_events_active_event_index] : @prev_events.last
+          - index = @featured_events_active_event_index
+          = render partial: 'home/home_timeline_event_info', locals: { event: event, index: index, active: true }
 
 
 

@@ -606,7 +606,7 @@ $header-height: 90px;
 .header-menu-page-a{
   color: $font-blue-color;
   font-weight: 800;
-  font-size: 2.25rem;
+  font-size: 3rem;
   text-transform: uppercase;
 
   &:hover{
@@ -679,6 +679,19 @@ $header-height: 90px;
   svg{
     width: 2rem;
     height: 2rem;
+    fill: #b3b3b3;
+
+    @include transition-duration(1s);
+    @include transition-property(fill);
+
+
+    g{
+      opacity: 1;
+    }
+
+    &:hover{
+      fill: $orange-color;
+    }
   }
 }
 

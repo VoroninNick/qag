@@ -10,12 +10,12 @@
             span.tip
               |Початок:
             span.value
-              = "#{event.start_date.day}.#{event.start_date.month}.#{event.start_date.year}"
+              = "#{number_to_string_with_zero(event.start_date.day)}.#{number_to_string_with_zero(event.start_date.month)}.#{event.start_date.year}"
           .end-date
             span.tip
               |Завершення:
             span.value
-              = "#{event.end_date.day}.#{event.end_date.month}.#{event.end_date.year}"
+              = "#{number_to_string_with_zero(event.end_date.day)}.#{number_to_string_with_zero(event.end_date.month)}.#{event.end_date.year}"
           .participants-count
             = embedded_svg_from_assets('svg/participant.svg')
             span.count

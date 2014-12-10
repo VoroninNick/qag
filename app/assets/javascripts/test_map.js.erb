@@ -39,7 +39,7 @@ $(document).on('ready', function() {
 
             var mapCenter = new google.maps.LatLng(first_marker.lat,first_marker.lng );
             map = new google.maps.Map($('.map-container').get(0), {
-                scrollwheel: true,
+                scrollwheel: false,
                 zoom: 15,
                 center: mapCenter,
                 //mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -67,7 +67,7 @@ $(document).on('ready', function() {
                 //var $div = jQuery('<div class="home-marker"><div class="marker-tooltip"></div><a href="'+ m.apartment_url +'"><%= ApplicationHelper.self_js_embedded_svg('marker.svg') %></a></div>');
                 var $div = jQuery('<div class="home-marker"><div class="marker-tooltip"></div><a href="#"><img src="<%= asset_path('marker.png')  %>" style="width: 52px; height: 78px;" /></a></div>');
                 var $marker_tooltip = $div.find('.marker-tooltip')
-                $marker_tooltip.append('<a href="#"><div class="address-and-category"><div class="address">'+ m.address+'</div></div></a>')
+                //$marker_tooltip.append('<a href="#"><div class="address-and-category"><div class="address">'+ m.address+'</div></div></a>')
 
                 $div.find('a').on('click', function (event) {
                     //event.preventDefault()

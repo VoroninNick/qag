@@ -98,6 +98,13 @@
   animation-delay:         $value;
 }
 
+@mixin animation-play-state($value){
+  -webkit-animation-play-state: $value;
+  -moz-animation-play-state:    $value;
+  -o-animation-play-state:      $value;
+  animation-play-state:         $value;
+}
+
 // keyframes mixin
 @mixin keyframes($name) {
   @-webkit-keyframes #{$name} {

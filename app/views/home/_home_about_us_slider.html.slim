@@ -10,16 +10,25 @@ sass:
           .slide-row
             height: 100%
             position: relative
+            max-height: 520px
+            top: 50%
+            transform: translateY(-50%)
 
           .name
-            color: white
-            font-size: 6rem
-            font-weight: 900
-            text-transform: uppercase
-            line-height: 0.9
+
             position: absolute
-            top: 10%
-            @include transform( translateY(-10%) )
+            a
+              color: white
+              font-size: 6rem
+              font-weight: 900
+              text-transform: uppercase
+              line-height: 0.9
+              @include transition-property(color)
+              @include transition-duration(0.5s)
+              &:hover
+                color: #0a4f6c
+            //top: 10%
+            //@include transform( translateY(-10%) )
 
           .short-description
             color: white
@@ -27,8 +36,9 @@ sass:
             font-size: 1.2rem
 
             position: absolute
-            top: 50%
-            @include transform( translateY(-50%) )
+            //top: 50%
+            //@include transform( translateY(-50%) )
+            bottom: 0
 
           .social-links
             margin-top: 2rem
@@ -51,6 +61,16 @@ sass:
                   width: 2rem
                   height: 2rem
 
+                  g
+                    opacity: 1
+                    fill: rgba(179,128,0,1)
+                    @include transition-property(fill)
+                    @include transition-duration(0.5s)
+                &:hover
+                  svg
+                    g
+                      fill: #0a4f6c
+
 div#home-about-section.page-section.page-section-number-3.home-about-section
   - if @about_slides.count > 0
 
@@ -64,7 +84,8 @@ div#home-about-section.page-section.page-section-number-3.home-about-section
         li.slide id="home-about-slide-#{index + 1}"
           .slide-row.row
             .name.columns.large-9
-              = slide.name
+              a href="#{about_path(locale: I18n.locale)}"
+                = slide.name
             .short-description.columns.large-7.large-push-5
               = slide.short_description
               - if index == 0

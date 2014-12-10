@@ -12,7 +12,8 @@ div#home-comments-section.page-section.page-section-number-6.home-comments-secti
       - @home_reviews.each_with_index do |comment, index|
         li.user-avatar.columns.large-2 id="user-avatar-#{index + 1}"
           label for="home-user-comment-flag-#{index + 1}"
-            img src=image_or_stub_url(comment.user.avatar, :thumb, 150, 150, "user #{comment.user.id}")
+            .image-wrapper
+              img.grayscale.grayscale-fade src=image_or_stub_url(comment.user.avatar, :thumb, 150, 150, "user #{comment.user.id}")
             span.name
               = comment.user.name
             span.status
@@ -21,7 +22,7 @@ div#home-comments-section.page-section.page-section-number-6.home-comments-secti
   .comments
     ul.row
       - @home_reviews.each_with_index do |comment, index|
-        li.comment.columns.large-10.push-1 id="comment-#{index + 1}"
+        li.comment.columns.large-10.push-1 class="#{'end' if index == @home_reviews.count - 1}" id="comment-#{index + 1}"
           .comment-text
             = comment.comment_text
 

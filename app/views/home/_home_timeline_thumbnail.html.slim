@@ -2,7 +2,7 @@
   label id="event-#{index + 1}-label" class="event-label" for="home-featured-events-timeline-flag-#{index + 1}"
     .date id="event-#{index + 1}-date"
       .day-number id="event-#{index + 1}-date-day-number"
-        = event.start_date.day
+        = number_to_string_with_zero(event.start_date.day)
         /26
       .month id="event-#{index + 1}-date-month-name"
         = t("pages.home.timeline.month-names.month-#{event.start_date.month}")

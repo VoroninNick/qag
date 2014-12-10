@@ -105,5 +105,14 @@ module ApplicationHelper
   # -----------------------------------------------------
   # =====================================================
 
+  def number_to_string_with_zero(number, characters_count = 2 )
+    num_str = number.to_s
+
+    if num_str.length < characters_count
+      num_str = '0'*(characters_count - num_str.length ) + num_str
+    end
+
+    num_str
+  end
 
 end

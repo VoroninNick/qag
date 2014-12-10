@@ -27,6 +27,8 @@ $user-comments-count: 6
 $expired-events-count: 20
 $expired-events-pages-count: $expired-events-count / 5
 
+$button-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3)
+
 
 @include keyframes(input-active-animation)
   0%
@@ -131,7 +133,11 @@ $expired-events-pages-count: $expired-events-count / 5
         cursor: pointer
 
         &:hover
-          background: $orange-color
+          //background: $orange-color
+          &:before
+            background-color: $active-bullet-background
+
+
 
         &:before
           content: ""
@@ -145,6 +151,30 @@ $expired-events-pages-count: $expired-events-count / 5
           height: rem-calc(10)
           //@include transition-duration(6s)
           //@include transition-property(background-color)
+
+      &.home-page-section-bullet-to-6
+        label
+          &:before
+            border-radius: 2px 2px 2px 0
+            width: rem-calc(13)
+            left: 3px
+          &:after
+            position: relative
+            content: ""
+            top: 8px
+            left: 5px
+            width: 0
+            height: 0
+            border-style: solid
+            border-width: 4px 4px 0 0
+            border-color: white transparent transparent transparent
+            line-height: 0px
+            _border-color: white #000000 #000000 #000000
+            _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000')
+
+          &:hover
+            &:after
+              border-top-color: $active-bullet-background
 
 
 
@@ -174,6 +204,8 @@ $expired-events-pages-count: $expired-events-count / 5
             label
               &:before
                 background: $active-bullet-background
+              &:after
+                border-top-color: $active-bullet-background
 
           & ~ .page-section-number-#{$i}
             opacity: 1
@@ -200,6 +232,14 @@ $expired-events-pages-count: $expired-events-count / 5
           label
             &:before
               background: #2981a9
+            &:after
+              border-top-color: #2981a9
+            &:hover
+              &:before
+                background-color: #fdfffe
+              &:after
+                border-top-color: #fdfffe
+
 
 
     &.home-page-section-flag-to-2
@@ -208,13 +248,16 @@ $expired-events-pages-count: $expired-events-count / 5
           label
             &:before
               background: #fdfffe
+            &:after
+              border-top-color: #fdfffe
     &.home-page-section-flag-to-5
       &:checked
         & ~ .home-page-section-bullets ul li#home-page-section-bullet-from-5-to-5
           label
             &:before
               background: #fdfffe
-
+            &:after
+              border-top-color: #fdfffe
 
     $i: 3
 
@@ -224,11 +267,20 @@ $expired-events-pages-count: $expired-events-count / 5
           label
             &:before
               background: #e59d00
+            &:after
+              border-top-color: #e59d00
+            &:hover
+              &:before
+                background-color: white
+              &:after
+                border-top-color: white
 
         & ~ .home-page-section-bullets ul li#home-page-section-bullet-from-#{$i}-to-#{$i}
           label
             &:before
               background: white
+            &:after
+              border-top-color: white
 
 
     &.home-page-section-flag-to-6
@@ -237,11 +289,18 @@ $expired-events-pages-count: $expired-events-count / 5
           label
             &:before
               background: #a8a9ad
+            &:hover
+              &:before
+                background-color: $orange-color
+              &:after
+                border-top-color: $orange-color
 
         & ~ .home-page-section-bullets ul li#home-page-section-bullet-from-6-to-6
           label
             &:before
               background: $orange-color
+            &:after
+              border-top-color: $orange-color
 
 
 
@@ -397,7 +456,7 @@ $expired-events-pages-count: $expired-events-count / 5
       opacity: 0.5
       @include transition-property(opacity)
       @include transition-duration(0.5s)
-
+      z-index: 1
 
       //opacity: 0
 
@@ -406,7 +465,7 @@ $expired-events-pages-count: $expired-events-count / 5
       width: 100%
 
       &:first-child
-        opacity: 1
+        //opacity: 1
       .image-background
         height: 100%
         display: block
@@ -415,17 +474,20 @@ $expired-events-pages-count: $expired-events-count / 5
         img
           opacity: 0
 
-      @for $i from 1 through $main-slider-slides-count
+      //@for $i from 1 through $main-slider-slides-count
         &#slide-#{$i}
           z-index: $i
 
 
   .bullets
-    display: inline-block
+    display: block
     position: absolute
     //bottom: 150px
     bottom: 15%
     z-index: #{$main-slider-slides-count + 2}
+    @include transform(translate3d(-50%,0,0))
+    left: 50%
+    padding: 0
 
     li
       display: inline-block
@@ -441,6 +503,9 @@ $expired-events-pages-count: $expired-events-count / 5
         height: $bullet-height
         border-radius: $bullet-border-radius
         cursor: pointer
+      &:hover
+        label
+          background-color: $active-bullet-background
 
 
 
@@ -450,7 +515,8 @@ $expired-events-pages-count: $expired-events-count / 5
       &:checked
         & ~ .slides
           .slide#slide-#{$i}
-            z-index: #{$main-slider-slides-count + 1}
+            //z-index: #{$main-slider-slides-count + 1}
+            z-index: 2
             opacity: 1
 
 
@@ -463,6 +529,49 @@ $expired-events-pages-count: $expired-events-count / 5
 
 
 
+
+.home-slider-description.description
+  top: 50%
+  position: absolute
+  left: 50%
+  @include transform(translate3d(-50%,-50%,0))
+  color: white
+  font-size: 2rem
+  font-weight: 800
+  text-transform: uppercase
+
+
+@include keyframes(animate-main-banner-arrow)
+  0%
+    bottom: 30px
+  100%
+    bottom: 0
+
+#home-slider-scroll-down-arrow
+  width: 35px
+  height: 72px
+  position: absolute
+  bottom: 30px
+  left: 50%
+  z-index: 5
+  @include transform( translate3d(-50%,0,0) )
+  cursor: pointer
+  svg
+    width: 35px
+    height: 42px
+    position: absolute
+    bottom: 30px
+    @include transform( translate3d(-50%,0,0) )
+    left: 50%
+    z-index: 3
+    fill: $orange-color
+    @include animation-iteration-count(infinite)
+    @include animation-duration(1s)
+    @include animation-name(animate-main-banner-arrow)
+
+  &:hover
+    svg
+      @include animation-play-state(paused)
 
 
 #home-featured-timeline-container
@@ -534,6 +643,7 @@ $expired-events-pages-count: $expired-events-count / 5
                   width: 40px
                   height: 30px
                   margin-right: 5px
+                  fill: $featured-events-timeline-active-event-text-color
                 .count
                   font-size: 1.5rem
                   font-weight: 600
@@ -550,6 +660,12 @@ $expired-events-pages-count: $expired-events-count / 5
             .event-title
               font-size: 2rem
               color: white
+              @include transition-duration(0.5s)
+              @include transition-property(color)
+
+
+              &:hover
+                color: $light-orange-color
             .event-description
               padding-top: 2rem
               font-weight: 300
@@ -576,6 +692,7 @@ $expired-events-pages-count: $expired-events-count / 5
                 text-align: center
                 border-radius: 3px
                 cursor: pointer
+                box-shadow: $button-box-shadow
 
                 svg
                   display: inline-block
@@ -663,6 +780,12 @@ $expired-events-pages-count: $expired-events-count / 5
           line-height: 1
           font-weight: 600
           text-transform: uppercase
+          @include transition-duration(1s)
+          @include transition-property(font color)
+
+      &:hover
+        .date
+          color: $featured-events-timeline-active-event-text-color
 
     .bullet
       display: block
@@ -824,9 +947,9 @@ $expired-events-pages-count: $expired-events-count / 5
     cursor: pointer
 
   .prev
-    left: -30px
+    left: -45px
   .next
-    right: -30px
+    right: -45px
 
 
 
@@ -852,6 +975,7 @@ $expired-events-pages-count: $expired-events-count / 5
   height: rem-calc(33)
   width: rem-calc(22)
   cursor: pointer
+  margin-top: -73px
 
 
 #home-featured-prev-event-arrow
@@ -976,6 +1100,7 @@ $expired-events-pages-count: $expired-events-count / 5
     height: 100%
   .map-wrapper
     height: 100%
+    padding: 0 780px 0 0
 
     .map-container
       height: 100%
@@ -1120,6 +1245,9 @@ $expired-events-pages-count: $expired-events-count / 5
 
             &.field-submit
               margin: 1rem 0 0 0
+              box-shadow: $button-box-shadow
+
+
               input
                 background: white
                 color: $form-input-background
@@ -1127,6 +1255,7 @@ $expired-events-pages-count: $expired-events-count / 5
                 font-size: 1.1rem
                 font-weight: 900
                 text-transform: uppercase
+                cursor: pointer
 
           input[type=text] + .input-bg
             position: absolute
@@ -1199,6 +1328,26 @@ $expired-events-pages-count: $expired-events-count / 5
           text-align: center
           cursor: pointer
           display: block
+          .image-wrapper
+            //border: #ff9a00 3px solid
+            border-radius: 50%
+            position: relative
+
+
+            &:before
+              position: absolute
+              top: 0
+              bottom: 0
+              left: 0
+              right: 0
+              display: block
+              background: $orange-color
+              z-index: 1
+              content: ""
+              border-radius: 50%
+              opacity: 0.05
+
+
           img
             border-radius: 50%
           .name
@@ -1213,6 +1362,12 @@ $expired-events-pages-count: $expired-events-count / 5
             color: #888
             font-size: 0.8rem
 
+        &:hover
+          label
+            .image-wrapper
+              &:before
+                opacity: 0
+                display: none
 
 
   .comments
@@ -1249,6 +1404,7 @@ $expired-events-pages-count: $expired-events-count / 5
           display: block
           padding: 0 30px 3rem 75px
           z-index: 1
+          font-style: italic
 
 
           
@@ -1258,12 +1414,21 @@ $expired-events-pages-count: $expired-events-count / 5
       ul
         li.user-avatar#user-avatar-#{$i}
           label
-            img
+            .image-wrapper
               border: $orange-color 3px solid
+
+              &:before
+                opacity: 0
+                @include transform(translate3d(0, -100%, 0))
+            img
+              //border: $orange-color 3px solid
+              -webkit-filter: none
+              filter: none
             .name
               color: #2581a8
             .status
               color: $orange-color
+
     & ~ .comments
       ul
         li.comment#comment-#{$i}

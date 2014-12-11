@@ -376,7 +376,7 @@ select:-webkit-autofill {
       height: 2.5rem;
 
       .clock-arrow, .clock-round, .clock-fire {
-        fill: #ff594a;
+        fill: $light-red-background-color;
       }
 
 
@@ -387,7 +387,7 @@ select:-webkit-autofill {
       text-transform: uppercase;
       font-size: 1.3rem;
       font-weight: 700;
-      color: #ff594a;
+      color: $light-red-background-color;
     }
   }
 }

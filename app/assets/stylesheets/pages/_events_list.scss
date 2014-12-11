@@ -367,8 +367,11 @@ $events-list-dropdown-tags-count: 13;
   list-style: none;
   margin: 0;
   padding: 0;
-  transition: transform 0.5s;
-  transition-delay: 50ms;
+  //transition: transform 0.5s;
+  //transition-delay: 50ms;
+  @include transition-property(transform);
+  @include transition-duration(0.5s);
+  @include transition-delay(100ms);
 
   @include transform(translate3d(0, -100%, 0));
 }
@@ -460,7 +463,7 @@ $events-list-dropdown-tags-count: 13;
   }
 
   &:hover{
-    background-color: #ff594a;
+    background-color: $light-red-background-color;
 
     .description{
       transform: translateY(0%);
@@ -594,7 +597,7 @@ $events-list-dropdown-tags-count: 13;
     text-transform: uppercase;
     font-size: 1.3rem;
     font-weight: 700;
-    color: #ff594a;
+    color: $light-red-background-color;
     height: 3.75rem;
     //display: inline-block;
     display: none;
@@ -647,7 +650,7 @@ $events-list-dropdown-tags-count: 13;
           height: 2.5rem;
 
           .clock-arrow, .clock-round, .clock-fire {
-            fill: #ff594a;
+            fill: $light-red-background-color;
           }
 
 
@@ -658,7 +661,7 @@ $events-list-dropdown-tags-count: 13;
           text-transform: uppercase;
           font-size: 1.3rem;
           font-weight: 700;
-          color: #ff594a;
+          color: $light-red-background-color;
         }
       }
 
@@ -781,7 +784,7 @@ $events-list-dropdown-tags-count: 13;
   }
 
   .events-list-event-back{
-    background: #ff594a;
+    background: $light-red-background-color;
     //opacity: 0;
     transition-property: transform;
     transition-duration: 1s;

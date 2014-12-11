@@ -165,6 +165,15 @@ $header-height: 90px;
       background-color: #2facda;
     }
   }
+
+  &:hover{
+    &{
+      border-top-color: $light-red-background-color;
+    }
+    &:before, &:after{
+      background-color: $light-red-background-color;
+    }
+  }
 }
 
 #header-menu-button-label{
@@ -995,7 +1004,7 @@ $header-height: 90px;
     }
 
     a {
-      background: #ff594a;
+      background: $light-red-background-color;
       color: white;
     }
   }

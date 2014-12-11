@@ -541,6 +541,8 @@ $button-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3)
   text-transform: uppercase
 
 
+
+
 .owl-nav-arrow, .nav-arrow
   svg
     path
@@ -694,11 +696,12 @@ $button-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3)
 
 
             .register-button
-              .register-button-a
+              .register-button-a, .register-button-span
                 height: 3.75rem
                 display: inline-block
                 background: $registration-button-background
-                width: 100%
+                //width: 100%
+                width: 300px
                 text-align: center
                 border-radius: 3px
                 cursor: pointer
@@ -721,6 +724,14 @@ $button-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3)
                   font-size: 1.3rem
                   font-weight: 700
                   color: white
+
+              &.registration-disabled, &.event-expired
+                .register-button-span
+                  background-color: $registration-disabled-button-background
+                  line-height: 3.75rem
+                  cursor: default
+                  .registration-text
+                    color: $registration-disabled-button-text-color
 
 
 
@@ -1266,6 +1277,14 @@ $button-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3)
                 font-weight: 900
                 text-transform: uppercase
                 cursor: pointer
+                @include transition-duration(0.5s)
+                @include transition-property(all)
+
+
+              &:hover
+                input
+                  background-color: $light-orange-color
+                  color: white
 
           input[type=text] + .input-bg
             position: absolute
@@ -1443,3 +1462,32 @@ $button-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3)
       ul
         li.comment#comment-#{$i}
           display: block
+
+
+#home-footer-wrap
+  position: absolute
+  bottom: 30px
+  width: 100%
+#footer-copyright-and-developed-by
+  position: relative
+
+  #footer-developed-by-inner
+    position: relative
+  #footer-copyright-inner
+    position: relative
+    text-align: right
+#home-footer
+  p
+    color: #888
+  #footer-copyright
+    color: #888
+    margin: 0
+    line-height: 47px
+
+
+#body[data-home-page-current-section="6"]
+
+  #header-menu-button-label
+    border-top-color: #2F8FB9
+    &:before, &:after
+      background-color: #2F8FB9

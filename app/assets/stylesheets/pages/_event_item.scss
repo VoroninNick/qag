@@ -129,12 +129,12 @@
       cursor: default;
     }
 
-    &.registration-disabled{
+    &.registration-disabled, &.event-expired{
       .register-button-span{
-        background-color: #86c7e7;
+        background-color: $registration-disabled-button-background;
 
         .registration-text{
-          color: #2781a4;
+          color: $registration-disabled-button-text-color;
         }
       }
     }

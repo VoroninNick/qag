@@ -124,7 +124,7 @@ $header-height: 90px;
   position: absolute;
 
   padding: 0;
-  @include transition(background-color 1s);
+  @include transition(border-top-color 1s);
 
   //@include transition-property(all);
   //@include transition-duration(0.3s);

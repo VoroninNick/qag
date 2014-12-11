@@ -6,11 +6,11 @@ input data-to="1"  type="radio" class="home-page-section-flag flag initial" name
     input type="radio" data-from="#{i}" data-to="#{j}" class="flag home-page-section-flag home-page-section-flag-from-#{i} home-page-section-flag-to-#{j}" name="home-page-section-flag"  id="home-page-section-flag-from-#{i}-to-#{j}"
 
 .home-page-section-bullets
-  ul
+  ul#home-page-section-bullets-ul
     - for i in 1..home_sections_count
       - for j in 1..home_sections_count
         /- if i != j
-        li class="home-page-section-bullet home-page-section-bullet-from-#{i} home-page-section-bullet-to-#{j}" id="home-page-section-bullet-from-#{i}-to-#{j}"
+        li data-from="#{i}" data-to="#{j}" class="home-page-section-bullet home-page-section-bullet-from-#{i} home-page-section-bullet-to-#{j}" id="home-page-section-bullet-from-#{i}-to-#{j}"
           label for="home-page-section-flag-from-#{i}-to-#{j}"
 
 
@@ -38,3 +38,4 @@ input data-to="1"  type="radio" class="home-page-section-flag flag initial" name
 
 
 = render partial: 'home/home_user_feedbacks'
+

@@ -123,7 +123,7 @@ class Event < ActiveRecord::Base
       self.slug = self.name.parameterize if !self.slug || self.slug == ''
       self.slug = self.slug.parameterize.underscore
 
-      self.participants_count = allowed_subscriptions_count
+      #self.participants_count = allowed_subscriptions_count
     end
 
     # def published=(value)
@@ -150,9 +150,46 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def self.fix_slug
+    values = {}
+    field = :slug
+
+    self.all.each do |obj|
+
+      I18n.available_locales.each do |locale|
+        if !values.keys.include?(locale.to_sym)
+          values[locale.to_sym] = []
+        end
+        values_for_locale = values[locale.to_sym]
+        same_values = values_for_locale.select.with_index{|v,i| if v[:value] == obj.translations_by_locale[locale.to_sym].send(field.to_s) then  c = v[:count]; v[:count] = c + 1; t = obj.translations_by_locale[locale.to_sym]; t.send("#{field.to_s}=", "#{v[:value]}-#{v[:count]}"); t.save; end }
+        if same_values.count == 0
+          values_for_locale.push( value: obj.translations_by_locale[locale.to_sym].send(field.to_s), count: 1 )
+
+        else
+
+        end
+      end
+    end
+  end
+
+
+  before_save do
+    self.participants_count = allowed_subscriptions_count
+  end
+
+  validates_with UniqueSlugValidator
+
   rails_admin do
     weight -2
     navigation_label "Events"
+
+    [:start_date, :end_date].each do |f|
+      configure f, :date do
+        #date_format "%d.%m.%Y"
+        strftime_format "%d.%m.%Y"
+        #js_plugin_options[:dateFormat] = "dd.mm.yy"
+      end
+    end
 
     list do
       field :id
@@ -183,7 +220,7 @@ class Event < ActiveRecord::Base
 
 
 
-      field :start_date, :datetime
+      field :start_date
       field :end_date
 
       group :days do

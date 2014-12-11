@@ -630,7 +630,7 @@ $events-list-dropdown-tags-count: 13;
 
     .register-button {
 
-      .register-button-a {
+      .register-button-a, .register-button-span {
         height: 3.75rem;
         display: inline-block;
         background: white;
@@ -659,6 +659,17 @@ $events-list-dropdown-tags-count: 13;
           font-size: 1.3rem;
           font-weight: 700;
           color: #ff594a;
+        }
+      }
+
+      &.registration-disabled{
+        .register-button-span {
+          background-color: $registration-disabled-button-background;
+          line-height:3.75rem;
+          cursor:default;
+          .registration-text{
+            color:$registration-disabled-button-text-color;
+          }
         }
       }
     }

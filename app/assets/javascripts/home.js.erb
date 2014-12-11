@@ -47,6 +47,7 @@ var initialize = function() {
 
          $checked_flag.prop('checked', false)
          $new_flag.prop('checked', true)
+         $body.attr('data-home-page-current-section', 2)
      })
  }
 
@@ -112,6 +113,7 @@ var initialize = function() {
                     //$next_flag.attr('checked', 'checked')
                     $checked_flag.prop('checked', false)
                     $next_flag.prop('checked', true)
+                    $body.attr('data-home-page-current-section', next_number)
 
 
                 }
@@ -121,6 +123,12 @@ var initialize = function() {
             else
                 counter++
         });
+
+        $('#home-page-section-bullets-ul').on('click', 'li', function(){
+            var $this = $(this)
+            var to = + $this.attr('data-to')
+            $body.attr('data-home-page-current-section', to)
+        })
 
     })
 

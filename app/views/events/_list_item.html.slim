@@ -31,7 +31,7 @@
           / slide.name
           .event-description
             = event.short_description
-          - if Date.today <= event.end_date
+          - if event.up_to_date?
             .hover-event-date-range-and-participants
               .hover-event-start-date
                 = "#{number_to_string_with_zero(event.start_date.day)}.#{number_to_string_with_zero(event.start_date.month)}.#{event.start_date.year}"
@@ -40,12 +40,17 @@
               .hover-event-participants
                 = t('pages.events-list.event-template.hover.participants-count', participants_count: event.participants_count)
             .event-link-and-register-button
-              .register-button.columns.large-4.large-centered class=( "decline" if subscribed_on_event?(event.id) )
-                a.register-button-a href=( subscribed_on_event?(event.id) ? event_unsubscription_form_path(locale: I18n.locale, event_id: event.id) : new_event_subscription_path(locale: I18n.locale, event_id: event.id)  )
-                  = embedded_svg_from_assets('svg/registration.svg')
-                  span.registration-text
-                  span.registration-text
-                    = t("layout.buttons.#{ "un" if subscribed_on_event?(event.id) }register")
+              - if event.enabled_registration?
+                .register-button.registration-enabled.columns.large-4.large-centered class=( "decline" if subscribed_on_event?(event.id) )
+                  a.register-button-a href=( subscribed_on_event?(event.id) ? event_unsubscription_form_path(locale: I18n.locale, event_id: event.id) : new_event_subscription_path(locale: I18n.locale, event_id: event.id)  )
+                    = embedded_svg_from_assets('svg/registration.svg')
+                    span.registration-text
+                      = t("layout.buttons.#{ "un" if subscribed_on_event?(event.id) }register")
+              - else
+                .register-button.registration-disabled.columns.large-4.large-centered class=( "decline" if subscribed_on_event?(event.id) )
+                  span.register-button-span
+                    span.registration-text
+                      = "Реєстрацію завершено"
 
           - else
             .hover-expired-event-images

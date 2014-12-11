@@ -49,16 +49,16 @@ div#home-contact-section.page-section.page-section-number-5.home-contact-section
             .contact-form
               form id="home-contact-form-section-form" method="post" action=create_message_path(locale: I18n.locale)
                 .field.field-name
-                  input type="text" placeholder="Ім'я*" name="message[name]" aria-required="true" required="required"
+                  input type="text" placeholder="Ім'я*" name="message[name]" id="message_name" aria-required="true" required="required"
                   .input-bg
                 .field.field-phone
-                  input type="text" placeholder="+38 (XXX) XXX XX XX*" name="message[phone]" aria-required="true" required="required"
+                  input type="text" placeholder="+38 (XXX) XXX XX XX*" id="message_phone" name="message[phone]" aria-required="true" required="required"
                   .input-bg
                 .field.field-email
-                  input type="text" placeholder="Електронна скринька*" name="message[email]" aria-required="true" required="required"
+                  input type="text" placeholder="Електронна скринька*" id="message_email" name="message[email]" aria-required="true" required="required"
                   .input-bg
                 .field.field-message
-                  textarea placeholder="Текст повідомлення*" name="message[text]" aria-required="true" required="required"
+                  textarea placeholder="Текст повідомлення*" id="message_text" name="message[text]" aria-required="true" required="required"
 
                 .field.field-submit
                   input type="submit" name="home-form-submit" value="Надіслати" 

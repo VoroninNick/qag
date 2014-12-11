@@ -289,7 +289,8 @@
                         input.val("");
                         var $wrap = input.closest('div')
                         $wrap.addClass('empty')
-                        var data_validate_options = $wrap.attr('data-validate').split(' ')
+                        var data_validate_options_str = $wrap.attr('data-validate') || ''
+                        var data_validate_options = data_validate_options_str.split(' ')
                         if(data_validate_options.indexOf('required') >= 0){
                             $wrap.removeClass('valid').addClass('invalid')
                         }

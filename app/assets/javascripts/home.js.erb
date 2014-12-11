@@ -130,6 +130,10 @@ var initialize = function() {
             $body.attr('data-home-page-current-section', to)
         })
 
+
+        var $contact_form = $('#home-contact-form-section-form')
+        var $phone_field = $contact_form.find('#message_phone')
+        $phone_field.mask("+99 (999) 999 99 99")
     })
 
 

@@ -1,4 +1,5 @@
 - if @prev_events.count > 0 || @future_events.count > 0
+  - will_active_event = ( @future_events.count > 0 ? @future_events.first : ( @prev_events.last  )  )
   - @pure_css = false
   div#home-featured-events-section.page-section.page-section-number-2.home-featured-events-section
     - if @pure_css
@@ -28,7 +29,7 @@
         ul#home-featured-event-info-slides-row-ul.events-collection data-future-events-count="#{@future_events.count}" data-prev-events-count="#{@prev_events.count}"
           /- @featured_events.each_with_index do |event, index|
 
-          - event = @future_events.count > 0 ?  ( @future_events.first ) : ( @prev_events.last )
+          - event = will_active_event
           - index = @featured_events_active_event_index
           = render partial: 'home/home_timeline_event_info', locals: { event: event, index: index }
 
@@ -72,4 +73,4 @@
           - [@prev_events, @future_events].each_with_index do |event_collection, event_collection_index|
             - event_collection.each_with_index do |event, event_index|
               - total_index += 1
-              = render partial: "home/home_timeline_thumbnail", locals: { event: event, active: ( @future_events.count > 0 ? (event_collection_index == 1 && event_index == 0) : ( event_collection_index == 0 && event_index == @prev_events.count - 1  )  ), index: index, loaded: (event_collection_index == 1 && event_index == 0 ), prev: event_collection_index == 0, future: event_collection_index == 1, carousel_event_index: (event_collection_index == 0)? (index - @featured_events_active_event_index ) : (index - @featured_events_active_event_index + 1 ), total_index: 0  }
+              = render partial: "home/home_timeline_thumbnail", locals: { event: event, active: event.id == will_active_event.id, index: index, loaded: event.id == will_active_event.id, prev: event_collection_index == 0, future: event_collection_index == 1, carousel_event_index: (event_collection_index == 0)? (index - @featured_events_active_event_index ) : (index - @featured_events_active_event_index + 1 ), total_index: 0  }

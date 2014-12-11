@@ -20,6 +20,8 @@ registration_event_id = false
 
 delay_before_remove_popup = 2000
 
+addProgressClassToButtonOnSubmit = false
+
 submitButtonProgressClass = 'progress-bar-moving-bg'
 
 sendMePasswordSubmitButtonClass = 'send-me-password-submit-button'
@@ -338,7 +340,9 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
 
                 if (valid_form) {
 
-                    $submit_button.addClass(submitButtonProgressClass);
+                    if(addProgressClassToButtonOnSubmit) {
+                        $submit_button.addClass(submitButtonProgressClass);
+                    }
 
                     $.ajax({
                         url: url,
@@ -347,8 +351,9 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                         dataType: 'json',
                         complete: function (jqXHR, textStatus) {
                             //console.log('this:', $this)
-
-                            $submit_button.removeClass(submitButtonProgressClass)
+                            if(addProgressClassToButtonOnSubmit) {
+                                $submit_button.removeClass(submitButtonProgressClass)
+                            }
                             var response_text = jqXHR.responseText
                             //console.log('before parse json. response_text: ')
                             var data = {}, $html_source

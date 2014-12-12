@@ -2,6 +2,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 # before_filter :configure_sign_up_params, only: [:create]
 # before_filter :configure_account_update_params, only: [:update]
 
+  #before_filter :configure_permitted_parameters
+
 
 
 
@@ -102,8 +104,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  # GET /resource/edit
-  def edit
+  def generate_dashboard_data
     @breadcrumbs = {
         home: {},
         dashboard: {
@@ -113,6 +114,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
             }
         }
     }
+  end
+
+  # GET /resource/edit
+  def edit
+    generate_dashboard_data
 
     super
 
@@ -144,9 +150,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    generate_dashboard_data
+    devise_parameter_sanitizer.for(:account_update).push(:first_name, :last_name, :contact_phone, :city, :company, :status)
+
+    #permit :first_name, :last_name, :contact_phone, :city, :company, :status
+
+    super
+  end
 
   # DELETE /resource
   # def destroy
@@ -183,4 +194,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  def configure_permitted_parameters
+    #devise_parameter_sanitizer.for(:sign_up).push(:first_name, :last_name, :contact_phone, :city, :company, :status)
+    #devise_parameter_sanitizer.push(:first_name, :last_name, :contact_phone, :city, :company, :status)
+
+  end
 end

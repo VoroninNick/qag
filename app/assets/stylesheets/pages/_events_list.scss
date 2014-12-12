@@ -250,7 +250,8 @@ $events-list-dropdown-tags-count: 13;
 
     @include transform( rotate(135deg) );
 
-    transition: transform 0.5s;
+    @include transition-duration( 0.5s );
+    @include transition-property( transform );
   }
 
 

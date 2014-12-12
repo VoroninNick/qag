@@ -143,9 +143,9 @@ $header-height: 90px;
     z-index: -1;
 
     //@include transition-property(width background-color);
-    transition-property: all, background;
+    @include transition-property(all, background);
     //@include transition-duration(0.3s, 3s );
-    transition-duration: 0.3s, 1s;
+    @include transition-duration( 0.3s, 1s );
     //transition-duration: 0.3s;
   }
 

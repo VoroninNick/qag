@@ -152,7 +152,7 @@
       cursor: pointer;
       position: absolute;
       @include transition-duration(2s);
-      @include transition-property(opacity);
+      @include transition-property(color, opacity, transform);//transform
       //opacity: 0;
 
       &:after {

@@ -49,10 +49,11 @@ $('#dashboard-content form.simple_form#edit_user').each(function(){
     })
 
     $form.on('focusin focusout click contentChanged change bufferWrited', ['input', '.js-trigger'].join(','), function(event){
-        event.preventDefault()
+
         var $this = $(this)
         var $form = $this.closest('form')
         if(event.type == 'focusin'){
+            event.preventDefault()
             if($this.get(0).tagName.toLowerCase() == 'input' ){
                 var $input = $this
                 var $input_wrap = $input.closest('div.input')
@@ -61,6 +62,7 @@ $('#dashboard-content form.simple_form#edit_user').each(function(){
         }
 
         else if(event.type == 'focusout'){
+            event.preventDefault()
             if($this.get(0).tagName.toLowerCase() == 'input' ){
                 var $input = $this
                 var $input_wrap = $input.closest('div.input')
@@ -70,6 +72,7 @@ $('#dashboard-content form.simple_form#edit_user').each(function(){
 
         else if(event.type == 'click'){
             if($this.hasClass('js-trigger')){
+                event.preventDefault()
                 var $js_trigger = $this
                 if($js_trigger.hasClass(modeClass)){
                     if($form.hasClass(modeViewClass)){
@@ -85,11 +88,30 @@ $('#dashboard-content form.simple_form#edit_user').each(function(){
                     $input.save_field()
                 }
                 else if($js_trigger.hasClass('cancel-changes')){
-                    $form.removeClass(modeEditClass).addClass(modeViewClass)
+
+                    var $unsaved_input_wrappers = $form.find('.input.'+not_saved_valid_changes_class)
+                    var do_cancel = $unsaved_input_wrappers.length == 0 || confirm('Зміни будуть втрачені')
+                    if(do_cancel ){
+                        $form.removeClass(modeEditClass).addClass(modeViewClass)
+                        $unsaved_input_wrappers.each(function(){
+                            var $input_wrapper = $(this)
+                            var $input = $input_wrapper.find('input')
+                            var saves_count = $input_wrapper.data('saves_count')
+                            var initial_value = $input_wrapper.data('initial_value')
+                            if(saves_count == 0){
+                                $input.val(initial_value)
+                            }
+                            else{
+                                var last_valid_saved_value = $input_wrapper.data('last-valid-saved-value')
+                                $input.val(last_valid_saved_value)
+                            }
+                        })
+                    }
                 }
             }
         }
         else if(event.type == 'contentChanged'){
+            event.preventDefault()
             //alert('contentChanged')
             var $input = $(this)
             var $input_wrapper = $input.parent()
@@ -177,7 +199,8 @@ $('#dashboard-content form.simple_form#edit_user').each(function(){
             //}
         }
         else if(event.type == 'change'){
-            alert('hello')
+            //alert('hello')
+
         }
         else if(event.type == 'bufferWrited'){
             //alert('bufferWrited')

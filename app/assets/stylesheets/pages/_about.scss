@@ -251,11 +251,14 @@
 
   //@include transition( all 1s );
   @include transition-duration(1s);
-  -webkit-transition-property: -webkit-transform;
-  -ms-transition-property: -ms-transform;
-  -moz-transition-property: -moz-transform;
-  -o-transition-property: -o-transform;
-  transition-property: transform;
+  @include transition-property(transform);
+//  -webkit-transition-property: -webkit-transform;
+//  -ms-transition-property: -ms-transform;
+//  -moz-transition-property: -moz-transform;
+//  -o-transition-property: -o-transform;
+//  transition-property: transform;
+
+
 
 }
 

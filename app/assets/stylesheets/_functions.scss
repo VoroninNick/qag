@@ -1,9 +1,9 @@
-@mixin vendor-prefix($name, $argument) {
-  -webkit-#{$name}: #{$argument};
-  -ms-#{$name}: #{$argument};
-  -moz-#{$name}: #{$argument};
-  -o-#{$name}: #{$argument};
-  #{$name}: #{$argument};
+@mixin vendor-prefix($name, $arguments...) {
+  -webkit-#{$name}: #{$arguments};
+  -ms-#{$name}: #{$arguments};
+  -moz-#{$name}: #{$arguments};
+  -o-#{$name}: #{$arguments};
+  #{$name}: #{$arguments};
 }
 
 @mixin transform-style($value){
@@ -18,16 +18,67 @@
   @include vendor-prefix(transition, $value)
 }
 
-@mixin transition-duration($value){
-  @include vendor-prefix(transition-duration, $value)
+@mixin transition-duration($values...){
+  @include vendor-prefix(transition-duration, $values)
 }
 
 @mixin transition-delay($value){
   @include vendor-prefix(transition-delay, $value)
 }
 
-@mixin transition-property($value){
-  @include vendor-prefix(transition-property, $value)
+@mixin transition-property($values...){
+  //@include vendor-prefix(transition-property, $value)
+
+  //$properties_vendor-prefixes: ( () );
+  $res_values: ();
+  $vendored_values: ();
+  $need_vendor: false;
+  @if index($values, transform) {
+    $need_vendor: true;
+  }
+  $webkit_values: ();
+  $o_values: ();
+  $moz_values: ();
+  $ms_values: ();
+  $non_vendor_values: ();
+  @if($need_vendor != false) {
+    @each $value in $values {
+      @if($value == transform){
+//        @if( append($webkit_values, $value)){
+//
+//        }
+
+        $webkit_values: append($webkit_values,-webkit-#{$value});
+        $webkit_values: append($webkit_values, #{$value});
+
+        $o_values: append($o_values, -o-#{$value});
+        $o_values: append($o_values, #{$value});
+
+        $moz_values: append($moz_values, -moz-#{$value});
+        $moz_values: append($moz_values, #{$value});
+
+        $ms_values: append($ms_values, -ms-#{$value});
+        $ms_values: append($ms_values, #{$value});
+
+        $non_vendor_values: append($non_vendor_values, #{$value});
+      }
+      @else{
+        $webkit_values: append($webkit_values, $value);
+        $moz_values: append($moz_values, $value);
+        $o_values: append($o_values, $value);
+        $ms_values: append($ms_values, $value);
+        $non_vendor_values: append($non_vendor_values, $value);
+      }
+    }
+    -webkit-transition-property: zip($webkit_values);
+    -moz-transition-property: zip($moz_values);
+    -o-transition-property: zip($o_values);
+    -ms-transition-property: zip($ms_values);
+    transition-property: zip($non_vendor_values);
+  }
+  @else{
+    @include vendor-prefix(transition-property, $values)
+  }
 }
 
 @mixin transition-timing-function($value){
@@ -179,3 +230,4 @@
 
   @include transform(-#{$percent-value})
 }
+

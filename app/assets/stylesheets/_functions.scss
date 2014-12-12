@@ -1,11 +1,3 @@
-@mixin vertical-align($percent-value: 50%) {
-  position: relative;
-  top: $percent-value;
-  -webkit-transform: translateY(-#{$percent-value});
-  -ms-transform: translateY(-#{$percent-value});
-  transform: translateY(-#{$percent-value});
-}
-
 @mixin vendor-prefix($name, $argument) {
   -webkit-#{$name}: #{$argument};
   -ms-#{$name}: #{$argument};
@@ -179,3 +171,11 @@
 //    @content
 //  );
 //}
+
+@mixin vertical-align($percent-value: 50%) {
+  position: relative;
+  top: $percent-value;
+
+
+  @include transform(-#{$percent-value})
+}

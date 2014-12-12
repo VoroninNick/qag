@@ -232,7 +232,7 @@ $events-list-dropdown-tags-count: 13;
     width: 100%;
     display: block;
     top: 50%;
-    transform: translateY(-50%);
+    @include transform( translateY(-50%));
     line-height: 22px;
   }
 
@@ -426,14 +426,14 @@ $events-list-dropdown-tags-count: 13;
 
 @include keyframes(slideup-description){
   0%{
-    transform: translateY(100%);
+    @include transform( translateY(100%) );
   }
 }
 
 
 @include keyframes(rotateup-back){
   0%{
-    transform: rotateX(90deg) translateY(10%);
+    @include transform( rotateX(90deg) translateY(10%) );
   }
 }
 
@@ -466,7 +466,7 @@ $events-list-dropdown-tags-count: 13;
     background-color: $light-red-background-color;
 
     .description{
-      transform: translateY(0%);
+      @include transform(translateY(0%));
 
       @include animation-duration(0.5s);
       @include animation-name(slideup-description);
@@ -816,7 +816,7 @@ $events-list-dropdown-tags-count: 13;
   .event-front-row, .event-back-row{
     position: relative;
     top: 50%;
-    transform: translateY(-50%);
+    @include transform( translateY(-50%) );
   }
 
   &:hover{
@@ -922,6 +922,23 @@ $events-list-dropdown-tags-count: 13;
   &:hover{
     .description{
       padding-bottom: 0 !important;
+    }
+  }
+}
+
+
+#html.controller-events.action-list{
+  #main{
+    padding-bottom: 214px;
+  }
+}
+
+#devise_event_subscriptions-new-get-form-wrap{
+  .simple_form.form-with-labels.mode-view{
+    .input{
+      input{
+        width: 300px;
+      }
     }
   }
 }

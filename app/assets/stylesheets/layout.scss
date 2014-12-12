@@ -825,7 +825,7 @@ $header-height: 90px;
 }
 
 #footer-developed-by-text{
-  transform: translateY(-50%);
+  @include transform( translateY(-50%) );
   top: 50%;
   position: absolute;
   display: block;
@@ -891,7 +891,7 @@ $header-height: 90px;
     border-width: 1px;
     border-style: solid;
     margin: 0 8px 0 5px;
-    transform: rotate(45deg);
+    @include transform( rotate(45deg) );
   }
 }
 

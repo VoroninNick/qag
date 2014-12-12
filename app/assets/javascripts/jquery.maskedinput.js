@@ -80,7 +80,8 @@
             }
             settings = $.extend({
                 placeholder: $.mask.placeholder, // Load default placeholder
-                completed: null
+                completed: null,
+                valid: null
             }, settings);
 
 
@@ -145,6 +146,7 @@
                         }
                     }
                     writeBuffer();
+                    input.trigger('bufferWrited')
                     input.caret(Math.max(firstNonMaskPos, begin));
                 }
 
@@ -218,6 +220,7 @@
 
                                 buffer[p] = c;
                                 writeBuffer();
+                                input.trigger('bufferWrited')
                                 next = seekNext(p);
 
                                 if(android){
@@ -274,6 +277,7 @@
                     }
                     if (allow) {
                         writeBuffer();
+                        input.trigger('bufferWrited')
                         var $wrap = input.closest('div')
                         $wrap.trigger('field_valid')
                         $wrap.removeClass('empty')
@@ -301,6 +305,7 @@
 
                     } else {
                         writeBuffer();
+                        input.trigger('bufferWrited')
                         input.val(input.val().substring(0, lastMatch + 1));
                         var $wrap = input.closest('div')
                         //$wrap.trigger('field_valid')
@@ -335,6 +340,7 @@
 
                             caretTimeoutId = setTimeout(function(){
                                 writeBuffer();
+                                input.trigger('bufferWrited')
                                 if (pos == mask.length) {
                                     input.caret(0, pos);
                                 } else {

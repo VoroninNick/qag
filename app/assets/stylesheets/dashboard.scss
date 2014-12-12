@@ -89,6 +89,22 @@
 
 }
 
+@include keyframes(hide-save-field-button-animation){
+  0%{
+    //display: inline-block;
+    //background: red;
+    //width: 50px;
+    //height: 40px;
+  }
+  100%{
+    //display: inline-block;
+    //background: green;
+    //width: 50px;
+    //height: 40px;
+  }
+
+}
+
 #dashboard-profile-column, .simple_form.form-with-labels {
   .input {
     //border-bottom: 1px solid;
@@ -124,6 +140,42 @@
       }
     }
 
+    .save-field-button {
+      display: none;
+      //height: 0;
+      //width: 0;
+      //overflow: hidden;
+      width: 50px;
+      height: 40px;
+      background: $registration-button-background;
+      margin: 0 0 0 10px;
+      cursor: pointer;
+      position: absolute;
+      @include transition-duration(2s);
+      @include transition-property(opacity);
+      //opacity: 0;
+
+      &:after {
+        content: "";
+        width: 14px;
+        height: 25px;
+
+        border-bottom: 2px solid white;
+        border-right: 2px solid white;
+        display: block;
+        @include transform( translate3d(-50%, -50%, 0) rotate(45deg) );
+        top: 39%;
+        left: 50%;
+        position: relative;
+      }
+
+      &.hide{
+        //display: none;
+      }
+    }
+
+
+
     &.focus {
       label {
         //display: none;
@@ -134,27 +186,33 @@
         //line-height: 40px;
       }
 
-      .save-field-button {
-        display: inline-block;
-        width: 50px;
-        height: 40px;
-        background: $registration-button-background;
-        margin: 0 0 0 10px;
-        cursor: pointer;
+      .save-field-button{
+        @include animation-name(hide-save-field-button-animation);
+        @include animation-duration(2s);
+        opacity: 1;
+        @include animation-play-state(paused);
 
-        &:after {
-          content: "";
-          width: 14px;
-          height: 25px;
+      }
+    }
 
-          border-bottom: 2px solid white;
-          border-right: 2px solid white;
-          display: block;
-          transform: translate3d(-50%, -50%, 0) rotate(45deg);
-          top: 39%;
-          left: 50%;
-          position: relative;
-        }
+    &.error{
+      height: 50px;
+      &:after{
+        display: block;
+        color: red;
+        font-size: 0.8rem;
+      }
+
+      &.invalid{
+        content: attr(data-error-invalid);
+      }
+
+      &.empty{
+        content: attr(data-error-empty);
+      }
+
+      &.data-error-taken{
+        content: attr(data-error-taken);
       }
     }
   }
@@ -181,11 +239,19 @@
       .button.devise-submit-button.orange-bg{
         display: none;
       }
+
+      .input{
+        &.not-saved-valid-changes{
+          .save-field-button{
+            display: inline-block;
+          }
+        }
+      }
     }
 
     &.mode-edit, &:not(.mode-view){
       .js-trigger.mode{
-        display: none;
+        display: none !important;
       }
 
       .input{
@@ -196,10 +262,24 @@
         input{
           border: 1px #e9e9e9 solid;
           width: 100%;
-          max-width: 462px;
+          max-width: 500px;
           line-height: 40px;
 
         }
+      }
+
+      .change-password-link{
+        display: none !important;
+      }
+    }
+
+    &.mode-edit{
+      .js-trigger.cancel-changes{
+        display: inline-block;
+      }
+      .devise-submit-button{
+        max-width: 410px;
+        vertical-align: top;
       }
     }
 
@@ -210,7 +290,7 @@
         display: inline-block;
         float: none;
         width: 200px;
-        text-align: center;
+        text-align: left;
         vertical-align: top;
         line-height: 50px;
       }
@@ -218,7 +298,7 @@
       .js-trigger.mode{
         display: inline-block;
         width: 262px;
-        text-align: center;
+        text-align: left;
         height: 50px;
         vertical-align: top;
         line-height: 50px;
@@ -235,3 +315,45 @@
   text-transform: uppercase;
 }
 
+#dashboard-profile-column{
+  .simple_form.form-with-labels{
+    max-width: 500px;
+
+    .input{
+      input{
+        width: 300px;
+      }
+    }
+  }
+}
+
+.js-trigger.cancel-changes{
+  width: 90px;
+  height: 60px;
+  display: none;
+  position: relative;
+
+  &:before{
+    content: "";
+    border-top: 3px solid #b3b3b3;
+    border-left: 3px solid #b3b3b3;
+    width: 20px;
+    height: 2px;
+    display: block;
+    position: absolute;
+    top: 29px;
+    left: 35px;
+  }
+  &:after{
+    content: "";
+    border-top: 3px solid #b3b3b3;
+    border-left: 3px solid #b3b3b3;
+    width: 20px;
+    height: 20px;
+    display: block;
+    position: absolute;
+    @include transform( rotate(-45deg) );
+    top: 20px;
+    left: 35px;
+  }
+}

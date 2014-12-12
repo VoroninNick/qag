@@ -119,6 +119,30 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   end
 
+  def update_attribute
+    rendered = false
+    if user_signed_in?
+      u = current_user
+      params_attribute_name = params[:attribute]
+      canSet = u.respond_to?("#{params_attribute_name}=")
+      params_value = params[:value]
+      if canSet && params_value
+        u.send("#{params_attribute_name}=", params_value)
+        saved = u.save
+        if saved
+          rendered = true
+          render inline: { saved: true }.to_json
+        else
+          if !rendered
+            rendered = true
+            render inline: { error: 'not_saved' }
+          end
+        end
+      end
+    end
+    render inline: { error: 'unregistered' } if !rendered
+  end
+
   # PUT /resource
   # def update
   #   super

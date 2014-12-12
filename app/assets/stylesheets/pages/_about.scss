@@ -241,7 +241,7 @@
   right: 0;
   text-align: center;
   display: block;
-  transform: translate3d(0, -100%, 0);
+  @include transform( translate3d(0, -100%, 0) );
   background: white;
 
   border-radius: 50%;
@@ -264,7 +264,7 @@
   display: block;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  @include transform( translate(-50%, -50%) );
   width: 100%;
 }
 

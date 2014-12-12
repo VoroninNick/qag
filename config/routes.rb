@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   scope "(:locale)", locale: /[a-zA-Z]{2}/ do
 
+
+
     get 'home/future_events_thumbnails', to: 'home#future_events_thumbnails'
     get 'home/prev_events_thumbnails', to: 'home#prev_events_thumbnails'
 
@@ -53,7 +55,8 @@ Rails.application.routes.draw do
         # settings & cancellation
         get '/cancel'   => 'users/registrations#cancel', as: 'cancel_user_registration'
         get '/settings' => 'users/registrations#edit',   as: 'edit_user_registration', defaults: { route_name: 'edit_user_registration' }
-        put '/settings' => 'users/registrations#update'
+        put '/settings' => 'users/registrations#update', as: 'update_user_registration'
+        post "/settings/:attribute", to: 'users/registrations#update_attribute', as: :update_user_attribute
 
         # account deletion
         delete '' => 'users/registrations#destroy'#, as: 'delete_user_registration'

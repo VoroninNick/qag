@@ -16,8 +16,11 @@
 //= require interpolate
 //= require jquery.manipulate_classes
 //= require owl_carousel_1_full.min
+// require event.simulate
 //= require jquery.maskedinput
+//= require jquery.content_changed
 //= require fancybox
+
 // require tiny_validation
 //= require validation
 //= require variables

@@ -1,6 +1,7 @@
 not_saved_valid_changes_class = 'not-saved-valid-changes'
 form_not_saved_valid_changes_class = 'form-not-saved-valid-changes'
 has_no_unsaved_changes = 'has-no-unsaved-changes'
+dashboard_profile_column_id = 'dashboard-profile-column'
 $('#dashboard-content form.simple_form#edit_user').each(function(){
     $.fn.save_field = function(){
         var $input = $(this)
@@ -33,9 +34,21 @@ $('#dashboard-content form.simple_form#edit_user').each(function(){
         })
     }
 
-    //$.fn.check_unsaved_changes = function(){
-    //
-    //}
+
+
+    $.fn.check_unsaved_changes = function(){
+        var $input = $(this)
+        var $input_wrapper = $input.parent()
+        var input_value = $input.val()
+        var last_valid_saved_value = $input_wrapper.data('last-valid-saved-value')
+        //var last_changes_not_saved = last_valid_saved_value == undefined || last_valid_saved_value != input_value
+        var initial_value = $input_wrapper.data('initial_value')
+        var saves_count = $input_wrapper.data('saves_count')
+
+        var has_changes = saves_count == 0 ? (initial_value != input_value) : (last_valid_saved_value != input_value)
+
+        return has_changes
+    }
 
     var $form = $(this)
     $form.addClass(modeViewClass)
@@ -135,6 +148,33 @@ $('#dashboard-content form.simple_form#edit_user').each(function(){
                         })
                     }
                 }
+                else if($js_trigger.hasClass('change-password-link')){
+                    var url = $js_trigger.attr('href')
+                    $.ajax({
+                        url: url,
+                        type: 'get',
+                        dataType: 'json',
+                        data: { ajax: true },
+                        complete: function(jqXHR, textStatus){
+                            var response_text = jqXHR.responseText
+                            if(textStatus == 'success') {
+                                var data = $.parseJSON(response_text)
+                                var $response_html = ''
+                                if(data.hasOwnProperty('html')){
+                                    var response_html = data['html']
+                                    console.log('has html')
+                                    $response_html = $.parseHTML(response_html)
+
+                                    var $dashboard_profile_column = $('#'+dashboard_profile_column_id)
+                                    $dashboard_profile_column.addClass('view-change-password').removeClass('view-personal-data')
+
+                                    $dashboard_profile_column.append($response_html)
+
+                                }
+                            }
+                        }
+                    })
+                }
             }
         }
         else if(event.type == 'contentChanged'){
@@ -180,33 +220,19 @@ $('#dashboard-content form.simple_form#edit_user').each(function(){
             var error_classes = ['error', 'invalid', 'empty']
             if(field_errors.length == 0){
                 $input_wrapper.removeClass('invalid error empty').addClass('valid')
-                var last_valid_saved_value = $input_wrapper.data('last-valid-saved-value')
-                var saves_count = $input_wrapper.data('saves_count')
-                var initial_value = $input_wrapper.data('initial_value')
-                var last_changes_not_saved = last_valid_saved_value == undefined || last_valid_saved_value != field_value
-                //var first_has_changes = (last_valid_saved_value == undefined) || (last_valid_saved_value != field_value)
-                //var first_has_changes = saves_count == 0 ? ( (initial_value != field_value) ) : (last_valid_saved_value != field_value)
-                //alert('last_changes_not_saved:'+(last_changes_not_saved ? 'true' : 'false' ))
+                //var last_valid_saved_value = $input_wrapper.data('last-valid-saved-value')
+                //var saves_count = $input_wrapper.data('saves_count')
+                //var initial_value = $input_wrapper.data('initial_value')
+                //var last_changes_not_saved = last_valid_saved_value == undefined || last_valid_saved_value != field_value
 
-                var has_changes = saves_count == 0 ? (initial_value != field_value) : (last_valid_saved_value != field_value)
-
-                //if(last_changes_not_saved){
-                    //$input_wrapper.data('last-valid-saved-value', last_valid_saved_value)
-                    //$input_wrapper.addClass(not_saved_valid_changes_class)
-
-
-
-
-                    console.log('has_changes: ', has_changes)
-                    if(has_changes){
-                        $input_wrapper.addClass(not_saved_valid_changes_class).removeClass(has_no_unsaved_changes)
-                    }
-                    else{
-                        $input_wrapper.addClass(has_no_unsaved_changes).removeClass(not_saved_valid_changes_class)
-                    }
-                //}
-
-                //var form_
+                //var has_changes = saves_count == 0 ? (initial_value != field_value) : (last_valid_saved_value != field_value)
+                var has_changes = $input.check_unsaved_changes()
+                if(has_changes){
+                    $input_wrapper.addClass(not_saved_valid_changes_class).removeClass(has_no_unsaved_changes)
+                }
+                else{
+                    $input_wrapper.addClass(has_no_unsaved_changes).removeClass(not_saved_valid_changes_class)
+                }
 
             }
             else{
@@ -252,20 +278,17 @@ $('#dashboard-content form.simple_form#edit_user').each(function(){
             if(valid){
                 //var $input = $(this);
                 var $input_wrapper = $input.parent()
-                var saves_count = $input_wrapper.data('saves_count');
+                //var saves_count = $input_wrapper.data('saves_count');
                 //var input_value = $input.val()
 
-                var last_valid_saved_value = $input_wrapper.data('last-valid-saved-value')
-                var last_changes_not_saved = last_valid_saved_value == undefined || last_valid_saved_value != input_value
-                var initial_value = $input_wrapper.data('initial_value')
-
-                if(saves_count == 0 && initial_value != input_value){
+                //abcd
+                var has_changes = $input.check_unsaved_changes()
+                if(has_changes){
                     $input_wrapper.addClass(not_saved_valid_changes_class).removeClass(has_no_unsaved_changes)
                 }
                 else{
                     $input_wrapper.addClass(has_no_unsaved_changes).removeClass(not_saved_valid_changes_class)
                 }
-                //alert(saves_count)
             }
             else if(wasValid){
                 $input_wrapper.addClass(has_no_unsaved_changes).removeClass(not_saved_valid_changes_class)
@@ -278,6 +301,7 @@ $('#dashboard-content form.simple_form#edit_user').each(function(){
             $input.val(last_valid_saved_value)
             //alert('dataSaved')
         }
+
     })
 
 })

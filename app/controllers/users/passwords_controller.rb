@@ -63,27 +63,47 @@ class Users::PasswordsController < Devise::PasswordsController
   end
 
   def edit_password
-    if user_signed_in?
-      @breadcrumbs = {
-          home: {},
-          dashboard: {
-              title: "Особистий кабінет",
-              link: {
-                  url: edit_user_registration_path(locale: locale)
-              }
-          },
-          change_password: {
-              title: "Змінити пароль",
-              link: {
-                  url: my_edit_user_password_path(locale: I18n.locale)
-              }
-          }
-      }
+    if ajax?
+      response_object = {}
 
-      @user = current_user
-      # render
+      if user_signed_in?
+        @breadcrumbs = {
+            home: {},
+            dashboard: {
+                title: "Особистий кабінет",
+                link: {
+                    url: edit_user_registration_path(locale: locale)
+                }
+            },
+            change_password: {
+                title: "Змінити пароль",
+                link: {
+                    url: my_edit_user_password_path(locale: I18n.locale)
+                }
+            }
+        }
+
+
+        @user = current_user
+        #if ajax?
+          ajax_response = {}
+
+        #end
+        # render
+        response_object[:html] = render_to_string(template: 'devise/passwords/_custom_edit_form2', layout: false)
+      else
+        response_object[:result] = 'unregistered'
+
+      end
+
+      render inline: response_object.to_json
+
     else
-      redirect_to new_user_session_path(locale: I18n.locale)
+      if user_signed_in?
+        # render
+      else
+        redirect_to new_user_session_path(locale: I18n.locale)
+      end
     end
   end
 

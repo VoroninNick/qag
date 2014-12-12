@@ -90,7 +90,17 @@ module ApplicationHelper
   end
 
   def resource
-    @resource ||= User.new
+    #@resource ||= User.new
+    if !@resource
+      if user_signed_in?
+        @resource = current_user
+      else
+        @resource = User.new
+      end
+    else
+      @resource = User.new
+    end
+    @resource
   end
 
   def devise_mapping

@@ -357,3 +357,19 @@
     left: 35px;
   }
 }
+
+
+#dashboard-profile-column{
+  &.view-change-password{
+    #dashboard-profile-column-personal-data{
+      display: none;
+    }
+  }
+
+}
+
+#dashboard-profile-column-change-password{
+  form{
+    display: none;
+  }
+}

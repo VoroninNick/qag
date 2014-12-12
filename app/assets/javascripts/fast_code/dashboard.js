@@ -1,5 +1,6 @@
 not_saved_valid_changes_class = 'not-saved-valid-changes'
 form_not_saved_valid_changes_class = 'form-not-saved-valid-changes'
+has_no_unsaved_changes = 'has-no-unsaved-changes'
 $('#dashboard-content form.simple_form#edit_user').each(function(){
     $.fn.save_field = function(){
         var $input = $(this)
@@ -20,13 +21,21 @@ $('#dashboard-content form.simple_form#edit_user').each(function(){
                     var data = $.parseJSON(response_text)
                     if(data['saved'] == true){
                         var input_saves_count = $input_wrapper.data('saves_count')
-                        $input_wrapper.data('saves_count', input_saves_count)
+                        //var new_saves_count =
+                        $input_wrapper.data('saves_count', (input_saves_count+1) )
                         $input_wrapper.data('last-valid-saved-value', input_value)
+                        $input_wrapper.addClass(has_no_unsaved_changes).removeClass(not_saved_valid_changes_class)
+                        $input.trigger('dataSaved')
+
                     }
                 }
             }
         })
     }
+
+    //$.fn.check_unsaved_changes = function(){
+    //
+    //}
 
     var $form = $(this)
     $form.addClass(modeViewClass)
@@ -48,7 +57,7 @@ $('#dashboard-content form.simple_form#edit_user').each(function(){
     }
     })
 
-    $form.on('focusin focusout click contentChanged change bufferWrited', ['input', '.js-trigger'].join(','), function(event){
+    $form.on('focusin focusout click contentChanged change bufferWrited dataSaved', ['input', '.js-trigger'].join(','), function(event){
 
         var $this = $(this)
         var $form = $this.closest('form')
@@ -77,6 +86,22 @@ $('#dashboard-content form.simple_form#edit_user').each(function(){
                 if($js_trigger.hasClass(modeClass)){
                     if($form.hasClass(modeViewClass)){
                         $form.removeClass(modeViewClass).addClass(modeEditClass)
+                        var $input_wrappers = $form.find('.input.'+not_saved_valid_changes_class)
+                        $input_wrappers.each(function(){
+                            var $input_wrapper = $(this)
+                            var $input = $input_wrapper.find('input')
+                            var saves_count = $input_wrapper.data('saves_count')
+                            var initial_value = $input_wrapper.data('initial_value')
+                            if(saves_count == 0){
+                                $input.val(initial_value)
+                            }
+                            else{
+                                var last_valid_saved_value = $input_wrapper.data('last-valid-saved-value')
+                                $input.val(last_valid_saved_value)
+                            }
+
+                            $input_wrapper.addClass(has_no_unsaved_changes).removeClass(not_saved_valid_changes_class)
+                        })
                     }
                     else{
                         $form.removeClass(modeEditClass).addClass(modeViewClass)
@@ -105,6 +130,8 @@ $('#dashboard-content form.simple_form#edit_user').each(function(){
                                 var last_valid_saved_value = $input_wrapper.data('last-valid-saved-value')
                                 $input.val(last_valid_saved_value)
                             }
+
+                            $input_wrapper.addClass(has_no_unsaved_changes).removeClass(not_saved_valid_changes_class)
                         })
                     }
                 }
@@ -154,19 +181,30 @@ $('#dashboard-content form.simple_form#edit_user').each(function(){
             if(field_errors.length == 0){
                 $input_wrapper.removeClass('invalid error empty').addClass('valid')
                 var last_valid_saved_value = $input_wrapper.data('last-valid-saved-value')
+                var saves_count = $input_wrapper.data('saves_count')
+                var initial_value = $input_wrapper.data('initial_value')
                 var last_changes_not_saved = last_valid_saved_value == undefined || last_valid_saved_value != field_value
-                if(last_changes_not_saved){
+                //var first_has_changes = (last_valid_saved_value == undefined) || (last_valid_saved_value != field_value)
+                //var first_has_changes = saves_count == 0 ? ( (initial_value != field_value) ) : (last_valid_saved_value != field_value)
+                //alert('last_changes_not_saved:'+(last_changes_not_saved ? 'true' : 'false' ))
+
+                var has_changes = saves_count == 0 ? (initial_value != field_value) : (last_valid_saved_value != field_value)
+
+                //if(last_changes_not_saved){
                     //$input_wrapper.data('last-valid-saved-value', last_valid_saved_value)
                     //$input_wrapper.addClass(not_saved_valid_changes_class)
-                    var saves_count = $input_wrapper.data('saves_count')
-                    var initial_value = $input_wrapper.data('initial_value')
-                    if(saves_count == 0 && initial_value != field_value){
-                        $input_wrapper.addClass(not_saved_valid_changes_class)
+
+
+
+
+                    console.log('has_changes: ', has_changes)
+                    if(has_changes){
+                        $input_wrapper.addClass(not_saved_valid_changes_class).removeClass(has_no_unsaved_changes)
                     }
                     else{
-                        $input_wrapper.removeClass(not_saved_valid_changes_class)
+                        $input_wrapper.addClass(has_no_unsaved_changes).removeClass(not_saved_valid_changes_class)
                     }
-                }
+                //}
 
                 //var form_
 
@@ -222,16 +260,23 @@ $('#dashboard-content form.simple_form#edit_user').each(function(){
                 var initial_value = $input_wrapper.data('initial_value')
 
                 if(saves_count == 0 && initial_value != input_value){
-                    $input_wrapper.addClass(not_saved_valid_changes_class)
+                    $input_wrapper.addClass(not_saved_valid_changes_class).removeClass(has_no_unsaved_changes)
                 }
                 else{
-                    $input_wrapper.removeClass(not_saved_valid_changes_class)
+                    $input_wrapper.addClass(has_no_unsaved_changes).removeClass(not_saved_valid_changes_class)
                 }
                 //alert(saves_count)
             }
             else if(wasValid){
-                $input_wrapper.removeClass(not_saved_valid_changes_class)
+                $input_wrapper.addClass(has_no_unsaved_changes).removeClass(not_saved_valid_changes_class)
             }
+        }
+        else if(event.type == 'dataSaved'){
+            var $input = $(this)
+            var $input_wrapper = $input.parent()
+            var last_valid_saved_value = $input_wrapper.data('last-valid-saved-value')
+            $input.val(last_valid_saved_value)
+            //alert('dataSaved')
         }
     })
 

@@ -1,7 +1,7 @@
 p
-  = "Доброго дня,#{@user.first_name}!"
+  = "Доброго дня, #{@user.first_name}!"
 p
-  = raw "Ви зареєструвались на сайті <a href=\"http://qag.voroninstudio.eu\">qag.voroninstudio.eu</a>"
+  = raw "Ви успішно зареєструвались на сайті <a href=\"http://qag.voroninstudio.eu\">qag.voroninstudio.eu</a>"
 p
   = "Для завершення реєстрації, будь ласка, пройдіть по цьому посиланню:"
 /= flash[:hello]
@@ -9,3 +9,10 @@ p
   /= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: "#{@token}&token_return_to=#{@token_return_to.parameterize}")
   a href="#{confirmation_url(@resource)}?registration_location=#{@token_registration_location}&registration_event_id=#{@token_registration_event_id}&confirmation_token=#{@token}"
     = 'підтвердити мій обліковий запис'
+
+
+p
+  = "Тепер Ви матимете змогу реєструватися на події, переглядати історію всіх подій та отримувати новини про майбутні заходи від Quality Assurance Group."
+p
+  = "Ми в соц. мережах:"
+  =

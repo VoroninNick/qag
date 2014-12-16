@@ -33,6 +33,7 @@ uk:
       about_us: 'Про нас'
       contact: 'Контакти'
       events_list: 'Заходи'
+      articles_list: "Статті"
 
     buttons:
       register: "Зареєструватися"

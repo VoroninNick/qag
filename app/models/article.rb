@@ -1,5 +1,5 @@
 class Article < ActiveRecord::Base
-  attr_accessible :published, :name, :short_description, :full_description, :release_date
+  attr_accessible :published, :slug, :name, :short_description, :full_description, :release_date
 
   has_attached_file :avatar, :styles => { :article_list_small_thumb => '360x300#', related_irticle_thumb: '600x500#'},
                     :url  => "/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
@@ -26,38 +26,53 @@ class Article < ActiveRecord::Base
     attr_accessor "delete_#{paperclip_field_name}".to_sym
   end
 
-  translates :name, :short_description, :full_description, :avatar_alt, :banner_alt, :versioning => :paper_trail
+  translates :name, :slug, :short_description, :full_description, :avatar_alt, :banner_alt, :versioning => :paper_trail
   accepts_nested_attributes_for :translations, allow_destroy: true
   attr_accessible :translations_attributes, :translations
 
   class Translation
-    attr_accessible :locale, :published_translation, :name, :short_description, :full_description
+    attr_accessible :locale, :slug, :published_translation, :name, :short_description, :full_description
 
     # def published=(value)
     #   self[:published] = value
     # end
 
+    before_save do
+      self.slug = self.name.parameterize if !self.slug || self.slug == ''
+      self.slug = self.slug.parameterize.underscore
+    end
+
     rails_admin do
       visible false
       edit do
         field :locale, :hidden
-        field :published_translation
+        #field :published_translation
         field :name
+        field :slug do
+          label "url"
+        end
         field :short_description
         field :full_description, :ck_editor
         field :avatar_alt
+        field :banner_alt
 
       end
     end
   end
 
+  validates_with UniqueSlugValidator
+
   rails_admin do
     navigation_label "Articles"
 
     edit do
+      field :published
       field :translations, :globalize_tabs
       field :avatar
       field :avatar_file_name_fallback
+
+      field :banner
+      field :banner_file_name_fallback
     end
   end
 end

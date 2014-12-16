@@ -34,6 +34,7 @@ ru:
       about_us: 'О нас'
       contact: 'Контакты'
       events_list: 'События'
+      articles_list: "Статьи"
 
     buttons:
       register: "Зарегистрироваться"

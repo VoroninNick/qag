@@ -1,2 +1,21 @@
-h1 Articles#list
-p Find me in app/views/articles/list.html.slim
+= render partial: 'articles/articles_list_banner'
+
+#breadcrumbs-container
+  #breadcrumbs-row.row
+    ul#breadcrumbs-ul
+      li#breadcrumb-home.breadcrumb.inactive_breadcrumb
+        a#breadcrumb-home-a href=root_path
+          = embedded_svg_from_assets('svg/home.svg')
+      li#active-breadcrumb.breadcrumb
+        span#active-breadcrumb-text
+          = @breadcrumbs[:articles_list][:title]
+
+
+
+#events-list.events-collection.infinity-scroll-list
+  /- @paginated_events.each_with_index do |event, index|
+  = render partial: 'articles/list_item', locals: { articles: @paginated_articles }
+
+
+.pagination-wrapper
+  = will_paginate @paginated_articles

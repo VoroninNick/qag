@@ -3,6 +3,8 @@ class HomeController < ApplicationController
 
   include ApplicationHelper
 
+  #respond_to :html, :json
+
   def index
 
 

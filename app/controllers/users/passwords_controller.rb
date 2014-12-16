@@ -10,6 +10,8 @@ class Users::PasswordsController < Devise::PasswordsController
   #   super
   # end
 
+
+
   def create
     self.resource = resource_class.send_reset_password_instructions(resource_params)
     yield resource if block_given?
@@ -128,15 +130,19 @@ class Users::PasswordsController < Devise::PasswordsController
 
       @user = current_user
 
-      current_password = params[:current_password]
-      new_password = params[:new_password]
-      new_password_confirmation = params[:new_password_confirmation]
+      current_password = params[:user][:current_password]
+      new_password = params[:user][:password]
+      new_password_confirmation = params[:user][:password_confirmation]
 
-      if @user.valid_password?(params[:current_password]) && new_password == new_password_confirmation && new_password.length >= 8
+      @saved = false
+      if @user.valid_password?(current_password) && current_password != new_password  && new_password == new_password_confirmation && new_password.length >= 8
         @user.password = new_password
+        @saved = @user.save
       end
 
-      render inline: "#{(@user.valid_password?(current_password) && new_password == new_password_confirmation ).inspect} #{new_password} #{new_password_confirmation} #{ new_password == new_password_confirmation } #{@user.valid_password?(current_password)}"
+
+      render template: "devise/passwords/edit_password" unless @saved
+      redirect_to new_user_session_path(locale: I18n.locale) if @saved
 
       #render template: required_template
     else

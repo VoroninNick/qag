@@ -54,7 +54,7 @@ class EventsController < ApplicationController
         events_list: {
             title: I18n.t('layout.breadcrumbs.events_list'),
             link: {
-                url: events_list_path
+                url: events_list_path(locale: I18n.locale)
             }
         }
     }

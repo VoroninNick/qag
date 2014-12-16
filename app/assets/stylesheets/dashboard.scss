@@ -364,12 +364,38 @@
     #dashboard-profile-column-personal-data{
       display: none;
     }
+
+  #dashboard-profile-column-change-password{
+    display: block;
+  }
   }
 
 }
 
 #dashboard-profile-column-change-password{
-  form{
+  //form{
+  display: none;
+  //}
+
+  .hint{
     display: none;
+  }
+}
+
+form#change_password{
+  .js-trigger.cancel-changes{
+    display: inline-block;
+  }
+}
+
+#dashboard-content{
+  form.simple_form.form-with-labels.mode-view {
+    &#change_password {
+      .button.devise-submit-button.orange-bg{
+        width: 410px;
+        display: inline-block;
+        vertical-align: top;
+      }
+    }
   }
 }

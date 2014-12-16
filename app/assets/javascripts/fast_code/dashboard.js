@@ -2,7 +2,7 @@ not_saved_valid_changes_class = 'not-saved-valid-changes'
 form_not_saved_valid_changes_class = 'form-not-saved-valid-changes'
 has_no_unsaved_changes = 'has-no-unsaved-changes'
 dashboard_profile_column_id = 'dashboard-profile-column'
-$('#dashboard-content form.simple_form#edit_user').each(function(){
+$('#dashboard-content #dashboard-profile-column').each(function(){
     $.fn.save_field = function(){
         var $input = $(this)
         var $input_wrapper = $input.parent()
@@ -50,9 +50,11 @@ $('#dashboard-content form.simple_form#edit_user').each(function(){
         return has_changes
     }
 
-    var $form = $(this)
-    $form.addClass(modeViewClass)
-    var $form_input_wrappers = $form.find('.input')
+    var $dashboard_profile_column = $(this)
+    var $edit_user_form = $dashboard_profile_column.find('#edit_user')
+    //var $form = $(this)
+    $edit_user_form.addClass(modeViewClass)
+    var $form_input_wrappers = $edit_user_form.find('.input')
 
     $form_input_wrappers.each(function(){
         var $input_wrapper = $(this)
@@ -65,12 +67,12 @@ $('#dashboard-content form.simple_form#edit_user').each(function(){
 
     })
 
-    $form.find('input#user_contact_phone').mask("+99 (999) 999 99 99", { completed: function(){
+    $edit_user_form.find('input#user_contact_phone').mask("+99 (999) 999 99 99", { completed: function(){
 
     }
     })
 
-    $form.on('focusin focusout click contentChanged change bufferWrited dataSaved', ['input', '.js-trigger'].join(','), function(event){
+    $dashboard_profile_column.on('focusin focusout click contentChanged change bufferWrited dataSaved', ['input', '.js-trigger'].join(','), function(event){
 
         var $this = $(this)
         var $form = $this.closest('form')
@@ -95,6 +97,7 @@ $('#dashboard-content form.simple_form#edit_user').each(function(){
         else if(event.type == 'click'){
             if($this.hasClass('js-trigger')){
                 event.preventDefault()
+                //alert('js-trigger')
                 var $js_trigger = $this
                 if($js_trigger.hasClass(modeClass)){
                     if($form.hasClass(modeViewClass)){
@@ -125,55 +128,71 @@ $('#dashboard-content form.simple_form#edit_user').each(function(){
                     var $input = $input_wrapper.children().filter('input')
                     $input.save_field()
                 }
-                else if($js_trigger.hasClass('cancel-changes')){
+                else if($js_trigger.hasClass('cancel-changes')) {
+                    var form_id = $form.attr('id')
+                    if (form_id == 'edit_user') {
+                        var $unsaved_input_wrappers = $form.find('.input.' + not_saved_valid_changes_class)
+                        var do_cancel = $unsaved_input_wrappers.length == 0 || confirm('Зміни будуть втрачені')
+                        if (do_cancel) {
+                            $form.removeClass(modeEditClass).addClass(modeViewClass)
+                            $unsaved_input_wrappers.each(function () {
+                                var $input_wrapper = $(this)
+                                var $input = $input_wrapper.find('input')
+                                var saves_count = $input_wrapper.data('saves_count')
+                                var initial_value = $input_wrapper.data('initial_value')
+                                if (saves_count == 0) {
+                                    $input.val(initial_value)
+                                }
+                                else {
+                                    var last_valid_saved_value = $input_wrapper.data('last-valid-saved-value')
+                                    $input.val(last_valid_saved_value)
+                                }
 
-                    var $unsaved_input_wrappers = $form.find('.input.'+not_saved_valid_changes_class)
-                    var do_cancel = $unsaved_input_wrappers.length == 0 || confirm('Зміни будуть втрачені')
-                    if(do_cancel ){
-                        $form.removeClass(modeEditClass).addClass(modeViewClass)
-                        $unsaved_input_wrappers.each(function(){
-                            var $input_wrapper = $(this)
-                            var $input = $input_wrapper.find('input')
-                            var saves_count = $input_wrapper.data('saves_count')
-                            var initial_value = $input_wrapper.data('initial_value')
-                            if(saves_count == 0){
-                                $input.val(initial_value)
-                            }
-                            else{
-                                var last_valid_saved_value = $input_wrapper.data('last-valid-saved-value')
-                                $input.val(last_valid_saved_value)
-                            }
-
-                            $input_wrapper.addClass(has_no_unsaved_changes).removeClass(not_saved_valid_changes_class)
-                        })
+                                $input_wrapper.addClass(has_no_unsaved_changes).removeClass(not_saved_valid_changes_class)
+                            })
+                        }
+                    }
+                    else if(form_id == 'change_password'){
+                        $dashboard_profile_column.removeClass('view-change-password').addClass('view-personal-data')
                     }
                 }
                 else if($js_trigger.hasClass('change-password-link')){
-                    var url = $js_trigger.attr('href')
-                    $.ajax({
-                        url: url,
-                        type: 'get',
-                        dataType: 'json',
-                        data: { ajax: true },
-                        complete: function(jqXHR, textStatus){
-                            var response_text = jqXHR.responseText
-                            if(textStatus == 'success') {
-                                var data = $.parseJSON(response_text)
-                                var $response_html = ''
-                                if(data.hasOwnProperty('html')){
-                                    var response_html = data['html']
-                                    console.log('has html')
-                                    $response_html = $.parseHTML(response_html)
+                    var $dashboard_profile_column_change_password = $dashboard_profile_column.children().filter('#dashboard-profile-column-change-password')
+                    if($dashboard_profile_column_change_password.length == 0) {
+                        var url = $js_trigger.attr('href')
+                        $.ajax({
+                            url: url,
+                            type: 'get',
+                            dataType: 'json',
+                            data: {ajax: true},
+                            complete: function (jqXHR, textStatus) {
+                                var response_text = jqXHR.responseText
+                                if (textStatus == 'success') {
+                                    var data = $.parseJSON(response_text)
+                                    var $response_html = ''
+                                    if (data.hasOwnProperty('html')) {
+                                        var response_html = data['html']
+                                        console.log('has html')
+                                        $response_html = $.parseHTML(response_html)
 
-                                    var $dashboard_profile_column = $('#'+dashboard_profile_column_id)
-                                    $dashboard_profile_column.addClass('view-change-password').removeClass('view-personal-data')
+                                        var $dashboard_profile_column = $('#' + dashboard_profile_column_id)
+                                        $dashboard_profile_column.addClass('view-change-password').removeClass('view-personal-data')
 
-                                    $dashboard_profile_column.append($response_html)
+                                        $dashboard_profile_column.append($response_html)
 
+                                    }
                                 }
                             }
-                        }
-                    })
+                        })
+                    }
+                    else{
+                        $dashboard_profile_column.removeClass('view-personal-data').addClass('view-change-password')
+                        var $inputs = $dashboard_profile_column_change_password.find('div.input input')
+                        $inputs.each(function(){
+                            var $input = $(this)
+                            $input.val('')
+                        })
+                    }
                 }
             }
         }

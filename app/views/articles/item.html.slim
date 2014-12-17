@@ -1,0 +1,25 @@
+- if @article
+  #event-item-banner
+    #event-item-banner-image-wrapper.grayscale style="background-image: url(#{image_or_stub_url(@article.banner, :banner, 2100, 500, "event #{@article.id}")})"
+      img#event-item-banner-img src=image_or_stub_url(@article.banner, :banner, 2100, 500, "event #{@article.id}")
+  #breadcrumbs-container
+    #breadcrumbs-row.row
+      ul#breadcrumbs-ul
+        li#breadcrumb-home.breadcrumb.inactive_breadcrumb
+          a#breadcrumb-home-a href=root_path
+            = embedded_svg_from_assets('svg/home.svg')
+        li.breadcrumb.inactive-breadcrumb
+          a.inactive-breadcrumb-a href=@breadcrumbs[:articles_list][:link][:url]
+            = @breadcrumbs[:articles_list][:title]
+        li#active-breadcrumb.breadcrumb
+          span#active-breadcrumb-text
+            = @article.name
+
+  #article-section
+    #article-section-row.row
+      #article-section-column.columns.large-12
+        #aricle-title.about-gray-header
+          = @article.name
+        #aricle-date
+          = (@article.updated_at ).strftime("%d.%m.%Y")
+        = raw @article.full_description

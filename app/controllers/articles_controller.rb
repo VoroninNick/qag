@@ -34,21 +34,25 @@ class ArticlesController < ApplicationController
   def item
     find_item
 
-    @breadcrumbs = {
-        home: {},
-        articles_list: {
-            title: I18n.t('layout.breadcrumbs.events_list'),
-            link: {
-                url: articles_list_path(locale: I18n.locale)
-            }
-        },
-        article_item: {
-            title: @event.name,
-            link: {
-                url: article_item_path(item: @event.slug, tags: @event.tags.join('-'), locale: I18n.locale)
-            }
-        }
-    }
+    if !@article_not_found
+      @breadcrumbs = {
+          home: {},
+          articles_list: {
+              title: I18n.t('layout.breadcrumbs.events_list'),
+              link: {
+                  url: articles_list_path(locale: I18n.locale)
+              }
+          },
+          article_item: {
+              title: @article.name,
+              link: {
+                  url: article_item_path(item: @article.slug, locale: I18n.locale)
+              }
+          }
+      }
+    else
+      redirect_to articles_list_path(locale: I18n.locale)
+    end
 
 
   end
@@ -62,12 +66,14 @@ class ArticlesController < ApplicationController
     #@article_ids_rows.each {|e| @event_ids.push e['id']  }
     #@articles = Event.find(@event_ids)
     #@article = (@events.respond_to?(:count) && @events.count > 0)? @events.first : nil
-
-    @article.translations_by_locale.keys.each do |locale|
-      I18n.with_locale(locale.to_sym) do
-        @page_locale_links[locale.to_sym] = url_for(item: @article.slug, locale: locale)
+    @article = Article.where(slug: params_item).first
+    @article_not_found = @article.nil?
+    unless @article_not_found
+      @article.translations_by_locale.keys.each do |locale|
+        I18n.with_locale(locale.to_sym) do
+          @page_locale_links[locale.to_sym] = url_for(item: @article.slug, locale: locale)
+        end
       end
-
     end
   end
 end

@@ -20,6 +20,6 @@
             .article-short-description
               = article.short_description
             .article-read-button
-              a.register-button-a href="#{article_item_path(locale: I18n.locale, item: article.slug)}"
+              a.article-read-button-a href="#{article_item_path(locale: I18n.locale, item: article.slug)}"
                 span.registration-text
                   = "Читати публікацію"

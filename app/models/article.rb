@@ -40,6 +40,9 @@ class Article < ActiveRecord::Base
     before_save do
       self.slug = self.name.parameterize if !self.slug || self.slug == ''
       self.slug = self.slug.parameterize.underscore
+
+      self.avatar_alt = self.name if !self.avatar_alt || self.avatar_alt == ''
+      self.banner_alt = self.name if !self.banner_alt || self.banner_alt == ''
     end
 
     rails_admin do
@@ -69,10 +72,10 @@ class Article < ActiveRecord::Base
       field :published
       field :translations, :globalize_tabs
       field :avatar
-      field :avatar_file_name_fallback
+      #field :avatar_file_name_fallback
 
       field :banner
-      field :banner_file_name_fallback
+      #field :banner_file_name_fallback
     end
   end
 end

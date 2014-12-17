@@ -22,4 +22,5 @@
           = @article.name
         #aricle-date
           = (@article.updated_at ).strftime("%d.%m.%Y")
-        = raw @article.full_description
+        #article-content
+          = raw @article.full_description

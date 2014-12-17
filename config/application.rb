@@ -24,7 +24,7 @@ module Qag
     Bundler.require(:default, Rails.env)
 
     config.i18n.default_locale = :ru
-    config.i18n.available_locales = [:ru, :uk, :en]
+    config.i18n.available_locales = [:uk, :ru, :en]
 
     config.assets.precompile += %w( modernizr_load1.js modernizr_svg.min.js )
 

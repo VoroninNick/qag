@@ -50,6 +50,8 @@ class ArticlesController < ApplicationController
               }
           }
       }
+
+      @related_articles = Article.where(published: true).where.not(id: @article.id).order('updated_at desc').limit(4)
     else
       redirect_to articles_list_path(locale: I18n.locale)
     end

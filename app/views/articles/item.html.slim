@@ -18,9 +18,19 @@
   #article-section
     #article-section-row.row
       #article-section-column.columns.large-12
-        #aricle-title.about-gray-header
+        #article-title.about-gray-header
           = @article.name
-        #aricle-date
+        #article-date
           = (@article.updated_at ).strftime("%d.%m.%Y")
         #article-content
           = raw @article.full_description
+
+  #read-also-section
+    #read-also-section-row.row
+      #read-also-section-column.columns.large-12
+        - @related_articles.each do |a|
+          .read-also-articles-article
+            .read-also-articles-article-title
+              = a.name
+            .read-also-articles-article-date
+              = (a.updated_at ).strftime("%d.%m.%Y")

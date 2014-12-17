@@ -12,7 +12,9 @@ CKEDITOR.editorConfig = function( config )
 
     config.language = 'uk'
 
-    config.extraPlugins = 'codemirror';
+    config.extraPlugins = 'codemirror'; // enable CodeMirror for HTML source
+
+    config.allowedContent = true; // disable content filtering
 
 
 

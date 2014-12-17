@@ -38,7 +38,7 @@ class ArticlesController < ApplicationController
       @breadcrumbs = {
           home: {},
           articles_list: {
-              title: I18n.t('layout.breadcrumbs.events_list'),
+              title: I18n.t('layout.breadcrumbs.articles_list'),
               link: {
                   url: articles_list_path(locale: I18n.locale)
               }

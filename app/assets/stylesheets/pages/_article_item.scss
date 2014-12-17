@@ -63,5 +63,19 @@
       background: #f2f2f2;
     }
   }
+
+  ul{
+    position: relative;
+    list-style: none;
+  }
+
+  li{
+    &:before{
+      position: absolute;
+      left: 1rem;
+      color: orange;
+      content: "\2014";
+    }
+  }
 }
 

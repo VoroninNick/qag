@@ -20,34 +20,48 @@
     font-size: 1.4rem;
     font-weight: 500;
   }
+
+  .quote{
+    color: orange;
+    font-size: 1.2rem;
+    margin: 3.5rem 5.5rem 3.5rem 5.5rem;
+    padding: 34px 0 2rem 58px;
+    position: relative;
+
+    &:before, &:after{
+      position: absolute;
+      display: block;
+      color: #2facda;
+      opacity: 0.3;
+      font-weight: 500;
+    }
+    &:before{
+      content: "\00ab";
+      font-size: 12rem;
+      left: 0.5rem;
+      top: 0;
+      line-height: 2.5rem;
+    }
+    &:after{
+      content: "\00bb";
+      right: 0;
+      left: auto;
+      font-size: 6rem;
+      line-height: 0;
+    }
+  }
+
+  .image{
+    text-align: center;
+
+    p{
+      max-width: 100%;
+      margin: 0;
+      padding: 0.5rem;
+      font-size: 0.8rem;
+      font-style: italic;
+      background: #f2f2f2;
+    }
+  }
 }
 
-.quote{
-  color: orange;
-  font-size: 1.2rem;
-  margin: 3.5rem 5.5rem 3.5rem 5.5rem;
-  padding: 34px 0 2rem 58px;
-  position: relative;
-
-  &:before, &:after{
-    position: absolute;
-    display: block;
-    color: #2facda;
-    opacity: 0.3;
-    font-weight: 500;
-  }
-  &:before{
-    content: "\00ab";
-    font-size: 12rem;
-    left: 0.5rem;
-    top: 0;
-    line-height: 2.5rem;
-  }
-  &:after{
-    content: "\00bb";
-    right: 0;
-    left: auto;
-    font-size: 6rem;
-    line-height: 0;
-  }
-}

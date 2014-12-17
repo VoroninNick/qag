@@ -14,13 +14,32 @@
   font-weight: 300;
 }
 
-#article-content{
-  h3{
-    color: #6d6e72;
-    font-size: 1.4rem;
-    font-weight: 500;
-  }
+#read-also-section-title, #article-content h3{
+  color: #6d6e72;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
 
+#read-also-section-title{
+  text-align: center;
+}
+
+.read-also-articles-article-title-a{
+  text-transform: uppercase;
+  color: $font-blue-color;
+  line-height: 1;
+  font-weight: 800;
+  font-size: 2.25rem;
+}
+
+.read-also-articles-article-date{
+  font-size: 1.2rem;
+  font-weight: 300;
+  margin-top: 1rem;
+  color: $orange-color;
+}
+
+#article-content{
   .quote{
     color: orange;
     font-size: 1.2rem;

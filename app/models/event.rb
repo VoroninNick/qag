@@ -207,6 +207,7 @@ class Event < ActiveRecord::Base
       field :id
       field :published
       field :disabled_registration
+      field :allowed_subscriptions_count
       field :name
       field :short_description
       field :avatar
@@ -217,7 +218,7 @@ class Event < ActiveRecord::Base
     edit do
       field :published
       field :disabled_registration
-      field :participants_count do
+      field :allowed_subscriptions_count do
         read_only true
       end
       # field :tag_list do

@@ -190,7 +190,18 @@ class ApplicationController < ActionController::Base
   end
 
 
-  before_filter do
+  #before_filter :redirect_to_home_if_user_requests_admin
+  before_filter :check_is_user_admin
+  def check_is_user_admin
+    if params[:controller].scan(/^rails_admin/).length > 0
+      if user_signed_in? && current_user.role != 'admin'
+        redirect_to "/#{I18n.locale}"
+      end
+    end
+  end
+
+  # redirect user to home if he is not admin when he trying to go /admin/*
+  def redirect_to_home_if_user_requests_admin
     if params[:controller].scan(/^rails_admin/).length > 0
       unless user_signed_in? && current_user.role == 'admin' 
         redirect_to "/#{I18n.locale}"

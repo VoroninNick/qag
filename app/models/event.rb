@@ -9,6 +9,9 @@ class Event < ActiveRecord::Base
   attr_accessible :event_gallery_albums, :event_gallery_album_id, :event_gallery_album_ids
   attr_accessible :event_gallery_images, :event_gallery_image_id, :event_gallery_image_ids
 
+  accepts_nested_attributes_for :event_gallery_albums
+  attr_accessible :event_gallery_albums_attributes, :event_gallery_albums
+
   has_and_belongs_to_many :event_tags, join_table: :event_taggings
   attr_accessible :event_tags, :event_tag_id, :event_tag_ids
 
@@ -135,7 +138,7 @@ class Event < ActiveRecord::Base
 
       edit do
         field :locale, :hidden
-        field :published_translation
+        #field :published_translation
         field :name
         field :slug do
           label "url"
@@ -181,7 +184,9 @@ class Event < ActiveRecord::Base
 
   rails_admin do
     weight -2
-    navigation_label "Events"
+    navigation_label I18n.t('rails_admin.navigation_labels.events')
+    label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")
+    label_plural I18n.t("rails_admin.model_labels_plural.#{self.abstract_model.model_name.underscore}")
 
     [:start_date, :end_date].each do |f|
       configure f, :date do
@@ -247,7 +252,7 @@ class Event < ActiveRecord::Base
       field :banner
 
       field :event_gallery_albums
-      field :event_gallery_images
+      #field :event_gallery_images
     end
   end
 end

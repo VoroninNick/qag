@@ -16,6 +16,9 @@ class Setting < ActiveRecord::Base
   end
 
   rails_admin do
+    label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")
+    label_plural I18n.t("rails_admin.model_labels_plural.#{self.abstract_model.model_name.underscore}")
+
     group :social_links do
       field :social_twitter
       field :social_facebook

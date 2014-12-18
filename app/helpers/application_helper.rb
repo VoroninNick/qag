@@ -125,4 +125,8 @@ module ApplicationHelper
     num_str
   end
 
+
+  def get_field_label field
+    I18n.t('rails_admin.field_labels.address')
+  end
 end

@@ -65,17 +65,24 @@ class Article < ActiveRecord::Base
 
   validates_with UniqueSlugValidator
 
+
   rails_admin do
-    navigation_label "Articles"
+    navigation_label I18n.t('rails_admin.navigation_labels.articles')
+    label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")
+    label_plural I18n.t("rails_admin.model_labels_plural.#{self.abstract_model.model_name.underscore}")
 
     edit do
-      field :published
+      field :published do
+        #label get_field_label(self)
+        #label get_field_label
+      end
       field :translations, :globalize_tabs
       field :avatar
       #field :avatar_file_name_fallback
 
       field :banner
       #field :banner_file_name_fallback
+
     end
   end
 end

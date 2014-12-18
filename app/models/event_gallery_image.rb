@@ -38,9 +38,9 @@ class EventGalleryImage < ActiveRecord::Base
 
       edit do
         field :locale, :hidden
-        field :published_translation
+        #field :published_translation
         field :name
-        field :short_description
+        #field :short_description
         field :image_alt
 
 
@@ -49,15 +49,17 @@ class EventGalleryImage < ActiveRecord::Base
   end
 
   rails_admin do
-    navigation_label "Events"
+    navigation_label I18n.t('rails_admin.navigation_labels.events')
+    label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")
+    label_plural I18n.t("rails_admin.model_labels_plural.#{self.abstract_model.model_name.underscore}")
 
     edit do
       field :published
       field :translations, :globalize_tabs
       field :image
 
-      field :events
-      field :event_gallery_albums
+      #field :events
+      #field :event_gallery_albums
     end
   end
 end

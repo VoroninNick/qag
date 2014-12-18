@@ -42,25 +42,30 @@ class EventGalleryAlbum < ActiveRecord::Base
 
       edit do
         field :locale, :hidden
-        field :published_translation
+        #field :published_translation
         field :name
         field :short_description
-        field :avatar_alt
+        #field :avatar_alt
 
 
       end
     end
   end
 
+  accepts_nested_attributes_for :event_gallery_images
+  attr_accessible :event_gallery_images_attributes, :event_gallery_images
+
   rails_admin do
-    navigation_label "Events"
+    navigation_label I18n.t('rails_admin.navigation_labels.events')
+    label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")
+    label_plural I18n.t("rails_admin.model_labels_plural.#{self.abstract_model.model_name.underscore}")
 
     edit do
       field :published
       field :translations, :globalize_tabs
-      field :avatar
+      #field :avatar
 
-      field :events
+      #field :events
       field :event_gallery_images
     end
   end

@@ -18,10 +18,12 @@ class HomePage < ActiveRecord::Base
 
   rails_admin do
     weight -100
-    navigation_label 'Pages'
+    navigation_label I18n.t('rails_admin.navigation_labels.pages')
+    label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")
+    label_plural I18n.t("rails_admin.model_labels_plural.#{self.abstract_model.model_name.underscore}")
     edit do
       field :main_slider_slides
-      field :home_about_us_slides
+      #field :home_about_us_slides
       field :home_contact_infos
       field :comments
     end

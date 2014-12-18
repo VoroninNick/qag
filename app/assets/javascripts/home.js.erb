@@ -3,7 +3,54 @@
 // You can use CoffeeScript in this file: http://coffeescript.org/
 
 
+
+
 var initialize = function() {
+
+    $.fn.initialize_slider = function(){
+        //var $slider = $(this)
+        var $slider_section = $(this)
+        var auto_interval = 6000
+        var $flags = $slider_section.children().filter('input.flag')
+        setInterval(function(){
+
+
+            //var flags_count = $flags.length
+            //var checked_flag_index = $checked_flag.index()
+
+            //var future_index = checked_flag_index + 1
+            //if(checked_flag_index >= flags_count){
+            //    future_index = 0
+            //}
+            //var $future_flag = $flags.eq(future_index)
+
+            var $checked_flag = $flags.filter(':checked')
+            var $future_flag = $checked_flag.next('input.flag')
+            if($future_flag.length == 0){
+                $future_flag = $flags.first()
+            }
+
+
+            $checked_flag.prop('checked', false);
+            $future_flag.prop('checked', true)
+        }, auto_interval)
+
+        $slider_section.find('#home-slider-scroll-down-arrow').on('click', function(){
+            var $page_section_flags = $('.home-page-section-flag')
+            var $new_flag = $('.home-page-section-flag-from-1.home-page-section-flag-to-2')
+            var $checked_flag = $page_section_flags.filter(':checked')
+
+            $checked_flag.prop('checked', false)
+            $new_flag.prop('checked', true)
+            $body.attr('data-home-page-current-section', 2)
+        })
+    }
+
+    $('html.controller-about.action-index').each(function(){
+        var $page = $(this)
+        $('#about-slider').initialize_slider()
+    })
+
     $('html.controller-home.action-index').each(function () {
         var $page = $(this)
 
@@ -14,41 +61,7 @@ var initialize = function() {
 // =====================================
 
  var initialize_home_slider = function() {
-     var $home_slider_section = $page.find('#home-slider-section')
-     var auto_interval = 6000
-     var $flags = $('input.home-slider-slide-flag')
-     setInterval(function(){
-
-
-         //var flags_count = $flags.length
-         //var checked_flag_index = $checked_flag.index()
-
-         //var future_index = checked_flag_index + 1
-         //if(checked_flag_index >= flags_count){
-         //    future_index = 0
-         //}
-         //var $future_flag = $flags.eq(future_index)
-
-         var $checked_flag = $flags.filter(':checked')
-         var $future_flag = $checked_flag.next('input.home-slider-slide-flag')
-         if($future_flag.length == 0){
-             $future_flag = $flags.first()
-         }
-
-
-         $checked_flag.prop('checked', false);
-         $future_flag.prop('checked', true)
-     }, auto_interval)
-
-     $home_slider_section.find('#home-slider-scroll-down-arrow').on('click', function(){
-         var $page_section_flags = $('.home-page-section-flag')
-         var $new_flag = $('.home-page-section-flag-from-1.home-page-section-flag-to-2')
-         var $checked_flag = $page_section_flags.filter(':checked')
-
-         $checked_flag.prop('checked', false)
-         $new_flag.prop('checked', true)
-         $body.attr('data-home-page-current-section', 2)
-     })
+     $('#home-slider-section').initialize_slider()
  }
 
  initialize_home_slider()

@@ -8,6 +8,7 @@
 // 2. about quote
 // 2. what unites us
 // 3. about team
+// 4. about slider
 
 
 
@@ -17,7 +18,7 @@
 // ----------------------------------
 // ==================================
 
-#about-banner-image-wrapper, #event-item-banner,
+#about-banner-image-wrapper, #event-item-banner, #about-slides-ul .image-background,
 #home-featured-events-section .event-info-slides .event-info-slides-row ul li.event .image-and-info.columns .image{
   &:after{
     content: "";
@@ -28,7 +29,7 @@
     display: block;
     right: 0;
     background: $orange-color;
-    opacity: 0.05;
+    opacity: $orange-overlay-opacity;
   }
 }
 
@@ -137,12 +138,6 @@
   font-size: 1.3rem;
 }
 
-
-// about
-
-#about-slider{
-  display: none;
-}
 
 
 
@@ -543,4 +538,120 @@
 //#page-flip:hover #meninas {
 //  -webkit-transition-delay: .8s;
 //  margin: 203px 0 0 14px;
+//}
+
+
+
+// =====================================================
+// -----------------------------------------------------
+// 4. about slider
+// -----------------------------------------------------
+// =====================================================
+
+#about-slider {
+  height: 600px;
+  text-align: center;
+  position: relative;
+  .slides {
+    top: 0;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    .slide {
+      top: 0;
+      left: 0;
+      background: #e0d3c3;
+      opacity: 0.5;
+      @include transition-property(opacity);
+      @include transition-duration(0.5s);
+      z-index: 1;
+      //opacity: 0
+      height: 100%;
+      position: absolute;
+      width: 100%;
+      &:first-child {
+        //opacity: 1
+
+      }
+      .image-background {
+        height: 100%;
+        display: block;
+        @include vendor-prefix(background-size, cover !important);
+        img {
+          opacity: 0;
+        }
+      }
+      //@for $i from 1 through $main-slider-slides-count
+      // &#slide-#{$i}
+      //   z-index: $i
+
+    }
+  }
+  .bullets {
+    display: block;
+    position: absolute;
+    //bottom: 150px
+    bottom: 15%;
+    z-index: #{$main-slider-slides-count + 2};
+    @include transform(translate3d(-50%, 0, 0));
+    left: 50%;
+    padding: 0;
+    li {
+      display: inline-block;
+      margin-left: $bullet-indent;
+      &:first-child {
+        margin-left: 0;
+      }
+      label {
+        display: block;
+        background: $bullet-background;
+        //background: $active-bullet-background
+        width: $bullet-with;
+        height: $bullet-height;
+        border-radius: $bullet-border-radius;
+        cursor: pointer;
+      }
+      &:hover {
+        label {
+          background-color: $active-bullet-background;
+        }
+      }
+    }
+  }
+  @for $i from 1 through 4 {
+    .about-slider-slide-flag#about-slider-slide-flag-#{$i} {
+      &:checked {
+        & ~ .slides {
+          .slide#slide-#{$i} {
+            //z-index: #{$main-slider-slides-count + 1}
+            z-index: 2;
+            opacity: 1;
+          }
+        }
+        & ~ .bullets {
+          .about-slider-slide-label#about-slider-slide-label-#{$i} {
+            label {
+              background: $active-bullet-background;
+              cursor: default;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+//.home-slider-description.description {
+//  top: 50%;
+//  position: absolute;
+//  left: 50%;
+//  @include transform(translate3d(-50%, -50%, 0));
+//  color: white;
+//  font-size: 2rem;
+//  font-weight: 800;
+//  text-transform: uppercase;
 //}

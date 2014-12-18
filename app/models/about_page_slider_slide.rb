@@ -1,12 +1,13 @@
 class AboutPageSliderSlide < ActiveRecord::Base
   attr_accessible :name, :short_description, :full_description, :published, :order_index
 
-  has_attached_file :background, :styles => { banner: {geometry: '2100x650#'}, sepia_banner: '2100x1200#' },
+  has_attached_file :background, :styles => { banner: {geometry: '2100x650#'}, bw_banner: {geometry: '2100x650#'}, sepia_banner: '2100x1200#' },
                     :url  => "/assets/#{self.name.underscore}/:id/background/:style/:basename.:extension",
                     :path => ":rails_root/public/assets/#{self.name.underscore}/:id/background/:style/:basename.:extension",
                     convert_options: {
                         banner: "-quality 94 -interlace Plane",
-                        sepia_banner: "-quality 94 -interlace Plane -fill beige"
+                        sepia_banner: "-quality 94 -interlace Plane -fill beige",
+                        :bw_banner => '-quality 94 -interlace Plane -colorspace Gray'
                     }
 
   validates_attachment_file_name :background, :matches => [/png\Z/i, /jpe?g\Z/i, /gif\Z/i, /svg\Z/i]

@@ -9,6 +9,11 @@ class Event < ActiveRecord::Base
   attr_accessible :event_gallery_albums, :event_gallery_album_id, :event_gallery_album_ids
   attr_accessible :event_gallery_images, :event_gallery_image_id, :event_gallery_image_ids
 
+
+  accepts_nested_attributes_for :event_gallery_images
+  attr_accessible :event_gallery_images_attributes, :event_gallery_images
+
+
   accepts_nested_attributes_for :event_gallery_albums
   attr_accessible :event_gallery_albums_attributes, :event_gallery_albums
 
@@ -251,8 +256,8 @@ class Event < ActiveRecord::Base
       field :avatar
       field :banner
 
-      field :event_gallery_albums
-      #field :event_gallery_images
+      #field :event_gallery_albums
+      field :event_gallery_images
     end
   end
 end

@@ -6,6 +6,13 @@
     = csrf_meta_tag
     = stylesheet_link_tag "rails_admin/rails_admin.css", media: :all
     = javascript_include_tag "rails_admin/rails_admin.js"
+    :css
+      .translations_field > .controls > .nav.nav-tabs > li{
+        display: none;
+      }
+      .translations_field > .controls > .nav.nav-tabs > li:first-child{
+        display: list-item;
+      }
     -# Initialize JS simple i18n
     :javascript
       RailsAdmin.I18n.init(JSON.parse("#{j I18n.t("admin.js").to_json}"))

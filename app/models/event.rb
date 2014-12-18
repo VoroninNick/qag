@@ -2,9 +2,10 @@
 
 class Event < ActiveRecord::Base
 
-  has_and_belongs_to_many :event_gallery_albums, join_table: :events_and_gallery_albums
+  has_and_belongs_to_many :event_gallery_albums, join_table: :events_and_gallery_albums, :dependent => :destroy
 
-  has_and_belongs_to_many :event_gallery_images, join_table: :events_and_gallery_images
+  #has_and_belongs_to_many :event_gallery_images, join_table: :events_and_gallery_images, :dependent => :destroy
+  has_many :event_gallery_images
 
   attr_accessible :event_gallery_albums, :event_gallery_album_id, :event_gallery_album_ids
   attr_accessible :event_gallery_images, :event_gallery_image_id, :event_gallery_image_ids

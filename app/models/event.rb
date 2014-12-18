@@ -79,7 +79,7 @@ class Event < ActiveRecord::Base
     #return instance_variable_get(variable_name) if instance_variable_defined?(variable_name)
 
     #return instance_variable_set(variable_name, self.event_subscriptions.where(disabled: false).count)
-    self.event_subscriptions.where.not(disabled: true).count
+    self.event_subscriptions.where('disabled is null or disabled = "f"').count
   end
 
 

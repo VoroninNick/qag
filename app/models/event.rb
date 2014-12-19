@@ -354,10 +354,24 @@ class Event < ActiveRecord::Base
         if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
           label asd
         end
+        if type == :paperclip
+          model = @abstract_model.model_name.constantize
+          temp_instance = model.new
+          attr = temp_instance.send(method_name)
+          help help + ( attr.styles.map{|obj| info = obj[1]; res = {}; res[info.name.to_sym] = info.geometry; res  }).inspect
+
+        end
       end
       field :banner do
         if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
           label asd
+        end
+        if type == :paperclip
+          model = @abstract_model.model_name.constantize
+          temp_instance = model.new
+          attr = temp_instance.send(method_name)
+          help help + ( attr.styles.map{|obj| info = obj[1]; res = {}; res[info.name.to_sym] = info.geometry; res  }).inspect
+
         end
       end
 

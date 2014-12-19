@@ -92,9 +92,17 @@ class AboutPageSliderSlide < ActiveRecord::Base
         end
       end
       group :image_data do
-        field :background, :paperclip do
+        field :background do
           if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
             label asd
+          end
+          #versions_info_string = a
+          if type == :paperclip
+            model = @abstract_model.model_name.constantize
+            temp_instance = model.new
+            attr = temp_instance.send(method_name)
+            help help + ( attr.styles.map{|obj| info = obj[1]; res = {}; res[info.name.to_sym] = info.geometry; res  }).inspect
+
           end
         end
         field :background_file_name_fallback do

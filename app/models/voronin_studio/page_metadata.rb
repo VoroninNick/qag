@@ -33,6 +33,7 @@ class VoroninStudio::PageMetadata < ActiveRecord::Base
     attr_accessible :locale, :head_title, :meta_tags, :meta_description
 
     rails_admin do
+      visible false
       field :locale, :hidden
       field :head_title do
         if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
@@ -53,12 +54,22 @@ class VoroninStudio::PageMetadata < ActiveRecord::Base
   end
 
   rails_admin do
+    navigation_label I18n.t('rails_admin.navigation_labels.pages')
     edit do
+      field :page
       field :translations, :globalize_tabs do
         if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
           label asd
         end
       end
+    end
+
+    nested do
+      field :page do
+        hide
+      end
+      field :translations
+
     end
   end
 end

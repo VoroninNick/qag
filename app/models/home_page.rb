@@ -4,6 +4,12 @@ class HomePage < ActiveRecord::Base
   has_many :comments, as: :commentable
   has_many :main_slider_slides
 
+  has_one :page_metadata, :class_name => 'VoroninStudio::PageMetadata', as: :page
+  attr_accessible :page_metadata
+
+  accepts_nested_attributes_for :page_metadata
+  attr_accessible :page_metadata_attributes
+
   accepts_nested_attributes_for :home_about_us_slides
   attr_accessible :home_about_us_slides_attributes, :home_about_us_slides
 
@@ -34,6 +40,12 @@ class HomePage < ActiveRecord::Base
         end
       end
       field :comments do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+
+      field :page_metadata do
         if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
           label asd
         end

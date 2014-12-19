@@ -77,7 +77,8 @@ class Users::SessionsController < Devise::SessionsController
     else
       #respond_with resource, location: after_sign_in_path_for(resource)
 
-      redirect_location = current_user.registration_location
+      #render inline:
+      redirect_location = after_sign_in_path_for(current_user) || current_user.registration_location
       if !redirect_location
         redirect_location = root_path(locale: I18n.locale)
       end

@@ -22,10 +22,22 @@ class HomePage < ActiveRecord::Base
     label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")
     label_plural I18n.t("rails_admin.model_labels_plural.#{self.abstract_model.model_name.underscore}")
     edit do
-      field :main_slider_slides
+      field :main_slider_slides do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
       #field :home_about_us_slides
-      field :home_contact_infos
-      field :comments
+      field :home_contact_infos do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :comments do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
     end
   end
 

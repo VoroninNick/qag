@@ -15,7 +15,11 @@ class FormConfig < ActiveRecord::Base
       #   help 'Use commas to separate e-mails'
       #   partial 'tag_list_with_suggestions'
       # end
-      field :receiver_emails
+      field :receiver_emails do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
     end
   end
 

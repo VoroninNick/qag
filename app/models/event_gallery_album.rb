@@ -43,8 +43,16 @@ class EventGalleryAlbum < ActiveRecord::Base
       edit do
         field :locale, :hidden
         #field :published_translation
-        field :name
-        field :short_description
+        field :name do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
+        field :short_description do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
         #field :avatar_alt
 
 
@@ -63,12 +71,24 @@ class EventGalleryAlbum < ActiveRecord::Base
     label_plural I18n.t("rails_admin.model_labels_plural.#{self.abstract_model.model_name.underscore}")
 
     edit do
-      field :published
-      field :translations, :globalize_tabs
+      field :published do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :translations, :globalize_tabs do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
       #field :avatar
 
       #field :events
-      field :event_gallery_images
+      field :event_gallery_images do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
     end
   end
 end

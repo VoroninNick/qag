@@ -40,9 +40,17 @@ class EventGalleryImage < ActiveRecord::Base
       edit do
         field :locale, :hidden
         #field :published_translation
-        field :name
+        field :name do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
         #field :short_description
-        field :image_alt
+        field :image_alt do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
 
 
       end
@@ -56,8 +64,16 @@ class EventGalleryImage < ActiveRecord::Base
 
     edit do
       #field :published
-      field :translations, :globalize_tabs
-      field :image
+      field :translations, :globalize_tabs do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :image do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
 
       #field :events
       #field :event_gallery_albums

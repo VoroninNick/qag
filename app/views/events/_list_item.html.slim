@@ -31,40 +31,42 @@
           / slide.name
           .event-description
             = event.short_description
-          - if event.up_to_date?
-            .hover-event-date-range-and-participants
-              .hover-event-start-date
-                = "#{number_to_string_with_zero(event.start_date.day)}.#{number_to_string_with_zero(event.start_date.month)}.#{event.start_date.year}"
-              .hover-event-end-date
-                = "#{number_to_string_with_zero(event.end_date.day)}.#{number_to_string_with_zero(event.end_date.month)}.#{event.end_date.year}"
-              .hover-event-participants
-                = t('pages.events-list.event-template.hover.participants-count', participants_count: event.allowed_subscriptions_count)
-            .event-link-and-register-button
-              - if event.enabled_registration?
-                .register-button.registration-enabled.columns.large-4.large-centered class=( "decline" if subscribed_on_event?(event.id) )
-                  a.register-button-a href=( subscribed_on_event?(event.id) ? event_unsubscription_form_path(locale: I18n.locale, event_id: event.id) : new_event_subscription_path(locale: I18n.locale, event_id: event.id)  )
-                    = embedded_svg_from_assets('svg/registration.svg')
-                    span.registration-text
-                      = t("layout.buttons.#{ "un" if subscribed_on_event?(event.id) }register")
-              - else
-                .register-button.registration-disabled.columns.large-4.large-centered class=( "decline" if subscribed_on_event?(event.id) )
-                  span.register-button-span
-                    span.registration-text
-                      = "Реєстрацію завершено"
+          /- if event.up_to_date?
+          /  .hover-event-date-range-and-participants
+          /    .hover-event-start-date
+          /      = "#{number_to_string_with_zero(event.start_date.day)}.#{number_to_string_with_zero(event.start_date.month)}.#{event.start_date.year}"
+          /    .hover-event-end-date
+          /      = "#{number_to_string_with_zero(event.end_date.day)}.#{number_to_string_with_zero(event.end_date.month)}.#{event.end_date.year}"
+          /    .hover-event-participants
+          /      = t('pages.events-list.event-template.hover.participants-count', participants_count: event.allowed_subscriptions_count)
+          /  .event-link-and-register-button
+          /    - if event.enabled_registration?
+          /      .register-button.registration-enabled.columns.large-4.large-centered class=( "decline" if subscribed_on_event?(event.id) )
+          /        a.register-button-a href=( subscribed_on_event?(event.id) ? event_unsubscription_form_path(locale: I18n.locale, event_id: event.id) : new_event_subscription_path(locale: I18n.locale, event_id: event.id)  )
+          /          = embedded_svg_from_assets('svg/registration.svg')
+          /          span.registration-text
+          /            = t("layout.buttons.#{ "un" if subscribed_on_event?(event.id) }register")
+          /    - else
+          /      .register-button.registration-disabled.columns.large-4.large-centered class=( "decline" if subscribed_on_event?(event.id) )
+          /        span.register-button-span
+          /          span.registration-text
+          /            = "Реєстрацію завершено"
+          /
+          /- else
+          /  .hover-expired-event-images
+          /    .hover-expired-event-title
+          /      = t('pages.events-list.event-template.hover.expired-event.title')
+          /    .hover-expired-event-images-carousel-wrapper
+          /      .hover-expired-event-images-carousel-ul
+          /        - event.images.each_with_index do |image, index|
+          /          .hover-expired-event-images-carousel-ul-li.item-inner
+          /            a.hover-expired-event-images-carousel-ul-li-a href=( (image.image.exists?(:original) )? image.image.url(:original) : stub_image_link(600, 400, "image #{index + 1}") )
+          /              = content_tag(:img, nil, class: "hover-expired-event-images-carousel-ul-li-a-img #{'lazyOwl' if index > 5}",  :"#{ index <= 5 ? "src" : "data-src" }" => image_or_stub_url(image.image, :event_list_image, 150, 100, "image #{index+1}"))
+          /
+          /  a.hover-read-button href="#{event_item_path(locale: I18n.locale, item: event.slug, tags: event.tags.join('-'))}"
+          /    = "Переглянути"
 
-          - else
-            .hover-expired-event-images
-              .hover-expired-event-title
-                = t('pages.events-list.event-template.hover.expired-event.title')
-              .hover-expired-event-images-carousel-wrapper
-                .hover-expired-event-images-carousel-ul
-                  - event.images.each_with_index do |image, index|
-                    .hover-expired-event-images-carousel-ul-li.item-inner
-                      a.hover-expired-event-images-carousel-ul-li-a href=( (image.image.exists?(:original) )? image.image.url(:original) : stub_image_link(600, 400, "image #{index + 1}") )
-                        = content_tag(:img, nil, class: "hover-expired-event-images-carousel-ul-li-a-img #{'lazyOwl' if index > 5}",  :"#{ index <= 5 ? "src" : "data-src" }" => image_or_stub_url(image.image, :event_list_image, 150, 100, "image #{index+1}"))
-
-            a.hover-read-button href="#{event_item_path(locale: I18n.locale, item: event.slug, tags: event.tags.join('-'))}"
-              = "Переглянути"
+          = get_button_for_event(event)
 
 
         - if @events_history

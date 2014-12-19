@@ -1,6 +1,12 @@
 class Article < ActiveRecord::Base
   attr_accessible :published, :slug, :name, :short_description, :full_description, :release_date
 
+  has_one :page_metadata, :class_name => 'VoroninStudio::PageMetadata', as: :page
+  attr_accessible :page_metadata
+
+  accepts_nested_attributes_for :page_metadata
+  attr_accessible :page_metadata_attributes
+
   has_attached_file :avatar, :styles => { :article_list_small_thumb => '360x300#', related_irticle_thumb: '600x500#'},
                     :url  => "/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
                     :path => ":rails_root/public/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
@@ -19,6 +25,8 @@ class Article < ActiveRecord::Base
   validates_attachment_file_name :avatar, :matches => [/png\Z/i, /jpe?g\Z/i, /gif\Z/i, /svg\Z/i]
   validates_attachment_file_name :banner, :matches => [/png\Z/i, /jpe?g\Z/i, /gif\Z/i, /svg\Z/i]
 
+  validates :name, presence: true
+  validates :slug, presence: true, uniqueness: true
 
   [:avatar, :banner].each do |paperclip_field_name|
     attr_accessible paperclip_field_name.to_sym, "delete_#{paperclip_field_name}".to_sym, "#{paperclip_field_name}_file_name".to_sym, "#{paperclip_field_name}_file_size".to_sym, "#{paperclip_field_name}_content_type".to_sym, "#{paperclip_field_name}_updated_at".to_sym, "#{paperclip_field_name}_file_name_fallback".to_sym, "#{paperclip_field_name}_alt".to_sym
@@ -33,6 +41,8 @@ class Article < ActiveRecord::Base
   class Translation
     attr_accessible :locale, :slug, :published_translation, :name, :short_description, :full_description
 
+
+
     # def published=(value)
     #   self[:published] = value
     # end
@@ -46,18 +56,48 @@ class Article < ActiveRecord::Base
     end
 
     rails_admin do
+
+      # [:name, :slug, :short_description, :full_description, :avatar_alt, :banner_alt].each do |field_name|
+      #   configure field_name do
+      #     label I18n.t("rails_admin.field_labels.#{field_name}")
+      #     type :ck_editor  if [:full_description].include?(field_name)
+      #   end
+      # end
+
       visible false
       edit do
         field :locale, :hidden
         #field :published_translation
-        field :name
-        field :slug do
-          label "url"
+        field :name do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
         end
-        field :short_description
-        field :full_description, :ck_editor
-        field :avatar_alt
-        field :banner_alt
+        field :slug do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
+        field :short_description do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
+        field :full_description, :ck_editor do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
+        field :avatar_alt do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
+        field :banner_alt do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
 
       end
     end
@@ -70,19 +110,44 @@ class Article < ActiveRecord::Base
     navigation_label I18n.t('rails_admin.navigation_labels.articles')
     label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")
     label_plural I18n.t("rails_admin.model_labels_plural.#{self.abstract_model.model_name.underscore}")
+    # [:published, :translations, :avatar, :banner, :page_metadata].each do |field_name|
+    #   configure field_name do
+    #     label I18n.t("rails_admin.field_labels.#{field_name}")
+    #   end
+    # end
 
     edit do
       field :published do
         #label get_field_label(self)
         #label get_field_label
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+
       end
-      field :translations, :globalize_tabs
-      field :avatar
+      field :translations, :globalize_tabs do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :avatar do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
       #field :avatar_file_name_fallback
 
-      field :banner
+      field :banner do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
       #field :banner_file_name_fallback
-
+      field :page_metadata do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
     end
   end
 end

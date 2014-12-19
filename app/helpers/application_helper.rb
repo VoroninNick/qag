@@ -129,4 +129,31 @@ module ApplicationHelper
   def get_field_label field
     I18n.t('rails_admin.field_labels.address')
   end
+
+  def get_button_name_for_event event
+    if event.up_to_date?
+      if event.enabled_registration?
+        if subscribed_on_event?(@event.id)
+          # unregister
+          # or
+          # if disabled by admin
+          # frozen
+        else
+          return :register
+        end
+      else
+        # registration disabled
+        return :registration_disabled
+      end
+    else
+      return :event_expired
+    end
+  end
+
+
+  def get_button_for_event event
+    button_name = get_button_name_for_event event
+    render template: "helpers/application_helper/get_button_for_event", locals: { event: event, button_name: button_name }
+
+  end
 end

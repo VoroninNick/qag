@@ -47,11 +47,31 @@ class Partner < ActiveRecord::Base
 
       edit do
         field :locale, :hidden
-        field :published_translation
-        field :name
-        field :avatar_alt
-        field :link
-        field :short_description
+        field :published_translation do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
+        field :name do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
+        field :avatar_alt do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
+        field :link do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
+        field :short_description do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
       end
     end
   end
@@ -62,9 +82,21 @@ class Partner < ActiveRecord::Base
     label_plural I18n.t("rails_admin.model_labels_plural.#{self.abstract_model.model_name.underscore}")
 
     edit do
-      field :published
-      field :avatar
-      field :translations, :globalize_tabs
+      field :published do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :avatar do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :translations, :globalize_tabs do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
     end
   end
 end

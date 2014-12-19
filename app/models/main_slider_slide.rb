@@ -33,12 +33,32 @@ class MainSliderSlide < ActiveRecord::Base
 
       edit do
         field :locale, :hidden
-        field :published_translation
-        field :name
+        field :published_translation do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
+        field :name do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
 
-        field :short_description
-        field :full_description, :ck_editor
-        field :background_alt
+        field :short_description do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
+        field :full_description, :ck_editor do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
+        field :background_alt do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
 
 
       end
@@ -51,12 +71,32 @@ class MainSliderSlide < ActiveRecord::Base
     label_plural I18n.t("rails_admin.model_labels_plural.#{self.abstract_model.model_name.underscore}")
 
     edit do
-      field :published
-      field :order_index
-      field :translations, :globalize_tabs
+      field :published do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :order_index do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :translations, :globalize_tabs do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
       group :image_data do
-        field :background, :paperclip
-        field :background_file_name_fallback
+        field :background, :paperclip do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
+        field :background_file_name_fallback do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
       end
     end
   end

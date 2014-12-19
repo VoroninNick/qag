@@ -34,8 +34,9 @@ RailsAdmin.config do |config|
 
   ([
    Article, Comment, Event, FormConfig, HomeAboutUsSlide, HomeContactInfo, HomeForm, HomePage, MainSliderSlide, User, Participant, TeamMember, Setting, Partner, AboutPageSliderSlide,
-   EventTag, EventGalleryAlbum, EventGalleryImage, EventSubscription
+   EventTag, EventGalleryAlbum, EventGalleryImage, EventSubscription,
    #ActsAsTaggableOn::Tag, ActsAsTaggableOn::Tagging
+   VoroninStudio::PageMetadata
 
 
   ]#+(Dir.glob(Rails.root.join('app/models/pages/*.rb')).each {|file| require file;}; classes = [] ;Pages.constants.each {|c| classes.push("Pages::#{c.to_s}") }; classes )

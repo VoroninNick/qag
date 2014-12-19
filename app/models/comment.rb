@@ -20,8 +20,16 @@ class Comment < ActiveRecord::Base
 
       edit do
         field :locale, :hidden
-        field :published_translation
-        field :comment_text
+        field :published_translation do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
+        field :comment_text do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
       end
     end
   end
@@ -33,9 +41,21 @@ class Comment < ActiveRecord::Base
 
 
     edit do
-      field :published
-      field :user
-      field :translations, :globalize_tabs
+      field :published do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :user do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :translations, :globalize_tabs do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
 
     end
   end

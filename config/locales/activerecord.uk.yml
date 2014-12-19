@@ -22,6 +22,10 @@ uk:
               empty: "Повторіть пароль"
               invalid: "Пароль введено невірно"
               confirmation: "Паролі повинні бути однаковими"
+        article:
+          attributes:
+            name:
+              blank: "Ім'я не може бути пустим"
 
 
 

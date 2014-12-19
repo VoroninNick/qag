@@ -36,8 +36,9 @@
           .event-link
             a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
               |Детальніше про подію
+        = get_button_for_event(event)
 
-        - if event.up_to_date?
+        /- if event.up_to_date?
           - if event.enabled_registration?
             .register-button.registration-enabled.columns.large-4.right class=( "decline" if subscribed_on_event?(event.id) )
               a.register-button-a href=( subscribed_on_event?(event.id) ? event_unsubscription_form_path(event_id: event.id, locale: I18n.locale) : new_event_subscription_path(event_id: event.id, locale: I18n.locale)  )
@@ -49,7 +50,7 @@
               span.register-button-span
                 span.registration-text
                   = "Реєстрацію завершено"
-        - else
+        /- else
           .register-button.columns.large-4.right class=( "event-expired" )
             span.register-button-span
               span.registration-text

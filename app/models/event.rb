@@ -1,6 +1,14 @@
 # -*- encoding : utf-8 -*-
 
 class Event < ActiveRecord::Base
+  #include VoroninStudio::PageHelper
+
+  #acts_as_page
+  has_one :page_metadata, :class_name => 'VoroninStudio::PageMetadata', as: :page
+  attr_accessible :page_metadata
+
+  accepts_nested_attributes_for :page_metadata
+  attr_accessible :page_metadata_attributes
 
   has_and_belongs_to_many :event_gallery_albums, join_table: :events_and_gallery_albums, :dependent => :destroy
 
@@ -106,7 +114,8 @@ class Event < ActiveRecord::Base
   end
 
   def expired?
-    end_date <= DateTime.now
+    start_date <= DateTime.now
+
   end
 
   def up_to_date?
@@ -146,14 +155,36 @@ class Event < ActiveRecord::Base
       edit do
         field :locale, :hidden
         #field :published_translation
-        field :name
-        field :slug do
-          label "url"
+        field :name do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
         end
-        field :address
-        field :short_description
-        field :full_description, :ck_editor
-        field :days_and_time_string, :text
+        field :slug do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
+        field :address do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
+        field :short_description do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
+        field :full_description, :ck_editor do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
+        field :days_and_time_string, :text do
+          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+            label asd
+          end
+        end
 
 
       end
@@ -204,22 +235,69 @@ class Event < ActiveRecord::Base
     end
 
     list do
-      field :id
-      field :published
-      field :disabled_registration
-      field :allowed_subscriptions_count
-      field :name
-      field :short_description
-      field :avatar
-      field :start_date
-      field :end_date
+      field :id do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :published do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :disabled_registration do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :allowed_subscriptions_count do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :name do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :short_description do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :avatar do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :start_date do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :end_date do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
     end
 
     edit do
-      field :published
-      field :disabled_registration
+      field :published do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :disabled_registration do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
       field :allowed_subscriptions_count do
         read_only true
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
       end
       # field :tag_list do
       #   label 'Категорія (може бути декілька)'
@@ -227,14 +305,30 @@ class Event < ActiveRecord::Base
       #   partial 'tag_list_with_suggestions'
       # end
 
-      field :translations, :globalize_tabs
-      field :event_tags
+      field :translations, :globalize_tabs do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :event_tags do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
 
 
 
 
-      field :start_date
-      field :end_date
+      field :start_date do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :end_date do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
 
       group :days do
         hide
@@ -256,11 +350,28 @@ class Event < ActiveRecord::Base
       end
 
 
-      field :avatar
-      field :banner
+      field :avatar do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :banner do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
 
       #field :event_gallery_albums
-      field :event_gallery_images
+      field :event_gallery_images do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
+      field :page_metadata do
+        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+          label asd
+        end
+      end
     end
   end
 end

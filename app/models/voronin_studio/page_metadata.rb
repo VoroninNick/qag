@@ -54,7 +54,7 @@ class VoroninStudio::PageMetadata < ActiveRecord::Base
   end
 
   rails_admin do
-    navigation_label I18n.t('rails_admin.navigation_labels.pages')
+    navigation_label I18n.t("rails_admin.navigation_labels.pages")
     edit do
       field :page
       field :translations, :globalize_tabs do

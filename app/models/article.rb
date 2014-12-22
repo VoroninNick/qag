@@ -153,7 +153,6 @@ class Article < ActiveRecord::Base
           temp_instance = model.new
           attr = temp_instance.send(method_name)
           help help + ( attr.styles.map{|obj| info = obj[1]; res = {}; res[info.name.to_sym] = info.geometry; res  }).inspect
-
         end
       end
       #field :banner_file_name_fallback

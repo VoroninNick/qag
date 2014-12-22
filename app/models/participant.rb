@@ -47,11 +47,11 @@ class Participant < ActiveRecord::Base
 
       edit do
         field :locale, :hidden
-        field :published_translation do
-          if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-            label asd
-          end
-        end
+        # field :published_translation do
+        #   if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+        #     label asd
+        #   end
+        # end
         field :name do
           if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
             label asd

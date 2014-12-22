@@ -11,7 +11,7 @@ class HomePage < ActiveRecord::Base
   accepts_nested_attributes_for :page_metadata
   attr_accessible :page_metadata_attributes
 
-  accepts_nested_attributes_for :home_about_us_slides
+  accepts_nested_attributes_for :home_about_us_slides, allow_destroy: true
   attr_accessible :home_about_us_slides_attributes, :home_about_us_slides
 
   accepts_nested_attributes_for :home_contact_infos

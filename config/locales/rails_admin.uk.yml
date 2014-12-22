@@ -32,7 +32,7 @@ uk:
       pages/events_list: "Список подій"
       articles_list: "Список статтей"
       pages/articles_list: "Список статтей"
-      contact: "Контакти"
+      contact_page: "Контакти"
     model_labels_plural:
       home_page: "Головна сторінка"
       about_page: "Про нас"
@@ -58,7 +58,7 @@ uk:
       pages/events_list: "Список подій"
       articles_list: "Список статтей"
       pages/articles_list: "Список статтей"
-      contact: "Контакти"
+      contact_page: "Контакти"
     field_labels:
       role: "Роль"
       translations: "Локалізації"

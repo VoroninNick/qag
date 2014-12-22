@@ -144,7 +144,8 @@ class Event < ActiveRecord::Base
     attr_accessible :locale, :published_translation, :name, :slug, :short_description, :full_description, :address, :days_and_time_string
 
     before_save do
-      self.slug = self.name.parameterize if !self.slug || self.slug == ''
+      self.slug = self.name if !self.slug || self.slug == ''
+
       self.slug = self.slug.parameterize
 
 

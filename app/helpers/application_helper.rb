@@ -140,7 +140,7 @@ module ApplicationHelper
           # or
           # if disabled by admin
           # frozen
-          if disabled_by_admin_for_user?(current_user)
+          if event.disabled_by_admin_for_user?(current_user)
             button_options[:type] = :frozen
           else
             button_options[:type] = :unregister

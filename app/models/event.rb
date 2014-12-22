@@ -49,6 +49,8 @@ class Event < ActiveRecord::Base
 
   #acts_as_taggable
 
+  validates_presence_of :start_date
+
 
 
   [:avatar, :banner].each do |paperclip_field_name|

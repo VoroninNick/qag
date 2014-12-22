@@ -156,6 +156,12 @@ module ApplicationHelper
       button_options[:type] = :event_expired
     end
 
+    if current_route?(:event_item)
+      button_options[:context] = :event_item
+    else
+      button_options[:context] = :list_item
+    end
+
     return button_options
   end
 

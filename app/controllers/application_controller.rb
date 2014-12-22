@@ -17,6 +17,17 @@ class ApplicationController < ActionController::Base
     @is_ajax ||= params[:ajax] == "true"
   end
 
+  helper_method :current_route_name, :current_route?
+
+  def current_route_name
+    params[:route_name].to_sym
+  end
+
+  def current_route?(route_name)
+    r = current_route_name
+    r ? r == route_name.to_sym : nil
+  end
+
   #before_filter :set_locale
   before_filter do
     I18n.locale = :uk

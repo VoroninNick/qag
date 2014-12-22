@@ -4,7 +4,7 @@
       .image-and-info.columns.large-4
         .image
           a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
-            img.grayscale src=image_or_stub_url(event.avatar, :event_list_small_thumb, 360, 240, "event #{event.id}")
+            img.grayscale src=image_or_stub_url(event.avatar, :event_list_small_thumb, 360, 240, "event_#{event.id}")
         .info
           .start-date
             span.tip

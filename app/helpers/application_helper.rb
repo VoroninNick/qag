@@ -131,6 +131,8 @@ module ApplicationHelper
   end
 
   def get_button_name_for_event event
+    state = { type: nil }
+
     if event.up_to_date?
       if event.enabled_registration?
         if subscribed_on_event?(@event.id)
@@ -138,6 +140,11 @@ module ApplicationHelper
           # or
           # if disabled by admin
           # frozen
+          if disabled_by_admin_for_user?(current_user)
+            return :frozen
+          else
+            return :unregister
+          end
         else
           return :register
         end

@@ -126,6 +126,11 @@ class Event < ActiveRecord::Base
     disabled_registration != true
   end
 
+  def disabled_by_admin_for_user? user
+    subscription = self.event_subscriptions.where(user_id: user.id).first
+    return ( subscription ? subscription.disabled : nil )
+  end
+
   attr_accessible :days_and_time_string
 
   attr_accessible :disabled_registration

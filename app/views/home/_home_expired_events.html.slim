@@ -22,7 +22,8 @@ div#home-expired-events-section.page-section.page-section-number-4.home-expired-
             .date-range
               .start-date
                 = "#{number_to_string_with_zero(event.start_date.day)}.#{number_to_string_with_zero(event.start_date.month)}.#{event.start_date.year}"
-              .end-date
-                = "#{number_to_string_with_zero(event.end_date.day)}.#{number_to_string_with_zero(event.end_date.month)}.#{event.end_date.year}"
+              - if event.end_date
+                .end-date
+                  = "#{number_to_string_with_zero(event.end_date.day)}.#{number_to_string_with_zero(event.end_date.month)}.#{event.end_date.year}"
 
 

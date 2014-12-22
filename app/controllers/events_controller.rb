@@ -9,11 +9,13 @@ class EventsController < ApplicationController
     @events = Event.find(@event_ids)
     @event = (@events.respond_to?(:count) && @events.count > 0)? @events.first : nil
 
-    @event.translations_by_locale.keys.each do |locale|
-      I18n.with_locale(locale.to_sym) do
-        @page_locale_links[locale.to_sym] = url_for(item: @event.slug, tags: @event.tags.join('-'), locale: locale)
-      end
+    if @event
+      @event.translations_by_locale.keys.each do |locale|
+        I18n.with_locale(locale.to_sym) do
+          @page_locale_links[locale.to_sym] = url_for(item: @event.slug, tags: @event.tags.join('-'), locale: locale)
+        end
 
+      end
     end
   end
 

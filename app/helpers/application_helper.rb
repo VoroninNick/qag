@@ -131,7 +131,7 @@ module ApplicationHelper
   end
 
   def get_button_name_for_event event
-    state = { type: nil }
+    button_options = { type: nil }
 
     if event.up_to_date?
       if event.enabled_registration?
@@ -141,20 +141,22 @@ module ApplicationHelper
           # if disabled by admin
           # frozen
           if disabled_by_admin_for_user?(current_user)
-            return :frozen
+            button_options[:type] = :frozen
           else
-            return :unregister
+            button_options[:type] = :unregister
           end
         else
-          return :register
+          button_options[:type] = :register
         end
       else
         # registration disabled
-        return :registration_disabled
+        button_options[:type] = :registration_disabled
       end
     else
-      return :event_expired
+      button_options[:type] = :event_expired
     end
+
+    return button_options
   end
 
 

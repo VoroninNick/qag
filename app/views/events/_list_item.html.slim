@@ -74,8 +74,9 @@
           .hover-event-date-range-and-participants
             .hover-event-start-date
               = "#{number_to_string_with_zero(event.start_date.day)}.#{number_to_string_with_zero(event.start_date.month)}.#{event.start_date.year}"
-            .hover-event-end-date
-              = "#{number_to_string_with_zero(event.end_date.day)}.#{number_to_string_with_zero(event.end_date.month)}.#{event.end_date.year}"
+            - if event.end_date
+              .hover-event-end-date
+                = "#{number_to_string_with_zero(event.end_date.day)}.#{number_to_string_with_zero(event.end_date.month)}.#{event.end_date.year}"
             .hover-event-participants
               = t('pages.events-list.event-template.hover.participants-count', participants_count: event.allowed_subscriptions_count)
           .event-link-and-register-button

@@ -158,6 +158,8 @@ module ApplicationHelper
 
     if current_route?(:event_item)
       button_options[:context] = :event_item
+    elsif current_route?(:events_list)
+      button_options[:context] = :events_list_page
     else
       button_options[:context] = :list_item
     end

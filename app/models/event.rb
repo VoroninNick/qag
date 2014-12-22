@@ -45,7 +45,7 @@ class Event < ActiveRecord::Base
                     }
 
   has_attached_file :expired_event_avatar, :styles => { expired_event_avatar: '500x1250#' },
-                    :url  => "/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
+                    :url  => "/assets/#{self.name.underscore}/:id/expired_event_avatar/:style/:basename.:extension",
                     :path => ":rails_root/public/assets/#{self.name.underscore}/:id/expired_event_avatar/:style/:basename.:extension",
                     convert_options: {
                         banner: "-quality 94 -interlace Plane",

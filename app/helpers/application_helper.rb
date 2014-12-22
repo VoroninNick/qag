@@ -135,7 +135,7 @@ module ApplicationHelper
 
     if event.up_to_date?
       if event.enabled_registration?
-        if subscribed_on_event?(@event.id)
+        if subscribed_on_event?(event.id)
           # unregister
           # or
           # if disabled by admin

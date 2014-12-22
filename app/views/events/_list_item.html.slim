@@ -1,5 +1,5 @@
 - events.each_with_index do |event, index|
-  .events-list-event.event-collection-item data-event-id="#{event.id}" class="#{"event-i-am-subscribed-on" if subscribed_on_event?(event.id) } #{ (Date.today > event.end_date)? 'expired-event' : ( Date.today >= event.start_date )? 'started-event' : 'future-event' }#{(index % 2 == 1)? ' right-image' : nil}"
+  .events-list-event.event-collection-item data-event-id="#{event.id}" class="#{"event-i-am-subscribed-on" if subscribed_on_event?(event.id) } #{ ( event.expired? )? 'expired-event' : ( Date.today >= event.start_date )? 'started-event' : 'future-event' }#{(index % 2 == 1)? ' right-image' : nil}"
     a.event-bg-link href=event_item_path(locale: I18n.locale, item: event.slug, tags: event.tags.join('-'))
     .events-list-event-row.row
       .image-and-info.columns.large-3

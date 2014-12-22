@@ -5,7 +5,7 @@
         .image
           a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
             img.grayscale src=image_or_stub_url(event.avatar, :event_list_small_thumb, 360, 240, "event_#{event.id}")
-        .info
+        .info class=("has_event_end_date" if event.end_date )
           .start-date
             span.tip
               |Початок:

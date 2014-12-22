@@ -42,7 +42,13 @@ class HomePage < ActiveRecord::Base
           label asd
         end
       end
-      field :comments do
+      # field :comments do
+      #   if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+      #     label asd
+      #   end
+      # end
+
+      field :user_feedbacks do
         if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
           label asd
         end

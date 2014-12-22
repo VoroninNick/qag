@@ -33,6 +33,7 @@ uk:
       articles_list: "Список статтей"
       pages/articles_list: "Список статтей"
       contact_page: "Контакти"
+      voronin_studio/page_metadata: "Метадані для сторінки"
     model_labels_plural:
       home_page: "Головна сторінка"
       about_page: "Про нас"
@@ -59,6 +60,7 @@ uk:
       articles_list: "Список статтей"
       pages/articles_list: "Список статтей"
       contact_page: "Контакти"
+      voronin_studio/page_metadata: "Метадані для сторінок"
     field_labels:
       role: "Роль"
       translations: "Локалізації"
@@ -125,6 +127,8 @@ uk:
       page_metadata_attributes: "Мета-дані"
       comments: "Відгуки"
       comments_attributes: "Відгуки"
+      user_feedbacks: "Відгуки"
+      user_feedbacks_attributes: "Відгуки"
       top_text: "Верхній текст"
       quote: "Цитата"
       bottom_text: "Нижній текст"

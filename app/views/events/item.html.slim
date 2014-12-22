@@ -1,7 +1,7 @@
 - if @event
   #event-item-banner
-    #event-item-banner-image-wrapper.grayscale style="background-image: url(#{image_or_stub_url(@event.banner, :banner, 2100, 500, "event #{@event.id}")})"
-      img#event-item-banner-img src=image_or_stub_url(@event.banner, :banner, 2100, 500, "event #{@event.id}")
+    #event-item-banner-image-wrapper.grayscale style="background-image: url(#{ @event.banner.exists?(:banner) ? @event.banner.url(:banner) : asset_path('banners/events_item.jpg') })"
+      img#event-item-banner-img src="#{ @event.banner.exists?(:banner) ? @event.banner.url(:banner) : asset_path('banners/events_item.jpg') }"
   #breadcrumbs-container
     #breadcrumbs-row.row
       ul#breadcrumbs-ul

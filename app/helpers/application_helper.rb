@@ -161,8 +161,8 @@ module ApplicationHelper
 
 
   def get_button_for_event event
-    button_name = get_button_name_for_event event
-    render template: "helpers/application_helper/get_button_for_event", locals: { event: event, button_name: button_name }
+    button_options = get_button_name_for_event event
+    render template: "helpers/application_helper/get_button_for_event", locals: { event: event, button_options: button_options}
 
   end
 end

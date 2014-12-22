@@ -1,5 +1,5 @@
-- if button_name == :register || button_name == :registration_disabled
-  - if button_name == :register
+- if button_options[:type] == :register || button_options[:type] == :registration_disabled
+  - if button_options[:type] == :register
     .register-button.registration-enabled.columns.large-4.right class=( "decline" if subscribed_on_event?(event.id) )
       a.register-button-a href=( subscribed_on_event?(event.id) ? event_unsubscription_form_path(event_id: event.id, locale: I18n.locale) : new_event_subscription_path(event_id: event.id, locale: I18n.locale)  )
         = embedded_svg_from_assets('svg/registration.svg')

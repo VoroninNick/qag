@@ -130,7 +130,7 @@ module ApplicationHelper
     I18n.t('rails_admin.field_labels.address')
   end
 
-  def get_button_name_for_event event
+  def get_button_name_for_event(event)
     button_options = { type: nil }
 
     if event.up_to_date?
@@ -160,8 +160,8 @@ module ApplicationHelper
   end
 
 
-  def get_button_for_event event
-    button_options = get_button_name_for_event event
+  def get_button_for_event(event)
+    button_options = get_button_name_for_event(event)
     render template: "helpers/application_helper/get_button_for_event", locals: { event: event, button_options: button_options}
 
   end

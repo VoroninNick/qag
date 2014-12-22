@@ -79,7 +79,7 @@ class TeamMember < ActiveRecord::Base
   end
 
   rails_admin do
-    navigation_label I18n.t('rails_admin.navigation_labels.about')
+    parent AboutPage
     weight -1
     label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")
     label_plural I18n.t("rails_admin.model_labels_plural.#{self.abstract_model.model_name.underscore}")

@@ -6,12 +6,12 @@
         span.registration-text
           = t("layout.buttons.#{ "un" if subscribed_on_event?(event.id) }register")
   - else
-    .register-button.columns.large-4.right class=( "registration-disabled" )
+    .register-button class="#{"columns large-4 right" if button_options[:context] == :list_item} #{"registration-disabled"}"
       span.register-button-span
         span.registration-text
           = "Реєстрацію завершено"
 - else
-  .register-button.columns.large-4.right class=( "event-expired" )
+  .register-button class="#{"columns large-4 right" if button_options[:context] == :list_item} #{"event-expired"}"
     span.register-button-span
       span.registration-text
         = "Захід завершено"

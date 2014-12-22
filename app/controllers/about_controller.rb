@@ -14,5 +14,7 @@ class AboutController < ApplicationController
     @team_members = TeamMember.all.where("published = 't' ")
 
     @about_slides = AboutPageSliderSlide.where("published = 't' ").order('order_index asc')
+
+    @about_page = AboutPage.first
   end
 end

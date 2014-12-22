@@ -33,7 +33,7 @@ class EventTag < ActiveRecord::Base
     end
   end
 
-  def available_tags
+  def self.available_tags
     EventTag.all.select do |t|
       t.events.count > 0
     end

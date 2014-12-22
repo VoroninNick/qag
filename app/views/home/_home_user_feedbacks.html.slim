@@ -13,11 +13,11 @@ div#home-comments-section.page-section.page-section-number-6.home-comments-secti
         li.user-avatar.columns.large-2 id="user-avatar-#{index + 1}"
           label for="home-user-comment-flag-#{index + 1}"
             .image-wrapper
-              img.grayscale.grayscale-fade src=image_or_stub_url(comment.user.avatar, :thumb, 150, 150, "user #{comment.user.id}")
+              img.grayscale.grayscale-fade src=image_or_stub_url(comment.avatar, :thumb, 150, 150, "comment_#{comment.id}")
             span.name
-              = comment.user.name
+              = comment.name
             span.status
-              = comment.user.status
+              = comment.status
 
   .comments
     ul.row

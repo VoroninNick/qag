@@ -166,3 +166,7 @@ gem 'render_anywhere', :require => false
 gem 'will_paginate', '~> 3.0'
 
 gem 'fancybox2-rails'
+
+#gem 'gemcutter'
+#gem 'tumble'
+#gem 'ukrainian'

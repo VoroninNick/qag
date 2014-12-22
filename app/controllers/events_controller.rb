@@ -23,21 +23,23 @@ class EventsController < ApplicationController
     
     find_event
 
-    @breadcrumbs = {
-        home: {},
-        events_list: {
-            title: I18n.t('layout.breadcrumbs.events_list'),
-            link: {
-                url: events_list_path(locale: I18n.locale)
-            }
-        },
-        event_item: {
-            title: @event.name,
-            link: {
-                url: event_item_path(item: @event.slug, tags: @event.tags.join('-'), locale: I18n.locale)
-            }
-        }
-    }
+    if @event
+      @breadcrumbs = {
+          home: {},
+          events_list: {
+              title: I18n.t('layout.breadcrumbs.events_list'),
+              link: {
+                  url: events_list_path(locale: I18n.locale)
+              }
+          },
+          event_item: {
+              title: @event.name,
+              link: {
+                  url: event_item_path(item: @event.slug, tags: @event.tags.join('-'), locale: I18n.locale)
+              }
+          }
+      }
+    end
 
 
     text = ""

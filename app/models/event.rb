@@ -135,6 +135,12 @@ class Event < ActiveRecord::Base
 
   attr_accessible :disabled_registration
 
+  before_save do
+    if !self.address || self.address == ''
+      self.address = I18n.t("activerecord.defaults.models.event.attributes.address")
+    end
+  end
+
 
   translates :name, :slug, :short_description, :full_description, :address, :days_and_time_string, :versioning => :paper_trail
   accepts_nested_attributes_for :translations

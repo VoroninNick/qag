@@ -91,8 +91,8 @@ class HomeController < ApplicationController
     @home_map_markers.push m
 
 
-    @home_reviews = Comment.all.includes(:user).limit(6)
-
+    #@home_reviews = Comment.all.includes(:user).limit(6)
+    @home_reviews = UserFeedback.where(published: true).limit(6)
 
 
     if !flash[:notice].nil?

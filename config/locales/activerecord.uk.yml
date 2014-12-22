@@ -27,7 +27,11 @@ uk:
             name:
               blank: "Ім'я не може бути пустим"
 
-
+    defaults:
+      models:
+        event:
+          attributes:
+            address: "вул. Водогінна 2б/307-1, м. Львів"
 
     help:
       models:

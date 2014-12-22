@@ -1,4 +1,4 @@
-- if event
+- if !event.nil?
   li.event.home-featured-event.event-collection-item id="event-#{index + 1}" data-event-id="#{event.id}" class="#{ "event-i-am-subscribed-on" if subscribed_on_event?(event.id) } #{"active" if index == @featured_events_active_event_index }"
     .featured-section-event-content
       .image-and-info.columns.large-4
@@ -22,6 +22,7 @@
               = event.allowed_subscriptions_count
             span.participants-tip
               |&nbsp;учасників зареєстровано
+
 
 
       .description.columns.large-8

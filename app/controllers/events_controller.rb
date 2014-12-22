@@ -78,7 +78,7 @@ class EventsController < ApplicationController
       selected_event_tag = 0
     end
 
-    @event_tags = EventTag.all
+    @event_tags = EventTag.available_tags
 
     if selected_event_tag == 0
       #@events = Event.all.limit(max_events_count)

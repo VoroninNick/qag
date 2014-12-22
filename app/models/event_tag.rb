@@ -33,6 +33,12 @@ class EventTag < ActiveRecord::Base
     end
   end
 
+  def available_tags
+    EventTag.all.select do |t|
+      t.events.count > 0
+    end
+  end
+
   rails_admin do
     navigation_label I18n.t('rails_admin.navigation_labels.events')
     label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")

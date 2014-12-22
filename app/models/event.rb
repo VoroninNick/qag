@@ -44,7 +44,7 @@ class Event < ActiveRecord::Base
                         banner: "-quality 94 -interlace Plane",
                     }
 
-  has_attached_file :banner, :styles => { banner: '2100x500#' },
+  has_attached_file :expired_event_avatar, :styles => { expired_event_avatar: '500x1250#' },
                     :url  => "/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
                     :path => ":rails_root/public/assets/#{self.name.underscore}/:id/expired_event_avatar/:style/:basename.:extension",
                     convert_options: {

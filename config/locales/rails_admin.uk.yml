@@ -23,6 +23,7 @@ uk:
       event_subscription: "Підписки на події"
       article: "Стаття"
       comment: "Коментарі"
+      user_feedback: "Відгук користувача"
       setting: "Налаштування"
       user: "Користувачі"
       form_config: "Налаштування форм"
@@ -34,6 +35,7 @@ uk:
       pages/articles_list: "Список статтей"
       contact_page: "Контакти"
       voronin_studio/page_metadata: "Метадані для сторінки"
+
     model_labels_plural:
       home_page: "Головна сторінка"
       about_page: "Про нас"
@@ -50,6 +52,7 @@ uk:
       event_subscription: "Підписки на події"
       article: "Статті"
       comment: "Коментарі"
+      user_feedback: "Відгуки користувачів"
       setting: "Налаштування"
       user: "Користувачі"
       form_config: "Налаштування форм"

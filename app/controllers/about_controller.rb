@@ -16,5 +16,7 @@ class AboutController < ApplicationController
     @about_slides = AboutPageSliderSlide.where("published = 't' ").order('order_index asc')
 
     @about_page = AboutPage.first
+
+    @page = @about_page
   end
 end

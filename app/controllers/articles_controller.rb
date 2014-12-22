@@ -29,6 +29,8 @@ class ArticlesController < ApplicationController
       data = { html: articles_html }
       render inline: "#{data.to_json}"
     end
+
+    @page = Pages::ArticlesList.first
   end
 
   def item
@@ -52,9 +54,13 @@ class ArticlesController < ApplicationController
       }
 
       @related_articles = Article.where(published: true).where.not(id: @article.id).order('updated_at desc').limit(4)
+
+      @page = @article
     else
       redirect_to articles_list_path(locale: I18n.locale)
     end
+
+
 
 
   end

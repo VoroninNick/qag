@@ -39,6 +39,8 @@ class EventsController < ApplicationController
               }
           }
       }
+
+      @page = @event
     end
 
 
@@ -108,6 +110,8 @@ class EventsController < ApplicationController
       data = { html: events_html }
       render inline: "#{data.to_json}"
     end
+
+    @page = Pages::EventsList.first
 
   end
 

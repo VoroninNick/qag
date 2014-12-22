@@ -4,7 +4,23 @@ html#html class="no-js locale-#{I18n.locale.to_s} controller-#{params[:controlle
     meta charset="utf-8"
     meta name="viewport" content="width=device-width, initial-scale=1.0"
 
-    title == content_for?(:title) ? yield(:title) : "Untitled"
+    /title == content_for?(:title) ? yield(:title) : "Untitled"
+    title
+      - if @page && @page.respond_to?(:page_metadata) && @page.page_metadata && @page.page_metadata.respond_to?(:head_title) && @page.page_metadata.send(:head_title) && @page.page_metadata.send(:head_title) != ''
+        = @page.page_metadata.head_title
+      - else
+        = "Untitled"
+
+    - if @page && @page.respond_to?(:page_metadata) && @page.page_metadata && @page.page_metadata.respond_to?(:meta_keywords) && @page.page_metadata.send(:meta_keywords) && @page.page_metadata.send(:meta_keywords) != ''
+      meta content=@page.page_metadata.meta_keywords name="keywords"
+    - else
+      meta content="" name="keywords"
+
+    - if @page && @page.respond_to?(:page_metadata) && @page.page_metadata && @page.page_metadata.respond_to?(:meta_description) && @page.page_metadata.send(:meta_description) && @page.page_metadata.send(:meta_description) != ''
+      meta content=@page.page_metadata.meta_description name="description"
+    - else
+      meta content="" name="description"
+
 
     = stylesheet_link_tag "application"
     = javascript_include_tag "vendor/modernizr"

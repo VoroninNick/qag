@@ -24,5 +24,6 @@ class ContactController < ApplicationController
         }
     }
 
+    @page = ContactPage.first
   end
 end

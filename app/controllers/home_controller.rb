@@ -94,6 +94,8 @@ class HomeController < ApplicationController
     #@home_reviews = Comment.all.includes(:user).limit(6)
     @home_reviews = UserFeedback.where(published: true).limit(6)
 
+    @page = HomePage.first
+
 
     if !flash[:notice].nil?
       #render inline: "#{flash[:notice]['locals'].inspect}"

@@ -1,17 +1,17 @@
 - if button_options[:type] == :register || button_options[:type] == :registration_disabled
   - if button_options[:type] == :register
-    .register-button.registration-enabled class="#{"columns large-4 right" if button_options[:context] == :list_item} #{ "large-centered" if button_options[:context] == :events_list_page } #{"decline" if subscribed_on_event?(event.id)}"
+    .register-button.registration-enabled class="#{"columns large-4 right" if button_options[:context] == :list_item} #{ "columns large-4 large-centered" if button_options[:context] == :events_list_page } #{"decline" if subscribed_on_event?(event.id)}"
       a.register-button-a href=( subscribed_on_event?(event.id) ? event_unsubscription_form_path(event_id: event.id, locale: I18n.locale) : new_event_subscription_path(event_id: event.id, locale: I18n.locale)  )
         = embedded_svg_from_assets('svg/registration.svg')
         span.registration-text
           = t("layout.buttons.#{ "un" if subscribed_on_event?(event.id) }register")
   - else
-    .register-button class="#{"columns large-4 right" if button_options[:context] == :list_item} #{ "large-centered" if button_options[:context] == :events_list_page } #{"registration-disabled"}"
+    .register-button class="#{"columns large-4 right" if button_options[:context] == :list_item} #{ "columns large-4 large-centered" if button_options[:context] == :events_list_page } #{"registration-disabled"}"
       span.register-button-span
         span.registration-text
           = "Реєстрацію завершено"
 - else
-  .register-button class="#{"columns large-4 right" if button_options[:context] == :list_item} #{ "large-centered" if button_options[:context] == :events_list_page } #{"event-expired"} "
+  .register-button class="#{"columns large-4 right" if button_options[:context] == :list_item} #{ "columns large-4 large-centered" if button_options[:context] == :events_list_page } #{"event-expired"} "
     span.register-button-span
       span.registration-text
         = "Захід завершено"

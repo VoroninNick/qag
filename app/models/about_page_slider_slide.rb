@@ -22,6 +22,13 @@ class AboutPageSliderSlide < ActiveRecord::Base
   accepts_nested_attributes_for :translations
   attr_accessible :translations_attributes, :translations
 
+  belongs_to :about_page
+  attr_accessible :about_page
+
+  before_create do
+    self.about_page = AboutPage.first
+  end
+
   class Translation
     attr_accessible :locale, :published_translation, :name, :short_description, :full_description, :background_alt
 

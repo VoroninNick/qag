@@ -16,10 +16,10 @@ uk:
           email: 'support@qagroup.com.ua'
     footer:
       menu:
-        about: 'О нас'
-        events: 'События'
-        articles: 'Публикации'
-        contact: 'Контакты'
+        about: 'Про нас'
+        events: 'Події'
+        articles: 'Публікації'
+        contact: 'Контакти'
       partners:
         title: 'Наші партнери'
       developed-by:

@@ -1,5 +1,6 @@
 / render partial: 'layouts/breadcrumbs'
 
+
 = render partial: 'about/about_banner'
 /.async-partial-loader data-path="about/about_banner"
 
@@ -16,72 +17,78 @@
           = @breadcrumbs[:about_us][:title]
 
 
-#about-intro
-  = raw @about_page.top_text
+- if @about_page && @about_page.respond_to?(:top_text)
+  #about-intro
+    = raw @about_page.top_text
 
-#about-quote
-  #about-quote-row.row
-    #about-quote-column.columns.large-10.large-push-1
-      #about-quote-text-wrapper
-        #about-quote-text.quote
-          = @about_page.quote
+- if @about_page && @about_page.respond_to?(:quote)
+  #about-quote
+    #about-quote-row.row
+      #about-quote-column.columns.large-10.large-push-1
+        #about-quote-text-wrapper
+          #about-quote-text.quote
+            = @about_page.quote
 
 = render partial: 'about/about_slider'
 
-#about-what-unites-us
-  = raw @about_page.bottom_text
+- if @about_page && @about_page.respond_to?(:bottom_text)
+  #about-what-unites-us
+    = raw @about_page.bottom_text
+
 
 
 #about-team-and-participants
   #about-team-and-participants-row.row
-    #about-team
-      = raw @about_page.team_text
+    - if @about_page && @about_page.respond_to?(:team_text)
+      #about-team
+        = raw @about_page.team_text
 
-      .clearfix
-      #about-team-avatars
-        ul#about-team-avatars-ul
-          - @team_members.each do |m|
-            li.about-team-avatar-li.columns.large-3
-              .about-team-avatar-wrapper
-                .image.about-team-avatar-img-container
-                  img.about-team-avatar-img.grayscale src=image_or_stub_url(m.avatar, :about, 250, 250, "member #{m.id}")
-                .about-team-avatar-description
+        .clearfix
+        #about-team-avatars
+          ul#about-team-avatars-ul
+            - @team_members.each do |m|
+              li.about-team-avatar-li.columns.large-3
+                .about-team-avatar-wrapper
+                  .image.about-team-avatar-img-container
+                    img.about-team-avatar-img.grayscale src=image_or_stub_url(m.avatar, :about, 250, 250, "member #{m.id}")
+                  .about-team-avatar-description
 
-                  span.about-team-avatar-description-text
-                    span.about-team-avatar-description-text-name
-                      = m.name
-                    span.about-team-avatar-description-text-short-description
-                      = m.short_description
-                    span.about-team-avatar-description-text-social-links
-                      - m.get_social_links.each_pair do |key, value|
-                        a href=value
-                          = embedded_svg_from_assets("svg/#{key}.svg")
+                    span.about-team-avatar-description-text
+                      span.about-team-avatar-description-text-name
+                        = m.name
+                      span.about-team-avatar-description-text-short-description
+                        = m.short_description
+                      span.about-team-avatar-description-text-social-links
+                        - m.get_social_links.each_pair do |key, value|
+                          a href=value
+                            = embedded_svg_from_assets("svg/#{key}.svg")
 
 
 
-          .clearfix
+            .clearfix
 
-    #about-participants
-      = raw @about_page.participants_text
-      .clearfix
+    - if @about_page && @about_page.respond_to?(:participants_text)
+      #about-participants
+        = raw @about_page.participants_text
+        .clearfix
 
-      #about-team-avatars
-        ul#about-team-avatars-ul
-          - @participants.each do |m|
-            li.about-team-avatar-li.columns.large-3
-              .about-team-avatar-wrapper
-                .image.about-team-avatar-img-container
-                  img.about-team-avatar-img.grayscale src=image_or_stub_url(m.avatar, :about, 250, 250, "member #{m.id}")
-                .about-team-avatar-description
+        #about-team-avatars
+          ul#about-team-avatars-ul
+            - @participants.each do |m|
+              li.about-team-avatar-li.columns.large-3
+                .about-team-avatar-wrapper
+                  .image.about-team-avatar-img-container
+                    img.about-team-avatar-img.grayscale src=image_or_stub_url(m.avatar, :about, 250, 250, "member #{m.id}")
+                  .about-team-avatar-description
 
-                  span.about-team-avatar-description-text
-                    span.about-team-avatar-description-text-name
-                      = m.name
-                    span.about-team-avatar-description-text-short-description
-                      = m.short_description
-                    span.about-team-avatar-description-text-social-links
-                      - m.get_social_links.each_pair do |key, value|
-                        a href=value
-                          = embedded_svg_from_assets("svg/#{key}.svg")
+                    span.about-team-avatar-description-text
+                      span.about-team-avatar-description-text-name
+                        = m.name
+                      span.about-team-avatar-description-text-short-description
+                        = m.short_description
+                      span.about-team-avatar-description-text-social-links
+                        - m.get_social_links.each_pair do |key, value|
+                          a href=value
+                            = embedded_svg_from_assets("svg/#{key}.svg")
 
-      .clearfix
+        .clearfix

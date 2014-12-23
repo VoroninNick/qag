@@ -8,4 +8,4 @@
   /  rect class="overlay" fill="rgba(255, 153, 0, 0.1)" opacity="1" x="0" y="0" width="2100" height="500"
 
   #about-banner-image-wrapper
-    img#about-banner-img.grayscale src=( @about_page.banner.exists?(:banner) ? @about_page.banner.url(:banner) : asset_path('banners/about.jpg'))
+    img#about-banner-img.grayscale src=( @about_page && @about_page.respond_to?(:banner) && @about_page.banner.exists?(:banner) ? @about_page.banner.url(:banner) : asset_path('banners/about.jpg'))

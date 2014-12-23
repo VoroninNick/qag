@@ -833,6 +833,12 @@ $events-list-dropdown-tags-count: 13;
     }
   }
 
+
+  &.expired-event{
+    &:hover{
+
+    }
+  }
 }
 
 
@@ -861,6 +867,14 @@ $events-list-dropdown-tags-count: 13;
       &:hover{
         .counter-outer{
           display: none;
+        }
+      }
+
+      &.expired-event{
+        &:hover{
+          .hover-expired-event-images-carousel-wrapper, .hover-read-button{
+            transform: translateY(-318px);
+          }
         }
       }
     }

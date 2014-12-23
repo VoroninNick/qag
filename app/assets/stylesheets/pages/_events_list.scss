@@ -455,8 +455,8 @@ $events-list-dropdown-tags-count: 13;
   padding: 2rem 0 0 0;
   overflow: hidden;
   border-top: 1px #f2f2f2 solid;
-  transition-property: transform, background-color;
-  transition-duration: 0.5s;
+  @include transition-property(transform, background-color);
+  @include transition-duration(0.5s);
 
 
   &:first-child, &:hover, &:hover + &{
@@ -872,7 +872,7 @@ $events-list-dropdown-tags-count: 13;
 
       &.expired-event{
         &:hover{
-          .hover-expired-event-images-carousel-wrapper, .hover-read-button{
+          .hover-expired-event-images-carousel-wrapper, .hover-read-button, .hover-expired-event-title{
             transform: translateY(-318px);
           }
         }

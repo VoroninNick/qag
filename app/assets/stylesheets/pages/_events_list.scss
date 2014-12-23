@@ -426,7 +426,7 @@ $events-list-dropdown-tags-count: 13;
 // ===================================
 
 @include keyframes(slideup-description){
-  0%, 50%{
+  50%{
     @include transform( translateY(100%) );
   }
 

@@ -84,21 +84,19 @@ class Users::SessionsController < Devise::SessionsController
       end
 
 
+      local_notice = {}
 
-      redirect_to redirect_location, notice: {
-                                       # html: render_to_string(template: required_template,
-                                       #                        layout: 'modal_layout',
-                                       #                        locals:
-                                       #                            {
-                                       #                                active: true,
-                                       #                                registration_event: @registration_event
-                                       #                            }),
-                                       template: required_template,
-                                       layout: 'modal_layout',
-                                       locals: {active: true, registration_event_id: (@registration_event.id rescue nil)},
-                                       title: "Ви успішно залогінились",
-                                       message: "тепер ви можете підписатися на подію або відмовитись. також у вас є особистий кабінет, де ви можете переглянути улюблені події, ті, на які ви підписались, переглянути історію змін. Також ви можете відредагувати свої дані. Будемо вдячні за ваш відгук. Приємного користування"
-                                   }
+      if redirect_location.scan(/^\/admin/)
+        local_notice = "Ви увійшли в систему."
+      else
+        local_notice[:template] = required_template
+        local_notice[:layout] = 'modal_layout'
+        local_notice[:locals] = {active: true, registration_event_id: (@registration_event.id rescue nil)}
+        local_notice[:title] = "Ви успішно залогінились"
+        local_notice[:message] = "тепер ви можете підписатися на подію або відмовитись. також у вас є особистий кабінет, де ви можете переглянути улюблені події, ті, на які ви підписались, переглянути історію змін. Також ви можете відредагувати свої дані. Будемо вдячні за ваш відгук. Приємного користування"
+      end
+
+      redirect_to redirect_location, notice: local_notice
       #render template: required_template
     end
   end

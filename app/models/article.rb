@@ -115,6 +115,7 @@ class Article < ActiveRecord::Base
     #     label I18n.t("rails_admin.field_labels.#{field_name}")
     #   end
     # end
+    weight -10
 
     edit do
       field :published do

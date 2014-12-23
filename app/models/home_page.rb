@@ -22,7 +22,7 @@ class HomePage < ActiveRecord::Base
   accepts_nested_attributes_for :user_feedbacks, allow_destroy: true
   attr_accessible :user_feedbacks, :user_feedbacks_attributes
 
-  accepts_nested_attributes_for :main_slider_slides
+  accepts_nested_attributes_for :main_slider_slides, allow_destroy: true
   attr_accessible :main_slider_slides_attributes, :main_slider_slides
 
   rails_admin do

@@ -35,7 +35,7 @@ class Comment < ActiveRecord::Base
   end
 
   rails_admin do
-
+    visible false
     label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")
     label_plural I18n.t("rails_admin.model_labels_plural.#{self.abstract_model.model_name.underscore}")
 

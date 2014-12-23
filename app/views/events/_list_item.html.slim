@@ -97,11 +97,11 @@
             = "Переглянути"
 
 
-        - if @events_history
+        - if @events_history && event.up_to_date?
           .counter-outer
             - date_range_remaining_before_start = event.start_date - DateTime.now
             - date_range_remaining_before_end = event.end_date - DateTime.now
-            - if date_range_remaining_before_end > 0
+            - if event.up_to_date? && date_range_remaining_before_end > 0
               span.counter-title
                 = (date_range_remaining_before_start > 0)? "До старту залишилось:" : "До кінця залишилось:"
               .date-range
@@ -118,6 +118,6 @@
                 span.minutes-title
                   = "хвилин"
 
-            - elsif event.end_date
+            - elsif event.expired?
               .event-expired
                 = "Захід завершено"

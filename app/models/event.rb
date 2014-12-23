@@ -153,14 +153,22 @@ class Event < ActiveRecord::Base
   class Translation
     attr_accessible :locale, :published_translation, :name, :slug, :short_description, :full_description, :address, :days_and_time_string
 
-    before_save do
+
+
+    before_validation :fix_slug
+
+    def fix_slug
+      locale_was = I18n.locale
+      temp_locale = locale_was
+      temp_locale = :ru if I18n.locale == :uk
+
       self.slug = self.name if !self.slug || self.slug == ''
 
-      self.slug = self.slug.parameterize
-
+      I18n.with_locale(temp_locale) do |locale|
+        self.slug = self.slug.parameterize
+      end
 
       self.address = I18n.t("activerecord.defaults.models.event.attributes.address") if !self.address || self.address == ''
-
 
       #self.participants_count = allowed_subscriptions_count
     end
@@ -237,6 +245,8 @@ class Event < ActiveRecord::Base
   before_save do
     self.participants_count = allowed_subscriptions_count
   end
+
+
 
   validates_with UniqueSlugValidator
 

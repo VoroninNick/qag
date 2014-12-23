@@ -426,9 +426,10 @@ $events-list-dropdown-tags-count: 13;
 // ===================================
 
 @include keyframes(slideup-description){
-  0%{
+  0%, 50%{
     @include transform( translateY(100%) );
   }
+
 }
 
 
@@ -459,17 +460,19 @@ $events-list-dropdown-tags-count: 13;
   @include transition-duration(0.5s);
 
 
+
   &:first-child, &:hover, &:hover + &{
     border-top: none;
   }
 
   &:hover{
     background-color: $light-red-background-color;
+    @include transition-delay(0.6s);
 
     .description{
       @include transform(translateY(0%));
 
-      @include animation-duration(0.5s);
+      @include animation-duration(1s);
       @include animation-name(slideup-description);
 
     }

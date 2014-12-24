@@ -5,6 +5,11 @@
 // ---------------------------------------------
 // =============================================
 
+$articles-list-item-button-color: $orange-color;
+
+
+
+
 #articles-list-banner{
   position: relative;
 }
@@ -81,12 +86,14 @@
   height: auto;
   width: 100%;
   list-style: none;
-  display: inline-block;
+  //display: inline-block;
+  display: block;
+
   //padding: 2rem 0 0 0;
   padding: 0;
   //overflow: hidden;
   overflow: hidden;
-  border-top: 1px #f2f2f2 solid;
+  //border-top: 1px #f2f2f2 solid;
   @include transition-property(transform, background-color);
   @include transition-duration(0.5s);
 
@@ -100,7 +107,7 @@
   }
 
   &:hover{
-    background-color: $light-red-background-color;
+    background-color: $large-object-hover-color;
 
     .articles-list-article-description-side-1{
       @include transform(translateY(-100%));
@@ -137,7 +144,7 @@
   margin: 2.5rem auto 0 auto;
 
   a{
-    color: inherit;
+    color: $articles-list-item-button-color;
   }
 }
 

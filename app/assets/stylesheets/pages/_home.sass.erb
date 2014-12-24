@@ -7,6 +7,8 @@ $bullet-border-radius: 50%
 $bullet-indent: 1.25rem
 $active-bullet-background: $orange-color
 
+$hover-bullet-background: $hover-color
+
 $main-slider-slides-count: 3
 
 $featured-events-timeline-height: 250px
@@ -138,7 +140,7 @@ $expired-events-pages-count: $expired-events-count / 5
         &:hover
           //background: $orange-color
           &:before
-            background-color: $active-bullet-background
+            background-color: $hover-bullet-background
 
 
 
@@ -177,7 +179,7 @@ $expired-events-pages-count: $expired-events-count / 5
 
           &:hover
             &:after
-              border-top-color: $active-bullet-background
+              border-top-color: $hover-bullet-background
 
 
 
@@ -294,9 +296,9 @@ $expired-events-pages-count: $expired-events-count / 5
               background: #a8a9ad
             &:hover
               &:before
-                background-color: $orange-color
+                background-color: $hover-bullet-background
               &:after
-                border-top-color: $orange-color
+                border-top-color: $hover-bullet-background
 
         & ~ .home-page-section-bullets ul li#home-page-section-bullet-from-6-to-6
           label
@@ -508,7 +510,7 @@ $expired-events-pages-count: $expired-events-count / 5
         cursor: pointer
       &:hover
         label
-          background-color: $active-bullet-background
+          background-color: $hover-bullet-background
 
 
 
@@ -685,12 +687,12 @@ $expired-events-pages-count: $expired-events-count / 5
             .event-title
               font-size: 2rem
               color: white
-              @include transition-duration(0.5s)
+              @include transition-duration($hover-transition-duration)
               @include transition-property(color)
 
 
               &:hover
-                color: $light-orange-color
+                color: $hover-color
             .event-description
               padding-top: 2rem
               font-weight: 300

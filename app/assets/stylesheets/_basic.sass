@@ -1,7 +1,12 @@
 a
   color: #ffb700
   text-decoration: none
+  @include transition-property(color)
+  @include transition-duration($hover-transition-duration)
 
+
+  &:hover
+    color: $hover-color
 
 .home-featured-events-section .event .event-title
   font-weight: 900

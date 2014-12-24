@@ -10,6 +10,8 @@
 
 
 $events-list-dropdown-tags-count: 13;
+$events-list-dropdown-tag-hover-background-color: $light-orange-color;
+$events-list-item-button-color: $orange-color;
 
 // ==================================
 // ----------------------------------
@@ -389,7 +391,7 @@ $events-list-dropdown-tags-count: 13;
 
 
   &:hover{
-    background-color: #ff594b;
+    background-color: $events-list-dropdown-tag-hover-background-color;
   }
 }
 
@@ -612,7 +614,7 @@ $events-list-dropdown-tags-count: 13;
     text-transform: uppercase;
     font-size: 1.3rem;
     font-weight: 700;
-    color: $light-red-background-color;
+    color: $events-list-item-button-color;
     height: 3.75rem;
     //display: inline-block;
     display: none;
@@ -1083,7 +1085,8 @@ $events-list-dropdown-tags-count: 13;
 
 .events-list-event{
   &.hover-delay-end{
-    background-color: $light-red-background-color;
+    //background-color: $light-red-background-color;
+    background-color: $large-object-hover-color;
 
     .description{
       padding-bottom: 0 !important;

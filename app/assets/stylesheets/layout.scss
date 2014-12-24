@@ -170,10 +170,10 @@ $header-height: 90px;
 
   &:hover{
     &{
-      border-top-color: $light-red-background-color;
+      border-top-color: $hover-color;
     }
     &:before, &:after{
-      background-color: $light-red-background-color;
+      background-color: $hover-color;
     }
   }
 }
@@ -385,7 +385,7 @@ $header-height: 90px;
   &:hover{
     #header-menu-user{
       svg{
-        fill: $orange-color;
+        fill: $hover-color;
       }
     }
   }
@@ -410,7 +410,7 @@ $header-height: 90px;
         //  background: rgba(255, 154, 0, 0.7);
         //}
       svg{
-        fill: $orange-color;
+        fill: $hover-color;
       }
     }
 
@@ -462,7 +462,7 @@ $header-height: 90px;
     position: relative;
     //top: 10px;
     fill: #b7c9d3;
-    @include transition(1s fill);
+    @include transition($hover-transition-duration fill);
 
   }
 
@@ -619,9 +619,11 @@ $header-height: 90px;
   font-weight: 800;
   font-size: 3rem;
   text-transform: uppercase;
+  @include transition-duration($hover-transition-duration);
+  @include transition-property(color);
 
   &:hover{
-    color: $orange-color;
+    color: $hover-color;
   }
 }
 
@@ -664,9 +666,11 @@ $header-height: 90px;
   font-size: 1.1rem;
   position: relative;
   top: -10px;
+  @include transition-property(color);
+  @include transition-duration($hover-transition-duration);
 
   &:hover{
-    color: $orange-color;
+    color: $hover-color;
   }
 }
 
@@ -701,7 +705,7 @@ $header-height: 90px;
     }
 
     &:hover{
-      fill: $orange-color;
+      fill: $hover-color;
     }
   }
 }
@@ -762,9 +766,13 @@ $header-height: 90px;
 }
 
 .footer-social-icons-ul-li-a{
+  //display: i;
   .social-svg{
     width: 30px;
     height: 30px;
+    display: block;
+    background-color: transparent;
+    border-radius: 50%;
   }
 
   .social-svg-g{
@@ -772,7 +780,19 @@ $header-height: 90px;
   }
 
   .social-svg-g-path{
-    fill: white
+    fill: white;
+    @include transition-property(fill);
+    @include transition-duration($hover-transition-duration);
+  }
+
+  &:hover{
+    .social-svg{
+      //background-color: white;
+    }
+
+    .social-svg-g-path{
+      fill: $hover-color;
+    }
   }
 }
 
@@ -813,9 +833,22 @@ $header-height: 90px;
 
   a{
     color: inherit;
-    text-decoration: underline;
+    //text-decoration: underline;
+    border-bottom: 1px solid white;
+    @include transition-property(color, border-bottom-color);
+
+    &:hover{
+      color: $hover-color;
+      border-bottom-color: $hover-color;
+    }
+  }
+
+  #vs-logo-link{
+    border-bottom: none;
   }
 }
+
+
 
 #footer-copyright{
   margin-bottom: 1.25rem;
@@ -908,7 +941,7 @@ $header-height: 90px;
 
   &:hover {
     .home-svg-path {
-      fill: $orange-color;
+      fill: $hover-color;
     }
   }
 }
@@ -917,7 +950,14 @@ $header-height: 90px;
   color: #6d6e72;
 
   &:hover{
-    color: #ffb700;
+    color: $hover-color;
+  }
+}
+
+.breadcrumb{
+  path{
+    @include transition-duration($hover-transition-duration);
+    @include transition-property(fill);
   }
 }
 

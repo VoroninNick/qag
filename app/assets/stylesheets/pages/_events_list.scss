@@ -426,7 +426,7 @@ $events-list-dropdown-tags-count: 13;
 // ===================================
 
 @include keyframes(slideup-description){
-  50%{
+  0%{
     @include transform( translateY(100%) );
   }
 
@@ -466,14 +466,15 @@ $events-list-dropdown-tags-count: 13;
   }
 
   &:hover{
-    background-color: $light-red-background-color;
-    @include transition-delay(0.6s);
+    //background-color: $light-red-background-color;
+    //@include transition-delay(0.6s);
 
     .description{
-      @include transform(translateY(0%));
+      //@include transform(translateY(0%));
 
-      @include animation-duration(1s);
-      @include animation-name(slideup-description);
+      //@include animation-duration(0.5s);
+      //@include animation-name(slideup-description);
+      //@include animation-delay(2s);
 
     }
   }
@@ -497,15 +498,20 @@ $events-list-dropdown-tags-count: 13;
       display: inline-block;
     }
 
-    &:after{
-      content: "/";
-      margin: 0 5px;
-      display: inline-block;
-    }
+    //&:after{
+      //content: "/";
+      //margin: 0 5px;
+      //display: inline-block;
+    //}
   }
 
   .hover-event-participants{
     font-style: italic;
+    &:before{
+      content: "/";
+      margin: 0 0.5rem;
+      display: inline-block;
+    }
   }
 
   .image-and-info {
@@ -693,43 +699,61 @@ $events-list-dropdown-tags-count: 13;
   }
 
   &:hover{
-    .hover-expired-event-images-carousel-wrapper{
-      display: block;
-      margin-top: 2rem;
-    }
+    //.hover-expired-event-images-carousel-wrapper{
+    //  display: block;
+    //  margin-top: 2rem;
+    //}
 
-    .image-and-info{
-      display: none;
-    }
+    //.image-and-info{
+    //  display: none;
+      //@include  transform(translateY(-100%));
+      //@include transition-property(transform);
+      //@include transition-duration(5s);
+      //@include transition-delay(2s);
+    //}
 
-    .description{
-      width: 100%;
+    //.description{
+    //  width: 100%;
 
+      //@include  transform(translateY(-100%));
+      //@include transition-property(width);
+      //@include transition-duration(0.1s);
+      //@include transition-delay(2s);
+    //}
 
-    }
+    //.event-description{
+    //  display: none;
+      //@include  transform(translateY(-100%));
+      //@include transition-property(transform);
+      //@include transition-duration(5s);
+      //@include transition-delay(2s);
+    //}
 
-    .event-description{
-      display: none;
-    }
+    //.event-title{
+      //text-align: center;
+    //}
 
-    .event-title{
-      text-align: center;
-    }
+    //.event-title-a{
+    //  color: white;
+      //@include transition-property(color);
+      //@include transition-duration(5s);
+      //@include transition-delay(2s);
 
-    .event-title-a{
-      color: white;
+    //}
 
-    }
+    //.event-link-and-register-button{
+    //  display: block;
+      //@include transform(translateY(-100%));
+      //@include transition-property(transform);
+      //@include transition-duration(0.5s);
+      //@include transition-delay(2s);
+    //}
 
-    .event-link-and-register-button{
-      display: block;
-    }
+    //.hover-event-date-range-and-participants{
+    //  text-align: center;
+    //  display: block;
 
-    .hover-event-date-range-and-participants{
-      text-align: center;
-      display: block;
-
-    }
+    //}
 
   }
 
@@ -749,13 +773,17 @@ $events-list-dropdown-tags-count: 13;
 
   &.expired-event{
     &:hover{
-      .event-title{
-        display: none;
-      }
+      //.event-title{
+      //  display: none;
+        //@include transform(translateY(-100%));
+        //@include transition-property(transform);
+        //@include transition-duration(0.5s);
+        //@include transition-delay(2s);
+      //}
 
-      .hover-expired-event-title{
-        display: block;
-      }
+      //.hover-expired-event-title{
+      //  display: block;
+      //}
     }
   }
 
@@ -824,6 +852,98 @@ $events-list-dropdown-tags-count: 13;
   }
 
   &:hover{
+//    .events-list-event-back{
+//      z-index: 2;
+//      @include animation-duration(10s);
+//      @include animation-name(rotateup-back);
+//
+//    }
+//
+//    .hover-read-button{
+//      display: block;
+//    }
+  }
+
+
+  &.expired-event{
+    &:hover{
+
+    }
+  }
+
+  &.hover-delay-end{
+    .event-title{
+      text-align: center;
+    }
+
+    .hover-expired-event-images-carousel-wrapper{
+      display: block;
+      margin-top: 2rem;
+    }
+
+    .image-and-info{
+      display: none;
+      //@include  transform(translateY(-100%));
+      //@include transition-property(transform);
+      //@include transition-duration(5s);
+      //@include transition-delay(2s);
+    }
+
+    .description{
+      width: 100%;
+
+      //@include  transform(translateY(-100%));
+      //@include transition-property(width);
+      //@include transition-duration(0.1s);
+      //@include transition-delay(2s);
+    }
+
+    .event-description{
+      display: none;
+      //@include  transform(translateY(-100%));
+      //@include transition-property(transform);
+      //@include transition-duration(5s);
+      //@include transition-delay(2s);
+    }
+
+    .event-title{
+      //text-align: center;
+    }
+
+    .event-title-a{
+      color: white;
+      //@include transition-property(color);
+      //@include transition-duration(5s);
+      //@include transition-delay(2s);
+
+    }
+
+    .event-link-and-register-button{
+      display: block;
+      //@include transform(translateY(-100%));
+      //@include transition-property(transform);
+      //@include transition-duration(0.5s);
+      //@include transition-delay(2s);
+    }
+
+    .hover-event-date-range-and-participants{
+      text-align: center;
+      display: block;
+
+    }
+
+    &.expired-event{
+      .event-title{
+        display: none;
+      }
+
+      .hover-expired-event-title{
+        display: block;
+      }
+    }
+
+    ///
+
     .events-list-event-back{
       z-index: 2;
       @include animation-duration(10s);
@@ -833,13 +953,6 @@ $events-list-dropdown-tags-count: 13;
 
     .hover-read-button{
       display: block;
-    }
-  }
-
-
-  &.expired-event{
-    &:hover{
-
     }
   }
 }
@@ -863,18 +976,34 @@ $events-list-dropdown-tags-count: 13;
       &:first-child {
         border-top: 1px #f2f2f2 solid;
         &:hover{
-          border-top: none;
+          //border-top: none;
         }
       }
 
       &:hover{
         .counter-outer{
-          display: none;
+          //display: none;
         }
       }
 
       &.expired-event{
         &:hover{
+          //.hover-expired-event-images-carousel-wrapper, .hover-read-button, .hover-expired-event-title{
+          //  transform: translateY(-318px);
+          //}
+        }
+      }
+
+      &.hover-delay-end{
+        &:first-child{
+          border-top: none;
+        }
+
+        .counter-outer{
+          display: none;
+        }
+
+        &.expired-event{
           .hover-expired-event-images-carousel-wrapper, .hover-read-button, .hover-expired-event-title{
             transform: translateY(-318px);
           }
@@ -938,8 +1067,22 @@ $events-list-dropdown-tags-count: 13;
 
 .events-list-event{
   &:hover{
+    //.description{
+    //  padding-bottom: 0 !important;
+    //}
+  }
+}
+
+.events-list-event{
+  &.hover-delay-end{
+    background-color: $light-red-background-color;
+
     .description{
       padding-bottom: 0 !important;
+      @include transform(translateY(0%));
+
+      @include animation-duration(0.5s);
+      @include animation-name(slideup-description);
     }
   }
 }

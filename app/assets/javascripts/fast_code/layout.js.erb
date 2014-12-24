@@ -964,3 +964,29 @@ window.onbeforeunload = function(e) {
 //window.onload = function(e){
 //    console.log('window.onloadstart:\n'+window.location.href)
 //}
+
+last_timeout_id = false
+function AddHoverToEvent($event){
+    $event.addClass('hover-delay-end')
+}
+var mouse_in_event = 'mouseover'
+mouse_in_event = 'mouseenter'
+var mouse_out_event = 'mouseout'
+mouse_out_event = 'mouseleave'
+$('#events-list').on([mouse_out_event, mouse_in_event].join(' '), 'div.events-list-event', function(event){
+    var $event = $(this)
+    //var event_mouse_over_data = $event.data('mouse_over')
+    if(event.type == mouse_out_event) {
+        if (last_timeout_id) {
+            console.log(mouse_out_event+': event_id: ', $event.attr('data-event-id'))
+            clearTimeout(last_timeout_id)
+            $event.removeClass('hover-delay-end')
+        }
+    }
+    else if(event.type == mouse_in_event){
+        last_timeout_id = setTimeout(function(){
+            console.log(mouse_in_event+': event_id: ', $event.attr('data-event-id'))
+            $event.addClass('hover-delay-end')
+        }, 500)
+    }
+})

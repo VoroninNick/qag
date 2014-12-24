@@ -51,7 +51,7 @@
 
 #event-content-and-info-row{
   margin-top: 50px;
-
+  margin-bottom: 50px;
 }
 
 #event-item-page-event-info-column{
@@ -229,7 +229,9 @@
 
 
 #event-item-page-event-info-title{
-  font-size: 1.4rem;
+  //font-size: 1.4rem;
+  font-size: 1.3rem;
+  font-weight: 500;
 }
 
 .event-item-page-event-info-text{

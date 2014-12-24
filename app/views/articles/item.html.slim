@@ -1,7 +1,7 @@
 - if @article
   #event-item-banner
     #event-item-banner-image-wrapper.grayscale style="background-image: url(#{image_or_stub_url(@article.banner, :banner, 2100, 500, "event #{@article.id}")})"
-      img#event-item-banner-img src=image_or_stub_url(@article.banner, :banner, 2100, 500, "event #{@article.id}")
+      img#event-item-banner-img src="#{ @article.banner.exists?(:banner) ? @article.banner.url(:banner) : asset_path('banners/article_item.jpg') }"
   #breadcrumbs-container
     #breadcrumbs-row.row
       ul#breadcrumbs-ul

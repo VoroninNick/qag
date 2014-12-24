@@ -629,7 +629,7 @@ $events-list-dropdown-tags-count: 13;
     position: relative;
     margin: 2.5rem auto 0 auto;
 
-
+    box-shadow: $button-box-shadow;
   }
 
   .event-link-and-register-button {
@@ -656,6 +656,7 @@ $events-list-dropdown-tags-count: 13;
         text-align: center;
         border-radius: 3px;
         cursor: pointer;
+        box-shadow: $button-box-shadow;
 
         svg {
           display: inline-block;
@@ -877,7 +878,7 @@ $events-list-dropdown-tags-count: 13;
   }
 
   &.hover-delay-end{
-    @include transition-delay(0.5s);
+    @include transition-duration(0.5s);
 
     .event-title{
       text-align: center;

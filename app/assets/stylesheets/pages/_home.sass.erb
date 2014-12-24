@@ -27,8 +27,6 @@ $user-comments-count: 6
 $expired-events-count: 20
 $expired-events-pages-count: $expired-events-count / 5
 
-$button-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3)
-
 #my-style
   color: map-get($colors, red)
   @each $key, $value in $colors
@@ -541,9 +539,13 @@ $button-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3)
   left: 50%
   @include transform(translate3d(-50%,-50%,0))
   color: white
-  font-size: 2rem
+  font-size: 2.25rem
   font-weight: 800
   text-transform: uppercase
+  line-height: 2.25rem
+
+  .slide-title
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.3)
 
 
 

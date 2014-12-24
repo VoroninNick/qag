@@ -7,7 +7,7 @@
           a href="#"
             /img.grayscale src=( (event.avatar.exists?(:event_list_avatar) )? event.avatar.url(:event_list_avatar) : stub_image_link(255, 170, "event #{event.id}") )
             img.grayscale src=image_or_stub_url(event.avatar, :event_list_avatar, 255, 170, "event #{event.id}")
-        .info
+        .info class="#{"has_event_end_date" if event.end_date}"
           .start-date
             span.tip
               = t('pages.events-list.event-template.info.start-date-tip')

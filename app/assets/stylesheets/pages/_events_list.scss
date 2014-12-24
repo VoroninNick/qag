@@ -546,11 +546,14 @@ $events-list-dropdown-tags-count: 13;
           color: #828387;
         }
       }
-      .start-date:after {
-        content: "\2014";
-        display: inline-block;
-        margin: 0 0.1rem 0 0.1rem;
-        font-size: 1.2rem;
+
+      &.has_event_end_date {
+        .start-date:after {
+          content: "\2014";
+          display: inline-block;
+          margin: 0 0.1rem 0 0.1rem;
+          font-size: 1.2rem;
+        }
       }
       .participants-count {
         margin: 0.5rem 0 0 0;

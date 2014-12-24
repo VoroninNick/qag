@@ -457,11 +457,11 @@ $events-list-dropdown-tags-count: 13;
   overflow: hidden;
   border-top: 1px #f2f2f2 solid;
   @include transition-property(transform, background-color);
-  @include transition-duration(0.5s);
+  @include transition-duration(0.01s);
 
 
 
-  &:first-child, &:hover, &:hover + &{
+  &:first-child, &.hover-delay-end, &.hover-delay-end + &{
     border-top: none;
   }
 
@@ -877,6 +877,8 @@ $events-list-dropdown-tags-count: 13;
   }
 
   &.hover-delay-end{
+    @include transition-delay(0.5s);
+
     .event-title{
       text-align: center;
     }

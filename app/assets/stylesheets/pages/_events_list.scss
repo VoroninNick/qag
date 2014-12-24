@@ -533,6 +533,7 @@ $events-list-dropdown-tags-count: 13;
       }
     }
     .info {
+      margin: 0.5rem 0 0 0;
       .start-date, .end-date {
         display: inline-block;
 
@@ -552,6 +553,7 @@ $events-list-dropdown-tags-count: 13;
         font-size: 1.2rem;
       }
       .participants-count {
+        margin: 0.5rem 0 0 0;
         svg {
           width: 40px;
           height: 30px;

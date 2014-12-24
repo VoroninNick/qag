@@ -90,7 +90,7 @@ class EventsController < ApplicationController
       #@events = selected_event_tag.events.limit(max_events_count)
       @events = selected_event_tag.events
       @selected_event_tag = selected_event_tag
-      @event_tags = @event_tags.where("id <> #{selected_event_tag.id}")
+      @event_tags = @event_tags.where.not(id: selected_event_tag.id)
     end
 
 

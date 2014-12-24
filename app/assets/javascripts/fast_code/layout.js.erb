@@ -987,6 +987,6 @@ $('#events-list').on([mouse_out_event, mouse_in_event].join(' '), 'div.events-li
         last_timeout_id = setTimeout(function(){
             console.log(mouse_in_event+': event_id: ', $event.attr('data-event-id'))
             $event.addClass('hover-delay-end')
-        }, 500)
+        }, 800)
     }
 })

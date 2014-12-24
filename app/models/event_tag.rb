@@ -14,6 +14,20 @@ class EventTag < ActiveRecord::Base
     #   self[:published] = value
     # end
 
+    before_validation :fix_slug
+
+    def fix_slug
+      locale_was = I18n.locale
+      temp_locale = locale_was
+      temp_locale = :ru if I18n.locale == :uk
+
+      self.slug = self.name if !self.slug || self.slug == ''
+
+      I18n.with_locale(temp_locale) do |locale|
+        self.slug = self.slug.parameterize
+      end
+    end
+
     rails_admin do
       visible false
 
@@ -36,6 +50,18 @@ class EventTag < ActiveRecord::Base
   def self.available_tags
     EventTag.all.select do |t|
       t.events.count > 0
+    end
+  end
+
+  def fix_slug
+    self.translations.each do |t|
+      t.fix_slug
+    end
+  end
+
+  def self.fix_slug_for_all
+    EventTag.all.each do |t|
+      t.fix_slug
     end
   end
 

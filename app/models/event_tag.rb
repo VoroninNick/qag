@@ -48,9 +48,10 @@ class EventTag < ActiveRecord::Base
   end
 
   def self.available_tags
-    EventTag.all.select do |t|
-      t.events.count > 0
-    end
+    #EventTag.all.select do |t|
+    #  t.events.count > 0
+    #end
+    EventTag.joins(:events).select("distinct #{EventTag.table_name}.*")
   end
 
   def fix_slug

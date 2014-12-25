@@ -18,7 +18,7 @@
 
 
 - if @about_page && @about_page.respond_to?(:top_text)
-  #about-intro
+  #about-intro.text-content
     = raw @about_page.top_text
 
 - if @about_page && @about_page.respond_to?(:quote)
@@ -32,7 +32,7 @@
 = render partial: 'about/about_slider'
 
 - if @about_page && @about_page.respond_to?(:bottom_text)
-  #about-what-unites-us
+  #about-what-unites-us.text-content
     = raw @about_page.bottom_text
 
 
@@ -40,7 +40,7 @@
 #about-team-and-participants
   #about-team-and-participants-row.row
     - if @about_page && @about_page.respond_to?(:team_text)
-      #about-team
+      #about-team.text-content
         = raw @about_page.team_text
 
         .clearfix
@@ -68,7 +68,7 @@
             .clearfix
 
     - if @about_page && @about_page.respond_to?(:participants_text)
-      #about-participants
+      #about-participants.text-content
         = raw @about_page.participants_text
         .clearfix
 

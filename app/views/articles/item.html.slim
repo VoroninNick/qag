@@ -22,7 +22,7 @@
           = @article.name
         #article-date
           = (@article.updated_at ).strftime("%d.%m.%Y")
-        #article-content
+        #article-content.text-content
           = raw @article.full_description
 
   #read-also-section

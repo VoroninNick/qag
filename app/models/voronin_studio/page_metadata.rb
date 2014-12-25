@@ -8,7 +8,7 @@ class VoroninStudio::PageMetadata < ActiveRecord::Base
   before_save :init_fields
   def init_fields
     if page
-      if respond_to?(:translated_locales)
+      if page.respond_to?(:translated_locales)
         page.translated_locales.each do |locale|
           page_translation = page.translations_by_locale[locale]
           if !translated_locales.include?(locale)

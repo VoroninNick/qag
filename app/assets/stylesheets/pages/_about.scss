@@ -544,12 +544,13 @@
 
 // =====================================================
 // -----------------------------------------------------
-// 4. about slider
+// 4. about slider.image-background
 // -----------------------------------------------------
 // =====================================================
 
 #about-slider {
-  height: 600px;
+  //height: 600px;
+  height: 700px;
   text-align: center;
   position: relative;
   .slides {
@@ -581,6 +582,8 @@
         height: 100%;
         display: block;
         @include vendor-prefix(background-size, cover !important);
+        background-position: center center;
+        background-repeat: no-repeat;
         img {
           opacity: 0;
         }

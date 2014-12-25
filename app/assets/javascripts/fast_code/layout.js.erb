@@ -973,7 +973,7 @@ var mouse_in_event = 'mouseover'
 mouse_in_event = 'mouseenter'
 var mouse_out_event = 'mouseout'
 mouse_out_event = 'mouseleave'
-$('#events-list').on([mouse_out_event, mouse_in_event].join(' '), 'div.events-list-event', function(event){
+$('#events-list').on([mouse_out_event, mouse_in_event].join(' '), 'div.events-list-event, div.articles-list-article', function(event){
     var $event = $(this)
     //var event_mouse_over_data = $event.data('mouse_over')
     if(event.type == mouse_out_event) {
@@ -990,3 +990,11 @@ $('#events-list').on([mouse_out_event, mouse_in_event].join(' '), 'div.events-li
         }, 800)
     }
 })
+
+
+function hideMenu(){
+    $('#menu-focus-flag:checked').prop('checked', false)
+}
+
+$window.on('scroll', hideMenu)
+$wrap.on('click', hideMenu)

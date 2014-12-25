@@ -29,6 +29,8 @@ $user-comments-count: 6
 $expired-events-count: 20
 $expired-events-pages-count: $expired-events-count / 5
 
+$home-page-comments-section-number: 5
+
 #my-style
   color: map-get($colors, red)
   @each $key, $value in $colors
@@ -157,16 +159,20 @@ $expired-events-pages-count: $expired-events-count / 5
           //@include transition-duration(6s)
           //@include transition-property(background-color)
 
-      &.home-page-section-bullet-to-6
+      &.home-page-section-bullet-to-#{$home-page-comments-section-number}
         label
+          position: relative
+
           &:before
             border-radius: 2px 2px 2px 0
             width: rem-calc(13)
             left: 3px
+            position: absolute
           &:after
-            position: relative
+            //position: relative
+            position: absolute
             content: ""
-            top: 8px
+            top: 15px
             left: 5px
             width: 0
             height: 0
@@ -288,7 +294,8 @@ $expired-events-pages-count: $expired-events-count / 5
               border-top-color: white
 
 
-    &.home-page-section-flag-to-6
+
+    &.home-page-section-flag-to-#{$home-page-comments-section-number}
       &:checked
         & ~ .home-page-section-bullets ul li
           label
@@ -300,7 +307,7 @@ $expired-events-pages-count: $expired-events-count / 5
               &:after
                 border-top-color: $hover-bullet-background
 
-        & ~ .home-page-section-bullets ul li#home-page-section-bullet-from-6-to-6
+        & ~ .home-page-section-bullets ul li#home-page-section-bullet-from-#{$home-page-comments-section-number}-to-#{$home-page-comments-section-number}
           label
             &:before
               background: $orange-color

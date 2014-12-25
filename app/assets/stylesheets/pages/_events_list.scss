@@ -13,6 +13,8 @@ $events-list-dropdown-tags-count: 13;
 $events-list-dropdown-tag-hover-background-color: $light-orange-color;
 $events-list-item-button-color: $orange-color;
 
+$events-list-item-hover-transition-duration: 0.5s;
+
 // ==================================
 // ----------------------------------
 // 1. events list > top banner
@@ -668,7 +670,7 @@ $events-list-item-button-color: $orange-color;
           height: 2.5rem;
 
           .clock-arrow, .clock-round, .clock-fire {
-            fill: $light-red-background-color;
+            fill: $hover-color;
           }
 
 
@@ -880,7 +882,7 @@ $events-list-item-button-color: $orange-color;
   }
 
   &.hover-delay-end{
-    @include transition-duration(0.5s);
+    @include transition-duration($events-list-item-hover-transition-duration);
 
     .event-title{
       text-align: center;
@@ -1092,7 +1094,7 @@ $events-list-item-button-color: $orange-color;
       padding-bottom: 0 !important;
       @include transform(translateY(0%));
 
-      @include animation-duration(0.5s);
+      @include animation-duration($events-list-item-hover-transition-duration);
       @include animation-name(slideup-description);
     }
   }

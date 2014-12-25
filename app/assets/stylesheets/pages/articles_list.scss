@@ -7,6 +7,7 @@
 
 $articles-list-item-button-color: $orange-color;
 
+$articles-list-item-hover-transition-duration: 0.5s;
 
 
 
@@ -95,7 +96,7 @@ $articles-list-item-button-color: $orange-color;
   overflow: hidden;
   //border-top: 1px #f2f2f2 solid;
   @include transition-property(transform, background-color);
-  @include transition-duration(0.5s);
+  @include transition-duration($articles-list-item-hover-transition-duration);
 
 
   .article-title-a{
@@ -106,7 +107,7 @@ $articles-list-item-button-color: $orange-color;
     font-size: 2.25rem;
   }
 
-  &:hover{
+  &.hover-delay-end{
     background-color: $large-object-hover-color;
 
     .articles-list-article-description-side-1{
@@ -142,9 +143,11 @@ $articles-list-item-button-color: $orange-color;
   line-height: 3.75rem;
   position: relative;
   margin: 2.5rem auto 0 auto;
+  box-shadow: $button-box-shadow;
 
   a{
     color: $articles-list-item-button-color;
+
   }
 }
 
@@ -163,7 +166,7 @@ $articles-list-item-button-color: $orange-color;
 }
 
 .articles-list-article-description-side-1, .articles-list-article-description-side-2{
-  @include transition-duration(1s);
+  @include transition-duration($articles-list-item-hover-transition-duration);
   @include transition-property(transform);
 
   position: absolute;

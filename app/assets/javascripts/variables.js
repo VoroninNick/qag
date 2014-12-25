@@ -2,6 +2,7 @@ $html = $('#html')
 $body = $('#body')
 $body_inner = $('#body-inner')
 $window = $(window)
+$wrap = $('#wrap')
 initializers = {}
 
 

@@ -1,4 +1,4 @@
-div#home-contact-section.page-section.page-section-number-5.home-contact-section
+div#home-contact-section.page-section.page-section-number-6.home-contact-section
   .relative
     #home-map-wrapper.map-wrapper data-markers="#{@home_map_markers.to_json}"
       #home-map-container.map-container style=""
@@ -47,7 +47,7 @@ div#home-contact-section.page-section.page-section-number-5.home-contact-section
 
 
             .contact-form
-              form id="home-contact-form-section-form" method="post" action=create_message_path(locale: I18n.locale)
+              form id="home-contact-form-section-form" method="post" action=create_message_path(locale: I18n.locale) data-success-message="Ваше повідомлення було успішно надіслано"
                 .field.field-name
                   input type="text" placeholder="Ім'я*" name="message[name]" id="message_name" aria-required="true" required="required"
                   .input-bg

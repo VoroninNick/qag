@@ -40,10 +40,11 @@
                 = raw t('pages.event-item.event-info.start-date', start_date_day: number_to_string_with_zero(@event.start_date.day), start_date_month: number_to_string_with_zero(@event.start_date.month), start_date_year: @event.start_date.year)
           #event-item-page-event-info-participants-quantity.event-item-page-event-info-list-item
             = raw t('pages.event-item.event-info.participants-count', svg: embedded_svg_from_assets('svg/participant.svg'), span_start: '<span id="event-item-page-event-info-participants-quantity-text" class="event-item-page-event-info-text">', span_end: '</span>', participants_count: @event.allowed_subscriptions_count)
-          #event-item-page-event-info-days-and-time.event-item-page-event-info-list-item
-            = embedded_svg_from_assets('svg/clock.svg')
-            #event-item-page-event-info-days-and-time-text.event-item-page-event-info-text
-              = @event.days_and_time_string
+          - if @event.days_and_time_string && @event.days_and_time_string != ''
+            #event-item-page-event-info-days-and-time.event-item-page-event-info-list-item
+              = embedded_svg_from_assets('svg/clock.svg')
+              #event-item-page-event-info-days-and-time-text.event-item-page-event-info-text
+                = @event.days_and_time_string
 
 
           /- if @event.up_to_date?

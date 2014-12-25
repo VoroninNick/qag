@@ -91,27 +91,12 @@ div#home-about-section.page-section.page-section-number-3.home-about-section
               - if index == 0
                 .social-links
                   ul
-                    li
-                      a href="#"
-                        = embedded_svg_from_assets('svg/twitter.svg')
-                    li
-                      a href="#"
-                        = embedded_svg_from_assets('svg/google_plus.svg')
-                    li
-                      a href="#"
-                        = embedded_svg_from_assets('svg/vk.svg')
-                    li
-                      a href="#"
-                        = embedded_svg_from_assets('svg/facebook.svg')
-                    li
-                      a href="#"
-                        = embedded_svg_from_assets('svg/blogger.svg')
-                    li
-                      a href="#"
-                        = embedded_svg_from_assets('svg/linked_in.svg')
-                    li
-                      a href="#"
-                        = embedded_svg_from_assets('svg/odnoklassniki.svg')
+                    - Setting.get_social_links.each_pair do |key, value|
+                      li
+                        a href=value
+                          = embedded_svg_from_assets("svg/#{key}.svg")
+
+
 
     - if @about_slides.count > 1
       ul.bullets

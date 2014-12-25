@@ -102,24 +102,11 @@
 
 
           ul#header-menu-social-icons
-            li#header-menu-social-icon-twitter.header-menu-social-icon
-              a#header-menu-social-icon-twitter-a.header-menu-social-icon-a href="#"
-                = embedded_svg_from_assets('svg/twitter.svg')
-            li#header-menu-social-icon-facebook.header-menu-social-icon
-              a#header-menu-social-icon-facebook-a.header-menu-social-icon-a href="#"
-                = embedded_svg_from_assets('svg/facebook.svg')
-            li#header-menu-social-icon-odnoklassniki.header-menu-social-icon
-              a#header-menu-social-icon-odnoklassniki-a.header-menu-social-icon-a href="#"
-                = embedded_svg_from_assets('svg/odnoklassniki.svg')
-            li#header-menu-social-icon-linked_in.header-menu-social-icon
-              a#header-menu-social-icon-linked_in-a.header-menu-social-icon-a href="#"
-                = embedded_svg_from_assets('svg/linked_in.svg')
-            li#header-menu-social-icon-blogger.header-menu-social-icon
-              a#header-menu-social-icon-blogger-a.header-menu-social-icon-a href="#"
-                = embedded_svg_from_assets('svg/blogger.svg')
-            li#header-menu-social-icon-vk.header-menu-social-icon
-              a#header-menu-social-icon-vk-a.header-menu-social-icon-a href="#"
-                = embedded_svg_from_assets('svg/vk.svg')
-            li#header-menu-social-icon-google_plus.header-menu-social-icon
-              a#header-menu-social-icon-google_plus-a.header-menu-social-icon-a href="#"
-                = embedded_svg_from_assets('svg/google_plus.svg')
+            - Setting.get_social_links.each_pair do |key, value|
+              li.header-menu-social-icon id="header-menu-social-icon-#{key}"
+                a.header-menu-social-icon-a href=value id="header-menu-social-icon-#{key}-a"
+                  = embedded_svg_from_assets("svg/#{key}.svg")
+
+
+
+

@@ -14,7 +14,7 @@ class ContactPage < ActiveRecord::Base
     weight 3
 
     edit do
-      field :content, :ck_editor
+      #field :content, :ck_editor
       field :page_metadata
     end
   end

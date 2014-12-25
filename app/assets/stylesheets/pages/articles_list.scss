@@ -199,6 +199,8 @@ $articles-list-item-hover-transition-duration: 0.5s;
   margin-top: 2rem;
   color: white;
   font-weight: 300;
+  max-height: 6rem;
+  overflow: hidden;
 }
 
 .article-avatar-a{

@@ -102,6 +102,7 @@ uk:
       end_date: "Дата завершення"
       participants_count: "Кількість учасників"
       event_tags: "Теги події"
+      event_tags_attributes: "Теги події"
       event_gallery_albums: "Альбоми для події"
       event_gallery_images: "Фотографії для альбомів"
       events: "Події"

@@ -6,7 +6,7 @@
   position: relative;
 
   .map-wrapper{
-    padding: 0 500px 0 0;
+    padding: 0 600px 0 0;
   }
 
   .contact-page-form{
@@ -14,11 +14,11 @@
     right: 0;
     top: 0;
     width: 40%;
-    max-width: 500px;
+    max-width: 600px;
     bottom: 0;
 
     background-color: $skyblue-color;
-    padding: 0 40px;
+    padding: 0 0 0 40px;
 
     .input-bg{
       z-index: 0;
@@ -31,13 +31,16 @@
     .contact-page-form-reset{
       position: relative;
       height: 100%;
+      width: 100%;
 
       #home-contact-form-section-form{
         transform: translate3d(0,-50%,0);
         top: 50%;
         //left: 50%;
         position: absolute;
-        width: 100%;
+        //width: 100%;
+        right: 18%;
+        left: 0;
       }
     }
   }

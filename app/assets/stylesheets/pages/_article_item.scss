@@ -46,7 +46,7 @@
   @include transition-property(all);
 
   &:hover{
-    background-color: $light-red-background-color;
+    background-color: $large-object-hover-color;
 
     .read-also-articles-article-title-a{
       color: white;

@@ -1497,16 +1497,28 @@ form
 
   #footer-developed-by-inner
     position: relative
+    svg
+      opacity: 0.5
+      @include transition-duration($hover-transition-duration)
+      @include transition-property(opacity)
+      path
+        fill: white
+
+      &:hover
+        opacity: 1
   #footer-copyright-inner
     position: relative
-    text-align: right
+    //text-align: right
 #home-footer
   p
-    color: #888
+    //color: #888
+    color: white
   #footer-copyright
-    color: #888
+    //color: #888
+    color: white
     margin: 0
     line-height: 47px
+
 
 
 #body[data-home-page-current-section="6"]

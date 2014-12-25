@@ -156,6 +156,27 @@ class Event < ActiveRecord::Base
 
 
     before_validation :fix_slug
+    before_save :fix_address
+
+    def fix_address
+      self.address = I18n.t("activerecord.defaults.models.event.attributes.address") if !self.address || self.address == ''
+    end
+
+    # def fix_slug
+    #   locale_was = I18n.locale
+    #   temp_locale = locale_was
+    #   temp_locale = :ru if I18n.locale == :uk
+    #
+    #   self.slug = self.name if !self.slug || self.slug == ''
+    #
+    #   I18n.with_locale(temp_locale) do |locale|
+    #     self.slug = self.slug.parameterize
+    #   end
+    #
+    #   self.address = I18n.t("activerecord.defaults.models.event.attributes.address") if !self.address || self.address == ''
+    #
+    #   #self.participants_count = allowed_subscriptions_count
+    # end
 
     def fix_slug
       locale_was = I18n.locale
@@ -167,10 +188,6 @@ class Event < ActiveRecord::Base
       I18n.with_locale(temp_locale) do |locale|
         self.slug = self.slug.parameterize
       end
-
-      self.address = I18n.t("activerecord.defaults.models.event.attributes.address") if !self.address || self.address == ''
-
-      #self.participants_count = allowed_subscriptions_count
     end
 
     # def published=(value)
@@ -219,27 +236,27 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def self.fix_slug
-    values = {}
-    field = :slug
-
-    self.all.each do |obj|
-
-      I18n.available_locales.each do |locale|
-        if !values.keys.include?(locale.to_sym)
-          values[locale.to_sym] = []
-        end
-        values_for_locale = values[locale.to_sym]
-        same_values = values_for_locale.select.with_index{|v,i| if v[:value] == obj.translations_by_locale[locale.to_sym].send(field.to_s) then  c = v[:count]; v[:count] = c + 1; t = obj.translations_by_locale[locale.to_sym]; t.send("#{field.to_s}=", "#{v[:value]}-#{v[:count]}"); t.save; end }
-        if same_values.count == 0
-          values_for_locale.push( value: obj.translations_by_locale[locale.to_sym].send(field.to_s), count: 1 )
-
-        else
-
-        end
-      end
-    end
-  end
+  # def self.fix_slug
+  #   values = {}
+  #   field = :slug
+  #
+  #   self.all.each do |obj|
+  #
+  #     I18n.available_locales.each do |locale|
+  #       if !values.keys.include?(locale.to_sym)
+  #         values[locale.to_sym] = []
+  #       end
+  #       values_for_locale = values[locale.to_sym]
+  #       same_values = values_for_locale.select.with_index{|v,i| if v[:value] == obj.translations_by_locale[locale.to_sym].send(field.to_s) then  c = v[:count]; v[:count] = c + 1; t = obj.translations_by_locale[locale.to_sym]; t.send("#{field.to_s}=", "#{v[:value]}-#{v[:count]}"); t.save; end }
+  #       if same_values.count == 0
+  #         values_for_locale.push( value: obj.translations_by_locale[locale.to_sym].send(field.to_s), count: 1 )
+  #
+  #       else
+  #
+  #       end
+  #     end
+  #   end
+  # end
 
 
   before_save do
@@ -247,6 +264,19 @@ class Event < ActiveRecord::Base
   end
 
 
+
+  def fix_slug
+    self.translations.each do |t|
+      t.fix_slug
+      t.save
+    end
+  end
+
+  def self.fix_slug_for_all
+    EventTag.all.each do |t|
+      t.fix_slug
+    end
+  end
 
   validates_with UniqueSlugValidator
 

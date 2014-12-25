@@ -34,6 +34,8 @@ class Article < ActiveRecord::Base
     attr_accessor "delete_#{paperclip_field_name}".to_sym
   end
 
+  attr_accessible :show_toned_avatar, :show_toned_banner
+
   translates :name, :slug, :short_description, :full_description, :avatar_alt, :banner_alt, :versioning => :paper_trail
   accepts_nested_attributes_for :translations, allow_destroy: true
   attr_accessible :translations_attributes, :translations
@@ -47,12 +49,26 @@ class Article < ActiveRecord::Base
     #   self[:published] = value
     # end
 
-    before_save do
-      self.slug = self.name.parameterize if !self.slug || self.slug == ''
-      self.slug = self.slug.parameterize.underscore
+    # before_save do
+    #   self.slug = self.name.parameterize if !self.slug || self.slug == ''
+    #   self.slug = self.slug.parameterize.underscore
+    #
+    #   self.avatar_alt = self.name if !self.avatar_alt || self.avatar_alt == ''
+    #   self.banner_alt = self.name if !self.banner_alt || self.banner_alt == ''
+    # end
 
-      self.avatar_alt = self.name if !self.avatar_alt || self.avatar_alt == ''
-      self.banner_alt = self.name if !self.banner_alt || self.banner_alt == ''
+    before_validation :fix_slug
+
+    def fix_slug
+      locale_was = I18n.locale
+      temp_locale = locale_was
+      temp_locale = :ru if I18n.locale == :uk
+
+      self.slug = self.name if !self.slug || self.slug == ''
+
+      I18n.with_locale(temp_locale) do |locale|
+        self.slug = self.slug.parameterize
+      end
     end
 
     rails_admin do
@@ -103,6 +119,21 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def fix_slug
+    self.translations.each do |t|
+      t.fix_slug
+      t.save
+    end
+  end
+
+  def self.fix_slug_for_all
+    EventTag.all.each do |t|
+      t.fix_slug
+    end
+  end
+
+  before_validation :fix_slug
+
   validates_with UniqueSlugValidator
 
 
@@ -143,6 +174,8 @@ class Article < ActiveRecord::Base
 
         end
       end
+
+      field :show_toned_avatar
       #field :avatar_file_name_fallback
 
       field :banner do
@@ -156,6 +189,9 @@ class Article < ActiveRecord::Base
           help help + ( attr.styles.map{|obj| info = obj[1]; res = {}; res[info.name.to_sym] = info.geometry; res  }).inspect
         end
       end
+
+      field :show_toned_banner
+
       #field :banner_file_name_fallback
       field :page_metadata do
         if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false

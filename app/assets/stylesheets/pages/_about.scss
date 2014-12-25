@@ -20,16 +20,18 @@
 
 #about-banner-image-wrapper, #event-item-banner, #about-slides-ul .image-background,
 #home-featured-events-section .event-info-slides .event-info-slides-row ul li.event .image-and-info.columns .image{
-  &:after{
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    display: block;
-    right: 0;
-    background: $orange-color;
-    opacity: $orange-overlay-opacity;
+  &:not(.does-not-have-overlay) {
+    &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      display: block;
+      right: 0;
+      background: $orange-color;
+      opacity: $orange-overlay-opacity;
+    }
   }
 }
 

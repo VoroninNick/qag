@@ -1,12 +1,14 @@
 - articles.each_with_index do |article, index|
+  - article_avatar_style_gray = article.show_toned_avatar == true
+
   .articles-list-article.article-collection-item
 
     a.event-bg-link href=article_item_path(locale: I18n.locale, item: article.slug)
     .articles-list-article-row.row
       .article-avatar.columns.large-4
         .pr
-          a.article-avatar-a href="#{article_item_path(locale: I18n.locale, item: article.slug)}"
-            img.grayscale.article-avatar-img src="#{ (article.avatar.exists?(:article_list_small_thumb) ? article.avatar.url(:article_list_small_thumb) : stub_image_link(360, 300, "article-#{article.id}") ) }"
+          a.article-avatar-a class="#{"has-overlay" if article_avatar_style_gray}" href="#{article_item_path(locale: I18n.locale, item: article.slug)}"
+            img.article-avatar-img class="#{"grayscale" if article_avatar_style_gray}" src="#{ (article.avatar.exists?(:article_list_small_thumb) ? article.avatar.url(:article_list_small_thumb) : stub_image_link(360, 300, "article-#{article.id}") ) }"
 
       .articles-list-article-description.columns.large-8
         .articles-list-article-description-side-1

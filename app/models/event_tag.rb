@@ -67,6 +67,8 @@ class EventTag < ActiveRecord::Base
     end
   end
 
+  validates_with UniqueSlugValidator
+
   rails_admin do
     navigation_label I18n.t('rails_admin.navigation_labels.events')
     label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")

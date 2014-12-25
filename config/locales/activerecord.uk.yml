@@ -26,6 +26,8 @@ uk:
           attributes:
             name:
               blank: "Ім'я не може бути пустим"
+            slug:
+              blank: "Назва для url не може бути пустою"
 
     defaults:
       models:

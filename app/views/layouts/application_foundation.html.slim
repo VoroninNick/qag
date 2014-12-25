@@ -11,8 +11,8 @@ html#html class="no-js locale-#{I18n.locale.to_s} controller-#{params[:controlle
       - else
         = "Untitled"
 
-    - if @page && @page.respond_to?(:page_metadata) && @page.page_metadata && @page.page_metadata.respond_to?(:meta_keywords) && @page.page_metadata.send(:meta_keywords) && @page.page_metadata.send(:meta_keywords) != ''
-      meta content=@page.page_metadata.meta_keywords name="keywords"
+    - if @page && @page.respond_to?(:page_metadata) && @page.page_metadata && @page.page_metadata.respond_to?(:meta_tags) && @page.page_metadata.send(:meta_tags) && @page.page_metadata.send(:meta_tags) != ''
+      meta content=@page.page_metadata.meta_tags name="keywords"
     - else
       meta content="" name="keywords"
 

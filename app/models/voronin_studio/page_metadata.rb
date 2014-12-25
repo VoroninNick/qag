@@ -7,16 +7,44 @@ class VoroninStudio::PageMetadata < ActiveRecord::Base
 
   before_save :init_fields
   def init_fields
-    page.translated_locales.each do |locale|
-      page_translation = page.translations_by_locale[locale]
-      if !translated_locales.include?(locale)
-        t = Translation.new(locale: locale, voronin_studio_page_metadatum_id: self.id)
-      else
-        t = translations_by_locale[locale]
-      end
+    if page
+      if respond_to?(:translated_locales)
+        page.translated_locales.each do |locale|
+          page_translation = page.translations_by_locale[locale]
+          if !translated_locales.include?(locale)
+            t = Translation.new(locale: locale, voronin_studio_page_metadatum_id: self.id)
+          else
+            t = translations_by_locale[locale]
+          end
 
-      if !t.head_title || t.head_title == ''
-        t.head_title = page_translation.name
+          if !t.head_title || t.head_title == ''
+            t.head_title = page_translation.name
+          end
+        end
+      else
+        if page.respond_to?(:name)
+          self.translations.each do |t|
+            if !t.head_title || t.head_title == ''
+              t.head_title = page.name
+            end
+          end
+        end
+
+        if page.respond_to?(:short_description)
+          self.translations.each do |t|
+            if !t.head_title || t.head_title == ''
+              t.meta_description = page.short_description
+            end
+          end
+        end
+
+        if page.respond_to?(:event_tags)
+          self.translations.each do |t|
+            if !t.meta_tags || t.meta_tags == ''
+              t.meta_tags = page.event_tags.map(&:name).join(',')
+            end
+          end
+        end
       end
     end
   end

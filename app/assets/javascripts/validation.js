@@ -172,7 +172,7 @@ function validateData(array){
 
 
 function validateValue(value, type){
-    return regexes.hasOwnProperty(type)? value.match(regexes[type]) : null
+    return regexes.hasOwnProperty(type)? value.match(regexes[type]) : true
 }
 
 

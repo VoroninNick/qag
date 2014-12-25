@@ -37,7 +37,8 @@ RailsAdmin.config do |config|
    EventTag, EventGalleryAlbum, EventGalleryImage, EventSubscription, UserFeedback,
    #ActsAsTaggableOn::Tag, ActsAsTaggableOn::Tagging
    VoroninStudio::PageMetadata,
-   HomePage, AboutPage, Pages::EventsList, Pages::ArticlesList, ContactPage
+   HomePage, AboutPage, Pages::EventsList, Pages::ArticlesList, ContactPage,
+   Message
 
 
   ]#+(Dir.glob(Rails.root.join('app/models/pages/*.rb')).each {|file| require file;}; classes = [] ;Pages.constants.each {|c| classes.push("Pages::#{c.to_s}") }; classes )

@@ -35,6 +35,7 @@ uk:
       pages/articles_list: "Список статтей"
       contact_page: "Контакти"
       voronin_studio/page_metadata: "Метадані для сторінки"
+      message: "Повідомлення"
 
     model_labels_plural:
       home_page: "Головна сторінка"
@@ -64,6 +65,7 @@ uk:
       pages/articles_list: "Список статтей"
       contact_page: "Контакти"
       voronin_studio/page_metadata: "Метадані для сторінок"
+      message: "Історія повідомлень"
     field_labels:
       role: "Роль"
       translations: "Локалізації"
@@ -143,5 +145,6 @@ uk:
       team_members_attributes: "Члени команди"
       participants: "Почесні учасники"
       participants_attributes: "Почесні учасники"
+
     field_group_labels:
       social_links: "Посилання на соціальні мережі"

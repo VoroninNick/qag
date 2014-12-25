@@ -255,17 +255,85 @@ var initialize = function() {
         var url = $form.attr('action') || ''
         var response_data_type = 'json'
 
-        $form.on('click', 'input[type=submit]', function(e){
-            var $submit = $(this)
-            e.preventDefault()
-            var form_data = $form.serializeArray()
-            $.ajax({type: method, url: url, data: form_data, dataType: response_data_type, success: function(data){
-                alert('success')
-            }
-        })
-        }) 
+
+
     }
 }
+
+var $contact_form = $('#home-contact-form-section-form')
+
+$contact_form.on('click', 'input[type=submit]', function(e){
+    var $form = $contact_form
+
+    var default_method = 'GET'
+    var method = $form.attr('method') || default_method
+    var url = $form.attr('action') || ''
+    var response_data_type = 'json'
+
+    e.preventDefault()
+    var form_send_status = $form.data('send')
+    if(!form_send_status) {
+        var $submit = $(this)
+
+        var form_data = $form.serializeArray()
+        FORM_DATA = form_data
+        errors = []
+        var $fields = $form.find('.field:not(.field-submit)')
+
+        for (var i = 0; i < $fields.length; i++) {
+            var $field = $fields.eq(i)
+            var $field_input = $field.find('input, select, textarea')
+            //var field_data = form_data[i]
+            var field_value = $field_input.val()
+            var field_name = $field_input.attr('name')
+            if (field_value == '') {
+                errors.push({
+                    field_name: field_name,
+                    error_message: $field.attr('data-error-empty'),
+                    type: 'empty'
+                })
+            }
+            else if (!validateValue(field_value, $field.attr('data-validate'))) {
+                errors.push({
+                    field_name: field_name,
+                    error_message: $field.attr('data-error-invalid'),
+                    type: 'invalid'
+                })
+            }
+
+        }
+
+        if (errors.length == 0) {
+            $form.data('send', 'in_process')
+            $.ajax({
+                type: method,
+                url: url,
+                data: form_data,
+                dataType: response_data_type,
+                success: function (data) {
+                    //alert('success')
+                    $form.data('send', true)
+                    alert($form.attr('data-success-message'))
+                }
+            })
+        }
+        else {
+            var error_messages = []
+            for (var i = 0; i < errors.length; i++) {
+                error_messages.push(errors[i]['error_message'])
+            }
+            alert(error_messages.join("\n"))
+        }
+    }
+    else{
+        if(form_send_status == 'in_process'){
+            alert($form.attr('data-sending-message'))
+        }
+        else {
+            alert($form.attr('data-already-sent-message'))
+        }
+    }
+})
 
 
 

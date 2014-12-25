@@ -1252,77 +1252,77 @@ $home-page-comments-section-number: 5
             position: relative
             color: white
 
-      .contact-form
-        form
-          .field
-            position: relative
-            margin: 4px 0 0 0
-            input, textarea
+.contact-form
+form
+  .field
+    position: relative
+    margin: 4px 0 0 0
+    input, textarea
 
-              background: transparent
-              height: 40px
-              width: 100%
-              border: none
-              font-size: 1.1rem
-              font-weight: 500
-              color: white
-              padding: 0 1.5rem 0 1.5rem
-              font-family: inherit
+      background: transparent
+      height: 40px
+      width: 100%
+      border: none
+      font-size: 1.1rem
+      font-weight: 500
+      color: white
+      padding: 0 1.5rem 0 1.5rem
+      font-family: inherit
 
-              @include placeholder
-                color: $skyblue-color
-                //background: green
-
-
-              &:focus
-                //background: $form-focus-input-background
-
-                @include placeholder
-                  color: $form-focus-input-background
+      @include placeholder
+        color: $skyblue-color
+        //background: green
 
 
+      &:focus
+        //background: $form-focus-input-background
 
-            textarea
-              background: $form-input-background
-              height: 120px
-              padding: 0.5rem 1.5rem 0.5rem 1.5rem
-              line-height: 1.4
-
-            &.field-submit
-              margin: 1rem 0 0 0
-              box-shadow: $button-box-shadow
+        @include placeholder
+          color: $form-focus-input-background
 
 
-              input
-                background: white
-                color: $form-input-background
-                border-radius: 3px
-                font-size: 1.1rem
-                font-weight: 900
-                text-transform: uppercase
-                cursor: pointer
-                @include transition-duration(0.5s)
-                @include transition-property(all)
+
+    textarea
+      background: $form-input-background
+      height: 120px
+      padding: 0.5rem 1.5rem 0.5rem 1.5rem
+      line-height: 1.4
+
+    &.field-submit
+      margin: 1rem 0 0 0
+      box-shadow: $button-box-shadow
 
 
-              &:hover
-                input
-                  background-color: $light-orange-color
-                  color: white
+      input
+        background: white
+        color: $form-input-background
+        border-radius: 3px
+        font-size: 1.1rem
+        font-weight: 900
+        text-transform: uppercase
+        cursor: pointer
+        @include transition-duration(0.5s)
+        @include transition-property(all)
 
-          input[type=text] + .input-bg
-            position: absolute
-            display: block
-            height: 100%
-            width: 100%
-            top: 0
-            z-index: -1
-            background: $form-input-background
-          input[type="text"]:focus + .input-bg
-            background: $orange-color
-            @include animation-duration(0.5s)
-            @include animation-delay(0s)
-            @include animation-name(input-active-animation)
+
+      &:hover
+        input
+          background-color: $light-orange-color
+          color: white
+
+  input[type=text] + .input-bg
+    position: absolute
+    display: block
+    height: 100%
+    width: 100%
+    top: 0
+    z-index: -1
+    background: $form-input-background
+  input[type="text"]:focus + .input-bg
+    background: $orange-color
+    @include animation-duration(0.5s)
+    @include animation-delay(0s)
+    @include animation-name(input-active-animation)
 
 
 

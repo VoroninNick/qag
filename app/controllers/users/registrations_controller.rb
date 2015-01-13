@@ -203,7 +203,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def configure_permitted_parameters
     #devise_parameter_sanitizer.for(:sign_up).push(:first_name, :last_name, :contact_phone, :city, :company, :status)
-    devise_parameter_sanitizer.push(:first_name, :last_name, :password, :password_confirmation, :contact_phone, :city, :company, :status)
-
+    #devise_parameter_sanitizer.push(:first_name, :last_name, :password, :password_confirmation, :contact_phone, :city, :company, :status)
+    devise_parameter_sanitizer.for(:sign_up) do |u|
+      u.permit(:first_name, :last_name, :contact_phone, :city, :company, :status,
+               :email, :password, :password_confirmation)
+    end
   end
 end

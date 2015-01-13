@@ -40,7 +40,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create
 
-    params.permit(:contact_phone)
+    params.permit("user[contact_phone]")
 
     build_resource(sign_up_params)
 
@@ -55,9 +55,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
       resource.registration_location = params[:registration_location]
     end
 
-    if resource.respond_to?("contact_phone=")
-      resource.send("contact_phone=", params[:user][:contact_phone])
-    end
+    #if resource.respond_to?("contact_phone=")
+    #  resource.send("contact_phone=", params[:user][:contact_phone])
+    #end
 
     resource_saved = resource.save
     yield resource if block_given?

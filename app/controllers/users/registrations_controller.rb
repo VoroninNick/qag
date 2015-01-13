@@ -2,7 +2,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 # before_filter :configure_sign_up_params, only: [:create]
 # before_filter :configure_account_update_params, only: [:update]
 
-  #before_filter :configure_permitted_parameters
+  before_filter :configure_permitted_parameters
 
 
 
@@ -40,7 +40,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create
 
-    sign_up_params.permit("user[contact_phone]")
+    #sign_up_params.permit("user[contact_phone]")
 
     build_resource(sign_up_params)
 
@@ -203,7 +203,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def configure_permitted_parameters
     #devise_parameter_sanitizer.for(:sign_up).push(:first_name, :last_name, :contact_phone, :city, :company, :status)
-    #devise_parameter_sanitizer.push(:first_name, :last_name, :contact_phone, :city, :company, :status)
+    devise_parameter_sanitizer.push(:first_name, :last_name, :password, :password_confirmation, :contact_phone, :city, :company, :status)
 
   end
 end

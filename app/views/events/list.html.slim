@@ -1,21 +1,21 @@
 = render partial: 'events/events_list_banner_and_search'
-
-#breadcrumbs-container
-  #breadcrumbs-row.row
-    ul#breadcrumbs-ul
-      li#breadcrumb-home.breadcrumb.inactive_breadcrumb
-        a#breadcrumb-home-a href=root_path
-          = embedded_svg_from_assets('svg/home.svg')
-      li#active-breadcrumb.breadcrumb
-        span#active-breadcrumb-text
-          = @breadcrumbs[:events_list][:title]
-
-
-
-#events-list.events-collection.infinity-scroll-list
-  /- @paginated_events.each_with_index do |event, index|
-  = render partial: 'events/list_item', locals: { events: @paginated_events }
+.page-content-z-index
+  #breadcrumbs-container
+    #breadcrumbs-row.row
+      ul#breadcrumbs-ul
+        li#breadcrumb-home.breadcrumb.inactive_breadcrumb
+          a#breadcrumb-home-a href=root_path
+            = embedded_svg_from_assets('svg/home.svg')
+        li#active-breadcrumb.breadcrumb
+          span#active-breadcrumb-text
+            = @breadcrumbs[:events_list][:title]
 
 
-.pagination-wrapper
-  = will_paginate @paginated_events
+
+  #events-list.events-collection.infinity-scroll-list
+    /- @paginated_events.each_with_index do |event, index|
+    = render partial: 'events/list_item', locals: { events: @paginated_events }
+
+
+  .pagination-wrapper
+    = will_paginate @paginated_events

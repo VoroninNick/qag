@@ -24,7 +24,8 @@
 
     li.dashboard-menu-another-link-li
       a.dashboard-menu-another-link-li-a.popup-link.logout href="#{user_session_destroy_form_path(locale: I18n.locale)}"
-        = "Вийти з кабінету"
+        /= "Вийти з кабінету"
+        = "Вилогінитись"
 
     li.dashboard-menu-another-link-li
       = link_to "Видалити аккаунт", registration_path(resource_name, locale: I18n.locale), data: { confirm: "Are you sure?" }, method: :delete, class: "dashboard-menu-another-link-li-a"

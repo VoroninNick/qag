@@ -23,6 +23,15 @@ $events-list-item-hover-transition-duration: 0.5s;
 
 #events-list-banner{
   position: relative;
+  height: 500px;
+  width: 100%;
+  overflow: hidden;
+}
+
+#events-list-banner-fixed{
+  position: fixed;
+  width: 100%;
+  height: 500px;
 }
 
 #events-list-banner-image-wrapper {

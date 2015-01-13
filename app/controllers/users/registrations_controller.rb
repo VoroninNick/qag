@@ -40,6 +40,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create
 
+    params.permit(:contact_phone)
 
     build_resource(sign_up_params)
 
@@ -151,6 +152,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # PUT /resource
   def update
+    params.permit(:contact_phone)
     generate_dashboard_data
     devise_parameter_sanitizer.for(:account_update).push(:first_name, :last_name, :contact_phone, :city, :company, :status)
 

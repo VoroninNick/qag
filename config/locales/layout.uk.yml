@@ -17,7 +17,7 @@ uk:
     footer:
       menu:
         about: 'Про нас'
-        events: 'Події'
+        events: 'Заходи'
         articles: 'Публікації'
         contact: 'Контакти'
       partners:
@@ -33,7 +33,7 @@ uk:
       about_us: 'Про нас'
       contact: 'Контакти'
       events_list: 'Заходи'
-      articles_list: "Статті"
+      articles_list: "Публікації"
 
     buttons:
       register: "Зареєструватися"

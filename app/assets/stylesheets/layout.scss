@@ -612,6 +612,9 @@ $header-height: 90px;
 #header-menu-pages{
   text-align: right;
   list-style: none;
+  position: relative;
+  z-index: 4;
+  background: white;
 }
 
 .header-menu-page-a{

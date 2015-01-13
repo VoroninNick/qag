@@ -1,9 +1,6 @@
-.contact-page-map-and-form
-
+.contact-page-map
   = render partial: 'contact/contact_map'
-  .contact-page-form
-    .contact-page-form-reset
-      = render partial: "contact/contact_form"
+
 
 #breadcrumbs-container
   #breadcrumbs-row.row
@@ -53,4 +50,8 @@
         = t('pages.contact.text.part-1')
       p#contact-page-text-part-2
         = t('pages.contact.text.part-2')
+
+  .contact-page-form
+    .contact-page-form-row.row
+      = render partial: "contact/contact_page_form"
 

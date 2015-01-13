@@ -147,3 +147,92 @@
   }
 }
 
+
+// ====================================================
+// ----------------------------------------------------
+// contact page form
+// ----------------------------------------------------
+// ====================================================
+
+.contact-page-form{
+  padding: 4rem 0 0 0;
+}
+
+#contact-page-section-form {
+  textarea{
+    height: 8rem;
+    background: transparent;
+    border: 1px #e9e9e9 solid;
+    color: #000000;
+
+    @include placeholder{
+      color: #6d6e71;
+    }
+
+    &:focus{
+      background: #86c7e7;
+      color: white;
+      font-weight: 500;
+      outline: none;
+
+      @include placeholder {
+        color: white;
+        font-weight: 300;
+      }
+    }
+
+
+  }
+
+
+
+  input {
+    width: 100%;
+    max-width: 100%;
+    border: 1px #e9e9e9 solid;
+    height: 40px;
+    padding: 0 20px;
+
+    font-size: 17px;
+    font-weight: 300;
+    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    color: #000000;
+
+    @include placeholder{
+      color: #6d6e71;
+    }
+
+    &:focus {
+      background: #86c7e7;
+      color: white;
+      font-weight: 500;
+      outline: none;
+
+      & + .hint {
+        display: block;
+      }
+
+      @include placeholder {
+        color: white;
+        font-weight: 300;
+      }
+    }
+
+    &[type=submit]{
+      height: 3.75rem;
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      border-radius: 4px;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-size: 1.3rem;
+      font-weight: 900;
+      border: none;
+      color: white;
+      background-color: #ffb700;
+    }
+
+  }
+}

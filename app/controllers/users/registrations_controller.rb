@@ -40,7 +40,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create
 
-    params.permit("user[contact_phone]")
+    sign_up_params.permit("user[contact_phone]")
 
     build_resource(sign_up_params)
 

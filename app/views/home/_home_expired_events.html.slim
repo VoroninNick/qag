@@ -6,7 +6,7 @@ div#home-expired-events-section.page-section.page-section-number-4.home-expired-
     div#home-expired-events-collection
       - @expired_events.each_with_index do |event, index|
         .item.event id="event-#{index + 1}"
-          a href="#"
+          a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
             svg width="500" height="1250"
               filter id="colorMeSaturate"
                 feColorMatrix in="SourceGraphic" type="saturate" values="0"

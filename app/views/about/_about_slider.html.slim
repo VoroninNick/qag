@@ -1,6 +1,6 @@
 #about-slider.page-block-fixed-wrapper
   .fixed-on-scroll
-    .position-relative
+    .page-block-fixed-relative
       - @about_slides.each_with_index do |slide, index|
         input type="radio" name="about-slider-slide-flag" class="about-slider-slide-flag flag" id="about-slider-slide-flag-#{(index + 1)}" checked=( (index == 0)? 'checked' : false )
 

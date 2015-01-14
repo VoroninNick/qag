@@ -1035,6 +1035,7 @@ $(document).on('ready',function() {
                 var parent_top = $parent.offset().top
                 var parent_height = $parent.height()
                 var parent_bottom = parent_top + parent_height
+                console.log('scroll_top: ', scroll_top, 'parent_top: ', parent_top, 'parent_bottom: ', parent_bottom, 'result: ', (scroll_top >= parent_top && scroll_top <= parent_bottom))
                 if (scroll_top >= parent_top && scroll_top <= parent_bottom) {
                     $this.addClass('fixed')
                     console.log('add class fixed')

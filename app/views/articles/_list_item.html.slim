@@ -1,7 +1,7 @@
 - articles.each_with_index do |article, index|
   - article_avatar_style_gray = article.show_toned_avatar == true
 
-  .articles-list-article.article-collection-item
+  .articles-list-article.article-collection-item.list-item
 
     a.event-bg-link href=article_item_path(locale: I18n.locale, item: article.slug)
     .articles-list-article-row.row

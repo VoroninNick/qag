@@ -162,9 +162,13 @@ $header-height: 90px;
 
 
   &.blue{
-    &, &:before, &:after {
+    &{
+      border-top-color: $menu-blue-color;
+    }
+    //&, &:before, &:after {
+    &:before, &:after{
       //background-color: #2f8fb9;
-      background-color: #2facda;
+      background-color: $menu-blue-color;
     }
   }
 

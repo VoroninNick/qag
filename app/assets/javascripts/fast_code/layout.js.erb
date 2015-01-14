@@ -1021,3 +1021,22 @@ if(!is_home_page) {
         }
     })
 }
+var $fixed_on_scroll_containers = $('.fixed-on-scroll')
+if($fixed_on_scroll_containers.length > 0) {
+    $window.on('scroll', function (e) {
+        var scroll_top = $window.scrollTop()
+        $fixed_header_top_container.each(function(){
+            var $this = $(this)
+            var $parent = $this.parent()
+            var parent_top = $parent.offset().top
+            var parent_height = $parent.height()
+            var parent_bottom = parent_top + parent_height
+            if(scroll_top >= parent_top && scroll_top <= parent_bottom){
+                $this.addClass('fixed')
+            }
+            else{
+                $this.removeClass('fixed')
+            }
+        })
+    })
+}

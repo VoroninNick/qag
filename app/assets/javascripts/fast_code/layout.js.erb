@@ -998,3 +998,22 @@ function hideMenu(){
 
 $window.on('scroll', hideMenu)
 $wrap.on('click', hideMenu)
+
+var $fixed_header_top_container = $('#fixed-header-top-container')
+var fixed_header_top_container_visible_class = 'visible'
+//$window.on('scroll', function(e){
+//    console.log('scroll: ', e)
+//})
+
+$window.on('mousewheel', function(e){
+
+    var scroll_up = e.originalEvent.wheelDelta /120 > 0
+    var scroll_down = !scroll_up
+    if(scroll_up) {
+        //console.log('scrolling up !');
+        $fixed_header_top_container.addClass(fixed_header_top_container_visible_class)
+    }
+    else{
+        $fixed_header_top_container.removeClass(fixed_header_top_container_visible_class)
+    }
+})

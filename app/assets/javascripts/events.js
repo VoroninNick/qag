@@ -93,6 +93,8 @@
 //
 //
 //
+
+    var $fixed_header_top_container = $('#fixed-header-top-container')
     var $events_list_banner_image_wrapper = $('.events-list-banner-image-wrapper')
 
     //var $header_menu_button_inner = $('#header-menu-button-inner')
@@ -125,7 +127,7 @@
         var header_menu_button_top = $header_menu_button.offset().top
         var header_menu_button_bottom = header_menu_button_top + $header_menu_button.height()
 
-        if(header_menu_button_bottom >= event_top && header_menu_button_top <= event_bottom){
+        if((header_menu_button_bottom >= event_top && header_menu_button_top <= event_bottom) || $fixed_header_top_container.hasClass('visible') ){
             $header_menu_button_inner.removeClass('blue')
         }
         else{

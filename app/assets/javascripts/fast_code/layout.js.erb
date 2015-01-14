@@ -1005,15 +1005,19 @@ var fixed_header_top_container_visible_class = 'visible'
 //    console.log('scroll: ', e)
 //})
 
-$window.on('mousewheel', function(e){
+var is_home_page = $html.hasClass('controller-home action-index')
 
-    var scroll_up = e.originalEvent.wheelDelta /120 > 0
-    var scroll_down = !scroll_up
-    if(scroll_up) {
-        //console.log('scrolling up !');
-        $fixed_header_top_container.addClass(fixed_header_top_container_visible_class)
-    }
-    else{
-        $fixed_header_top_container.removeClass(fixed_header_top_container_visible_class)
-    }
-})
+if(!is_home_page) {
+    $window.on('mousewheel', function (e) {
+
+        var scroll_up = e.originalEvent.wheelDelta / 120 > 0
+        var scroll_down = !scroll_up
+        if (scroll_up) {
+            //console.log('scrolling up !');
+            $fixed_header_top_container.addClass(fixed_header_top_container_visible_class)
+        }
+        else {
+            $fixed_header_top_container.removeClass(fixed_header_top_container_visible_class)
+        }
+    })
+}

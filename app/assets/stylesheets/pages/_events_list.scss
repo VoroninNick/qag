@@ -21,6 +21,21 @@ $events-list-item-hover-transition-duration: 0.5s;
 // ----------------------------------
 // ==================================
 
+#search-abs-container{
+  height: 500px;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  width: 100%;
+
+
+  .position-relative{
+    height: inherit;
+    width: 100%;
+  }
+
+}
+
 #events-list-banner{
   position: relative;
   height: 500px;

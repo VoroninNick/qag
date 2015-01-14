@@ -1,97 +1,100 @@
 - if @event
-  #event-item-banner
-    #event-item-banner-image-wrapper.grayscale style="background-image: url(#{ @event.banner.exists?(:banner) ? @event.banner.url(:banner) : asset_path('banners/events_item.jpg') })"
-      img#event-item-banner-img src="#{ @event.banner.exists?(:banner) ? @event.banner.url(:banner) : asset_path('banners/events_item.jpg') }"
-  #breadcrumbs-container
-    #breadcrumbs-row.row
-      ul#breadcrumbs-ul
-        li#breadcrumb-home.breadcrumb.inactive_breadcrumb
-          a#breadcrumb-home-a href=root_path
-            = embedded_svg_from_assets('svg/home.svg')
-        li.breadcrumb.inactive-breadcrumb
-          a.inactive-breadcrumb-a href=@breadcrumbs[:events_list][:link][:url]
-            = @breadcrumbs[:events_list][:title]
-        li#active-breadcrumb.breadcrumb
-          span#active-breadcrumb-text
-            = @event.name
+  #event-item-banner.page-block-fixed-wrapper
+    .page-block-fixed
+      .page-block-fixed-relative
+        #event-item-banner-image-wrapper.grayscale style="background-image: url(#{ @event.banner.exists?(:banner) ? @event.banner.url(:banner) : asset_path('banners/events_item.jpg') })"
+          img#event-item-banner-img src="#{ @event.banner.exists?(:banner) ? @event.banner.url(:banner) : asset_path('banners/events_item.jpg') }"
+  .page-content-z-index
+    #breadcrumbs-container
+      #breadcrumbs-row.row
+        ul#breadcrumbs-ul
+          li#breadcrumb-home.breadcrumb.inactive_breadcrumb
+            a#breadcrumb-home-a href=root_path
+              = embedded_svg_from_assets('svg/home.svg')
+          li.breadcrumb.inactive-breadcrumb
+            a.inactive-breadcrumb-a href=@breadcrumbs[:events_list][:link][:url]
+              = @breadcrumbs[:events_list][:title]
+          li#active-breadcrumb.breadcrumb
+            span#active-breadcrumb-text
+              = @event.name
 
-  #event-content-and-info-row.row data-event-id="#{@event.id}"
-    .event-content-column.columns.large-7
-      #event-item-page-event-name
-        = @event.name
-      #event-item-page-event-full-description.text-content
-        = raw @event.full_description
+    #event-content-and-info-row.row data-event-id="#{@event.id}"
+      .event-content-column.columns.large-7
+        #event-item-page-event-name
+          = @event.name
+        #event-item-page-event-full-description.text-content
+          = raw @event.full_description
 
-    #event-item-page-event-info-column.columns.large-4
-      #event-item-page-event-info
-        #event-item-page-event-info-part-details.event-item-page-event-info-part
-          #event-item-page-event-info-title
-            = t('pages.event-item.event-info.title')
-          #event-item-page-event-info-address.event-item-page-event-info-list-item
-            = embedded_svg_from_assets('svg/map_link.svg')
-            #event-item-page-event-info-address-text.event-item-page-event-info-text
-              = @event.address
-          #event-item-page-event-info-date-range.event-item-page-event-info-list-item
-            = embedded_svg_from_assets('svg/calendar.svg')
-            #event-item-page-event-info-date-range-text.event-item-page-event-info-text
-              - if @event.end_date
-                = raw t('pages.event-item.event-info.date-range', start_date_day: number_to_string_with_zero(@event.start_date.day), start_date_month: number_to_string_with_zero(@event.start_date.month), start_date_year: @event.start_date.year, end_date_day: number_to_string_with_zero(@event.end_date.day), end_date_month: number_to_string_with_zero(@event.end_date.month), end_date_year: @event.end_date.year)
-              - else
-                = raw t('pages.event-item.event-info.start-date', start_date_day: number_to_string_with_zero(@event.start_date.day), start_date_month: number_to_string_with_zero(@event.start_date.month), start_date_year: @event.start_date.year)
-          #event-item-page-event-info-participants-quantity.event-item-page-event-info-list-item
-            = raw t('pages.event-item.event-info.participants-count', svg: embedded_svg_from_assets('svg/participant.svg'), span_start: '<span id="event-item-page-event-info-participants-quantity-text" class="event-item-page-event-info-text">', span_end: '</span>', participants_count: @event.allowed_subscriptions_count)
-          - if @event.days_and_time_string && @event.days_and_time_string != ''
-            #event-item-page-event-info-days-and-time.event-item-page-event-info-list-item
-              = embedded_svg_from_assets('svg/clock.svg')
-              #event-item-page-event-info-days-and-time-text.event-item-page-event-info-text
-                = @event.days_and_time_string
-
-
-          /- if @event.up_to_date?
-          /  - if @event.enabled_registration?
-          /    .register-button.registration-enabled class=( "decline" if subscribed_on_event?(@event.id) )
-          /        a.register-button-a href=( subscribed_on_event?(@event.id) ? event_unsubscription_form_path(event_id: @event.id, locale: I18n.locale) : new_event_subscription_path(event_id: @event.id, locale: I18n.locale)  )
-          /          = embedded_svg_from_assets('svg/registration.svg')
-          /          span.registration-text
-          /            = t("layout.buttons.#{ "un" if subscribed_on_event?(@event.id) }register")
-          /  - else
-          /    .register-button class=( "registration-disabled" )
-          /      span.register-button-span
-          /        span.registration-text
-          /          = "Реєстрацію завершено"
-          /- else
-          /  .register-button class=( "event-expired" )
-          /    span.register-button-span
-          /      span.registration-text
-          /        = "Захід завершено"
-
-          = get_button_for_event(@event)
-
-        - if @event.expired?
-          #event-item-images
-            .header
-              .title
-                = "Фотозвіт"
-
-              .photos-count
-                = embedded_svg_from_assets('svg/photo.svg')
-                .count
-                  = @event.images.count
-
-            .content
-              - if @event.images.count > 0
-                - @event.images.each_with_index do |image, index|
-                  a class="#{'lazy' if index > 9}" href="#{image_or_stub_url(image.image, :original, 1200, 800, "event #{@event.id}")}"
-                    - if index < 10
-                      img.grayscale.grayscale-fade src="#{image_or_stub_url(image.image, :event_list_image, 180, 120, "event #{@event.id}")}"
-
-              - else
-                = "Немає жодної фотографії"
-            .footer
-              - if @event.images.count > 10
-                a#more-images.js-trigger
-                  = "Всі фотографії"
+      #event-item-page-event-info-column.columns.large-4
+        #event-item-page-event-info
+          #event-item-page-event-info-part-details.event-item-page-event-info-part
+            #event-item-page-event-info-title
+              = t('pages.event-item.event-info.title')
+            #event-item-page-event-info-address.event-item-page-event-info-list-item
+              = embedded_svg_from_assets('svg/map_link.svg')
+              #event-item-page-event-info-address-text.event-item-page-event-info-text
+                = @event.address
+            #event-item-page-event-info-date-range.event-item-page-event-info-list-item
+              = embedded_svg_from_assets('svg/calendar.svg')
+              #event-item-page-event-info-date-range-text.event-item-page-event-info-text
+                - if @event.end_date
+                  = raw t('pages.event-item.event-info.date-range', start_date_day: number_to_string_with_zero(@event.start_date.day), start_date_month: number_to_string_with_zero(@event.start_date.month), start_date_year: @event.start_date.year, end_date_day: number_to_string_with_zero(@event.end_date.day), end_date_month: number_to_string_with_zero(@event.end_date.month), end_date_year: @event.end_date.year)
+                - else
+                  = raw t('pages.event-item.event-info.start-date', start_date_day: number_to_string_with_zero(@event.start_date.day), start_date_month: number_to_string_with_zero(@event.start_date.month), start_date_year: @event.start_date.year)
+            #event-item-page-event-info-participants-quantity.event-item-page-event-info-list-item
+              = raw t('pages.event-item.event-info.participants-count', svg: embedded_svg_from_assets('svg/participant.svg'), span_start: '<span id="event-item-page-event-info-participants-quantity-text" class="event-item-page-event-info-text">', span_end: '</span>', participants_count: @event.allowed_subscriptions_count)
+            - if @event.days_and_time_string && @event.days_and_time_string != ''
+              #event-item-page-event-info-days-and-time.event-item-page-event-info-list-item
+                = embedded_svg_from_assets('svg/clock.svg')
+                #event-item-page-event-info-days-and-time-text.event-item-page-event-info-text
+                  = @event.days_and_time_string
 
 
+            /- if @event.up_to_date?
+            /  - if @event.enabled_registration?
+            /    .register-button.registration-enabled class=( "decline" if subscribed_on_event?(@event.id) )
+            /        a.register-button-a href=( subscribed_on_event?(@event.id) ? event_unsubscription_form_path(event_id: @event.id, locale: I18n.locale) : new_event_subscription_path(event_id: @event.id, locale: I18n.locale)  )
+            /          = embedded_svg_from_assets('svg/registration.svg')
+            /          span.registration-text
+            /            = t("layout.buttons.#{ "un" if subscribed_on_event?(@event.id) }register")
+            /  - else
+            /    .register-button class=( "registration-disabled" )
+            /      span.register-button-span
+            /        span.registration-text
+            /          = "Реєстрацію завершено"
+            /- else
+            /  .register-button class=( "event-expired" )
+            /    span.register-button-span
+            /      span.registration-text
+            /        = "Захід завершено"
 
-        #event-item-page-event-info-part-images.event-item-page-event-info-part
+            = get_button_for_event(@event)
+
+          - if @event.expired?
+            #event-item-images
+              .header
+                .title
+                  = "Фотозвіт"
+
+                .photos-count
+                  = embedded_svg_from_assets('svg/photo.svg')
+                  .count
+                    = @event.images.count
+
+              .content
+                - if @event.images.count > 0
+                  - @event.images.each_with_index do |image, index|
+                    a class="#{'lazy' if index > 9}" href="#{image_or_stub_url(image.image, :original, 1200, 800, "event #{@event.id}")}"
+                      - if index < 10
+                        img.grayscale.grayscale-fade src="#{image_or_stub_url(image.image, :event_list_image, 180, 120, "event #{@event.id}")}"
+
+                - else
+                  = "Немає жодної фотографії"
+              .footer
+                - if @event.images.count > 10
+                  a#more-images.js-trigger
+                    = "Всі фотографії"
+
+
+
+          #event-item-page-event-info-part-images.event-item-page-event-info-part

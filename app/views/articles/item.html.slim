@@ -1,39 +1,42 @@
 - if @article
-  #event-item-banner class="#{"has-overlay" if @article.show_toned_banner }"
-    #event-item-banner-image-wrapper class="#{ if @article.show_toned_banner then "grayscale" else "does-not-have-overlay" end }" style="background-image: url(#{ @article.banner.exists?(:banner) ? @article.banner.url(:banner) : asset_path('banners/article_item.jpg') })"
-      img#event-item-banner-img src="#{ @article.banner.exists?(:banner) ? @article.banner.url(:banner) : asset_path('banners/article_item.jpg') }"
-  #breadcrumbs-container
-    #breadcrumbs-row.row
-      ul#breadcrumbs-ul
-        li#breadcrumb-home.breadcrumb.inactive_breadcrumb
-          a#breadcrumb-home-a href=root_path
-            = embedded_svg_from_assets('svg/home.svg')
-        li.breadcrumb.inactive-breadcrumb
-          a.inactive-breadcrumb-a href=@breadcrumbs[:articles_list][:link][:url]
-            = @breadcrumbs[:articles_list][:title]
-        li#active-breadcrumb.breadcrumb
-          span#active-breadcrumb-text
+  #event-item-banner.page-block-fixed-wrapper class="#{"has-overlay" if @article.show_toned_banner }"
+    .page-block-fixed
+      .page-block-fixed-relative
+        #event-item-banner-image-wrapper class="#{ if @article.show_toned_banner then "grayscale" else "does-not-have-overlay" end }" style="background-image: url(#{ @article.banner.exists?(:banner) ? @article.banner.url(:banner) : asset_path('banners/article_item.jpg') })"
+          img#event-item-banner-img src="#{ @article.banner.exists?(:banner) ? @article.banner.url(:banner) : asset_path('banners/article_item.jpg') }"
+  .page-content-z-index
+    #breadcrumbs-container
+      #breadcrumbs-row.row
+        ul#breadcrumbs-ul
+          li#breadcrumb-home.breadcrumb.inactive_breadcrumb
+            a#breadcrumb-home-a href=root_path
+              = embedded_svg_from_assets('svg/home.svg')
+          li.breadcrumb.inactive-breadcrumb
+            a.inactive-breadcrumb-a href=@breadcrumbs[:articles_list][:link][:url]
+              = @breadcrumbs[:articles_list][:title]
+          li#active-breadcrumb.breadcrumb
+            span#active-breadcrumb-text
+              = @article.name
+
+    #article-section
+      #article-section-row.row
+        #article-section-column.columns.large-12
+          #article-title.about-gray-header
             = @article.name
+          #article-date
+            = (@article.updated_at ).strftime("%d.%m.%Y")
+          #article-content.text-content
+            = raw @article.full_description
 
-  #article-section
-    #article-section-row.row
-      #article-section-column.columns.large-12
-        #article-title.about-gray-header
-          = @article.name
-        #article-date
-          = (@article.updated_at ).strftime("%d.%m.%Y")
-        #article-content.text-content
-          = raw @article.full_description
-
-  #read-also-section
-    #read-also-section-row.row
-      #read-also-section-column.columns.large-12
-        #read-also-section-title
-          = "Читайте також"
-        - @related_articles.each do |a|
-          .read-also-articles-article
-            .read-also-articles-article-title
-              a.read-also-articles-article-title-a href="#{article_item_path(locale: I18n.locale, item: a.slug)}"
-                = a.name
-            .read-also-articles-article-date
-              = (a.updated_at ).strftime("%d.%m.%Y")
+    #read-also-section
+      #read-also-section-row.row
+        #read-also-section-column.columns.large-12
+          #read-also-section-title
+            = "Читайте також"
+          - @related_articles.each do |a|
+            .read-also-articles-article
+              .read-also-articles-article-title
+                a.read-also-articles-article-title-a href="#{article_item_path(locale: I18n.locale, item: a.slug)}"
+                  = a.name
+              .read-also-articles-article-date
+                = (a.updated_at ).strftime("%d.%m.%Y")

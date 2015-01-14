@@ -1024,8 +1024,10 @@ if(!is_home_page) {
 $(document).on('ready',function() {
     var $fixed_on_scroll_containers = $('.fixed-on-scroll')
     if ($fixed_on_scroll_containers.length > 0) {
+        console.log('add scroll handler')
         $window.on('scroll', function (e) {
             var scroll_top = $window.scrollTop()
+
             $fixed_header_top_container.each(function () {
                 var $this = $(this)
                 var $parent = $this.parent()

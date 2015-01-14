@@ -1027,6 +1027,7 @@ $(document).on('ready',function() {
         console.log('add scroll handler')
         $window.on('scroll', function (e) {
             var scroll_top = $window.scrollTop()
+            var $fixed_on_scroll_containers = $('.fixed-on-scroll')
 
             $fixed_header_top_container.each(function () {
                 var $this = $(this)

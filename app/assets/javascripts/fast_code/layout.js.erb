@@ -1036,9 +1036,11 @@ $(document).on('ready',function() {
                 var parent_bottom = parent_top + parent_height
                 if (scroll_top >= parent_top && scroll_top <= parent_bottom) {
                     $this.addClass('fixed')
+                    console.log('add class fixed')
                 }
                 else {
                     $this.removeClass('fixed')
+                    console.log('remove class fixed')
                 }
             })
         })

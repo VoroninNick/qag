@@ -1,23 +1,23 @@
 #about-slider.page-block-fixed-wrapper
   .fixed-on-scroll
     .position-relative
-  - @about_slides.each_with_index do |slide, index|
-    input type="radio" name="about-slider-slide-flag" class="about-slider-slide-flag flag" id="about-slider-slide-flag-#{(index + 1)}" checked=( (index == 0)? 'checked' : false )
+      - @about_slides.each_with_index do |slide, index|
+        input type="radio" name="about-slider-slide-flag" class="about-slider-slide-flag flag" id="about-slider-slide-flag-#{(index + 1)}" checked=( (index == 0)? 'checked' : false )
 
-  ul#about-slides-ul.slides
-    - @about_slides.each_with_index do |slide, index|
-      li.slide id="slide-#{index + 1}"
-        .image-background style="background-image: url('#{slide.background.url(:bw_banner)}')"
-          img.about-slider-slide-img src=image_or_stub_url(slide.background, :bw_banner, 150, 100, "image #{index+1}") alt=slide.background_alt
-        .about-slider-description.description
-          .about-slider-slide-title.slide-title
-            = slide.name
+      ul#about-slides-ul.slides
+        - @about_slides.each_with_index do |slide, index|
+          li.slide id="slide-#{index + 1}"
+            .image-background style="background-image: url('#{slide.background.url(:bw_banner)}')"
+              img.about-slider-slide-img src=image_or_stub_url(slide.background, :bw_banner, 150, 100, "image #{index+1}") alt=slide.background_alt
+            .about-slider-description.description
+              .about-slider-slide-title.slide-title
+                = slide.name
 
 
-  ul#about-slider-bullets.bullets
-    - @about_slides.each_with_index do |slide, index|
-      li.about-slider-slide-label id="about-slider-slide-label-#{index + 1}"
-        label for="about-slider-slide-flag-#{(index + 1)}"
+      ul#about-slider-bullets.bullets
+        - @about_slides.each_with_index do |slide, index|
+          li.about-slider-slide-label id="about-slider-slide-label-#{index + 1}"
+            label for="about-slider-slide-flag-#{(index + 1)}"
 
 
 

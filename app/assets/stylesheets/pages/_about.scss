@@ -163,6 +163,14 @@
 }
 
 
+#about-what-unites-us{
+  position: relative;
+  background-color: $body-bg;
+  padding-bottom: 4rem;
+}
+
+
+
 
 // ==================================
 // ----------------------------------
@@ -180,7 +188,8 @@
 
 #about-team-and-participants{
   background-color: #f2f2f2;
-  margin-top: 4rem;
+  //margin-top: 4rem;
+  position: relative;
 }
 
 #about-team-title, #about-participants-title{

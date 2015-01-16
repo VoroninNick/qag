@@ -62,8 +62,9 @@ class EventSubscription < ActiveRecord::Base
           user_id = bindings[:object].user_id
           #full_name = bindings[:view].full_name(user_id)
           #user_email = bindings[:object].user_id.to_s
-          user_email =  (u =  User.find(user_id)) ? u.email : u.id.to_s
-
+          user = User.find(user_id)
+          #user_email =  (u =  User.find(user_id)) ? u.email : u.id.to_s
+          user_email = user.email
           bindings[:view].link_to "#{user_email}", bindings[:view].rails_admin.show_path('user', user_email)
         end
       end

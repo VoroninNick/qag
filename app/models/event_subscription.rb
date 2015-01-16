@@ -65,7 +65,7 @@ class EventSubscription < ActiveRecord::Base
           user = User.find(user_id) rescue nil
           #user_email =  (u =  User.find(user_id)) ? u.email : u.id.to_s
           if user
-            bindings[:view].link_to "#{( e = user.email) ? e : user_id.to_s }", bindings[:view].rails_admin.show_path('user', user_email)
+            bindings[:view].link_to "#{( e = user.email) ? e : user_id.to_s }", bindings[:view].rails_admin.show_path('user', user_id)
           else
             '-'
           end

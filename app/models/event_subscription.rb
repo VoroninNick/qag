@@ -19,37 +19,37 @@ class EventSubscription < ActiveRecord::Base
     label_plural I18n.t("rails_admin.model_labels_plural.#{self.abstract_model.model_name.underscore}")
     weight 1
 
-    field :disabled do
+    configure :disabled do
       if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
         label asd
       end
     end
-    field :user do
+    configure :user do
       if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
         label asd
       end
     end
-    field :event do
+    configure :event do
       if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
         label asd
       end
     end
-    field :first_name do
+    configure :first_name do
       if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
         label asd
       end
     end
-    field :last_name do
+    configure :last_name do
       if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
         label asd
       end
     end
-    field :email do
+    configure :email do
       if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
         label asd
       end
     end
-    field :contact_phone do
+    configure :contact_phone do
       if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
         label asd
       end

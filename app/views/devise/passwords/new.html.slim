@@ -26,7 +26,7 @@
       .form-actions
         = f.button :submit, "Надіслати мені лист", class: 'input-submit send-me-password-submit-button devise-submit-button orange-bg'
 
-    - if !user_signed_in?
+    /- if !user_signed_in?
       = render "devise/shared/links"
 
 	

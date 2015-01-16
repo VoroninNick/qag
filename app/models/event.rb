@@ -448,6 +448,10 @@ class Event < ActiveRecord::Base
         end
       end
 
+      field :users do
+        label ""
+      end
+
       #field :event_gallery_albums
       field :event_gallery_images do
         if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false

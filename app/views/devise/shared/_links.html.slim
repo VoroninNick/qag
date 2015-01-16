@@ -1,4 +1,4 @@
-.shared-links
+/.shared-links
   - if controller_name != 'sessions'
     div
       = link_to t('shared.links.sign_in'), new_session_path(resource_name, locale: I18n.locale), class: 'popup-link link-to-input', data: { input: '#devise_sessions-new-get-flag' }

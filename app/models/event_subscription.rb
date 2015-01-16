@@ -19,43 +19,67 @@ class EventSubscription < ActiveRecord::Base
     label_plural I18n.t("rails_admin.model_labels_plural.#{self.abstract_model.model_name.underscore}")
     weight 1
 
-    edit do
-      field :disabled do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
+    field :disabled do
+      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+        label asd
       end
-      field :user do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
+    end
+    field :user do
+      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+        label asd
       end
-      field :event do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
+    end
+    field :event do
+      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+        label asd
       end
-      field :first_name do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
+    end
+    field :first_name do
+      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+        label asd
       end
-      field :last_name do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
+    end
+    field :last_name do
+      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+        label asd
       end
-      field :email do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
+    end
+    field :email do
+      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+        label asd
       end
-      field :contact_phone do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
+    end
+    field :contact_phone do
+      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+        label asd
       end
+    end
 
+    list do
+      field :disabled
+      field :user do
+        pretty_value do
+          user_id = bindings[:object].user_id
+          #full_name = bindings[:view].full_name(user_id)
+          user_email = bindings[:object].user.email
+          bindings[:view].link_to "#{user_email}", bindings[:view].rails_admin.show_path('user', user_id)
+        end
+      end
+      field :event
+      field :first_name
+      field :last_name
+      field :email
+      field :contact_phone
+    end
+
+    edit do
+      field :disabled
+      field :user
+      field :event
+      field :first_name
+      field :last_name
+      field :email
+      field :contact_phone
     end
   end
 end

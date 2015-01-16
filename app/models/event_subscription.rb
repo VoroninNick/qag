@@ -61,7 +61,7 @@ class EventSubscription < ActiveRecord::Base
         pretty_value do
           user_id = bindings[:object].user_id
           #full_name = bindings[:view].full_name(user_id)
-          user_email = bindings[:object].user.email
+          user_email = bindings[:object].user_id.to_s
           bindings[:view].link_to "#{user_email}", bindings[:view].rails_admin.show_path('user', user_id)
         end
       end

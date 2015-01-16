@@ -294,174 +294,136 @@ class Event < ActiveRecord::Base
       end
     end
 
-    list do
-      field :id do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
+    configure :published do
+      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+        label asd
       end
-      field :published do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
+    end
+    configure :disabled_registration do
+      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+        label asd
       end
-      field :disabled_registration do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
+    end
+    configure :allowed_subscriptions_count do
+      read_only true
+      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+        label asd
       end
-      field :allowed_subscriptions_count do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
+    end
+    # field :tag_list do
+    #   label 'Категорія (може бути декілька)'
+    #   help 'Використовуйте кому як розділювач'
+    #   partial 'tag_list_with_suggestions'
+    # end
+
+    configure :translations, :globalize_tabs do
+      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+        label asd
       end
-      field :name do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
-      end
-      field :short_description do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
-      end
-      field :avatar do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
-      end
-      field :start_date do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
-      end
-      field :end_date do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
+    end
+    configure :event_tags do
+      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+        label asd
       end
     end
 
+
+
+
+    configure :start_date do
+      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+        label asd
+      end
+    end
+    configure :end_date do
+      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+        label asd
+      end
+    end
+
+    configure :avatar do
+      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+        label asd
+      end
+      if type == :paperclip
+        model = @abstract_model.model_name.constantize
+        temp_instance = model.new
+        attr = temp_instance.send(method_name)
+        help help + ( attr.styles.map{|obj| info = obj[1]; res = {}; res[info.name.to_sym] = info.geometry; res  }).inspect
+
+      end
+    end
+    configure :banner do
+      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+        label asd
+      end
+      if type == :paperclip
+        model = @abstract_model.model_name.constantize
+        temp_instance = model.new
+        attr = temp_instance.send(method_name)
+        help help + ( attr.styles.map{|obj| info = obj[1]; res = {}; res[info.name.to_sym] = info.geometry; res  }).inspect
+
+      end
+    end
+
+    configure :expired_event_avatar do
+      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+        label asd
+      end
+      if type == :paperclip
+        model = @abstract_model.model_name.constantize
+        temp_instance = model.new
+        attr = temp_instance.send(method_name)
+        help help + ( attr.styles.map{|obj| info = obj[1]; res = {}; res[info.name.to_sym] = info.geometry; res  }).inspect
+
+      end
+    end
+
+    configure :users
+
+    #field :event_gallery_albums
+    configure :event_gallery_images do
+      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+        label asd
+      end
+    end
+    configure :page_metadata do
+      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+        label asd
+      end
+    end
+
+    list do
+      field :published
+      field :disabled_registration
+      field :allowed_subscriptions_count
+      field :name
+      field :short_description
+      field :avatar
+      field :start_date
+      field :end_date
+    end
+
+
+
     edit do
-      field :published do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
-      end
-      field :disabled_registration do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
-      end
-      field :allowed_subscriptions_count do
-        read_only true
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
-      end
-      # field :tag_list do
-      #   label 'Категорія (може бути декілька)'
-      #   help 'Використовуйте кому як розділювач'
-      #   partial 'tag_list_with_suggestions'
-      # end
-
-      field :translations, :globalize_tabs do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
-      end
-      field :event_tags do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
+      group :registration_details do
+        field :disabled_registration
+        field :allowed_subscriptions_count
+        field :users
       end
 
-
-
-
-      field :start_date do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
-      end
-      field :end_date do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
-      end
-
-      group :days do
-        hide
-
-        field :day_monday
-        field :day_monday_start_time
-        field :day_tuesday
-        field :day_tuesday_start_time
-        field :day_wensday
-        field :day_wensday_start_time
-        field :day_thursday
-        field :day_thursday_start_time
-        field :day_friday
-        field :day_friday_start_time
-        field :day_saturday
-        field :day_saturday_start_time
-        field :day_sunday
-        field :day_sunday_start_time
-      end
-
-
-      field :avatar do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
-        if type == :paperclip
-          model = @abstract_model.model_name.constantize
-          temp_instance = model.new
-          attr = temp_instance.send(method_name)
-          help help + ( attr.styles.map{|obj| info = obj[1]; res = {}; res[info.name.to_sym] = info.geometry; res  }).inspect
-
-        end
-      end
-      field :banner do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
-        if type == :paperclip
-          model = @abstract_model.model_name.constantize
-          temp_instance = model.new
-          attr = temp_instance.send(method_name)
-          help help + ( attr.styles.map{|obj| info = obj[1]; res = {}; res[info.name.to_sym] = info.geometry; res  }).inspect
-
-        end
-      end
-
-      field :expired_event_avatar do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
-        if type == :paperclip
-          model = @abstract_model.model_name.constantize
-          temp_instance = model.new
-          attr = temp_instance.send(method_name)
-          help help + ( attr.styles.map{|obj| info = obj[1]; res = {}; res[info.name.to_sym] = info.geometry; res  }).inspect
-
-        end
-      end
-
-      field :users do
-        label ""
-      end
-
-      #field :event_gallery_albums
-      field :event_gallery_images do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
-      end
-      field :page_metadata do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
+      group :details do
+        field :published
+        field :translations, :globalize_tabs
+        field :event_tags
+        field :start_date
+        field :end_date
+        field :avatar
+        field :banner
+        field :expired_event_avatar
+        field :event_gallery_images
+        field :page_metadata
       end
     end
   end

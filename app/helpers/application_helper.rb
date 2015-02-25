@@ -168,10 +168,10 @@ module ApplicationHelper
   end
 
 
-  def get_button_for_event(event)
+  def get_button_for_event(event, options = {})
     if event
       button_options = get_button_name_for_event(event)
-      render template: "helpers/application_helper/get_button_for_event", locals: { event: event, button_options: button_options}
+      render template: "helpers/application_helper/get_button_for_event", locals: { event: event, button_options: button_options, options: options}
     end
   end
 end

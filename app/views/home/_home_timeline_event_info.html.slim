@@ -1,7 +1,7 @@
 - if !event.nil?
   li.event.home-featured-event.event-collection-item id="event-#{index + 1}" data-event-id="#{event.id}" class="#{ "event-i-am-subscribed-on" if subscribed_on_event?(event.id) } #{"active" if index == @featured_events_active_event_index }"
     .featured-section-event-content
-      .image-and-info.columns.large-4
+      .image-and-info.columns.large-4.medium-3.small-3
         .image
           a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
             img.grayscale src=image_or_stub_url(event.avatar, :event_list_small_thumb, 360, 240, "event_#{event.id}")
@@ -26,19 +26,19 @@
 
 
 
-      .description.columns.large-8
+      .description.columns.large-8.medium-9.small-9
         a.event-title href=event_item_path(item: event.slug, tags: event.tags.join('-'))
           = event.name
         / slide.name
         .event-description
           = event.short_description
 
-      .event-link-and-register-button
-        .event-link-wrapper.large-4.columns.large-push-4
+      .event-link-and-register-button.large-8.large-push-4.medium-9.medium-push-3.small-9.small-push-3
+        .event-link-wrapper
           .event-link
             a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
               |Детальніше про подію
-        = get_button_for_event(event)
+        = get_button_for_event(event, disable_columns: true)
 
         /- if event.up_to_date?
           - if event.enabled_registration?

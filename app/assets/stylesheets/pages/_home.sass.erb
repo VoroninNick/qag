@@ -602,6 +602,19 @@ $home-page-comments-section-number: 5
       @include animation-play-state(paused)
 
 
+
+@media #{$small-only}
+  #home-slider-section
+    .bullets
+      li
+        label
+          width: 30px
+          height: 30px
+  .home-slider-description.description
+    font-size: 1.3rem
+    line-height: 1.5rem
+
+
 #home-featured-timeline-container
   background: $light-skyblue-color
   width: 100%
@@ -643,6 +656,7 @@ $home-page-comments-section-number: 5
           list-style: none
           display: inline-block
           padding: 4rem 0 0 0
+          overflow: hidden
 
           .image-and-info
             .image
@@ -709,6 +723,7 @@ $home-page-comments-section-number: 5
           .event-link-and-register-button
             clear: left
 
+
             .event-link-wrapper
               height: 0
               text-align: right
@@ -730,6 +745,7 @@ $home-page-comments-section-number: 5
                 border-radius: 3px
                 cursor: pointer
                 box-shadow: $button-box-shadow
+                max-width: 100%
 
                 svg
                   display: inline-block
@@ -787,8 +803,8 @@ $home-page-comments-section-number: 5
       display: inline-block
       width: #{100% / ($featured-events-count)}
       text-align: center
-      width: 140px !important
-
+      //width: 140px !important
+      width: 100%
       // draw triangle on selected event
       &:before
         width: 0
@@ -801,7 +817,7 @@ $home-page-comments-section-number: 5
         _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000')
         -webkit-transform: rotate(360deg)
         position: relative
-        top: 14px
+        top: 13px
 
 
       .event-label
@@ -1045,6 +1061,43 @@ $home-page-comments-section-number: 5
 .prev-arrow-hide-event-animation
 .next-arrow-hide-event-animation
 
+
+@media #{$small-up}
+  .event-link-and-register-button
+    display: flex
+    justify-content: flex-end
+  .event-link-wrapper
+    height: auto !important
+    margin-right: 2rem
+
+@media #{$screen} and (max-width: 1130px)
+  .event-info-slides
+    padding-left: 3rem
+    padding-right: 3rem
+  #home-featured-prev-event-arrow
+    left: -30px
+  #home-featured-next-event-arrow
+    right: -30px
+
+
+@media #{$medium-down}
+  .event-link-and-register-button
+    flex-direction: column
+
+  .event-link-wrapper
+    text-align: left !important
+  .start-date
+    &:after
+      display: none !important
+@media #{$small-only}
+  #home-featured-next-event-arrow, #home-featured-prev-event-arrow
+    display: none !important
+@media #{$screen} and (max-width: em-calc(600))
+  .image-and-info
+    @include grid-column(4)
+  .home-featured-event
+    .description
+      @include grid-column(8)
 
 
 

@@ -54,9 +54,7 @@
   margin-bottom: 50px;
 }
 
-#event-item-page-event-info-column{
-  padding: 0;
-}
+
 
 #event-item-page-event-info-part-details{
   border-radius: 3px;
@@ -253,5 +251,11 @@
     top: 50%;
     @include transform( translateY(-50%) );
     display: block;
+  }
+}
+
+@media #{$medium-up} {
+  #event-item-page-event-info-column{
+    padding: 0;
   }
 }

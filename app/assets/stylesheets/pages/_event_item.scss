@@ -223,6 +223,22 @@
   }
 
 
+  .content{
+    @media #{$small-only} {
+      @include grid-row();
+      a{
+        @include grid-column(4, $collapse: true);
+      }
+    }
+
+    @media #{$medium-only} {
+      @include grid-row();
+      a{
+        @include grid-column(3, $collapse: true);
+      }
+    }
+  }
+
 }
 
 
@@ -254,7 +270,7 @@
   }
 }
 
-@media #{$medium-up} {
+@media #{$large-up} {
   #event-item-page-event-info-column{
     padding: 0;
   }

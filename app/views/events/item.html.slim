@@ -25,7 +25,7 @@
         #event-item-page-event-full-description.text-content
           = raw @event.full_description
 
-      #event-item-page-event-info-column.columns.large-4
+      #event-item-page-event-info-column.columns.large-4.medium-12.small-12
         #event-item-page-event-info
           #event-item-page-event-info-part-details.event-item-page-event-info-part
             #event-item-page-event-info-title
@@ -86,7 +86,7 @@
                   - @event.images.each_with_index do |image, index|
                     a class="#{'lazy' if index > 9}" href="#{image_or_stub_url(image.image, :original, 1200, 800, "event #{@event.id}")}"
                       - if index < 10
-                        img.grayscale.grayscale-fade src="#{image_or_stub_url(image.image, :event_list_image, 180, 120, "event #{@event.id}")}"
+                        img.grayscale.grayscale-fade src="#{image_or_stub_url(image.image, :event_item_image, 180, 120, "event #{@event.id}")}"
 
                 - else
                   = "Немає жодної фотографії"

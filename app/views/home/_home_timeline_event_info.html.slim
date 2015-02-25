@@ -33,27 +33,27 @@
         .event-description
           = event.short_description
 
-      .event-link-and-register-button.large-8.large-push-4.medium-9.medium-push-3.small-9.small-push-3
-        .event-link-wrapper
-          .event-link
-            a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
-              |Детальніше про подію
-        = get_button_for_event(event, disable_columns: true)
+        .event-link-and-register-button
+          .event-link-wrapper
+            .event-link
+              a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
+                |Детальніше про подію
+          = get_button_for_event(event, disable_columns: true)
 
-        /- if event.up_to_date?
-          - if event.enabled_registration?
-            .register-button.registration-enabled.columns.large-4.right class=( "decline" if subscribed_on_event?(event.id) )
-              a.register-button-a href=( subscribed_on_event?(event.id) ? event_unsubscription_form_path(event_id: event.id, locale: I18n.locale) : new_event_subscription_path(event_id: event.id, locale: I18n.locale)  )
-                = embedded_svg_from_assets('svg/registration.svg')
-                span.registration-text
-                  = t("layout.buttons.#{ "un" if subscribed_on_event?(event.id) }register")
-          - else
-            .register-button.columns.large-4.right class=( "registration-disabled" )
+          /- if event.up_to_date?
+            - if event.enabled_registration?
+              .register-button.registration-enabled.columns.large-4.right class=( "decline" if subscribed_on_event?(event.id) )
+                a.register-button-a href=( subscribed_on_event?(event.id) ? event_unsubscription_form_path(event_id: event.id, locale: I18n.locale) : new_event_subscription_path(event_id: event.id, locale: I18n.locale)  )
+                  = embedded_svg_from_assets('svg/registration.svg')
+                  span.registration-text
+                    = t("layout.buttons.#{ "un" if subscribed_on_event?(event.id) }register")
+            - else
+              .register-button.columns.large-4.right class=( "registration-disabled" )
+                span.register-button-span
+                  span.registration-text
+                    = "Реєстрацію завершено"
+          /- else
+            .register-button.columns.large-4.right class=( "event-expired" )
               span.register-button-span
                 span.registration-text
-                  = "Реєстрацію завершено"
-        /- else
-          .register-button.columns.large-4.right class=( "event-expired" )
-            span.register-button-span
-              span.registration-text
-                = "Захід завершено"
+                  = "Захід завершено"

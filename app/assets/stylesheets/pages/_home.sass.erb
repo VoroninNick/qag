@@ -721,6 +721,7 @@ $home-page-comments-section-number: 5
               max-height: 7.2rem
               overflow: hidden
           .event-link-and-register-button
+            margin: 5rem 0 0 0
             clear: left
 
 
@@ -1099,7 +1100,18 @@ $home-page-comments-section-number: 5
     .description
       @include grid-column(8)
 
+@media #{$screen} and (max-height: em-calc(680))
 
+
+
+@media #{$screen} and (max-height: em-calc(500)), #{$screen} and (max-width: em-calc(720)) and (max-height: em-calc(768))
+  .event-link-and-register-button
+    margin: 2rem 0 0 0 !important
+  #home-featured-timeline-container, #home-featured-events-section .timeline
+    height: rem-calc(180)
+  #home-featured-events-section
+    .event-info-slides
+      padding-bottom: rem-calc(180)
 
 .page-section
 #home-about-section

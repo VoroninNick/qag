@@ -17,8 +17,9 @@
       #contact-page-header.columns.large-12
         = t('pages.contact.header')
       #contact-page-info.columns.large-6
-        #contact-page-address
-          = raw @home_contact_info.address
+        - if @contact_page_info.try(&:address).present?
+          #contact-page-address
+            = raw @contact_page_info.address
         #contact-page-address-at
           = raw @home_contact_info.address_at
         #contact-page-info-service.info-service

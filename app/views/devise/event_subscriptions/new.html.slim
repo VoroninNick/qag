@@ -10,13 +10,15 @@
       	  = "Перевірте особисті дані, якщо необхідно введіть корективи та підтвердіть реєстрайцію."
       = simple_form_for(@user, as: :user, url: create_event_subscription_path(event_id: @event.id, locale: I18n.locale), type: 'POST', html: { class: 'form-with-labels mode-view' } ) do |f|
         .form-inputs
-          = f.input :first_name, required: false, autofocus: true, label: t('devise.registrations.placeholders.first_name'), placeholder: t('devise.registrations.placeholders.first_name'), value: @user.first_name, wrapper_html: { class: "#{"empty" if !@user.first_name || @user.first_name == ''}", data: { validate: 'first_name required' } }
-          = f.input :last_name, required: false, label: t('devise.registrations.placeholders.last_name'), placeholder: t('devise.registrations.placeholders.last_name'), value: @user.last_name, wrapper_html: { class: "#{"empty" if !@user.last_name || @user.last_name == ''}", data: { validate: 'last_name required' } }
+          = f.input :first_name, required: false, autofocus: true, label: "#{t('devise.registrations.placeholders.first_name')}*", placeholder: t('devise.registrations.placeholders.first_name'), value: @user.first_name, wrapper_html: { class: "#{"empty" if !@user.first_name || @user.first_name == ''}", data: { validate: 'first_name required' } }
+          = f.input :last_name, required: false, label: "#{t('devise.registrations.placeholders.last_name')}*", placeholder: t('devise.registrations.placeholders.last_name'), value: @user.last_name, wrapper_html: { class: "#{"empty" if !@user.last_name || @user.last_name == ''}", data: { validate: 'last_name required' } }
 
-          = f.input :email, required: false, label: t('devise.registrations.placeholders.email'), placeholder: t('devise.registrations.placeholders.email'), value: @user.email, wrapper_html: { class: "#{"empty" if !@user.email || @user.email == ''}", data: { validate: 'email required' } }
+          = f.input :email, required: false, label: "#{t('devise.registrations.placeholders.email')}*", placeholder: t('devise.registrations.placeholders.email'), value: @user.email, wrapper_html: { class: "#{"empty" if !@user.email || @user.email == ''}", data: { validate: 'email required' } }
 
-          = f.input :contact_phone, required: false, label: t('devise.registrations.placeholders.contact_phone'), placeholder: t('devise.registrations.placeholders.contact_phone'), value: @user.contact_phone, wrapper_html: { class: "phone #{"empty" if !@user.contact_phone || @user.contact_phone == ''}", data: { validate: 'phone required' } }
+          = f.input :contact_phone, required: false, label: "#{t('devise.registrations.placeholders.contact_phone')}*", placeholder: t('devise.registrations.placeholders.contact_phone'), value: @user.contact_phone, wrapper_html: { class: "phone #{"empty" if !@user.contact_phone || @user.contact_phone == ''}", data: { validate: 'phone required' } }
           /- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+          span.starred-fields-required
+            = t("all-fields-required")
         .form-actions
           .sign-up-link-wrapper
             = link_to "Редагувати дані", '#', class: 'js-trigger mode', data: {input: "#devise_registrations-new-get-flag"}

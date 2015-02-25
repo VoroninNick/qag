@@ -1010,9 +1010,12 @@ var is_home_page = $html.hasClass('controller-home action-index')
 if(!is_home_page) {
     $window.on('mousewheel', function (e) {
 
+
         var scroll_up = e.originalEvent.wheelDelta / 120 > 0
         var scroll_down = !scroll_up
-        if (scroll_up) {
+        var current_scoll_at_top = $window.scrollTop() <= $fixed_header_top_container.height()
+        console.log("current_scoll_at_top: ", current_scoll_at_top)
+        if (!current_scoll_at_top) {
             //console.log('scrolling up !');
             $fixed_header_top_container.addClass(fixed_header_top_container_visible_class)
         }

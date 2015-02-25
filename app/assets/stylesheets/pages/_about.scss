@@ -205,6 +205,9 @@
 
 .about-team-avatar-li{
   padding: 24px 15px;
+  &:before{
+    display: none;
+  }
 }
 
 .about-team-avatar-img-container{

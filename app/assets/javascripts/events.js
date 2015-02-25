@@ -97,6 +97,8 @@
     var $fixed_header_top_container = $('#fixed-header-top-container')
     var $events_list_banner_image_wrapper = $('.events-list-banner-image-wrapper')
 
+
+
 //asd
     if($events_list_banner_image_wrapper.length > 0) {
         //var $header_menu_button_inner = $('#header-menu-button-inner')
@@ -106,8 +108,9 @@
             //var min_scroll_top = 220
             var $document = $(document)
             var scroll_top = $document.scrollTop()
-            console.log("result: ", (scroll_top >= min_scroll_top))
-            if (scroll_top >= min_scroll_top) {
+            var current_scoll_at_top = $window.scrollTop() <= $fixed_header_top_container.height()
+            //console.log("result: ", (scroll_top >= min_scroll_top))
+            if (scroll_top >= min_scroll_top && current_scoll_at_top) {
                 //$search_abs_row_wrapper.addClass('fixed')
                 $header_menu_button_inner.addClass('blue')
 

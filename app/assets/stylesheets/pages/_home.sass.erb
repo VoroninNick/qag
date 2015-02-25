@@ -1155,6 +1155,21 @@ $home-page-comments-section-number: 5
           width: 54px
           height: 80px
 
+  .home-contact-show-form-button
+    //@include grid-row()
+    @include grid-column(10, $center: true)
+
+    button
+
+      @include white-button
+      border: none
+      height: 2.5rem
+      width: 100%
+
+      &:hover
+        background-color: $orange-color
+        color: white
+
   #home-contact-form
     z-index: 1
     background: $skyblue-color
@@ -1256,6 +1271,126 @@ $home-page-comments-section-number: 5
             top: -10px
             position: relative
             color: white
+  @media #{$screen} and (max-height: 850px)
+    .form-title
+      .title
+        display: none !important
+    //.info-service-and-support
+    //  @include grid-row
+    //  margin-top: 1rem
+    //.info-service, .support
+    //  @include grid-column(6)
+    .info-service
+      margin-top: 0 !important
+
+  @media #{$screen} and (max-height: 690px)
+    .form-title
+      .svg-container
+        display: none
+  @media #{$medium-up} and (max-height: 690px)
+    .info-service-and-support
+      @include grid-row(nested)
+    .info-service
+      @include grid-column(6)
+    .support
+      @include grid-column(6, $collapse: true)
+  @media #{$medium-up} and (max-height: 530px)
+    .contact-form
+      margin-top: 3rem
+      &:not(.open)
+        display: none
+    .home-contact-show-form-button
+      &:not(.opened-form)
+        display: block !important
+    .js-trigger.cancel-changes
+      display: inherit !important
+    .field.field-submit
+      display: flex
+
+    #home-contact-info
+      &.opened-form
+        display: none
+
+  @media #{$screen} and (max-width: 1300px)
+    .map-wrapper
+      padding-right: 60%
+  @media #{$medium-down}
+    .map-wrapper
+      padding-right: 0
+      max-height: 10rem
+    #home-contact-form
+      height: auto
+      bottom: 0
+      //top: auto
+      width: 100%
+      max-width: none
+      //max-height: 24rem
+      min-height: 100%
+      top: 10rem
+    #home-contact-form-outer
+      padding: 0 !important
+    #home-contact-form-content
+      max-width: 100% !important
+    .contact-form
+      @include grid-column(5)
+    #home-contact-info
+      @include grid-column(5, $offset: 1)
+
+  @media #{$screen} and (max-width: 575px)
+    .info-service, .support
+      .info-mail, .info-phone
+        svg
+          display: none
+  @media #{$small-only}, #{$medium-up} and (max-height: 530px)
+    .field.field-submit
+      display: flex
+    .js-trigger.cancel-changes
+
+      height: 40px
+      width: 60px
+      background-color: transparent
+      margin-right: 0.6rem
+      &:before, &:after
+        border-top-color: white
+        border-left-color: white
+      &:before
+        top: 18px
+        left: 20px
+      &:after
+        top: 10px
+        left: 20px
+      &:hover
+        &:before, &:after
+          border-left-color: $light-orange-color
+          border-top-color: $light-orange-color
+
+
+    .home-contact-show-form-button
+      &.opened-form
+        display: none !important
+    .contact-form
+      @include grid-column(10, $center: true)
+
+      &:not(.open)
+        display: none
+  @media #{$medium-down}
+    #home-contact-info
+      &:not(.opened-form)
+        @include grid-column(10, $center: true)
+      &.opened-form
+        display: none
+  @media #{$small-only} and (max-height: em-calc(850))
+
+  @media #{$small-only} and (max-height: em-calc(480))
+    .info-service, .support
+      @include grid-column(6, $collapse: true)
+
+
+
+
+
+
+
 
 .contact-form
 form
@@ -1295,23 +1430,14 @@ form
 
     &.field-submit
       margin: 1rem 0 0 0
-      box-shadow: $button-box-shadow
+
+
 
 
       input
-        background: white
-        color: $form-input-background
-        border-radius: 3px
-        font-size: 1.1rem
-        font-weight: 900
-        text-transform: uppercase
-        cursor: pointer
-        @include transition-duration(0.5s)
-        @include transition-property(all)
-
-
-      &:hover
-        input
+        @include white-button
+        box-shadow: $button-box-shadow
+        &:hover
           background-color: $light-orange-color
           color: white
 

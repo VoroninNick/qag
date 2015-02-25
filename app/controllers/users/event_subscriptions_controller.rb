@@ -46,7 +46,7 @@ class Users::EventSubscriptionsController < ApplicationController
 	def new
 		flash[:title] = "Реєстрація на подію"
 		flash[:unlogged_text] = {
-			unlogged_header: "Ви не зареєтровані на сайті.",
+			unlogged_header: "Ви не зареєcтровані на сайті.",
 			unlogged_text_1: "Для реєстрації на подію необхідно бути зареєстрованим на нашому сайті.",
 			unlogged_text_2: "Якщо у Вас вже є аккаунт, тоді увійдіть використовуючи особисті дані."
 		}

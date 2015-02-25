@@ -398,8 +398,8 @@ class Event < ActiveRecord::Base
       field :disabled_registration
       field :allowed_subscriptions_count
       field :name
-      field :short_description
-      field :avatar
+      #field :short_description
+      #field :avatar
       field :start_date
       field :end_date
     end
@@ -425,6 +425,18 @@ class Event < ActiveRecord::Base
         field :event_gallery_images
         field :page_metadata
       end
+    end
+
+    show do
+      field :published
+      field :name
+      field :start_date
+      field :end_date
+      field :address
+      field :days_and_time_string
+      field :event_subscriptions
+      field :users
+      field :allowed_subscriptions_count
     end
   end
 end

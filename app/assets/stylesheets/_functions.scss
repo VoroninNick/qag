@@ -234,3 +234,14 @@
 
 
 
+@mixin white-button{
+  background: white;
+  color: $form-input-background;
+  border-radius: 3px;
+  font-size: 1.1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+  @include transition-duration(0.5s);
+  @include transition-property(all);
+}

@@ -70,7 +70,7 @@
 
             = get_button_for_event(@event)
 
-          - if @event.expired?
+          - if @event.expired? && @event.images.any?
             #event-item-images
               .header
                 .title

@@ -4,6 +4,8 @@ class ContactController < ApplicationController
 
     @home_contact_info = @home_page.home_contact_infos.first
 
+    @contact_page_info = ContactPage.first
+
     @map_markers = []
 
     m = {lat: @home_contact_info.map_latitude, lng: @home_contact_info.map_longtitude, address: @home_contact_info.address}

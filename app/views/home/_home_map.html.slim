@@ -16,38 +16,45 @@ div#home-contact-section.page-section.page-section-number-6.home-contact-section
                 = embedded_svg_from_assets('svg/contacts_icon.svg')
               span.title
                 = 'Де нас знайти'
-            .address
-              = @home_contact_info.address
-            .address-at
-              = raw @home_contact_info.address_at
-            .info-service
-              .title
-                = 'Інформаційний сервіс'
-              ul
-                li.info-mail
-                  a href="mailto:info@qagroup.com.ua"
-                    = embedded_svg_from_assets('svg/mail.svg')
-                    span
-                      = 'info@qagroup.com.ua'
-                li.info-phone
-                  a href="#"
-                    = embedded_svg_from_assets('svg/tel.svg')
-                    span
-                      = '+38 (099) 376 65 05'
 
-            .support
-              .title
-                = 'Служба підтримки'
-              ul
-                li.info-mail
-                  a href="mailto:support@qagroup.com.ua"
-                    = embedded_svg_from_assets('svg/mail.svg')
-                    span
-                      = 'support@qagroup.com.ua'
+            #home-contact-info
+              .address
+                = @home_contact_info.address
+              .address-at
+                = raw @home_contact_info.address_at
+              .info-service-and-support
+                .info-service
+                  .title
+                    = 'Інформаційний сервіс'
+                  ul
+                    li.info-mail
+                      a href="mailto:info@qagroup.com.ua"
+                        = embedded_svg_from_assets('svg/mail.svg')
+                        span
+                          = 'info@qagroup.com.ua'
+                    li.info-phone
+                      a href="#"
+                        = embedded_svg_from_assets('svg/tel.svg')
+                        span
+                          = '+38 (099) 376 65 05'
+
+                .support
+                  .title
+                    = 'Служба підтримки'
+                  ul
+                    li.info-mail
+                      a href="mailto:support@qagroup.com.ua"
+                        = embedded_svg_from_assets('svg/mail.svg')
+                        span
+                          = 'support@qagroup.com.ua'
 
 
             .contact-form
               = render partial: "contact/contact_form"
+
+            .home-contact-show-form-button.show-for-small-only
+              button
+                = "Написати повідомлення"
 
 
 

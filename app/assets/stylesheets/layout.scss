@@ -738,6 +738,16 @@ $header-height: 90px;
   }
 }
 
+@media #{$screen} and (max-width: em-calc(535)) {
+  #header-menu-container {
+    padding: rem-calc(22);
+  }
+
+  #header-menu-social-icons{
+    padding: 0;
+  }
+}
+
 
 // ==========================================================================
 // --------------------------------------------------------------------------

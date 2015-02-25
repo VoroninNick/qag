@@ -147,6 +147,20 @@ var initialize = function() {
         var $contact_form = $('#home-contact-form-section-form')
         var $phone_field = $contact_form.find('#message_phone')
         $phone_field.mask("+99 (999) 999 99 99")
+
+        var $home_contact_show_form_button = $('.home-contact-show-form-button')
+        $home_contact_show_form_button.on('click', function () {
+            $('div.contact-form').toggleClass('open')
+            $('#home-contact-info').toggleClass('opened-form')
+            $(this).toggleClass('opened-form')
+        })
+
+        var $home_contact_form_cancel_changes_button = $('.js-trigger.cancel-changes')
+        $home_contact_form_cancel_changes_button.on('click', function(){
+            $('div.contact-form').toggleClass('open')
+            $('#home-contact-info').toggleClass('opened-form')
+            $home_contact_show_form_button.toggleClass('opened-form')
+        })
     })
 
 

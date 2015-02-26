@@ -1,8 +1,8 @@
 class VoroninStudio::PageMetadata < ActiveRecord::Base
   self.table_name = "voronin_studio_page_metadata"
-  attr_accessible :head_title, :meta_tags, :meta_description
+  attr_accessible :head_title, :meta_keywords, :meta_description
 
-  translates :head_title, :meta_tags, :meta_description, :versioning => :paper_trail
+  translates :head_title, :meta_keywords, :meta_description, :versioning => :paper_trail
   attr_accessible :translations
 
   before_save :init_fields
@@ -40,8 +40,8 @@ class VoroninStudio::PageMetadata < ActiveRecord::Base
 
         if page.respond_to?(:event_tags)
           self.translations.each do |t|
-            if !t.meta_tags || t.meta_tags == ''
-              t.meta_tags = page.event_tags.map(&:name).join(',')
+            if !t.meta_keywords || t.meta_keywords == ''
+              t.meta_keywords = page.event_tags.map(&:name).join(',')
             end
           end
         end
@@ -58,7 +58,7 @@ class VoroninStudio::PageMetadata < ActiveRecord::Base
 
   class Translation
     self.table_name = "voronin_studio_page_metadatum_translations"
-    attr_accessible :locale, :head_title, :meta_tags, :meta_description
+    attr_accessible :locale, :head_title, :meta_keywords, :meta_description
 
     rails_admin do
       visible false
@@ -73,7 +73,7 @@ class VoroninStudio::PageMetadata < ActiveRecord::Base
           label asd
         end
       end
-      field :meta_tags do
+      field :meta_keywords do
         if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
           label asd
         end

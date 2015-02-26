@@ -28,15 +28,16 @@
           #article-content.text-content
             = raw @article.full_description
 
-    #read-also-section
-      #read-also-section-row.row
-        #read-also-section-column.columns.large-12
-          #read-also-section-title
-            = "Читайте також"
-          - @related_articles.each do |a|
-            .read-also-articles-article
-              .read-also-articles-article-title
-                a.read-also-articles-article-title-a href="#{article_item_path(locale: I18n.locale, item: a.slug)}"
-                  = a.name
-              .read-also-articles-article-date
-                = (a.updated_at ).strftime("%d.%m.%Y")
+    - if @related_articles.try(&:any?)
+      #read-also-section
+        #read-also-section-row.row
+          #read-also-section-column.columns.large-12
+            #read-also-section-title
+              = "Читайте також"
+            - @related_articles.each do |a|
+              .read-also-articles-article
+                .read-also-articles-article-title
+                  a.read-also-articles-article-title-a href="#{article_item_path(locale: I18n.locale, item: a.slug)}"
+                    = a.name
+                .read-also-articles-article-date
+                  = (a.updated_at ).strftime("%d.%m.%Y")

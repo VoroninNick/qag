@@ -68,7 +68,7 @@
             /      span.registration-text
             /        = "Захід завершено"
 
-            = get_button_for_event(@event)
+            = get_button_for(@event)
 
           - if @event.expired? && @event.images.any?
             #event-item-images

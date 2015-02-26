@@ -130,7 +130,7 @@ $events-list-item-hover-transition-duration: 0.5s;
 }
 
 #search-column{
-
+  display: none;
 }
 
 #search-form{
@@ -1119,6 +1119,62 @@ $events-list-item-hover-transition-duration: 0.5s;
     }
   }
 }
+
+@media #{$medium-down} {
+  .events-list-event{
+    .event-title-a{
+      font-size: 1.75rem;
+    }
+  }
+}
+
+@media #{$small-only} {
+  .events-list-event{
+    .event-title-a{
+      display: block;
+      overflow: hidden;
+      max-height: 8.75rem;
+    }
+
+    .event-description{
+      max-height: #{1.3rem*4+2rem};
+    }
+  }
+}
+
+#html{
+  &.touch{
+    .events-list-event{
+      .hover-read-button{
+        display: block;
+      }
+
+      &.expired-event{
+        .hover-read-button{
+          background: $registration-disabled-button-background;
+          color: $registration-disabled-button-text-color;
+        }
+      }
+
+      @media #{$small-only} {
+        .hover-read-button{
+          margin-left: 0;
+          margin-right: 0;
+        }
+
+        .event-title-a{
+          display: block;
+          overflow: hidden;
+          max-height: 5.25rem;
+        }
+
+
+      }
+    }
+  }
+}
+
+
 
 
 #html.controller-events.action-list{

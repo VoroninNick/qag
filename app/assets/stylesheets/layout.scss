@@ -942,7 +942,6 @@ $header-height: 90px;
   position: relative;
   font-size: 0.9rem;
 
-
   a, span{
     color: #58595b;
   }
@@ -1047,6 +1046,33 @@ $header-height: 90px;
   text-align: center;
   font-weight: 800;
   font-size: 3rem;
+}
+
+
+@media #{$small-only} {
+  #breadcrumbs-container, #breadcrumbs-ul, .breadcrumb{
+    height: rem-calc(60);
+  }
+
+  .breadcrumb{
+    line-height: rem-calc(60);
+    font-size: rem-calc(18);
+    &::before{
+      width: rem-calc(15);
+      height: rem-calc(15);
+      border-width: rem-calc(2);
+      top: rem-calc(3);
+      margin: 0 rem-calc(15) 0 rem-calc(8);
+    }
+  }
+
+  #breadcrumb-home-a{
+    svg{
+      width: rem-calc(30);
+      height: rem-calc(30);
+      top: rem-calc(15);
+    }
+  }
 }
 
 

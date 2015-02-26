@@ -180,48 +180,55 @@ module ApplicationHelper
     I18n.t('rails_admin.field_labels.address')
   end
 
-  def get_button_name_for_event(event)
+  def get_button_name_for(object)
     button_options = { type: nil }
-
-    if event.up_to_date?
-      if event.enabled_registration?
-        if subscribed_on_event?(event.id)
-          # unregister
-          # or
-          # if disabled by admin
-          # frozen
-          if event.disabled_by_admin_for_user?(current_user)
-            button_options[:type] = :frozen
+    if object.is_a?(Event)
+      event = object
+      if event.up_to_date?
+        if event.enabled_registration?
+          if subscribed_on_event?(event.id)
+            # unregister
+            # or
+            # if disabled by admin
+            # frozen
+            if event.disabled_by_admin_for_user?(current_user)
+              button_options[:type] = :frozen
+            else
+              button_options[:type] = :unregister
+            end
           else
-            button_options[:type] = :unregister
+            button_options[:type] = :register
           end
         else
-          button_options[:type] = :register
+          # registration disabled
+          button_options[:type] = :registration_disabled
         end
       else
-        # registration disabled
-        button_options[:type] = :registration_disabled
+        button_options[:type] = :event_expired
       end
-    else
-      button_options[:type] = :event_expired
-    end
 
-    if current_route?(:event_item)
-      button_options[:context] = :event_item
-    elsif current_route?(:events_list)
-      button_options[:context] = :events_list_page
-    else
-      button_options[:context] = :list_item
+      if current_route?(:event_item)
+        button_options[:context] = :event_item
+      elsif current_route?(:events_list)
+        button_options[:context] = :events_list_page
+      else
+        button_options[:context] = :list_item
+      end
+    elsif object.is_a?(Article)
+      button_options[:type] = :read_article
     end
 
     return button_options
   end
 
 
-  def get_button_for_event(event, options = {})
-    if event
-      button_options = get_button_name_for_event(event)
-      render template: "helpers/application_helper/get_button_for_event", locals: { event: event, button_options: button_options, options: options}
-    end
+  def get_button_for(object, options = {})
+    return nil if object.nil?
+    button_options = get_button_name_for(object)
+    locals = { button_options: button_options, options: options, resource: object }
+    locals[:event] = object if object.is_a?(Event)
+    locals[:article] = object if object.is_a?(Article)
+
+    render template: "helpers/application_helper/get_button_for", locals: locals
   end
 end

@@ -38,7 +38,7 @@
             .event-link
               a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
                 |Детальніше про подію
-          = get_button_for_event(event, disable_columns: true)
+          = get_button_for(event, disable_columns: true)
 
           /- if event.up_to_date?
             - if event.enabled_registration?

@@ -7,12 +7,13 @@ class Article < ActiveRecord::Base
   accepts_nested_attributes_for :page_metadata
   attr_accessible :page_metadata_attributes
 
-  has_attached_file :avatar, :styles => { :article_list_small_thumb => '360x300#', related_irticle_thumb: '600x500#'},
+  has_attached_file :avatar, :styles => { :article_list_small_thumb => '360x300#', related_irticle_thumb: '600x500#', :article_list_large_thumb => "690x575#"},
                     :url  => "/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
                     :path => ":rails_root/public/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
                     convert_options: {
                       article_list_small_thumb: "-quality 94 -interlace Plane",
-                      related_irticle_thumb: "-quality 94 -interlace Plane"
+                      related_irticle_thumb: "-quality 94 -interlace Plane",
+                      article_list_large_thumb: "-quality 94 -interlace Plane"
                     }
 
   has_attached_file :banner, :styles => { :banner => '2100x500#'},

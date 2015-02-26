@@ -1094,8 +1094,9 @@ $home-page-comments-section-number: 5
   #home-featured-next-event-arrow, #home-featured-prev-event-arrow
     display: none !important
 @media #{$screen} and (max-width: em-calc(600))
-  .image-and-info
-    @include grid-column(4)
+  .featured-section-event-content
+    .image-and-info
+      @include grid-column(4)
   .home-featured-event
     .description
       @include grid-column(8)

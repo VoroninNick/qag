@@ -134,3 +134,14 @@
 }
 
 
+@media #{$medium-down} {
+  .read-also-articles-article-title-a{
+    font-size: 1.75rem;
+  }
+}
+
+@media #{$small-only} {
+  .read-also-articles-article{
+    width: 100%;
+  }
+}

@@ -17,6 +17,8 @@ class HomeController < ApplicationController
     @home_page = HomePage.first
     @main_slider_slides = @home_page.main_slider_slides.where(published: true)
 
+    @page_metadata = @home_page.try(&:page_metadata)
+
 
     # all_events = Event.where(published: true).order('start_date asc')
     # @featured_events = []

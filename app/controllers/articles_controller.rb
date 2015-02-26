@@ -31,6 +31,7 @@ class ArticlesController < ApplicationController
     end
 
     @page = Pages::ArticlesList.first
+    @page_metadata = @page.try(&:page_metadata)
   end
 
   def item
@@ -56,6 +57,14 @@ class ArticlesController < ApplicationController
       @related_articles = Article.where(published: true).where.not(id: @article.id).order('updated_at desc').limit(4)
 
       @page = @article
+      @page_metadata = @page.try(&:page_metadata)
+
+      resource = @article
+      @head_title = resource.name if @page_metadata.try{|m| m.head_title }.blank?
+
+      @meta_description = resource.short_description if resource.respond_to?(:short_description) && @page_metadata.try{|m| m.meta_description }.blank?
+
+      #@meta_keywords = resource.tags.map(&:get_name).select{|t| t.present? }.uniq.join(',') if resource.respond_to?(:tags) && @page_metadata.try{|m| m.get_meta_keywords}.blank?
     else
       redirect_to articles_list_path(locale: I18n.locale)
     end

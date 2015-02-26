@@ -1,25 +1,12 @@
 doctype html
 html#html class="no-js locale-#{I18n.locale.to_s} controller-#{params[:controller]} action-#{params[:action]} #{ (user_signed_in?)? "logged_in" : "unlogged" }" lang="en"
   head
+    = raw seo_tags
     meta charset="utf-8"
     meta name="viewport" content="width=device-width, initial-scale=1.0"
 
     /title == content_for?(:title) ? yield(:title) : "Untitled"
-    title
-      - if @page && @page.respond_to?(:page_metadata) && @page.page_metadata && @page.page_metadata.respond_to?(:head_title) && @page.page_metadata.send(:head_title) && @page.page_metadata.send(:head_title) != ''
-        = @page.page_metadata.head_title
-      - else
-        = "Untitled"
 
-    - if @page && @page.respond_to?(:page_metadata) && @page.page_metadata && @page.page_metadata.respond_to?(:meta_tags) && @page.page_metadata.send(:meta_tags) && @page.page_metadata.send(:meta_tags) != ''
-      meta content=@page.page_metadata.meta_tags name="keywords"
-    - else
-      meta content="" name="keywords"
-
-    - if @page && @page.respond_to?(:page_metadata) && @page.page_metadata && @page.page_metadata.respond_to?(:meta_description) && @page.page_metadata.send(:meta_description) && @page.page_metadata.send(:meta_description) != ''
-      meta content=@page.page_metadata.meta_description name="description"
-    - else
-      meta content="" name="description"
 
 
     = stylesheet_link_tag "application"

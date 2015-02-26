@@ -1,3 +1,5 @@
 uk:
   starred-fields-required: "* Зірочкою позначені поля обов'язкові для заповнення"
   all-fields-required: "* Усі поля обов'язкові для заповнення"
+  head_title: "%{title} - QAG"
+  head_title_untitled: "Без назви"

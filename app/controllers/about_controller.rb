@@ -18,5 +18,6 @@ class AboutController < ApplicationController
     @about_page = AboutPage.first
 
     @page = @about_page
+    @page_metadata = @page.try(&:page_metadata)
   end
 end

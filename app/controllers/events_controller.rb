@@ -41,13 +41,25 @@ class EventsController < ApplicationController
       }
 
       @page = @event
+
+      @page_metadata = @page.try(&:page_metadata)
+      resource = @event
+      @head_title = resource.name if @page_metadata.try{|m| m.head_title }.blank?
+
+      @meta_description = resource.short_description if resource.respond_to?(:short_description) && @page_metadata.try{|m| m.meta_description }.blank?
+
+      @meta_keywords = resource.event_tags.map(&:name).select{|t| t.present? }.uniq.join(',') if resource.respond_to?(:event_tags) && @page_metadata.try{|m| m.meta_keywords}.blank?
     end
 
 
     text = ""
-    @page_locale_links.each_pair do |locale, url|
-      text += "<a href=\"#{url}\">#{locale}</a><br/>"
+    if @page_locale_links.many?
+      @page_locale_links.each_pair do |locale, url|
+        text += "<a href=\"#{url}\">#{locale}</a><br/>"
+      end
     end
+
+
 
     #render inline: text
   end
@@ -113,10 +125,11 @@ class EventsController < ApplicationController
 
     @page = Pages::EventsList.first
 
+    @page_metadata = @page.try(&:page_metadata)
+
   end
 
   def tag
-
     render template: 'events/list'
   end
 
@@ -158,6 +171,8 @@ class EventsController < ApplicationController
         data = { html: events_html }
         render inline: "#{data.to_json}"
       end
+
+
 
     else
       redirect_to new_user_session_path(locale: I18n.locale)

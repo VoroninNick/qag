@@ -26,6 +26,7 @@ class ContactController < ApplicationController
         }
     }
 
-    @page = ContactPage.first
+    @page = @contact_page_info
+    @page_metadata = @page.try(&:page_metadata)
   end
 end

@@ -24,7 +24,7 @@ $header-height: 90px;
   font-size: 1rem;
   //color: #aaa;
   color: #6d6e71;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 
@@ -690,7 +690,7 @@ $header-height: 90px;
 .header-menu-contact-email-text, .header-menu-contact-phone-text{
   display: inline-block;
   color: $form-input-background;
-  font-weight: 300;
+  font-weight: $basic-font-weight;
   font-size: 1.1rem;
   position: relative;
   top: -10px;

@@ -177,7 +177,7 @@
 
       @include placeholder {
         color: white;
-        font-weight: 300;
+        font-weight: $basic-font-weight;
       }
     }
 
@@ -194,7 +194,7 @@
     padding: 0 20px;
 
     font-size: 17px;
-    font-weight: 300;
+    font-weight: $basic-font-weight;
     font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
     color: #000000;
@@ -215,7 +215,7 @@
 
       @include placeholder {
         color: white;
-        font-weight: 300;
+        font-weight: $basic-font-weight;
       }
     }
 

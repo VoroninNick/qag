@@ -11,7 +11,7 @@
 
 #article-date{
   font-size: 1.3rem;
-  font-weight: 300;
+  font-weight: $basic-font-weight;
 }
 
 
@@ -69,7 +69,7 @@
 
 .read-also-articles-article-date{
   font-size: 1.2rem;
-  font-weight: 300;
+  font-weight: $basic-font-weight;
   margin-top: 1rem;
   color: $orange-color;
 }

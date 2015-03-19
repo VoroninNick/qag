@@ -6,7 +6,7 @@
         .image
           a href="#"
             /img.grayscale src=( (event.avatar.exists?(:event_list_avatar) )? event.avatar.url(:event_list_avatar) : stub_image_link(255, 170, "event #{event.id}") )
-            img.grayscale src=image_or_stub_url(event.avatar, :event_list_avatar, 255, 170, "event #{event.id}")
+            img.grayscale src=image_or_stub_url(event.avatar, :event_list_avatar, 255, 170, "event_#{event.id}")
         .info class="#{"has_event_end_date" if event.end_date}"
           .start-date
             span.tip
@@ -91,7 +91,7 @@
                 - event.images.each_with_index do |image, index|
                   .hover-expired-event-images-carousel-ul-li.item-inner
                     a.hover-expired-event-images-carousel-ul-li-a href=( (image.image.exists?(:original) )? image.image.url(:original) : stub_image_link(600, 400, "image #{index + 1}") )
-                      = content_tag(:img, nil, class: "hover-expired-event-images-carousel-ul-li-a-img #{'lazyOwl' if index > 5}",  :"#{ index <= 5 ? "src" : "data-src" }" => image_or_stub_url(image.image, :event_item_image, 150, 100, "image #{index+1}"))
+                      = content_tag(:img, nil, class: "hover-expired-event-images-carousel-ul-li-a-img #{'lazyOwl' if index > 5}",  :"#{ index <= 5 ? "src" : "data-src" }" => image_or_stub_url(image.image, :event_item_image, 150, 100, "image_#{index+1}"))
 
           a.hover-read-button href="#{event_item_path(locale: I18n.locale, item: event.slug, tags: event.tags.join('-'))}"
             = "Переглянути"

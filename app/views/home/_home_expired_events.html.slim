@@ -14,7 +14,7 @@ div#home-expired-events-section.page-section.page-section-number-4.home-expired-
               g
                 /image filter="url(#colorMeSaturate)" xlink:href=event.avatar.url(:home_expired_event_thumb) width="500" height="1250" opacity="1"
 
-                image width="500" height="1250" opacity="1" filter="url(#colorMeSaturate)" xlink:href=image_or_stub_url(event.expired_event_avatar, :expired_event_avatar, 500, 1250, "event #{event.id}")
+                image width="500" height="1250" opacity="1" filter="url(#colorMeSaturate)" xlink:href=image_or_stub_url(event.expired_event_avatar, :expired_event_avatar, 500, 1250, "event_#{event.id}")
               rect class="overlay" fill="rgba(255, 153, 0, 0.1)" opacity="1" x="0" y="0" width="500" height="1250"
 
             .name

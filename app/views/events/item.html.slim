@@ -84,9 +84,9 @@
               .content
                 - if @event.images.count > 0
                   - @event.images.each_with_index do |image, index|
-                    a class="#{'lazy' if index > 9}" href="#{image_or_stub_url(image.image, :original, 1200, 800, "event #{@event.id}")}"
+                    a class="#{'lazy' if index > 9}" href="#{image_or_stub_url(image.image, :original, 1200, 800, "event_#{@event.id}")}"
                       - if index < 10
-                        img.grayscale.grayscale-fade src="#{image_or_stub_url(image.image, :event_item_image, 180, 120, "event #{@event.id}")}"
+                        img.grayscale.grayscale-fade src="#{image_or_stub_url(image.image, :event_item_image, 180, 120, "event_#{@event.id}")}"
 
                 - else
                   = "Немає жодної фотографії"

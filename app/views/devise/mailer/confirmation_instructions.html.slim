@@ -1,7 +1,7 @@
 p
   = "Доброго дня, #{@user.first_name}!"
 p
-  = raw "Ви успішно зареєструвались на сайті <a href=\"http://qag.voroninstudio.eu\">qag.voroninstudio.eu</a>"
+  = raw "Ви успішно зареєструвались на сайті <a href=\"http://#{host_name}\">#{host_name}</a>"
 p
   = "Для завершення реєстрації, будь ласка, пройдіть по цьому посиланню:"
 /= flash[:hello]

@@ -319,4 +319,10 @@ class ApplicationController < ActionController::Base
     #end
   end
 
+  helper_method :host_name
+
+  def host_name
+    "qagroup.com.ua"
+  end
+
 end

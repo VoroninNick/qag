@@ -231,4 +231,8 @@ module ApplicationHelper
 
     render template: "helpers/application_helper/get_button_for", locals: locals
   end
+
+  def host_name
+    "qagroup.com.ua"
+  end
 end

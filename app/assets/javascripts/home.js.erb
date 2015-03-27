@@ -96,8 +96,23 @@ var initialize = function() {
         //  });
 
         counter = 0
+        last_time_stamp = null
 
         $('body').mousewheel(function (event) {
+            //EVENT = event
+            var timestamp_difference = 0
+            if(!last_time_stamp){
+                last_time_stamp = event.timeStamp
+            }
+            else{
+                timestamp_difference = event.timeStamp - last_time_stamp
+                last_time_stamp = event.timeStamp
+                if(timestamp_difference < 40){
+                    return;
+                }
+            }
+
+            console.log("timestamp_difference: ", timestamp_difference)
 
             if (counter == 0) {
 

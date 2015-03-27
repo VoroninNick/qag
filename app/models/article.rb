@@ -37,6 +37,8 @@ class Article < ActiveRecord::Base
 
   attr_accessible :show_toned_avatar, :show_toned_banner
 
+  scope :published, -> { where(published: true) }
+
   translates :name, :slug, :short_description, :full_description, :avatar_alt, :banner_alt, :versioning => :paper_trail
   accepts_nested_attributes_for :translations, allow_destroy: true
   attr_accessible :translations_attributes, :translations

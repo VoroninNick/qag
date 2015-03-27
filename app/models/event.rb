@@ -92,6 +92,8 @@ class Event < ActiveRecord::Base
 
   attr_accessible :registration_enabled
 
+  scope :published, -> { where(published: 't') }
+
   def allowed_subscriptions_count
     #variable_name = "@event_#{id}_allowed_subscriptions_count"
     #return instance_variable_get(variable_name) if instance_variable_defined?(variable_name)

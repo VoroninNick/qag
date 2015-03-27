@@ -96,11 +96,11 @@ class EventsController < ApplicationController
 
     if selected_event_tag == 0
       #@events = Event.all.limit(max_events_count)
-      @events = Event.all#.order('id desc')
+      @events = Event.published#.order('id desc')
 
     else
       #@events = selected_event_tag.events.limit(max_events_count)
-      @events = selected_event_tag.events
+      @events = selected_event_tag.events.published
       @selected_event_tag = selected_event_tag
       @event_tags = @event_tags.where.not(id: selected_event_tag.id)
     end

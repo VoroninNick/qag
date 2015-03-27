@@ -17,7 +17,7 @@ class ArticlesController < ApplicationController
       params_page = 1
     end
 
-    @articles = Article.all.where(published: true)
+    @articles = Article.published
 
     @articles = @articles.order('id desc')
 

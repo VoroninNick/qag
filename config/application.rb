@@ -31,7 +31,7 @@ module Qag
     Rails.application.config.assets.precompile += %w( views.js )
 
     config.action_mailer.default_url_options = {
-        :host => 'qag.voroninstudio.eu',
+        :host => 'qagroup.com.ua',
     }
 
     if Rails.env != :production
@@ -39,3 +39,5 @@ module Qag
     end
   end
 end
+
+

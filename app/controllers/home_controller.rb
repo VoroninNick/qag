@@ -192,7 +192,7 @@ class HomeController < ApplicationController
   end
 
   def get_events
-    @all_events ||= Event.where("published='t'").includes(:translations)
+    @all_events ||= Event.published.includes(:translations)
     #events_arr = []
         #events.each_with_index do |e, index|
         #  if index > 6
@@ -208,7 +208,7 @@ class HomeController < ApplicationController
   end
 
   def get_all_events
-    @all_events ||= Event.where("published='t'").includes(:translations)
+    @all_events ||= Event.published.includes(:translations)
   end
 
   def future_events_thumbnails

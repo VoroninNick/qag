@@ -10,8 +10,10 @@
 .popup{
   opacity: 0;
   @include transition(opacity 0.5s);
-  transition-property: opacity, transform;
-  transition-duration: 0.5s, 1ms; 
+  @include transition-property("opacity, transform");
+  @include transition-duration("0.5s, 1ms");
+  //transition-property: opacity, transform;
+  //transition-duration: 0.5s, 1ms;
   position: fixed;
   top: 0;
   left: 0;

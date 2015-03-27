@@ -420,6 +420,14 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                                             '</div>'].join(''))
 
 
+                                        var successfullySignedIn = $html_source.find('#users_sessions-create-post').length
+                                        if(!successfullySignedIn){
+                                            //alert('signed in')
+                                            setInterval(function(){
+                                                $html_source.fadeOut(800)
+                                            }, 3000)
+                                        }
+
                                         $header_menu_user_dropdown.appendTo($header_menu_user_wrapper)
 
                                         //$()
@@ -437,7 +445,6 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                                         var $devise_event_subscriptions_form_wrap = $html_source.find('#devise_event_subscriptions-new-get-form-wrap.devise-form-wrap')
                                         if ($devise_event_subscriptions_form_wrap.length > 0) {
                                             $form.addClass(modeViewClass)
-
                                         }
                                     }
                                 }

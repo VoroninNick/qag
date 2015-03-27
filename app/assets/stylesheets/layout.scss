@@ -50,7 +50,7 @@ $header-height: 90px;
 
   &.visible{
     opacity: 1;
-    z-index: 2;
+    z-index: 3;
 
     & ~ #header-fixed{
       path{

@@ -95,8 +95,12 @@ sass:
                     td
                       |Events User is subscribed on:
                     td
-                      - es.user.events.each do |e|
-                        = link_to e.name, "/admin/event/#{e.id}"
+                      - if es.user.events.length > 1
+                        ol
+                          - es.user.events.each do |e|
+                            - if e.id != @object.id
+                              li
+                                = link_to e.name, "/admin/event/#{e.id}"
 
             td
               = es.email || "-"

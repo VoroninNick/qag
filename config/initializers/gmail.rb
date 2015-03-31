@@ -6,5 +6,6 @@ ActionMailer::Base.smtp_settings = {
     :user_name            => "support@voroninstudio.eu",
     :password             => "Studiosupport123",
     :authentication       => "plain",
-    :enable_starttls_auto => true
+    :enable_starttls_auto => true,
+    :from                 => "QA group"
 }#           

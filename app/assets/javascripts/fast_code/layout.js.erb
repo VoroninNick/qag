@@ -602,9 +602,24 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                                 }
 
                                 else if ($submit_button.hasClass(sendMePasswordSubmitButtonClass)) {
-                                    var $error_container = $(['<div class="error">', data, '</div>'].join(''))
+                                    console.log("sendMePasswordSubmitButtonClass")
+                                    if(false) {
+                                        var $error_container = $(['<div class="error">', data, '</div>'].join(''))
 
-                                    $errors.html($error_container)
+                                        $errors.html($error_container)
+                                    }
+                                    else{
+                                        var $modal = $html_source
+                                        $modal.addClass(modalOpenClass)
+                                        $popup.removeClass(modalOpenClass)
+                                        PUBLIC_MODAL = $modal
+                                        //alert('hello')
+                                        remove_with_delay($popup)
+
+                                        $modal_windows_wrapper.append($modal)
+
+                                        $modal.init_form()
+                                    }
                                 }
 
 

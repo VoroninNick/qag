@@ -1,16 +1,17 @@
 #devise-content
   #devise_sessions-new-get-form-wrap.devise-form-wrap
 	.form-title
-	  | Change your password
+	  | Змінити пароль
 	= simple_form_for(resource, as: resource_name, url: password_path(resource_name, locale: I18n.locale), html: { method: :put }) do |f|
 	  = f.error_notification
 	  = f.input :reset_password_token, as: :hidden
 	  = f.full_error :reset_password_token
 	  .form-inputs
-	    = f.input :password, label: false, placeholder: "New password", required: true, autofocus: true
+	    = f.input :password, label: false, placeholder: "Новий пароль", required: true, autofocus: true
 
-	    = f.input :password_confirmation, label: false, placeholder: "Confirm your new password", required: true
+	    = f.input :password_confirmation, label: false, placeholder: "Підтвердіть новий пароль", required: true
 	  .form-actions
-	    = f.button :submit, "Change my password", class: 'change-password-submit-button devise-submit-button input-submit orange-bg'
+	    = f.button :submit, "Змінити пароль", class: 'change-password-submit-button devise-submit-button input-submit orange-bg'
 	    
 	/= render "devise/shared/links"
+

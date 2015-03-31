@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   scope "(:locale)", locale: /[a-zA-Z]{2}/ do
+    post "/enable_event_substription", to: "events#enable_event_subscription"
 
 
 

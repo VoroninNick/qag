@@ -71,6 +71,8 @@ class Event < ActiveRecord::Base
   has_many :event_subscriptions
   has_many :users, through: :event_subscriptions
 
+  attr_accessible :users, :user_ids
+
   attr_accessible :published, :name, :slug, :short_description, :full_description
 
   attr_accessible :start_date, :end_date, :address, :participants_count
@@ -100,6 +102,10 @@ class Event < ActiveRecord::Base
 
     #return instance_variable_set(variable_name, self.event_subscriptions.where(disabled: false).count)
     self.event_subscriptions.where('disabled is null or disabled = "f"').count
+  end
+
+  def disallowed_subscriptions_count
+    self.event_subscriptions.where(disabled: true).count
   end
 
 
@@ -411,8 +417,11 @@ class Event < ActiveRecord::Base
     edit do
       group :registration_details do
         field :disabled_registration
-        field :allowed_subscriptions_count
-        field :users
+        #field :allowed_subscriptions_count
+        #field :users
+        field :event_subscriptions do
+          partial "event_subscriptions"
+        end
       end
 
       group :details do

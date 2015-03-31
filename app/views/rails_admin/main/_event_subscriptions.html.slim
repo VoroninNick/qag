@@ -1,0 +1,129 @@
+sass:
+  #event_subscriptions_table
+    table
+      text-align: center
+    td, th
+      padding: 0 2rem
+    tr.enabled
+      background: rgba(0, 255, 0, 0.1)
+    tr.disabled
+      background: rgba(255, 0, 0, 0.1)
+    button
+      margin: 2px
+    .user-info
+      display: none
+      position: absolute
+      z-index: 1
+      background: white
+      padding: 2rem
+      border-radius: 0.5rem
+
+      td
+        max-width: 500px
+        text-align: left
+    tr
+      td:first-child:hover
+        .user-info
+          display: block
+#event_subscriptions_table
+  #debug
+    /= @object.inspect
+  - if @object.event_subscriptions.any?
+    table border="1" style="border-color: rgba(0,0,0,0.1);"
+      thead
+        th
+          |UserEmail
+        th
+          |SubscriptionEmail
+        th
+          |FirstName
+        th
+          |LastName
+        th
+          |ContactPhone
+        th
+          |Actions
+
+      tbody
+        - @object.event_subscriptions.each do |es|
+          tr class="#{es.disabled? ? "disabled" : "enabled"}" data-event-subscription-id="#{es.id}"
+            td
+              = link_to(es.user.email, "/admin/user/#{es.user_id}")
+              .user-info
+                table
+                  tr
+                    td
+                      |Email:
+                    td
+                      = es.user.email || "-"
+                  tr
+                    td
+                      |FirstName:
+                    td
+                      = es.user.first_name || "-"
+                  tr
+                    td
+                      |LastName:
+                    td
+                      = es.user.last_name || "-"
+                  tr
+                    td
+                      |ContactPhone:
+                    td
+                      = es.user.contact_phone || "-"
+                  tr
+                    td
+                      |City:
+                    td
+                      = es.user.city || "-"
+                  tr
+                    td
+                      |Company:
+                    td
+                      = es.user.company || "-"
+                  tr
+                    td
+                      |Confirmed at:
+                    td
+                      = es.user.confirmed_at || "-"
+                  tr
+                    td
+                      |SignIn count:
+                    td
+                      = es.user.sign_in_count || "-"
+                  tr
+                    td
+                      |Events User is subscribed on:
+                    td
+                      - es.user.events.each do |e|
+                        = link_to e.name, "/admin/event/#{e.id}"
+
+            td
+              = es.email || "-"
+            td
+              = es.first_name || "-"
+            td
+              = es.last_name || "-"
+            td
+              = es.contact_phone || "-"
+            td
+              button.btn class="#{ es.disabled? ? "btn-success" : "btn-danger" }"
+                = es.disabled? ? "Enable" : "Disable"
+
+    #total_subscriptions
+      #total_subscriptions_label
+        |Всього підписок
+      #total_subscriptions_count
+        = @object.event_subscriptions.count
+    #allowed_subscriptions
+      #allowed_subscriptions_label
+        |Допущено підписок
+      #allowed_subscriptions_count
+        = @object.allowed_subscriptions_count
+    #disallowed_subscriptions
+      #disallowed_subscriptions_label
+        |Заблоковано підписок
+      #disallowed_subscriptions_count
+        = @object.disallowed_subscriptions_count
+    h1
+      |Немає жодної підписки

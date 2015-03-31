@@ -178,4 +178,16 @@ class EventsController < ApplicationController
       redirect_to new_user_session_path(locale: I18n.locale)
     end
   end
+
+  def enable_event_subscription
+    event_subscription_id = params[:event_subscription_id]
+    enabled = params[:enabled] == 'true'
+    disabled = !enabled
+    es = EventSubscription.find(event_subscription_id.to_i)
+    es.disabled = disabled
+    saved = es.save
+    #saved = true
+    render inline: { saved: saved, enabled: enabled }.to_json
+    #render inline: {enabled: enabled, disabled: disabled}.to_json
+  end
 end

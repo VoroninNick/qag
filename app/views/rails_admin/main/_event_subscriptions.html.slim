@@ -91,16 +91,17 @@ sass:
                       |SignIn count:
                     td
                       = es.user.sign_in_count || "-"
-                  tr
-                    td
-                      |Events User is subscribed on:
-                    td
-                      - if es.user.events.length > 1
+                  - if es.user.events.length > 1
+                    tr
+                      td
+                        |Another Events User is subscribed on:
+                      td
                         ol
                           - es.user.events.each do |e|
                             - if e.id != @object.id
                               li
                                 = link_to e.name, "/admin/event/#{e.id}"
+
 
             td
               = es.email || "-"

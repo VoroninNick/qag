@@ -20,7 +20,7 @@ registration_event_id = false
 
 delay_before_remove_popup = 2000
 
-addProgressClassToButtonOnSubmit = false
+//addProgressClassToButtonOnSubmit = false
 addProgressClassToButtonOnSubmit = true
 
 submitButtonProgressClass = 'progress-bar-moving-bg'
@@ -341,12 +341,12 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
 
                 if (valid_form) {
 
-                    var in_progress = $submit_button.hasClass(addProgressClassToButtonOnSubmit)
+                    var check_in_progress = addProgressClassToButtonOnSubmit ? $submit_button.hasClass(submitButtonProgressClass) : false
                     if(addProgressClassToButtonOnSubmit) {
                         $submit_button.addClass(submitButtonProgressClass);
                     }
 
-                    if(!in_progress){
+                    if(!check_in_progress){
                     $.ajax({
                         url: url,
                         type: method,

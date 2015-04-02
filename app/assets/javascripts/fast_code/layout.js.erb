@@ -341,10 +341,12 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
 
                 if (valid_form) {
 
+                    var in_progress = $submit_button.hasClass(addProgressClassToButtonOnSubmit)
                     if(addProgressClassToButtonOnSubmit) {
                         $submit_button.addClass(submitButtonProgressClass);
                     }
 
+                    if(!in_progress){
                     $.ajax({
                         url: url,
                         type: method,
@@ -626,7 +628,7 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
 
                             }
                         }
-                    })
+                    })}
                 }
                 //
             }

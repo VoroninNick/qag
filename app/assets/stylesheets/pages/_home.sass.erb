@@ -1687,6 +1687,7 @@ form
 
   @media #{$small-only}
     .section-title
+      margin-top: rem-calc(90)
       .title
         line-height: 1
         font-size: rem-calc(32)
@@ -1696,6 +1697,16 @@ form
           width: grid-calc(6, 12)
           &:nth-child(n+3)
             display: none
+          label
+            .image-wrapper
+              display: inline-block
+    .comments
+      ul
+        li
+          .comment-text
+            line-height: 28px
+            max-height: 196px
+            overflow: hidden
 
 
 @for $i from 1 through $user-comments-count

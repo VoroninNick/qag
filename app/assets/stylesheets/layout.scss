@@ -922,8 +922,19 @@ $header-height: 90px;
 }
 
 @media (max-width: #{em-calc(810)}) {
+  #footer{
+    height: rem-calc(500);
+    margin-top: rem-calc(-500);
+    padding: rem-calc(50) 0;
+
+  }
+
   #footer-menu, #footer-social-icons{
     width: 100%;
+  }
+
+  #footer-menu, #footer-social-icons, #footer-partners-and-copyright-and-developed-by-row{
+    margin-bottom: rem-calc(60);
   }
 
   #footer-social-icons-ul, #footer-menu-ul{

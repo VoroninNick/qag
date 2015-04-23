@@ -922,6 +922,10 @@ $header-height: 90px;
 }
 
 @media (max-width: #{em-calc(810)}) {
+  #footer-menu, #footer-social-icons{
+    width: 100%;
+  }
+
   #footer-social-icons-ul, #footer-menu-ul{
     width: 100%;
     @include flexbox;

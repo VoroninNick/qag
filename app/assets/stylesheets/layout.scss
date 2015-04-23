@@ -944,11 +944,14 @@ $header-height: 90px;
   #footer-social-icons-ul, #footer-menu-ul, #footer-partners-ul{
     width: 100%;
     @include flexbox;
+    @include justify-content(space-between);
   }
 
   .footer-social-icons-ul-li, .footer-menu-li, .footer-partners-ul-li{
-    @include flex-grow(1);
-    text-align: center;
+    @include flex-grow(0);
+    //text-align: center;
+    margin: 0;
+    padding: 0;
   }
 
   .footer-menu-li{
@@ -974,10 +977,34 @@ $header-height: 90px;
     width: 100%;
   }
 
+  #footer-copyright-and-developed-by{
+    padding: 0;
+  }
+
   #footer-copyright, #footer-developed-by{
     @include grid-column(6);
   }
 
+  #footer-developed-by{
+    @include flexbox();
+  }
+
+  #vs-logo-link{
+    @include flex-basis(#{rem-calc(50)});
+    @include flex-shrink(0);
+  }
+
+  #footer-developed-by-text{
+    position: relative;
+    left: 0;
+    @include transform(none);
+    top: 0;
+  }
+
+  #footer-copyright{
+    float: right;
+    text-align: right;
+  }
 
 }
 

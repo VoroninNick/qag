@@ -941,12 +941,12 @@ $header-height: 90px;
     margin-bottom: rem-calc(60);
   }
 
-  #footer-social-icons-ul, #footer-menu-ul{
+  #footer-social-icons-ul, #footer-menu-ul, #footer-partners-ul{
     width: 100%;
     @include flexbox;
   }
 
-  .footer-social-icons-ul-li, .footer-menu-li{
+  .footer-social-icons-ul-li, .footer-menu-li, .footer-partners-ul-li{
     @include flex-grow(1);
     text-align: center;
   }
@@ -955,7 +955,7 @@ $header-height: 90px;
     font-size: 3vw;
   }
 
-  .footer-social-icons-ul-li {
+  .footer-social-icons-ul-li, .footer-partners-ul-li {
     a {
       display: inline-block;
     }

@@ -915,6 +915,23 @@ $header-height: 90px;
   }
 }
 
+@media (min-width: #{rem-calc(811)}) {
+  #footer-menu, #footer-social-icons{
+    width: auto;
+  }
+}
+
+@media (max-width: #{rem-calc(810)}) {
+  #footer-social-icons-ul{
+    width: 100%;
+    @include flexbox;
+  }
+
+  .footer-social-icons-ul-li{
+    @include flex-grow(1);
+  }
+}
+
 
 // ==========================================================================
 // --------------------------------------------------------------------------

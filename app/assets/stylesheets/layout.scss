@@ -915,13 +915,13 @@ $header-height: 90px;
   }
 }
 
-@media (min-width: #{rem-calc(811)}) {
+@media (min-width: #{em-calc(811)}) {
   #footer-menu, #footer-social-icons{
     width: auto;
   }
 }
 
-@media (max-width: #{rem-calc(810)}) {
+@media (max-width: #{em-calc(810)}) {
   #footer-social-icons-ul, #footer-menu-ul{
     width: 100%;
     @include flexbox;

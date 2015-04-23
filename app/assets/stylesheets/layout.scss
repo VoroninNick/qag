@@ -922,14 +922,23 @@ $header-height: 90px;
 }
 
 @media (max-width: #{rem-calc(810)}) {
-  #footer-social-icons-ul{
+  #footer-social-icons-ul, #footer-menu-ul{
     width: 100%;
     @include flexbox;
   }
 
-  .footer-social-icons-ul-li{
+  .footer-social-icons-ul-li, .footer-menu-li{
     @include flex-grow(1);
+    text-align: center;
   }
+
+  .footer-social-icons-ul-li {
+    a {
+      display: inline-block;
+    }
+  }
+
+
 }
 
 

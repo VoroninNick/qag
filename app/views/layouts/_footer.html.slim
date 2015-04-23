@@ -1,7 +1,7 @@
 - unless params[:controller].scan(/^rails_admin/).length > 0 
   #footer
     #footer-menu-and-social-icons-row.row
-      #footer-menu.columns.large-6
+      #footer-menu.columns.large-6.medium-6
         ul#footer-menu-ul
           li.footer-menu-li
             a.footer-menu-li-a  href=about_path
@@ -16,7 +16,7 @@
             a.footer-menu-li-a href=contact_path
               = t('layout.footer.menu.contact')
 
-      #footer-social-icons.columns.large-5.large-push-1
+      #footer-social-icons.columns.large-5.large-push-1.medium-5
         ul#footer-social-icons-ul
           - Setting.get_social_links.each_pair do |key, value|
             li.footer-social-icons-ul-li
@@ -24,7 +24,7 @@
                 = embedded_svg_from_assets("svg/#{key}.svg")
 
     #footer-partners-and-copyright-and-developed-by-row.row
-      #footer-partners.columns.large-6
+      #footer-partners.columns.large-6.medium-6
         #footer-partners-tip
           = t('layout.footer.partners.title')
         ul#footer-partners-ul
@@ -35,7 +35,7 @@
 
 
 
-      #footer-copyright-and-developed-by.columns.large-5.large-push-1
+      #footer-copyright-and-developed-by.columns.large-5.large-push-1.medium-5
         #footer-copyright
           = raw t('layout.footer.copyright')
         #footer-developed-by

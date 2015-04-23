@@ -1685,8 +1685,19 @@ form
           z-index: 1
           font-style: italic
 
+  @media #{$small-only}
+    .section-title
+      .title
+        line-height: 1
+        font-size: rem-calc(32)
+    .user-avatars
+      ul
+        li.user-avatar
+          width: grid-calc(6, 12)
+          &:nth-child(n+3)
+            display: none
 
-          
+
 @for $i from 1 through $user-comments-count
   .home-user-comment-flag#home-user-comment-flag-#{$i}:checked
     & ~ .user-avatars

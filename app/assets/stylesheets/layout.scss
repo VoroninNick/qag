@@ -965,9 +965,17 @@ $header-height: 90px;
     .social-svg {
       width: 8vw;
       height: 8vw;
-      max-width: 3rem;
-      max-height: 3rem;
+      max-width: rem-calc(45);
+      max-height: rem-calc(45);
     }
+  }
+
+  #footer-partners, #footer-copyright-and-developed-by{
+    width: 100%;
+  }
+
+  #footer-copyright, #footer-developed-by{
+    @include grid-column(6);
   }
 
 

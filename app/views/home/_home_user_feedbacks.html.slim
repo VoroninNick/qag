@@ -10,7 +10,7 @@ div#home-comments-section.page-section.page-section-number-5.home-comments-secti
   .user-avatars
     ul.row
       - @home_reviews.each_with_index do |comment, index|
-        li.user-avatar.columns.large-2 id="user-avatar-#{index + 1}"
+        li.user-avatar.columns.large-2.medium-2 id="user-avatar-#{index + 1}"
           label for="home-user-comment-flag-#{index + 1}"
             .image-wrapper
               img.grayscale.grayscale-fade src=image_or_stub_url(comment.avatar, :thumb, 150, 150, "comment_#{comment.id}")

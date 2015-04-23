@@ -8,4 +8,15 @@ ActionMailer::Base.smtp_settings = {
     :authentication       => "plain",
     :enable_starttls_auto => true,
     :from                 => "QA group"
-}#           
+}#
+
+# ActionMailer::Base.smtp_settings = {
+#     :address              => "smtp-2.1gb.ua",
+#     :port                 => 25,
+#     :domain               => "qagroup.com.ua",
+#     :user_name            => "info@qagroup.com.ua",
+#     :password             => "bec4858d",
+#     :authentication       => "plain",
+#     :enable_starttls_auto => true,
+#     :from                 => "info@qagroup.com.ua"
+# }

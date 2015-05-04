@@ -552,6 +552,8 @@ $home-page-comments-section-number: 5
   font-weight: 800
   text-transform: uppercase
   line-height: 2.25rem
+  width: 90%
+  max-width: rem-calc(1024)
 
   .slide-title
     text-shadow: 1px 1px 0px rgba(0,0,0,0.3)
@@ -736,45 +738,48 @@ $home-page-comments-section-number: 5
 
 
             .register-button
-              .register-button-a, .register-button-span
-                height: 3.75rem
-                display: inline-block
-                background: $registration-button-background
-                //width: 100%
-                width: 300px
-                text-align: center
-                border-radius: 3px
-                cursor: pointer
-                box-shadow: $button-box-shadow
-                max-width: 100%
+              +register-button
 
-                svg
-                  display: inline-block
-                  position: relative
-                  top: rem-calc(10)
-                  width: 2.5rem
-                  height: 2.5rem
+    @media #{$screen} and (max-height: #{em-calc(420)}) and (orientation: landscape)
+      padding-bottom: rem-calc(100) !important
+      .event-description, .participants-count, .event-link-wrapper
+        display: none
+      .event-title
+        max-height: rem-calc(32 * 1.1 * 3)
+        display: block
+        overflow: hidden
 
-                  .clock-arrow, .clock-round, .clock-fire
-                    fill: white
-
-
-                .registration-text
-                  font-size: 2rem
-                  text-transform: uppercase
-                  font-size: 1.3rem
-                  font-weight: 700
-                  color: white
-
-              &.registration-disabled, &.event-expired
-                .register-button-span
-                  background-color: $registration-disabled-button-background
-                  line-height: 3.75rem
-                  cursor: default
-                  .registration-text
-                    color: $registration-disabled-button-text-color
-
-
+    @media #{$small-only}
+      .event-description, .participants-count, .description .event-link-and-register-button
+        display: none
+      .featured-section-event-content
+        //display: none !important
+        +flexbox
+        +flex-direction(column)
+        > .description
+          +order(-1)
+          +grid-column-width(12)
+          .event-title
+            //display: none !important
+            display: block
+            max-height: rem-calc(1.1 * 32 * 4)
+            overflow-y: hidden
+        > .image-and-info
+          +grid-column-width(12)
+          padding-left: 0
+          padding-right: 0
+          .image
+            +grid-column-width(6)
+            float: left
+            padding-right: rem-calc(10)
+          .info.has_event_end_date
+            +grid-column-width(6)
+            float: left
+            padding-left: rem-calc(10)
+            margin-top: 0 !important
+      .event-mobile-button
+        .register-button
+          +register-button
 
 
 
@@ -900,9 +905,34 @@ $home-page-comments-section-number: 5
 
     ul.prev-event-labels
 
-
-
-
+  #home-featured-timeline-container
+    @media #{$screen} and (max-height: #{em-calc(420)}) and (orientation: landscape)
+      height: rem-calc(100)
+      .timeline, .owl-wrapper-outer, .owl-wrapper
+        height: inherit
+      .owl-item
+        position: relative
+        //top: rem-calc(-70)
+        height: inherit
+      .event
+        &:before
+          border-width: rem-calc(10) rem-calc(10) 0 rem-calc(10)
+          top: rem-calc(8)
+        .date
+          padding-top: rem-calc(27)
+          .day-number
+            font-size: 2.5rem
+          .month
+            font-size: 0.8rem
+        &.active
+          .date
+            height: rem-calc(56)
+            padding-top: 0
+            .day-number
+              line-height: 2rem
+              height: 2rem
+            .month
+              margin-top: 0
 
 
 
@@ -1781,3 +1811,4 @@ form
     border-top-color: $menu-blue-color
     &:before, &:after
       background-color: $menu-blue-color
+

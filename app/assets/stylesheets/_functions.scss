@@ -245,3 +245,56 @@
   @include transition-duration(0.5s);
   @include transition-property(all);
 }
+
+@mixin grid-column-width($columns: 12, $total: 12){
+  width: grid-calc($columns, $total);
+}
+
+@mixin register-button-disabled{
+  background-color: $registration-disabled-button-background;
+  line-height: 3.75rem;
+  cursor: default;
+  .registration-text {
+    color: $registration-disabled-button-text-color;
+  }
+}
+
+@mixin register-button {
+  .register-button-a, .register-button-span {
+    height: 3.75rem;
+    display:inline-block;
+    background: $registration-button-background;
+    //width: 100%
+    width: rem-calc(300);
+    text-align: center;
+    border-radius: rem-calc(3);
+    cursor: pointer;
+    box-shadow: $button-box-shadow;
+    max-width: 100%;
+
+    svg {
+      display: inline-block;
+      position: relative;
+      top: rem-calc(10);
+      width: 2.5rem;
+      height: 2.5rem;
+      .clock-arrow, .clock-round, .clock-fire {
+        fill: white;
+      }
+    }
+
+    .registration-text {
+      font-size: 2rem;
+      text-transform: uppercase;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white;
+    }
+  }
+
+  &.registration-disabled, &.event-expired {
+    .register-button-span {
+      @include register-button-disabled;
+    }
+  }
+}

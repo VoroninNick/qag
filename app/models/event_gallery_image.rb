@@ -21,7 +21,7 @@ class EventGalleryImage < ActiveRecord::Base
   [:image].each do |paperclip_field_name|
     attr_accessible paperclip_field_name.to_sym, "delete_#{paperclip_field_name}".to_sym, "#{paperclip_field_name}_file_name".to_sym, "#{paperclip_field_name}_file_size".to_sym, "#{paperclip_field_name}_content_type".to_sym, "#{paperclip_field_name}_updated_at".to_sym, "#{paperclip_field_name}_file_name_fallback".to_sym, "#{paperclip_field_name}_alt".to_sym
 
-    attr_accessor "delete_#{paperclip_field_name}".to_sym
+    #attr_accessor "delete_#{paperclip_field_name}".to_sym
   end
 
   translates :name, :short_description, :image_alt, :versioning => :paper_trail

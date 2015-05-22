@@ -30,10 +30,11 @@
           #event-item-page-event-info-part-details.event-item-page-event-info-part
             #event-item-page-event-info-title
               = t('pages.event-item.event-info.title')
-            #event-item-page-event-info-address.event-item-page-event-info-list-item
-              = embedded_svg_from_assets('svg/map_link.svg')
-              #event-item-page-event-info-address-text.event-item-page-event-info-text
-                = @event.address
+            - if @event.address && @event.address.length > 0
+              #event-item-page-event-info-address.event-item-page-event-info-list-item
+                = embedded_svg_from_assets('svg/map_link.svg')
+                #event-item-page-event-info-address-text.event-item-page-event-info-text
+                  = @event.address
             #event-item-page-event-info-date-range.event-item-page-event-info-list-item
               = embedded_svg_from_assets('svg/calendar.svg')
               #event-item-page-event-info-date-range-text.event-item-page-event-info-text

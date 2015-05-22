@@ -64,7 +64,7 @@ class Event < ActiveRecord::Base
   [:avatar, :banner, :expired_event_avatar].each do |paperclip_field_name|
     attr_accessible paperclip_field_name.to_sym, "delete_#{paperclip_field_name}".to_sym, "#{paperclip_field_name}_file_name".to_sym, "#{paperclip_field_name}_file_size".to_sym, "#{paperclip_field_name}_content_type".to_sym, "#{paperclip_field_name}_updated_at".to_sym, "#{paperclip_field_name}_file_name_fallback".to_sym, "#{paperclip_field_name}_alt".to_sym
 
-    attr_accessor "delete_#{paperclip_field_name}".to_sym
+    #attr_accessor "delete_#{paperclip_field_name}".to_sym
   end
 
   #has_and_belongs_to_many :users, join_table: 'event_subscriptions'
@@ -132,8 +132,7 @@ class Event < ActiveRecord::Base
   end
 
   def expired?
-    start_date <= DateTime.now
-
+    start_date < Date.today
   end
 
   def up_to_date?
@@ -167,7 +166,7 @@ class Event < ActiveRecord::Base
     before_save :fix_address
 
     def fix_address
-      self.address = I18n.t("activerecord.defaults.models.event.attributes.address") if !self.address || self.address == ''
+      #self.address = I18n.t("activerecord.defaults.models.event.attributes.address") if !self.address || self.address == ''
     end
 
     # def fix_slug

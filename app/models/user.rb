@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
 
   validates :first_name, length: { minimum: 2 }
   validates :last_name, length: { minimum: 2 }
-  phony_normalize :contact_phone, :default_country_code => 'UA'
+  #phony_normalize :contact_phone, :default_country_code => 'UA'
 
   [:avatar].each do |paperclip_field_name|
     attr_accessible paperclip_field_name.to_sym, "delete_#{paperclip_field_name}".to_sym, "#{paperclip_field_name}_file_name".to_sym, "#{paperclip_field_name}_file_size".to_sym, "#{paperclip_field_name}_content_type".to_sym, "#{paperclip_field_name}_updated_at".to_sym, "#{paperclip_field_name}_file_name_fallback".to_sym, "#{paperclip_field_name}_alt".to_sym
@@ -124,6 +124,14 @@ class User < ActiveRecord::Base
 
     object_label_method do
       :custom_label_method
+    end
+
+    list do
+      field :first_name
+      field :last_name
+      field :email
+      field :contact_phone
+      field :confirmed_at
     end
 
 

@@ -37,11 +37,18 @@ class EventTag < ActiveRecord::Base
           if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
             label asd
           end
+
+          html_attributes style: "min-width: 500px"
+
+
+
         end
         field :slug do
           if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
             label asd
           end
+
+          html_attributes style: "min-width: 500px"
         end
       end
     end

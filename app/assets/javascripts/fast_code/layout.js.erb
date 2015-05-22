@@ -480,8 +480,12 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                                     }
                                 }
                                 else if ($submit_button.hasClass(signUpSubmitButtonClass)) {
-
-                                    if (errors.hasOwnProperty('email') && errors['email'] == 'Email already taken') {
+                                    var errors_html = ""
+                                    for(var k in errors){
+                                        errors_html += "<div>" + errors[k] + "</div>"
+                                    }
+                                    $errors.html(errors_html)
+                                    if (errors.hasOwnProperty('email')) {
                                         $form.find('div.input.email').manipulateClasses(['error', 'taken'], ['valid'])
                                         default_handler = false
                                     }
@@ -623,6 +627,13 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
 
                                         $modal.init_form()
                                     }
+                                }
+                                else if($submit_button.hasClass(signUpSubmitButtonClass)){
+                                    var errors_html = ""
+                                    for(var k in errors){
+                                        errors_html += "<div>" + errors[k] + "</div>"
+                                    }
+                                    $errors.html(errors_html)
                                 }
 
 
@@ -1074,5 +1085,28 @@ $(document).on('ready',function() {
                 }
             }
         })
+    }
+})
+
+$(document).on("keypress", "input", function(e){
+    var prevent = false
+    if((e.charCode >= 48 && e.charCode <= 57)   ) {
+
+
+        var $input = $(this)
+        var $input_wrap = $input.closest("div.input")
+        var validation_options = $input_wrap.attr("data-validate")
+        if (validation_options && validation_options.length) {
+            validation_options = validation_options.split(" ")
+            if (validation_options.indexOf("first_name") >= 0 || validation_options.indexOf("last_name") >= 0 ) {
+                prevent = true
+            }
+        }
+    }
+
+    console.log(e.type, e)
+
+    if(prevent){
+        e.preventDefault()
     }
 })

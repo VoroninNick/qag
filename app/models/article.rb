@@ -125,7 +125,7 @@ class Article < ActiveRecord::Base
   def fix_slug
     self.translations.each do |t|
       t.fix_slug
-      t.save
+      #t.save
     end
   end
 

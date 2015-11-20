@@ -458,7 +458,7 @@ $header-height: 90px;
   display: block;
 }
 
-#header-menu-user{
+#header-menu-user {
 
   display: inline-block;
   width: 32px;
@@ -473,7 +473,7 @@ $header-height: 90px;
   //overflow: hidden;
   cursor: pointer;
 
-  svg{
+  svg {
     height: 32px;
     width: 32px;
 
@@ -483,7 +483,7 @@ $header-height: 90px;
     @include transition($hover-transition-duration fill);
 
   }
-
+}
 
 #header-menu-user-email{
   display: inline-block;
@@ -717,13 +717,13 @@ $header-height: 90px;
 
 
 
-}
-
-//@media #{$screen} and (max-width: 960px) and (orientation: portrait)  {
-//  .header-menu-page-a{
-//    font-size: 1.5rem;
-//  }
 //}
+
+@media #{$screen} and (max-width: 960px) and (orientation: portrait)  {
+  .header-menu-page-a{
+    font-size: 1.5rem;
+  }
+}
 
 
 // ==========================================================================

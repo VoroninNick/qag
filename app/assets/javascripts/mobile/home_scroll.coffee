@@ -6,3 +6,7 @@ $(document).on "ready", ()->
     sectionSelector: ".page-section"
     slideSelector: false
   );
+
+  $("#home-slides-ul").bxSlider(
+    mode: "fade"
+  )

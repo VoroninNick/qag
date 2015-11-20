@@ -83,7 +83,7 @@ class HomeController < ApplicationController
     @expired_events = Event.where(published: true).limit(20)
 
 
-    @about_slides = @home_page.home_about_us_slides
+    @about_slide = @home_page.home_about_us_slides.first
 
     @home_contact_info = @home_page.home_contact_infos.first
 

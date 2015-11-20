@@ -1,0 +1,57 @@
+#home-slider-section
+	.bx-wrapper
+		border: none
+
+
+	.bx-pager
+		bottom: 250px
+		a
+			background-color: #fff
+			&.active
+				background-color: $orange-color
+
+
+	.image-background
+		background: center center no-repeat
+
+#home-slides-ul
+	padding: 0
+	margin: 0 auto
+
+
+
+// arrow
+
+@include keyframes(animate-main-banner-arrow)
+	0%
+		bottom: 30px
+	100%
+		bottom: 0
+
+#home-slider-scroll-down-arrow
+	width: 35px
+	height: 72px
+	position: absolute
+	bottom: 200px // 30px
+	left: 50%
+	z-index: 5
+	@include transform( translate3d(-50%,0,0) )
+	cursor: pointer
+	svg
+		width: 35px
+		height: 42px
+		position: absolute
+		bottom: 30px
+		@include transform( translate3d(-50%,0,0) )
+		left: 50%
+		z-index: 3
+		fill: $orange-color
+		@include animation-iteration-count(infinite)
+		@include animation-duration(1s)
+		@include animation-name(animate-main-banner-arrow)
+
+	&:hover
+		svg
+			@include animation-play-state(paused)
+
+

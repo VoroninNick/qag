@@ -1,0 +1,68 @@
+#home-about-section
+	background-color: $light-orange-color
+
+
+
+	.slide-row
+		height: 520px
+		position: relative
+		max-height: 100%
+		top: 50%
+		@include transform(translateY(-50%))
+
+	.name
+
+		position: absolute
+		a
+			color: white
+			font-size: 6rem
+			font-weight: 900
+			text-transform: uppercase
+			line-height: 0.9
+			@include transition-property(color)
+			@include transition-duration(0.5s)
+			&:hover
+				color: #0a4f6c
+	//top: 10%
+	//@include transform( translateY(-10%) )
+
+	.short-description
+		color: white
+		font-weight: $basic-font-weight
+		font-size: 1.2rem
+
+		position: absolute
+		//top: 50%
+		//@include transform( translateY(-50%) )
+		bottom: 0
+
+	.social-links
+		margin-top: 2rem
+		ul
+			padding: 0
+			margin: 0
+
+			li
+				display: inline-block
+				list-style: none
+				margin-left: 1rem
+				margin-right: 1rem
+
+				&:first-child
+					margin-left: 0
+				&:last-child
+					margin-right: 0
+
+				svg
+					width: 2rem
+					height: 2rem
+
+					g
+						opacity: 1
+						fill: rgba(179,128,0,1)
+						@include transition-property(fill)
+						@include transition-duration(0.5s)
+				&:hover
+					svg
+						g
+							fill: #0a4f6c

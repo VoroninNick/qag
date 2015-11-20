@@ -8,49 +8,12 @@ var initialize = function() {
 
     var custom_page_scroll = false
 
-    $.fn.initialize_slider = function(){
-        //var $slider = $(this)
-        var $slider_section = $(this)
-        var auto_interval = 6000
-        var $flags = $slider_section.children().filter('input.flag')
-        setInterval(function(){
 
 
-            //var flags_count = $flags.length
-            //var checked_flag_index = $checked_flag.index()
-
-            //var future_index = checked_flag_index + 1
-            //if(checked_flag_index >= flags_count){
-            //    future_index = 0
-            //}
-            //var $future_flag = $flags.eq(future_index)
-
-            var $checked_flag = $flags.filter(':checked')
-            var $future_flag = $checked_flag.next('input.flag')
-            if($future_flag.length == 0){
-                $future_flag = $flags.first()
-            }
-
-
-            $checked_flag.prop('checked', false);
-            $future_flag.prop('checked', true)
-        }, auto_interval)
-
-        $slider_section.find('#home-slider-scroll-down-arrow').on('click', function(){
-            var $page_section_flags = $('.home-page-section-flag')
-            var $new_flag = $('.home-page-section-flag-from-1.home-page-section-flag-to-2')
-            var $checked_flag = $page_section_flags.filter(':checked')
-
-            $checked_flag.prop('checked', false)
-            $new_flag.prop('checked', true)
-            $body.attr('data-home-page-current-section', 2)
-        })
-    }
-
-    $('html.controller-about.action-index').each(function(){
-        var $page = $(this)
-        $('#about-slider').initialize_slider()
-    })
+//    $('html.controller-about.action-index').each(function(){
+//        var $page = $(this)
+//        $('#about-slider').initialize_slider()
+//    })
 
     $('html.controller-home.action-index').each(function () {
         var $page = $(this)
@@ -61,72 +24,16 @@ var initialize = function() {
 // -------------------------------------
 // =====================================
 
- var initialize_home_slider = function() {
-     $('#home-slider-section').initialize_slider()
- }
-
- initialize_home_slider()
 
 
 
-//    $.ajax(
-//        {
-//            url: '/?featured_events&ajax',
-//            type: 'GET',
-//            dataType: 'json',
-//            success: function(data){
-//                var $events_section = $('.home-featured-events-section')
-//
-//            }
-//
-//        } )
 
-//    var event = 'onwheel' in document ? 'wheel' : 'onmousewheel' in document ? 'mousewheel' : 'DOMMouseScroll';
-//    window.addEventListener(event, function(){
-//        console.log('wheel')
-//    });
 
-        //$('body').bind('mousewheel', function(e) {
-//        if(e.originalEvent.wheelDelta / 120 > 0) {
-//            alert('up');
-//        } else {
-//            alert('down');
-//        }
-
-        //      console.log('mousewheel')
-        //  });
 
         counter = 0
         last_time_stamp = null
 
-        scroll_home_page = function(difference){
-            var $flags = $('.home-page-section-flag')
-            var $checked_flag = $flags.filter(':checked')
-            var checked_flag_index = $checked_flag.index()
-            var checked_section_number = parseInt($checked_flag.attr('data-to'))
 
-            var next_number = 0;
-            var min_number = 1;
-            var max_number = 6;
-            if (difference > 0)
-                next_number = (checked_section_number > min_number) ? checked_section_number - 1 : min_number;
-            else {
-                next_number = (checked_section_number < max_number) ? checked_section_number + 1 : max_number
-            }
-
-
-            if (checked_section_number != next_number) {
-                console.log('checked:' + checked_section_number + '; next: ' + next_number)
-                $next_flag = $flags.filter('#home-page-section-flag-from-' + (checked_section_number) + '-to-' + (next_number))
-                //$checked_flag.removeAttr('checked')
-                //$next_flag.attr('checked', 'checked')
-                $checked_flag.prop('checked', false)
-                $next_flag.prop('checked', true)
-                $body.attr('data-home-page-current-section', next_number)
-
-
-            }
-        }
 
         if(custom_page_scroll) {
             $('body').mousewheel(function (event) {

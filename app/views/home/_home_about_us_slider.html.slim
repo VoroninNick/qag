@@ -1,34 +1,20 @@
-div#home-about-section.page-section
-  = render "home_about_us_slider_sass"
-  - if @about_slides.count > 0
+- if (slide = @about_slide).present?
+  div#home-about-section.page-section
+    .slide-row.row
+      .name.columns.large-9.medium-9.medium-push-1
+        a href="#{about_path(locale: I18n.locale)}"
+          = slide.name
+      .short-description.columns.large-7.large-push-5.medium-7.medium-push-4.small-12.small-push-0
+        .short-description-text
+          = slide.short_description
 
-    - @about_slides.each_with_index do |slide, index|
-      input type="radio" name="home-about-slider-slide-flag" class="home-about-slider-slide-flag flag" id="home-about-slider-slide-flag-#{index + 1}" checked=( (index == 0)? 'checked' : false )
-
-
-
-    ul.slides
-      - @about_slides.each_with_index do |slide, index|
-        li.slide id="home-about-slide-#{index + 1}"
-          .slide-row.row
-            .name.columns.large-9.medium-9.medium-push-1
-              a href="#{about_path(locale: I18n.locale)}"
-                = slide.name
-            .short-description.columns.large-7.large-push-5.medium-7.medium-push-4.small-12.small-push-0
-              .short-description-text
-                = slide.short_description
-              - if index == 0
-                .social-links
-                  ul
-                    - Setting.get_social_links.each_pair do |key, value|
-                      li
-                        a href=value
-                          = embedded_svg_from_assets("svg/#{key}.svg")
+        .social-links
+          ul
+            - Setting.get_social_links.each_pair do |key, value|
+              li
+                a href=value
+                  = embedded_svg_from_assets("svg/#{key}.svg")
 
 
 
-    - if @about_slides.count > 1
-      ul.bullets
-        - @about_slides.each_with_index do |slide, index|
-          li
-            label for="home-about-slider-slide-flag-#{index + 1}"
+

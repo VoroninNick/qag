@@ -268,7 +268,7 @@ class HomeController < ApplicationController
     events = Event.where(published: true, id: event_ids)
     events_html = ''
     events.each_with_index do |event, index|
-      event_html = render_to_string template: 'home/_home_timeline_event_info', layout: false, locals: { event: event, index: index }
+      event_html = render_to_string template: 'home/_home_timeline_event_info', layout: false, locals: { event: event, index: index, active: true }
       events_html += event_html
     end
 

@@ -32,14 +32,15 @@
 				width: 100%
 				display: block
 				margin: 0
-			li.event
-				background: $skyblue-color
-				height: 100%
-				width: 100%
-				list-style: none
-				display: inline-block
-				padding: 0
-				//overflow: hidden
+		li.event
+			background: $skyblue-color
+			height: 100%
+			width: 100%
+			list-style: none
+			display: inline-block
+			padding: 0
+			//overflow: hidden
+			opacity: 0
 
 		.image-and-info
 			.image
@@ -338,6 +339,7 @@
 	.event-info-slides
 		.event.active
 			z-index: 2
+			opacity: 1
 
 
 	.timeline

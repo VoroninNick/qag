@@ -265,10 +265,9 @@ $header-height: 90px;
 
 }
 
-#menu-focus-flag{
-  &:checked {
-
-    & ~ #body-inner{
+#menu-focus-flag:checked ~, #body.open-menu {
+  & {
+    #body-inner{
       #header-menu-button {
         margin: 30px 1.5rem 0 0;
 
@@ -704,9 +703,7 @@ $header-height: 90px;
 
 
 
-#header-menu-social-icons{
 
-}
 
 .header-menu-social-icon{
   display: inline-block;
@@ -736,6 +733,12 @@ $header-height: 90px;
       fill: $hover-color;
     }
   }
+}
+
+#header-menu-social-icons{
+  @include flexbox;
+  padding: 0;
+
 }
 
 @media #{$screen} and (max-width: em-calc(535)) {

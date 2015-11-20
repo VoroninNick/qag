@@ -40,3 +40,7 @@ $(document).on "ready", ()->
     mode: "fade"
   )
 
+
+
+$("body").on "click", "#header-menu-button", ()->
+  $("body").toggleClass("open-menu")

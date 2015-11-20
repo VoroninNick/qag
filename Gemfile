@@ -170,3 +170,5 @@ gem 'fancybox2-rails'
 #gem 'gemcutter'
 #gem 'tumble'
 #gem 'ukrainian'
+
+gem 'global_config'

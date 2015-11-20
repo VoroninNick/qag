@@ -1,4 +1,4 @@
-div#home-slider-section.page-section.page-section-number-1.home-slider-section
+div#home-slider-section.page-section
   - @main_slider_slides.each_with_index do |slide, index|
     input type="radio" name="home-slider-slide-flag" class="home-slider-slide-flag flag" id="home-slider-slide-flag-#{(index + 1)}" checked=( (index == 0)? 'checked' : false )
 

@@ -1,7 +1,7 @@
 - if @prev_events.count > 0 || @future_events.count > 0
   - will_active_event = ( @future_events.count > 0 ? @future_events.first : ( @prev_events.last  )  )
   - @pure_css = false
-  div#home-featured-events-section.page-section.page-section-number-2.home-featured-events-section
+  div#home-featured-events-section.page-section
     - if @pure_css
       - @featured_events.each_with_index do |event, index|
         input data-event-number="#{index + 1}" type="radio" name="home-featured-events-timeline-flag" class="home-featured-events-timeline-flag flag #{(index >= @featured_events_active_event_index)? 'future-event' : 'expired-event'}" id="home-featured-events-timeline-flag-#{index + 1}" checked=( (index == @featured_events_active_event_index)? 'checked' : false )

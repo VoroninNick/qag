@@ -20,6 +20,7 @@
 //= require jquery.maskedinput
 //= require jquery.content_changed
 //= require fancybox
+//= require fullpage.js/jquery.fullPage.min
 
 //= require jquery-touch-events/src/1.0.1/jquery.mobile-events
 

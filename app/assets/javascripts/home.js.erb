@@ -4,8 +4,9 @@
 
 
 
-
 var initialize = function() {
+
+    var custom_page_scroll = false
 
     $.fn.initialize_slider = function(){
         //var $slider = $(this)
@@ -127,56 +128,55 @@ var initialize = function() {
             }
         }
 
-
-        $('body').mousewheel(function (event) {
-            //EVENT = event
-            var timestamp_difference = 0
-            if(!last_time_stamp){
-                last_time_stamp = event.timeStamp
-            }
-            else{
-                timestamp_difference = event.timeStamp - last_time_stamp
-                last_time_stamp = event.timeStamp
-                if(timestamp_difference < 40){
-                    return;
+        if(custom_page_scroll) {
+            $('body').mousewheel(function (event) {
+                //EVENT = event
+                var timestamp_difference = 0
+                if (!last_time_stamp) {
+                    last_time_stamp = event.timeStamp
                 }
-            }
-
-            console.log("timestamp_difference: ", timestamp_difference)
-
-            if (counter == 0) {
-
-
-                //console.log("hello:" + event.deltaX, event.deltaY, event.deltaFactor);
-
-                scroll_home_page(event.deltaY)
-            }
-            if (counter == 3)
-                counter = 0
-            else
-                counter++
-        });
-
-        if (Modernizr.touch || true) {
-            $("body").on("swipedown swipeup", function (e) {
-                if (e.type == "swipedown"){
-                    scroll_home_page(1)
+                else {
+                    timestamp_difference = event.timeStamp - last_time_stamp
+                    last_time_stamp = event.timeStamp
+                    if (timestamp_difference < 40) {
+                        return;
+                    }
                 }
-                else{
-                    scroll_home_page(-1)
+
+                console.log("timestamp_difference: ", timestamp_difference)
+
+                if (counter == 0) {
+
+
+                    //console.log("hello:" + event.deltaX, event.deltaY, event.deltaFactor);
+
+                    scroll_home_page(event.deltaY)
                 }
+                if (counter == 3)
+                    counter = 0
+                else
+                    counter++
+            });
+
+//        if (Modernizr.touch || true) {
+//            $("body").on("swipedown swipeup", function (e) {
+//                if (e.type == "swipedown"){
+//                    scroll_home_page(1)
+//                }
+//                else{
+//                    scroll_home_page(-1)
+//                }
+//            })
+//        }
+
+
+            $('#home-page-section-bullets-ul').on('click', 'li', function () {
+                var $this = $(this)
+                var to = +$this.attr('data-to')
+                $body.attr('data-home-page-current-section', to)
             })
+
         }
-
-
-
-        $('#home-page-section-bullets-ul').on('click', 'li', function(){
-            var $this = $(this)
-            var to = + $this.attr('data-to')
-            $body.attr('data-home-page-current-section', to)
-        })
-
-
         var $contact_form = $('#home-contact-form-section-form')
         var $phone_field = $contact_form.find('#message_phone')
         $phone_field.mask("+99 (999) 999 99 99")

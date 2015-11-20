@@ -1,11 +1,16 @@
-- home_sections_count = 6
-input data-to="1"  type="radio" class="home-page-section-flag flag initial" name="home-page-section-flag"  id="home-page-section-flag-initial" checked="checked"
-- for i in 1..(home_sections_count)
+/sass:
+  #home-section-1
+    background-color: red
+  #home-section-2
+    background-color: green
+
+/- home_sections_count = 6
+/input data-to="1"  type="radio" class="home-page-section-flag flag initial" name="home-page-section-flag"  id="home-page-section-flag-initial" checked="checked"
+/- for i in 1..(home_sections_count)
   - for j in 1..(home_sections_count)
-    /- if i != j
     input type="radio" data-from="#{i}" data-to="#{j}" class="flag home-page-section-flag home-page-section-flag-from-#{i} home-page-section-flag-to-#{j}" name="home-page-section-flag"  id="home-page-section-flag-from-#{i}-to-#{j}"
 
-.home-page-section-bullets
+/.home-page-section-bullets
   ul#home-page-section-bullets-ul
     - for i in 1..home_sections_count
       - for j in 1..home_sections_count
@@ -13,31 +18,13 @@ input data-to="1"  type="radio" class="home-page-section-flag flag initial" name
         li data-from="#{i}" data-to="#{j}" class="home-page-section-bullet home-page-section-bullet-from-#{i} home-page-section-bullet-to-#{j}" id="home-page-section-bullet-from-#{i}-to-#{j}"
           label for="home-page-section-flag-from-#{i}-to-#{j}"
 
+#page-sections
+  = render partial: 'home/home_main_slider'
+  = render partial: 'home/home_featured_events'
+  = render partial: 'home/home_about_us_slider'
+  = render partial: 'home/home_expired_events'
+  = render partial: 'home/home_user_feedbacks'
+  = render partial: 'home/home_map'
 
-= render partial: 'home/home_main_slider'
-
-
-
-
-
-= render partial: 'home/home_featured_events'
-
-
-
-
-= render partial: 'home/home_about_us_slider'
-
-
-= render partial: 'home/home_expired_events'
-
-
-
-
-
-
-
-
-= render partial: 'home/home_user_feedbacks'
-
-= render partial: 'home/home_map'
-
+  /#home-section-1.page-section
+  /#home-section-2.page-section

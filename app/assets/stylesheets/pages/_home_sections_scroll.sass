@@ -1,0 +1,395 @@
+#html.controller-home.action-index
+	#body
+		overflow: hidden
+	#wrap
+		position: relative
+		height: #{100% * $sections-count}
+
+	.page-section
+		position: absolute
+		height: #{100% / $sections-count}
+		width: 100%
+
+
+
+
+		@for $i from 2 through $sections-count
+			&.page-section-number-#{$i}
+				top: #{100% / ($sections-count) * ($i - 1)}
+
+
+
+
+#home-featured-timeline-arrows-wrapper
+	position: absolute
+	width: 100%
+	top: 105px
+	height: 0
+
+.home-featured-timeline-arrow
+	width: 22px
+	height: 30px
+	position: relative
+	cursor: pointer
+
+	&.left
+		left: -30px
+	&.right
+		right: -30px
+
+
+
+.home-page-section-bullets
+	position: fixed
+	top: 0
+	right: 0
+	height: 100%
+	//background: red
+	z-index: 6
+	width: 0
+	overflow: visible
+
+	ul
+		height: 100%
+		//background: blue
+		position: absolute
+		width: 100px
+		z-index: 10
+		display: block
+		right: 0
+
+		width: 0
+		padding: 0
+		margin: 0
+
+		height: auto
+		top: 50%
+		width: auto
+		@include transform( translateY(-50%) )
+		margin-right: 1.5rem
+
+		li
+			z-index: 12
+			//background: blue
+			display: inline-block
+			height: 1rem
+			width: 1rem
+			position: relative
+			margin: 0
+			padding: 0
+			left: 0
+			top: 0
+
+			label
+				width: rem-calc(20)
+				height: rem-calc(20)
+
+
+				display: block
+				cursor: pointer
+
+				&:hover
+					//background: $orange-color
+					&:before
+						background-color: $hover-bullet-background
+
+
+
+				&:before
+					content: ""
+					top: 5px
+					left: 5px
+					position: relative
+					border-radius: 50%
+					background: white
+					display: block
+					width: rem-calc(10)
+					height: rem-calc(10)
+			//@include transition-duration(6s)
+			//@include transition-property(background-color)
+
+			&.home-page-section-bullet-to-#{$home-page-comments-section-number}
+				label
+					position: relative
+
+					&:before
+						border-radius: 2px 2px 2px 0
+						width: rem-calc(13)
+						left: 3px
+						position: absolute
+					&:after
+						//position: relative
+						position: absolute
+						content: ""
+						top: 15px
+						left: 5px
+						width: 0
+						height: 0
+						border-style: solid
+						border-width: 4px 4px 0 0
+						border-color: white transparent transparent transparent
+						line-height: 0px
+						_border-color: white #000000 #000000 #000000
+						_filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000')
+
+					&:hover
+						&:after
+							border-top-color: $hover-bullet-background
+
+
+
+#html.js.controller-home.action-index
+	#wrap
+		height: 100%
+
+	.page-section
+		height: 100%
+		overflow: hidden
+		top: -100%
+//@for $i from 1 through $home-page-sections-count
+	//&.page-section-number-#{$i}
+		//top: 0
+
+.home-page-section-bullets ul li
+	display: none
+
+#html.js.controller-home.action-index
+	input.home-page-section-flag
+		@for $i from 1 through $home-page-sections-count
+			&.home-page-section-flag-to-#{$i}
+				&:checked
+					& ~ .home-page-section-bullets ul li.home-page-section-bullet-from-#{$i}
+						display: inline-block
+					& ~ .home-page-section-bullets ul li#home-page-section-bullet-from-#{$i}-to-#{$i}
+						label
+							&:before
+								background: $active-bullet-background
+							&:after
+								border-top-color: $active-bullet-background
+
+					& ~ .page-section-number-#{$i}
+						opacity: 1
+						top: 0
+
+		&.home-page-section-flag.initial
+			&:checked
+				& ~ .home-page-section-bullets ul li.home-page-section-bullet-from-#{1}
+					display: inline-block
+				& ~ .home-page-section-bullets ul li#home-page-section-bullet-from-#{1}-to-#{1}
+					label
+						&:before
+							background: $active-bullet-background
+
+				& ~ .page-section-number-#{1}
+					opacity: 1
+					top: 0
+
+
+
+		&.home-page-section-flag-to-2, &.home-page-section-flag-to-5
+			&:checked
+				& ~ .home-page-section-bullets ul li
+					label
+						&:before
+							background: #2981a9
+						&:after
+							border-top-color: #2981a9
+						&:hover
+							&:before
+								background-color: #fdfffe
+							&:after
+								border-top-color: #fdfffe
+
+
+
+		&.home-page-section-flag-to-2
+			&:checked
+				& ~ .home-page-section-bullets ul li#home-page-section-bullet-from-2-to-2
+					label
+						&:before
+							background: #fdfffe
+						&:after
+							border-top-color: #fdfffe
+		&.home-page-section-flag-to-5
+			&:checked
+				& ~ .home-page-section-bullets ul li#home-page-section-bullet-from-5-to-5
+					label
+						&:before
+							background: #fdfffe
+						&:after
+							border-top-color: #fdfffe
+
+		$i: 3
+
+		&.home-page-section-flag-to-#{$i}
+			&:checked
+				& ~ .home-page-section-bullets ul li
+					label
+						&:before
+							background: #e59d00
+						&:after
+							border-top-color: #e59d00
+						&:hover
+							&:before
+								background-color: white
+							&:after
+								border-top-color: white
+
+				& ~ .home-page-section-bullets ul li#home-page-section-bullet-from-#{$i}-to-#{$i}
+					label
+						&:before
+							background: white
+						&:after
+							border-top-color: white
+
+
+
+		&.home-page-section-flag-to-#{$home-page-comments-section-number}
+			&:checked
+				& ~ .home-page-section-bullets ul li
+					label
+						&:before
+							background: #a8a9ad
+						&:hover
+							&:before
+								background-color: $hover-bullet-background
+							&:after
+								border-top-color: $hover-bullet-background
+
+				& ~ .home-page-section-bullets ul li#home-page-section-bullet-from-#{$home-page-comments-section-number}-to-#{$home-page-comments-section-number}
+					label
+						&:before
+							background: $orange-color
+						&:after
+							border-top-color: $orange-color
+
+
+
+.page-section
+//@include transition-duration(2s)
+//@include transition-property(top)
+
+
+@include keyframes(page-section-slide-up)
+	0%
+		top: 0
+	100%
+		top: -#{100% / $home-page-sections-count}
+
+@include keyframes(page-section-slide-down)
+	0%
+		top: 0
+	100%
+		top: #{100% / $home-page-sections-count}
+
+
+@include keyframes(js-page-section-slide-up)
+	0%
+		top: 0
+	100%
+		top: -100%
+
+@include keyframes(js-page-section-slide-down)
+	0%
+		top: 0
+	100%
+		top: 100%
+
+
+#html.controller-home.action-index
+	@for $i from 1 through 6
+		@for $j from 1 through 6
+			@if $i != $j
+				input#home-page-section-flag-from-#{$i}-to-#{$j}
+					&:checked
+						@if $i < $j
+							& ~ .page-section-number-#{$i}
+								top: -#{100% / $home-page-sections-count}
+								opacity: 1
+								z-index: 5
+								@include animation-name(page-section-slide-up)
+								@include animation-duration(1s)
+
+							& ~ .page-section-number-#{$j}
+								top: 0
+								opacity: 1
+
+						@else
+							& ~ .page-section-number-#{$i}
+								top: #{100% / $home-page-sections-count}
+								opacity: 1
+								z-index: 5
+								@include animation-name(page-section-slide-down)
+								@include animation-duration(1s)
+							& ~ .page-section-number-#{$j}
+								top: 0
+								opacity: 1
+
+
+
+#html.js.controller-home.action-index
+	@for $i from 1 through 6
+		@for $j from 1 through 6
+			@if $i != $j
+				input#home-page-section-flag-from-#{$i}-to-#{$j}
+					&:checked
+						@if $i < $j
+							& ~ .page-section-number-#{$i}
+								top: -100%
+								//opacity: 1
+								//z-index: 5
+								@include animation-name(js-page-section-slide-up)
+							//@include animation-duration(2s)
+
+							& ~ .page-section-number-#{$j}
+							//top: 0
+							//opacity: 1
+
+						@else
+							& ~ .page-section-number-#{$i}
+								top: 100%
+								//opacity: 1
+								//z-index: 5
+								@include animation-name(js-page-section-slide-down)
+							//@include animation-duration(2s)
+							& ~ .page-section-number-#{$j}
+//top: 0
+//opacity: 1
+
+
+
+//$i: 1
+//@for $j from 1 through 6
+//  @if $i != $j
+//    input#home-page-section-flag-from-#{$i}-to-#{$j}
+//      &:checked
+//        @if $i < $j
+//          & ~ .page-section-number-#{$i}
+//            top: 0
+//            opacity: 1
+//            @include animation-name(page-section-slide-up)
+//
+//          & ~ .page-section-number-#{$j}
+//            top: 0
+//            opacity: 1
+//        @else
+//          & ~ .page-section-number-#{$i}
+//            top: 0
+//            opacity: 1
+//            @include animation-name(page-section-slide-down)
+//          & ~ .page-section-number-#{$j}
+//            top: 0
+//            opacity: 1
+
+
+
+
+
+
+
+
+
+.page-section
+	opacity: 0
+
+

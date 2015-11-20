@@ -1,0 +1,497 @@
+#home-featured-timeline-container
+	background: $light-skyblue-color
+	width: 100%
+	height: $featured-events-timeline-height
+	bottom: 0
+	position: absolute
+
+#home-featured-timeline-wrapper
+	height: 100%
+
+
+#home-featured-events-section
+	background: $skyblue-color
+	color: white
+
+
+	.event-info-slides
+		padding-bottom: $featured-events-timeline-height
+		height: 100%
+
+		.event-info-slides-row
+			height: 100%
+
+			.prev-event-labels
+				li
+					display: none
+
+			> ul
+				padding-left: 0
+
+			ul
+				width: 100%
+				display: block
+				margin: 0
+			li.event
+				background: $skyblue-color
+				height: 100%
+				width: 100%
+				list-style: none
+				display: inline-block
+				padding: 4rem 0 0 0
+				overflow: hidden
+
+		.image-and-info
+			.image
+				position: relative
+
+				a
+					img
+			.info
+				margin: 1rem 0 0 0
+
+				.start-date, .end-date
+					display: inline-block
+
+					.tip
+						display: block
+					.value
+						font-size: 1.2rem
+						font-weight: 500
+
+
+
+				&.has_event_end_date
+					.start-date:after
+						content: "\2014"
+						display: inline-block
+						margin: 0 1rem 0 1rem
+						font-size: 1.2rem
+
+				.participants-count
+					margin: 1rem 0 0 0
+					svg
+						width: 40px
+						height: 30px
+						margin-right: 5px
+						fill: $featured-events-timeline-active-event-text-color
+					.count
+						font-size: 1.5rem
+						font-weight: 600
+						vertical-align: top
+						line-height: 30px
+					.participants-tip
+						vertical-align: top
+						line-height: 30px
+						font-size: 1.1rem
+						font-weight: 100
+
+
+
+		.event-link-and-register-button
+			margin: 5rem 0 0 0
+			clear: left
+
+
+			.event-link-wrapper
+				height: 0
+				text-align: right
+
+				.event-link
+					line-height: 3.75rem
+
+
+
+
+			.register-button
+				+register-button
+
+
+		.event-title
+			font-size: 2rem
+			color: white
+			@include transition-duration($hover-transition-duration)
+			@include transition-property(color)
+
+
+			&:hover
+				color: $hover-color
+		.event-description
+			padding-top: 2rem
+			font-weight: $basic-font-weight
+			line-height: 1.3
+			max-height: 7.2rem
+			overflow: hidden
+
+		@media #{$screen} and (max-height: #{em-calc(420)}) and (orientation: landscape)
+			padding-bottom: rem-calc(100) !important
+			.event-description, .participants-count, .event-link-wrapper
+				display: none
+			.event-title
+				max-height: rem-calc(32 * 1.1 * 3)
+				display: block
+				overflow: hidden
+
+		@media #{$small-only}
+			.event-description, .participants-count, .description .event-link-and-register-button
+				display: none
+			.featured-section-event-content
+				//display: none !important
+				+flexbox
+				+flex-direction(column)
+			.description
+				+order(-1)
+				+grid-column-width(12)
+			.event-title
+				//display: none !important
+				display: block
+				max-height: rem-calc(1.1 * 32 * 4)
+				overflow-y: hidden
+			.image-and-info
+				+grid-column-width(12)
+				padding-left: 0
+				padding-right: 0
+				.image
+					+grid-column-width(6)
+					float: left
+					padding-right: rem-calc(10)
+				.info.has_event_end_date
+					+grid-column-width(6)
+					float: left
+					padding-left: rem-calc(10)
+					margin-top: 0 !important
+			.event-mobile-button
+				.register-button
+					+register-button
+
+
+
+
+
+	@media #{$screen} and (max-width: 640px)
+		.event-info-slides
+			.event-title
+				font-size: 1.5rem
+				line-height: 1.5rem
+				margin-bottom: 1rem
+
+
+
+
+
+
+	.timeline
+		height: $featured-events-timeline-height
+		position: absolute
+		bottom: 0
+		width: 100%
+		//background: $light-skyblue-color
+
+		.time-line-row
+			position: relative
+			overflow: visible
+
+			.events-container
+				position: relative
+				width: #{100% * ($featured-events-timeline-pages-count)}
+				@include transition(1s left)
+
+
+
+
+		.event
+			display: inline-block
+			width: #{100% / ($featured-events-count)}
+			text-align: center
+			//width: 140px !important
+			width: 100%
+			// draw triangle on selected event
+			&:before
+				width: 0
+				height: 0
+				border-style: solid
+				border-width: 15px 15px 0 15px
+				border-color: #30addb transparent transparent transparent
+				line-height: 0px
+				_border-color: #30addb #000000 #000000 #000000
+				_filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000')
+				-webkit-transform: rotate(360deg)
+				position: relative
+				top: 13px
+
+
+			.event-label
+				display: block
+				cursor: pointer
+
+			.date
+				color: $featured-events-timeline-inactive-event-text-color
+				height: 5rem
+
+
+				.day-number
+
+					font-size: 4rem
+					font-weight: 900
+					line-height: 0.9
+					@include transition-duration(1s)
+					@include transition-property(font color)
+				.month
+					font-size: 1rem
+					line-height: 1
+					font-weight: 600
+					text-transform: uppercase
+					@include transition-duration(1s)
+					@include transition-property(font color)
+
+			&:hover
+				.date
+					color: $featured-events-timeline-active-event-text-color
+
+		.bullet
+			display: block
+			text-align: center
+			overflow: hidden
+
+			.render-bullet
+				display: inline-block
+				width: 1rem
+				height: 1rem
+				border-radius: 50%
+				background: $featured-events-timeline-bullet-background
+				cursor: pointer
+				position: relative
+
+
+				&:after
+					content: ""
+					position: absolute
+					top: 8px
+					left: 16px
+					height: 1px
+					width: 200px
+					display: inline-block
+					border-top: #a9a7ac 1px dashed
+
+
+				&:before
+					content: ""
+					position: absolute
+					top: 8px
+					//left: 16px
+					height: 1px
+					width: 200px
+					display: inline-block
+					border-top: #a9a7ac 1px dashed
+					left: auto
+					right: 16px
+
+
+		.event:first-child
+			.bullet
+				label:before
+					content: none
+
+		.event:last-child
+			.bullet
+				label:after
+					content: none
+
+		ul.prev-event-labels
+
+	#home-featured-timeline-container
+		@media #{$screen} and (max-height: #{em-calc(420)}) and (orientation: landscape)
+			height: rem-calc(100)
+			.timeline, .owl-wrapper-outer, .owl-wrapper
+				height: inherit
+			.owl-item
+				position: relative
+				//top: rem-calc(-70)
+				height: inherit
+			.event
+				&:before
+					border-width: rem-calc(10) rem-calc(10) 0 rem-calc(10)
+					top: rem-calc(8)
+				.date
+					padding-top: rem-calc(27)
+					.day-number
+						font-size: 2.5rem
+					.month
+						font-size: 0.8rem
+				&.active
+					.date
+						height: rem-calc(56)
+						padding-top: 0
+						.day-number
+							line-height: 2rem
+							height: 2rem
+						.month
+							margin-top: 0
+
+
+
+
+
+
+
+	.event-info-slides
+		.event.active
+			z-index: 2
+
+
+	.timeline
+		.event.active
+
+			// enable triangle
+			&:before
+				content: ""
+
+			label
+				cursor: default
+
+
+				.date
+					color: $featured-events-timeline-active-event-text-color
+					padding-bottom: 1rem
+					height: 8rem
+
+					.day-number
+						height: 5rem
+						font-size: 6rem
+						line-height: 5rem
+					.month
+						font-size: 1.5rem
+						margin-top: 8px
+				.bullet
+					.render-bullet
+						background: $featured-events-timeline-active-bullet-background
+						cursor: default
+
+
+#event-info-slides
+	.owl-wrapper-outer, .owl-wrapper, .owl-item
+		height: 100%
+
+
+
+.owl-nav-arrows
+	position: absolute
+	top: 0
+	width: 100%
+	height: 0
+
+	.prev, .next
+		width: 22px
+		height: 30px
+		position: absolute
+		top: 105px
+		cursor: pointer
+
+	.prev
+		left: -45px
+	.next
+		right: -45px
+
+
+
+#home-featured-event-info-slides-row
+	position: relative
+
+#home-featured-event-info-slides-row-ul
+	height: 100%
+.home-featured-event
+	position: absolute
+
+#home-featured-timeline
+	.owl-item
+		vertical-align: bottom
+		float: none !important
+		display: inline-block
+
+
+#home-featured-prev-event-arrow, #home-featured-next-event-arrow
+	position: absolute
+	top: 50%
+	@include transform( translate3d(0, -50%, 0) )
+	height: rem-calc(33)
+	width: rem-calc(22)
+	cursor: pointer
+	margin-top: -73px
+
+
+#home-featured-prev-event-arrow
+	left: -45px
+#home-featured-next-event-arrow
+	right: -45px
+
+.left-arrow-path, .right-arrow-path
+	fill: #98d5e8
+
+
+.featured-section-event-content
+	position: absolute
+	width: 100%
+	left: 0
+	top: 50%
+	@include transform( translate3d(0, -50%, 0) )
+
+
+.prev-arrow-show-event-animation
+.next-arrow-show-event-animation
+.prev-arrow-hide-event-animation
+.next-arrow-hide-event-animation
+
+
+@media #{$small-up}
+	.event-link-and-register-button
+		display: flex
+		justify-content: flex-end
+	.event-link-wrapper
+		height: auto !important
+		margin-right: 2rem
+
+@media #{$screen} and (max-width: 1130px)
+	.event-info-slides
+		padding-left: 3rem
+		padding-right: 3rem
+	#home-featured-prev-event-arrow
+		left: -30px
+	#home-featured-next-event-arrow
+		right: -30px
+
+
+@media #{$medium-down}
+	.event-link-and-register-button
+		flex-direction: column
+
+	.event-link-wrapper
+		text-align: left !important
+	.start-date
+		&:after
+			display: none !important
+@media #{$small-only}
+	#home-featured-next-event-arrow, #home-featured-prev-event-arrow
+		display: none !important
+
+
+@media #{$screen} and (max-width: em-calc(600))
+	.featured-section-event-content
+	.image-and-info
+		@include grid-column(4)
+	.home-featured-event
+		.description
+			@include grid-column(8)
+
+@media #{$screen} and (max-height: em-calc(680))
+
+
+
+@media #{$screen} and (max-height: em-calc(500)), #{$screen} and (max-width: em-calc(720)) and (max-height: em-calc(768))
+	.event-link-and-register-button
+		margin: 2rem 0 0 0 !important
+	#home-featured-timeline-container, #home-featured-events-section .timeline
+		height: rem-calc(180)
+	#home-featured-events-section
+		.event-info-slides
+			padding-bottom: rem-calc(180)
+

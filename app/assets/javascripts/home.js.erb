@@ -1,28 +1,9 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
-// You can use CoffeeScript in this file: http://coffeescript.org/
-
-
-
 var initialize = function() {
 
-    var custom_page_scroll = false
-
-
-
-//    $('html.controller-about.action-index').each(function(){
-//        var $page = $(this)
-//        $('#about-slider').initialize_slider()
-//    })
 
     $('html.controller-home.action-index').each(function () {
         var $page = $(this)
 
-// =====================================
-// -------------------------------------
-// initialize autoscroll banner
-// -------------------------------------
-// =====================================
 
 
 
@@ -35,55 +16,7 @@ var initialize = function() {
 
 
 
-        if(custom_page_scroll) {
-            $('body').mousewheel(function (event) {
-                //EVENT = event
-                var timestamp_difference = 0
-                if (!last_time_stamp) {
-                    last_time_stamp = event.timeStamp
-                }
-                else {
-                    timestamp_difference = event.timeStamp - last_time_stamp
-                    last_time_stamp = event.timeStamp
-                    if (timestamp_difference < 40) {
-                        return;
-                    }
-                }
 
-                console.log("timestamp_difference: ", timestamp_difference)
-
-                if (counter == 0) {
-
-
-                    //console.log("hello:" + event.deltaX, event.deltaY, event.deltaFactor);
-
-                    scroll_home_page(event.deltaY)
-                }
-                if (counter == 3)
-                    counter = 0
-                else
-                    counter++
-            });
-
-//        if (Modernizr.touch || true) {
-//            $("body").on("swipedown swipeup", function (e) {
-//                if (e.type == "swipedown"){
-//                    scroll_home_page(1)
-//                }
-//                else{
-//                    scroll_home_page(-1)
-//                }
-//            })
-//        }
-
-
-            $('#home-page-section-bullets-ul').on('click', 'li', function () {
-                var $this = $(this)
-                var to = +$this.attr('data-to')
-                $body.attr('data-home-page-current-section', to)
-            })
-
-        }
         var $contact_form = $('#home-contact-form-section-form')
         var $phone_field = $contact_form.find('#message_phone')
         $phone_field.mask("+99 (999) 999 99 99")
@@ -106,100 +39,6 @@ var initialize = function() {
 
     var $home_featured_event_info_slides_row = $('#home-featured-event-info-slides-row')
     var $home_featured_events_section = $('#home-featured-events-section')
-    if ($home_featured_event_info_slides_row.length > 0) {
-        //$home_featured_event_info_slides_row.
-
-
-//        prev_start = 4
-//        next_start = 8
-//        $.ajax(
-//        {
-//            url: '/data/featured_events/?ajax=true&direction=both&prev_start=' + prev_start + '&prev_count=14&next_start='+next_start + '&next_count=14',
-//            type: 'GET',
-//            dataType: 'json',
-//            success: function(data){
-//
-//                //$home_featured_events_section
-//               $data  = $(data)
-//               data = data
-//
-//                $data = $data.get(0)
-//               next_events = $data.next_events
-//               prev_events = $data.prev_events
-//               total_count = $data.total_count
-//               prev_remaining = $data.prev_remaining
-//               next_remaining = $data.next_remaining
-//
-//
-//               var $home_featured_event_info_slides_row_ul = $('#home-featured-event-info-slides-row-ul')
-//
-//               $(prev_events).each(function(){
-//                   e = $(this)
-//                   var $event = $('<li class="event home-featured-event" id="event-'+ e.number+'" ><div class="image-and-info columns large-4"><div class="image"><a href="#"><img src="'+ e.img_src+'"/></a></div><div class="info">' +
-//                       '<div class="start_date"><span class="tip">Початок:</span><span class="value">08.09.2014</span>' + '<span class="end-date"><span class="span.tip">Завершення:</span><span class="value">'+'03.10.2014'+'</span>' +
-//                       '<div class="participants-count"></div>' +
-//
-//                       '</div></div></li>')
-//               })
-//
-//
-//
-//            }
-//
-//        } )
-
-
-        $home_featured_event_info_slides_row.on('click', '#home-featured-prev-event-arrow, #home-featured-next-event-arrow', function () {
-            // var $this = $(this)
-            // if($this.hasClass('.nav-arrow'))
-            // var $arrow = $(this)
-            // var arrow = $arrow.get(0)
-            // var direction = arrow.id == 'home-featured-next-event-arrow'
-
-            // var $flags = $home_featured_events_section.find('input.home-featured-events-timeline-flag')
-            // var flags_count = $flags.length
-            // var $checked_flag = $flags.filter(':checked')
-            // var checked_event_number = parseInt($checked_flag.attr('data-event-number'))
-
-            // var challenge_event_number = checked_event_number
-            // if (direction) {
-            //     if (checked_event_number < flags_count) {
-            //         challenge_event_number++
-            //     }
-            //     else {
-            //         challenge_event_number = 1
-            //     }
-            // }
-            // else {
-            //     if (checked_event_number > 1) {
-            //         challenge_event_number--
-            //     }
-            //     else {
-            //         challenge_event_number = flags_count
-            //     }
-            // }
-
-            // var $challenge_event = $('#home-featured-events-timeline-flag-' + challenge_event_number)
-
-            // $checked_flag.prop('checked', false)
-            // $challenge_event.prop('checked', true)
-
-            // var str_direction = direction ? 'next' : 'prev'
-            // $challenge_event
-            //     .removeClass('prev-arrow-hide-event-animation')
-            //     .removeClass('next-arrow-hide-event-animation')
-            //     .addClass(str_direction + '-arrow-show-event-animation')
-
-            // $checked_flag
-            //     .removeClass('prev-arrow-show-event-animation')
-            //     .removeClass('next-arrow-show-event-animation')
-            //     .addClass(str_direction + '-arrow-hide-event-animation')
-
-
-        })
-
-
-    }
 
     var $home_contact_section = $('#home-contact-section')
     if($home_contact_section.length > 0){
@@ -298,46 +137,6 @@ initialize();
 
 
 window.svgs = {
-//     participant: ['<svg version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 370.5 303.5" enable-background="new 0 0 370.5 303.5" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">',
-// '<g>',
-//     '<path fill-rule="evenodd" clip-rule="evenodd" d="M4.1,221.7c2.8-14.1,12-23.4,23.2-31.2c5.1-3.6,11.4-2.9,14.8,1.7'
-//         'c3.6,4.7,2.7,10.7-2.1,14.8c-1.4,1.1-2.8,2.1-4.2,3.2c-6.2,4.9-9.8,10.8-9.2,19.2c0.5,8,0.1,16.1,0.1,24.1'
-//         'c0.1,12.8,9.9,22.8,22.6,22.8c60.6,0.1,121.2,0.1,181.7,0c12.3,0,22.3-10,22.5-22.3c0.1-9.4,0-18.9,0-28.3c0-5.2-2.3-9.3-5.8-12.9'
-//         'c-6.8-7-15.5-11.1-24.5-14.5c-20-7.5-40.8-10.6-62-12c-11.5-0.8-23.2-0.4-34.6-2.3c-28.2-4.7-51.1-29.4-53.9-57.8'
-//         'c-1.1-11.5-0.7-23.1-0.8-34.7c-0.1-11.6-0.1-23.2,0-34.7C72.3,27.6,95.5,3.3,125,4.1c10.3,0.3,20.5,0.1,30.8,0'
-//         'c28.3-0.1,51.5,22,52.1,50.4c0.5,22,0.2,43.9,0,65.9c-0.1,8.8-2.4,17.3-6.2,25.3c-2.6,5.7-8.6,8-14.2,5.9'
-//         'c-5.5-2.1-8.8-8.1-6.7-13.5c3.5-9.1,4.6-18.2,4.2-28c-0.7-17.3,0.3-34.7,0.3-52c0-15.9-10.5-28.5-26.1-30.9'
-//         'c-5.2-0.8-10.6-0.4-15.9-0.4c-8,0.1-16.1-0.4-24,0.7c-14,2.1-24.5,14.6-24.7,28.7c-0.2,16.3-0.2,32.6,0,48.9'
-//         'c0.1,7.7-0.2,15.7,1.4,23.1c4.4,20.4,22.8,34.5,43.7,34.6c28.7,0.2,57,3.6,84.2,13.4c12.5,4.5,24.4,10.2,34.7,18.7'
-//         'c8.7,7.1,15.6,15.6,16.9,27.2c0.6,5.7,0.5,11.6,0.3,17.3c-0.2,7.9,0.3,16-1.2,23.6c-4.3,21.3-22.7,35.7-44.5,35.7'
-//         'c-43.1,0-86.2,0-129.3,0c-17,0-34,0-51,0c-22.9-0.1-41.2-15.4-45.3-38c-0.1-0.8-0.5-1.6-0.7-2.3C4.1,246.2,4.1,234,4.1,221.7z"></path>''
-//     '<path fill-rule="evenodd" clip-rule="evenodd" d="M366.9,201.8c-0.5,2.1-1,4.1-1.5,6.2c-4.8,19.5-22.6,33.7-42.8,34.2'
-//         'c-4.1,0.1-8.3,0.1-12.4,0c-6.4-0.1-11.3-5-11.4-11.2c0-6.3,4.9-11.2,11.5-11.4c5.3-0.2,10.7,0.2,15.9-0.7'
-//         'c10.5-1.9,17.8-11,17.9-21.6c0.1-11.2,0.1-22.4,0-33.7c0-5.8-3.1-10.2-7.8-12.7c-5.6-3-11.8-5.5-18-7c-22.6-5.6-45.1-5.2-67.4,1.7'
-//         'c-5.6,1.7-10.8,3.8-15.6,7.2c-4.6,3.3-10.9,1.8-14.1-2.8c-3.3-4.8-2.3-11.2,2.7-14.3c7.3-4.5,14.9-8.5,22.7-12.8'
-//         'c-0.3-0.3-1-1.2-1.7-2c-9.4-10.7-14.1-23.3-14.3-37.5c-0.1-11.2,0-22.4,0-33.7c0.1-25.4,20-45.5,45.4-45.5c9.8,0,19.7-0.5,29.3,0.7'
-//         'c21.3,2.5,37.9,21.1,38.5,42.5c0.3,12,0.2,24.1,0.1,36.1c0,6.4-5.1,11.3-11.3,11.2c-6.2,0-11.1-4.8-11.2-11.3'
-//         'c-0.1-10.9-0.1-21.7,0-32.6c0-14.4-9.6-24.1-23.9-24.1c-7.2,0-14.4-0.1-21.6,0c-12.8,0.1-22.6,9.9-22.6,22.8'
-//         'c-0.1,11.3-0.1,22.7,0,34c0.1,18.7,14.9,33.7,33.7,34c18.9,0.2,37.1,3.3,54,12.1c8.3,4.3,15.8,9.7,20.7,17.8'
-//         'c2.2,3.7,3.4,7.9,5,11.9C366.9,173.5,366.9,187.7,366.9,201.8z"></path>'
-//     '<path fill-rule="evenodd" clip-rule="evenodd" d="M66.4,168.6c6.3,0,11.4,5.2,11.3,11.5c-0.1,6.1-5.3,11.2-11.4,11'
-//         'c-6.2-0.1-11.1-5.2-11.1-11.4C55.2,173.7,60.3,168.6,66.4,168.6z"></path>'
-// </g>
-// </svg>'].join(''),
-// register_button: '<svg version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 357.3 367.3" enable-background="new 0 0 357.3 367.3" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
-// <g>
-//     <path d="M196.3,181.1l-47.5,32c-2-0.7-4.1-1-6.3-1c-4.2,0-7.9,1.3-11.1,3.5l-52.9-39.9c-2.5-1.9-6.1-1.4-8,1.1
-//         c-1.9,2.5-1.4,6.1,1.1,8l52.9,39.9c-0.7,2-1.1,4.1-1.1,6.4c0,10.5,8.5,19.1,19.1,19.1c10.2,0,18.5-8.1,19.1-18.1l47.5-32.1
-//         c5.3-3.5,6.6-10.6,3.1-15.9C208.6,178.9,201.5,177.5,196.3,181.1z" class="clock-arrow"></path>
-//     <path d="M141.8,90C65.9,90,4.4,151.5,4.4,227.3c0,75.9,61.5,137.4,137.4,137.4c75.9,0,137.4-61.5,137.4-137.4
-//         C279.2,151.5,217.7,90,141.8,90z M222.7,308.3c-21.6,21.6-50.4,33.5-80.9,33.5c-30.6,0-59.4-11.9-81-33.5
-//         c-21.6-21.6-33.5-50.4-33.5-81c0-30.6,11.9-59.3,33.5-80.9c21.6-21.6,50.4-33.6,81-33.6c30.6,0,59.3,11.9,80.9,33.6
-//         c21.6,21.6,33.6,50.4,33.6,80.9C256.3,257.9,244.3,286.7,222.7,308.3z" class="clock-round"></path>
-//     <path d="M300.3,164c20.1-4.1,63.6-9.9,53.9-81c-14.7,19.3-46.6,42.2-61.5,32.6c72.5-41.5,59.5-104.1,57.5-113.7
-//         c-22.9,38.2-71,49.9-104.1,46.5c5.3,34.4-59,48.1-25.7,0.5c-34.2,1.8-73.9,9.3-98.3,28.8c6.4-0.8,13-1.2,19.7-1.2
-//         c83.3,0,150.7,67.5,150.7,150.7c0,15.6-2.3,30.7-6.8,44.8c25.9-24.1,37.8-57.9,44.1-88.3C295.7,216.7,276.9,168.8,300.3,164z" class="clock-fire"></path>
-// </g>
-// </svg>'
     participant: '<%= ApplicationHelper.self_js_embedded_svg('svg/participant.svg') %>',
     registration: '<%= ApplicationHelper.self_js_embedded_svg('svg/registration.svg') %>'
 }
@@ -354,930 +153,190 @@ window.partials = {
 window.month_names = ['січня', 'лютого', 'березня', 'квітня', 'травня', 'червня', 'липня', 'серпня', 'вересня', 'жовтня', 'листопада', 'грудня']
 
 
-// ajax loading for home carousel
-;
- (function($){
-     if($html.hasClass('controller-home action-index')) {
-//     function load_events(prev_page, future_page){
-//         prev_page = prev_page || 2
-//         future_page = future_page || 2
-
-//         $.ajax({
-//             type: 'get',
-//             dataType: 'json',
-//             data: {
-//                 prev_events_page: prev_page,
-//                 future_events_page: future_page
-//             },
-//             url: '/featured_events',
-//             success: function(data, textStatus, jqXHR){
-//                 console.log("data: ", data)
-//                 var prev_events = data['prev_events']
-//                 var future_events = data['future_events']
-//                 var $home_featured_event_info_slides_row_ul = $('#home-featured-event-info-slides-row-ul')
-//                 var prev_events_str = '' 
-//                 var timeline_prev_str = ''
-//                 for(var i = 0; i < prev_events.length; i++){
-//                     var e = prev_events[i]
-//                     //console.log('prev: ' + i + ': ', e['name'])
-//                     //var $event_item_li = $('<li class="event home-featured-event event-collection-item" data-event-id="'+e.id+'"></li>')
-//                     //var $event_item_li_content = $('<div class="featured-section-event-content"></div>')
-//                     //var $image_and_info_column = $('<div class="image-and-info columns large-4"></div>').append('<div class="image"><a href="'+e.event_link+'"><img src="'+e.image_url+'" /></a></div>')
-//                     //$image_and_info_column.append('<div class="info"><div class="start-date"></div><div class="end-date"></div><div class="participants-count"></div></div>')
-//                     var str = window.partials.home.featured_events_carousel_item.interpolate({event_id: e.id, event_url: e.event_link, event_name: e.name, participants_count: e.participants_count, event_short_description: e.short_description, register_button_text: "Зареєструватися", event_image_url: e.image_url, start_date_day: e.date_range.start_date.day, start_date_month: e.date_range.start_date.month, start_date_year: e.date_range.start_date.year, end_date_day: e.date_range.end_date.day, end_date_month: e.date_range.end_date.month, end_date_year: e.date_range.end_date.year, participant_svg: window.svgs.participant, register_button_svg: window.svgs.registration})
-//                     var timeline_str = window.partials.home.featured_events_carousel_point.interpolate({event_day: e.date_range.start_date.day, event_month_name: window.month_names[e.date_range.start_date.month - 1]}) 
-//                     prev_events_str += str
-//                     timeline_prev_str += timeline_str
-
-//                 }
-
-//                 var $first_li = $home_featured_event_info_slides_row_ul.children().first()
-//                 $(prev_events_str).insertBefore($first_li)
-//                 var $timeline_container = $('#home-featured-timeline-row-container')
-//                 var $timeline_first_item = $timeline_container.children().first()
-//                 $(timeline_prev_str).insertBefore($timeline_first_item)
+ if($html.hasClass('controller-home action-index')) {
 
 
-//                 var future_events_str = ''
-//                 var timeline_future_str = ''
-//                 for(var i = 0; i < future_events.length; i++){
-//                     var e = future_events[i]
-//                     //console.log('prev: ' + i + ': ', e['name'])
-//                     //var $event_item_li = $('<li class="event home-featured-event event-collection-item" data-event-id="'+e.id+'"></li>')
-//                     //var $event_item_li_content = $('<div class="featured-section-event-content"></div>')
-//                     //var $image_and_info_column = $('<div class="image-and-info columns large-4"></div>').append('<div class="image"><a href="'+e.event_link+'"><img src="'+e.image_url+'" /></a></div>')
-//                     //$image_and_info_column.append('<div class="info"><div class="start-date"></div><div class="end-date"></div><div class="participants-count"></div></div>')
-//                     var str = window.partials.home.featured_events_carousel_item.interpolate({event_id: e.id, event_url: e.event_link, event_name: e.name, participants_count: e.participants_count, event_short_description: e.short_description, register_button_text: "Зареєструватися", event_image_url: e.image_url, start_date_day: e.date_range.start_date.day, start_date_month: e.date_range.start_date.month, start_date_year: e.date_range.start_date.year, end_date_day: e.date_range.end_date.day, end_date_month: e.date_range.end_date.month, end_date_year: e.date_range.end_date.year, participant_svg: window.svgs.participant, register_button_svg: window.svgs.registration})
-//                     var timeline_str = window.partials.home.featured_events_carousel_point.interpolate({event_day: e.date_range.start_date.day, event_month_name: window.month_names[e.date_range.start_date.month - 1]}) 
-//                     future_events_str += str
-//                     timeline_future_str += timeline_str
+     var $expired_events_carousel = $('#home-expired-events-collection')
+     $expired_events_carousel.owlCarousel({
+         items: 5
+     })
 
-//                 }
+     var $thumbnails_carousel = $('#home-featured-timeline')
+     var $slides_carousel = $('#home-featured-event-info-slides-row-ul')
 
-//                 //var $first_li = $home_featured_event_info_slides_row_ul
-//                 $home_featured_event_info_slides_row_ul.append(prev_events_str)
-
-//                 //var $timeline_first_item = $('#home-featured-timeline-row-container').children().first()
-//                 $timeline_container.append(timeline_prev_str)
-
-//                 var $timeline_items = $timeline_container.children()
-//                 //$timeline_container.css({width: '' + ($timeline_items.length / 7 * 100) + '%' })
-//                 //$timeline_items.css({width: '' + (100 / $timeline_items.length) + '%' })
-//             }
-//         })
-//     }
-
-//     if($html.hasClass('controller-home action-index')){
-//         //load_events() 
-
-//         var $timeline_row_container = $('#home-featured-timeline-row-container')
-//         var $event_info_slides_row_ul = $('#home-featured-event-info-slides-row-ul')
-
-//         function activateEvent(id){
-//             required_event_id = + id
-//             var $event_info_slides_row_ul_lis = $event_info_slides_row_ul.children()  
-//             var $timeline_row_container_children = $timeline_row_container.children()          
-//             var $required_timeline_event = null;
-//             var $required_event_info = null;
-//             var $active_event_info = $event_info_slides_row_ul_lis.filter('.active')
-//             var active_event_id = + $active_event_info.attr('data-event-id')
-//             var required_event_id = null
+     var $thumbnails = $thumbnails_carousel.find('div.event')
 
 
-//             if(typeof(id) == 'object' ){
-//                 //$required_event_info = required_event_id
-//                 if(id.get(0).tagName == 'LI'){
-//                     $required_event_info = id
-//                     required_event_id = + $required_event_info.attr('data-event-id')
-//                     $required_timeline_event = $timeline_row_container_children.filter('[data-event-id='+required_event_id+']')
-
-//                 }
-//                 else{
-//                     $required_timeline_event = id
-//                     required_event_id = + $required_timeline_event.attr('data-event-id')
-//                     $required_event_info = $event_info_slides_row_ul_lis.filter('[data-event-id='+required_event_id+']')
-//                 }
+     var $event_info_slides_container = $('#event-info-slides')
+     var $home_featured_event_info_slides_row_ul = $('#home-featured-event-info-slides-row-ul')
 
 
-//             }
-//             else{
-//                 $required_event_info = $event_info_slides_row_ul_lis.filter('[data-event-id='+required_event_id+']')
-//                 $required_timeline_event = $timeline_row_container_children.filter('[data-event-id='+required_event_id+']')
-//             }
+     $thumbnails_carousel.owlCarousel({
+         items: 7,
+         itemsCustom: false,
+         itemsDesktop: [1199, 6],
+         itemsDesktopSmall: [980, 6],
+         itemsTablet: [768, 4],
+         itemsTabletSmall: false,
+         itemsMobile: [479, 1],
+         singleItem: false,
+         itemsScaleUp: false
+     })
 
 
-//             if(!$required_timeline_event.hasClass('active')){
-//                 var $active_timeline_event = $timeline_row_container.children().filter('.active')
-//                 var active_event_id = + $active_timeline_event.attr('data-event-id')
-//                 var $active_event_info = $event_info_slides_row_ul_lis.filter('[data-event-id='+active_event_id+']')
+     var step = 3
 
-//                 $active_event_info.removeClass('active')
-//                 $active_timeline_event.removeClass('active')
+     var thumbnails_carousel_data = $thumbnails_carousel.data('owlCarousel')
+     var total_prev_items = +$thumbnails_carousel.attr('data-total-prev')
+     var total_future_items = +$thumbnails_carousel.attr('data-total-future')
 
-//                 $required_event_info.addClass('active')
-//                 $required_timeline_event.addClass('active')
-//             }
+     var total_prev_items_loaded_or_in_process = $thumbnails_carousel.find('div.prev').length
+     var total_future_items_loaded_or_in_process = $thumbnails_carousel.find('div.event.future').length
 
-//         }
-
-//         $timeline_row_container.on('click', 'div.event', function(){
-//             var $timeline_event = $(this)
-//             if(!$timeline_event.hasClass('active')){
-//                 var $required_timeline_event = $timeline_event
-//                 var required_event_id = + $timeline_event.attr('data-event-id')
-
-//                 activateEvent($required_timeline_event)
-//             }
-//         })
-
-//         var $home_featured_event_info_slides_row = $('#home-featured-event-info-slides-row')
-
-//         $home_featured_event_info_slides_row.on('click', 'span.nav-arrow', function(){
-//             var $this = $(this)
-//             var $arrow = $this
-//             var $event_info_lis = $event_info_slides_row_ul.children()
-//             if(!$arrow.hasClass('inactive')){
-//                 var $active_event_info = $event_info_lis.filter('.active')
-//                 var $required_event_info = null
-//                 if($arrow.hasClass('next')){
-//                     $required_event_info = $active_event_info.next()
-//                 }
-//                 else{
-//                     $required_event_info = $active_event_info.prev()
-//                 }
-//                 //$active_event_info.removeClass('active')
-//                 activateEvent($active_event_info)
-//             }
-//         })
-//     }
+     thumbnails_carousel_data.jumpTo($thumbnails_carousel.find('div.event.active').parent().index() - ( (thumbnails_carousel_data.options.items - 1) / 2 ))
 
 
-         // ================================================
-         // ------------------------------------------------
-         // my handcrafted v2.0
-         // ------------------------------------------------
-         // ================================================
+     $('div.owl-nav-arrows').on('click', 'div.owl-nav-arrow', function () {
+         var $this = $(this)
+         var $arrow = $(this)
+
+         var current_item = thumbnails_carousel_data.currentItem
+
+         var new_item
 
 
-//     var $event_thumbnails_container = $('#home-featured-timeline-row-container')
-//     var $events_info_container = $('#home-featured-event-info-slides-row-ul')
-//
-//     var prev_events_total = + $event_thumbnails_container.attr('data-total-prev'),
-//         future_events_total = + $event_thumbnails_container.attr('data-total-future'),
-//         prev_event_thumbnails_pages_loaded = 1 ,
-//         future_event_thumbnails_pages_loaded = 1,
-//         thumbnail_pages_in_load = [],
-//
-//
-//         event_info_items_in_load = [],
-//         event_thumbnails_total = prev_events_total + future_events_total,
-//         $event_thumbnails = $event_thumbnails_container.children(),
-//         $prev_event_thumbnails = $event_thumbnails.filter('.prev'),
-//         $future_event_thumbnails = $event_thumbnails.filter('.future'),
-//         prev_event_thumbnails_loaded = $prev_event_thumbnails.length,
-//         prev_event_thumbnails_loaded = $future_event_thumbnails.length,
-//         displayed_thumbnails_indexes = [],
-//         displayed_thumbnails_start_index, displayed_thumbnails_end_index,
-//         max_index
-//
-//
-//
-//
-//
-//     $('#home-featured-timeline').on('click', 'div.home-featured-timeline-arrow, div.event', function(){
-//         var $this = $(this)
-//
-//         if($this.hasClass('home-featured-timeline-arrow')){
-//
-//             var $arrow = $this
-//             var $left_arrow, $right_arrow
-//             var $timeline_events_container = $('#home-featured-timeline-row-container')
-//             if($arrow.hasClass('left')){
-//                 $left_arrow = $arrow
-//             }
-//             else{
-//                 $right_arrow = $arrow
-//             }
-//
-//             var $loaded_event_thumbnails = $event_thumbnails_container.children()
-//
-//             var $loaded_prev_events_thumbnails = $loaded_event_thumbnails.filter('.prev')
-//                     .sort(function(a,b){
-//                         var $a = $(a), $b = $(b)
-//                         var a_event_index = + $a.attr('data-carousel-event-index');
-//                         var b_event_index = + $b.attr('data-carousel-event-index');
-//                         return a_event_index - b_event_index
-//                     })
-//
-//             var $loaded_future_events_thumbnails = $loaded_event_thumbnails.filter('.future')
-//                     .sort(function(a,b){
-//                         var $a = $(a), $b = $(b)
-//                         var a_event_index = + $a.attr('data-carousel-event-index');
-//                         var b_event_index = + $b.attr('data-carousel-event-index');
-//                         return a_event_index - b_event_index
-//                     })
-//
-//             var last_loaded_prev_number = + $loaded_prev_events_thumbnails.first().attr('data-carousel-event-index') * -1
-//             var last_loaded_future_number = + $loaded_future_events_thumbnails.last().attr('data-carousel-event-index')
-//             //alert('prev:'+last_loaded_prev_number+' future:'+last_loaded_future_number)
-//             //var current_visible_start_index
-//
-//             var one_item_width = 140
-//             var items_per_scroll = 3
-//             var visible_items_count = 7
-//
-//
-//             var current_left = $timeline_events_container.css('left')
-//
-//
-//             var current_displayed_thumbnails_start_index = -1 * (current_left / one_item_width )
-//             var current_displayed_thumbnails_end_index = current_displayed_thumbnails_start_index + visible_items_count - 1
-//
-//
-//             var thumbnails_required_start_index, thumbnails_required_end_index
-//
-//             var $thumbnails = $event_thumbnails_container.children()
-//             var $current_first_visible_thumbnail = $thumbnails.eq(current_displayed_thumbnails_start_index)
-//
-//             var current_first_visible_thumbnail_number = + $current_first_visible_thumbnail.attr('data-carousel-event-index')
-//             if(current_first_visible_thumbnail_number < 0){
-//                 current_first_visible_thumbnail_number *= -1
-//             }
-//
-//             var $current_last_visible_thumbnail = $thumbnails.eq(current_displayed_thumbnails_end_index)
-//
-//             var current_last_visible_thumbnail_number = + $current_last_visible_thumbnail.attr('data-carousel-event-index')
-//             if(current_last_visible_thumbnail_number < 0){
-//                 current_last_visible_thumbnail_number *= -1
-//             }
-//
-//             var current_carousel_state = {
-//                first_visible_item: {
-//                  carousel_index: current_displayed_thumbnails_start_index,
-//                  prev: $current_first_visible_thumbnail.hasClass('prev'),
-//                  future: $current_first_visible_thumbnail.hasClass('future'),
-//                  number: current_first_visible_thumbnail_number
-//                },
-//
-//                last_visible_item: {
-//                    carousel_index: current_displayed_thumbnails_start_index,
-//                     prev: $current_first_visible_thumbnail.hasClass('prev'),
-//                     future: $current_first_visible_thumbnail.hasClass('future'),
-//                     number: current_first_visible_thumbnail_number
-//                 }
-//             }
-//
-//             var change
-//             if($left_arrow){
-//                 thumbnails_required_start_index = current_displayed_thumbnails_start_index - items_per_scroll
-//                 //change = one_item_width * items_per_scroll
-//             }
-//             else{
-//                 //change = -1 * one_item_width * items_per_scroll
-//
-//             }
-//
-//
-//             if(current_left == 'auto'){
-//                 current_left = 0
-//             }
-//             else{
-//                 current_left = parseInt(current_left)
-//             }
-//
-//             max_index = event_thumbnails_total - 1
-//
-//             var max_left = 0
-//             var min_left = -1 * max_index * one_item_width
-//             var counted_left = current_left + change
-//
-//             if( counted_left > max_left){
-//                 counted_left = max_left
-//             }
-//             else if(counted_left < min_left){
-//                 counted_left = min_left
-//             }
-//
-//
-//
-//
-//
-//             var required_displayed_thumbnails_start_index = -1 * (counted_left / one_item_width )
-//             var required_displayed_thumbnails_end_index = displayed_thumbnails_start_index + visible_items_count - 1
-//
-//             var required_displayed_thumbnail
-//
-//             var $local_event_thumbnails = $event_thumbnails_container.children()
-//             var $local_prev_event_thumbnails = $local_event_thumbnails.filter('.prev')
-//             var $local_future_event_thumbnails = $local_event_thumbnails.filter('.future')
-//
-//
-//
-//             if(counted_left != current_left) {
-//
-//                 var style_left = '' + ( counted_left ) + 'px'
-//                 $timeline_events_container.css({left: style_left})
-//
-//                 //$.ajax({
-//                 //    url: ( count.)
-//                 //})
-//             }
-//
-//
-//
-//
-//
-//         }
-//         else if($this.hasClass('event')){
-//             var $event_thumbnail = $this
-//             if(!$event_thumbnail.hasClass('active')){
-//                 var $event_thumbnails = $event_thumbnails_container.children()
-//                 var $active_event_thumbnail = $event_thumbnails.filter('.active')
-//                 $active_event_thumbnail.removeClass('active')
-//                 var loaded = $event_thumbnail.hasClass('loaded')
-//                 $event_thumbnail.addClass('active ' + ( loaded ? '' : 'loading' ) )
-//
-//                 if(!loaded) {
-//                     var event_id = +$event_thumbnail.attr('data-event-id')
-//                     $.ajax({
-//                         url: '/home/event_info',
-//                         data: {event_ids: [event_id].join(',')},
-//                         dataType: 'html',
-//                         success: function (data, textStatus, jqXHR) {
-//                             var $data = $(data)
-//                             var $items = $data
-//                             $events_info_container.append($data)
-//                             var $required_item = $data.first()
-//                             var $required_item_thumbnails
-//                             var event_id_strings_arr = []
-//                             $items.each(function(){
-//                                 var $this = $(this)
-//                                 var id = $this.attr('data-event-id')
-//                                 //var $required_item_thumbnail = $event_thumbnails_container.children().filter('[data-event-id='+id+']')
-//                                 //$required_item_thumbnails.add($this)
-//                                 event_id_strings_arr.push('[data-event-id='+id+']')
-//                             })
-//
-//                             $required_item_thumbnails = $event_thumbnails_container.children().filter(event_id_strings_arr.join(','))
-//                             $required_item_thumbnails.addClass('loaded')
-//                             $required_item.addClass('active')
-//                             console.log('data: ', $data.first())
-//                         }
-//                     })
-//                 }
-//             }
-//         }
-//     })
+         if ($arrow.hasClass('prev')) {
+             new_item = current_item - step
+         }
+         else {
+             new_item = current_item + step
+         }
+
+         //new_item = validateNewItemIndex(new_item)
+
+         var maxIndex = thumbnails_carousel_data.itemsAmount
+         var minIndex = 0
+
+         if (new_item > maxIndex) {
+             new_item = maxIndex
+         }
+         else if (new_item < minIndex) {
+             new_item = minIndex
+         }
+
+         if (current_item != new_item) {
+             thumbnails_carousel_data.goTo(new_item)
+         }
+     })
 
 
-         var $expired_events_carousel = $('#home-expired-events-collection')
-         $expired_events_carousel.owlCarousel({
-             items: 5
-         })
 
-         var $thumbnails_carousel = $('#home-featured-timeline')
-         var $slides_carousel = $('#home-featured-event-info-slides-row-ul')
+     var loadedSlides = []
+     var slidesInLoad = []
 
-         var $thumbnails = $thumbnails_carousel.find('div.event')
+     $event_info_slides_container.on('click', 'span.nav-arrow', function () {
+         var $arrow = $(this)
+         var prev_arrow = $arrow.hasClass('prev')
+         var next_arrow = !prev_arrow
 
+         var $active_thumbnail = $thumbnails.filter('.active')
+         var $active_thumbnail_wrapper = $active_thumbnail.parent()
+         var active_item_index = $active_thumbnail_wrapper.index()
 
-         var $event_info_slides_container = $('#event-info-slides')
-         var $home_featured_event_info_slides_row_ul = $('#home-featured-event-info-slides-row-ul')
-
-//     $carousel.owlCarousel({
-//         loop:false,
-//         margin:10,
-//         //nav:false,
-//         navigation: false,
-//         navigationText: [
-//             //'<%= ApplicationHelper.self_js_embedded_svg('svg/arrow_left.svg') %>',
-//             //'<%= ApplicationHelper.self_js_embedded_svg('svg/arrow_right.svg') %>',
-//             "<i class='icon-chevron-left icon-white'><</i>",
-//             "<i class='icon-chevron-right icon-white'>></i>"
-//         ],
-//         responsive:{
-//             0:{
-//                 items:1
-//             },
-//             600:{
-//                 items:3
-//             },
-//             1000:{
-//                 items:7
-//             }
-//         }
-//     })
-
-         $thumbnails_carousel.owlCarousel({
-             items: 7,
-             itemsCustom: false,
-             itemsDesktop: [1199, 6],
-             itemsDesktopSmall: [980, 6],
-             itemsTablet: [768, 4],
-             itemsTabletSmall: false,
-             itemsMobile: [479, 1],
-             singleItem: false,
-             itemsScaleUp: false
-         })
-
-         //$slides_carousel.owlCarousel({
-         //    items: 1
-         //})
-
-         var step = 3
-
-         var thumbnails_carousel_data = $thumbnails_carousel.data('owlCarousel')
-         var total_prev_items = +$thumbnails_carousel.attr('data-total-prev')
-         var total_future_items = +$thumbnails_carousel.attr('data-total-future')
-
-         var total_prev_items_loaded_or_in_process = $thumbnails_carousel.find('div.prev').length
-         var total_future_items_loaded_or_in_process = $thumbnails_carousel.find('div.event.future').length
-
-         //carousel_data.jumpTo($carousel.find('div.event.active').parent().index() - ( (carousel_data.options.items - 1) / 2 ) )
-         thumbnails_carousel_data.jumpTo($thumbnails_carousel.find('div.event.active').parent().index() - ( (thumbnails_carousel_data.options.items - 1) / 2 ))
-
-//     function validateNewItemIndex(new_item){
-//         if(new_item != undefined){
-//
-//             var visible_items_count = carousel_data.visibleItems.length
-//
-//             var max = carousel_data.itemsAmount - visible_items_count - 1
-//             var min = 0
-//
-//             if(max < min){
-//                 max = min
-//             }
-//
-//             if(new_item < min){
-//                 new_item = min
-//             }
-//             else if(new_item > max){
-//                 new_item = max
-//             }
-//
-//             return new_item
-//         }
-//     }
-
-         $('div.owl-nav-arrows').on('click', 'div.owl-nav-arrow', function () {
-             var $this = $(this)
-             var $arrow = $(this)
-
-             var current_item = thumbnails_carousel_data.currentItem
-
-             var new_item
+         var $slides = $home_featured_event_info_slides_row_ul.children()
+         var $active_slide = $slides.filter('.active')
 
 
-             if ($arrow.hasClass('prev')) {
-                 new_item = current_item - step
+         var new_item_index
+         if (prev_arrow) {
+             new_item_index = active_item_index - 1
+         }
+         else {
+             new_item_index = active_item_index + 1
+         }
+
+
+         if (new_item_index <= thumbnails_carousel_data.itemsAmount - 1 && new_item_index >= 0) {
+
+
+             var is_visible_item = thumbnails_carousel_data.visibleItems.indexOf(new_item_index) >= 0
+             if (!is_visible_item) {
+                 thumbnails_carousel_data.goTo(new_item_index)
+             }
+
+             var $new_item = thumbnails_carousel_data.$owlItems.eq(new_item_index)
+             var $new_item_thumbnail = $new_item.children()
+             var new_event_id = +$new_item_thumbnail.attr('data-event-id')
+             var loaded = $new_item_thumbnail.hasClass('loaded')
+             ///////
+
+             $active_slide.removeClass('active').addClass('inactive')
+
+
+             $new_item_thumbnail.removeClass('inactive').addClass('active')
+             $active_thumbnail.removeClass('active').addClass('inactive')
+
+             if (!loaded) {
+                 loadEvent(new_event_id, $new_item_thumbnail)
              }
              else {
-                 new_item = current_item + step
-             }
 
-             //new_item = validateNewItemIndex(new_item)
+                 var $new_slide = $slides.filter('[data-event-id=' + new_event_id + ']')
 
-             var maxIndex = thumbnails_carousel_data.itemsAmount
-             var minIndex = 0
+                 $new_slide.removeClass('inactive').addClass('active')
 
-             if (new_item > maxIndex) {
-                 new_item = maxIndex
-             }
-             else if (new_item < minIndex) {
-                 new_item = minIndex
-             }
-
-             if (current_item != new_item) {
-                 thumbnails_carousel_data.goTo(new_item)
-             }
-         })
-
-//     $event_info_slides_container.on('click', 'span.nav-arrow', function(){
-//         var $this = $(this)
-//         var $arrow = $this
-//
-//         var arrow_next = $arrow.hasClass('next')
-//         var arrow_prev = !arrow_next
-//
-//
-//         var max_index = thumbnails_carousel_data.itemsAmount - 1
-//         if(arrow_prev){
-//             var current_thumbnail_item = thumbnails_carousel_data.currentItem
-//             var new_thumbnail_item = validateNewItemIndex(current_thumbnail_item-1)
-//             if(new_thumbnail_item != current_thumbnail_item){
-//                 thumbnails_carousel_data.goTo(new_thumbnail_item)
-//                 //carousel_data.prev()
-//             }
-//             if(current_thumbnail_item - 1 >= 0){
-////                 var $current_thumbnail_item = $(carousel_data.$owlItems[current_thumbnail_item])
-////                 $current_thumbnail_item.children().removeClass('active')
-////                 var $new_thumbnail_item = $(carousel_data.$owlItems[current_thumbnail_item-1])
-////                 $new_thumbnail_item.children().addClass('active')
-//
-//
-//             }
-//         }
-//         else{
-//             // next
-//             //carousel_data.next()
-//
-//             var current_thumbnail_item = thumbnails_carousel_data.currentItem
-//             var new_thumbnail_item = validateNewItemIndex(current_thumbnail_item+1)
-//             if(new_thumbnail_item != current_thumbnail_item){
-//                 thumbnails_carousel_data.goTo(new_thumbnail_item)
-//             }
-//
-//             if(current_thumbnail_item + 1 <= max_index){
-//                 //var $current_thumbnail_item = $(carousel_data.$owlItems[current_thumbnail_item])
-////                 $current_thumbnail_item.children().removeClass('active')
-////                 var $new_thumbnail_item = $(carousel_data.$owlItems[current_thumbnail_item+1])
-////                 $new_thumbnail_item.children().addClass('active')
-//             }
-//         }
-//
-//         var $active_thumbnail = $thumbnails.filter('.active')
-//         var $slides = $home_featured_event_info_slides_row_ul.children()
-//         var $active_slide = $slides.filter('.active')
-//         var $active_thumbnail_wrapper = $active_thumbnail.parent()
-//         var $new_thumbnail_wrapper
-//         var new_exists = false
-//         if(arrow_next){
-//             $new_thumbnail_wrapper = $active_thumbnail_wrapper.next()
-//         }
-//         else{
-//             $new_thumbnail_wrapper = $active_thumbnail_wrapper.prev()
-//         }
-//
-//         new_exists = $new_thumbnail_wrapper.length > 0
-//         if(new_exists){
-//             var $new_thumbnail = $new_thumbnail_wrapper.children()
-//
-//             // apply changes
-//             $active_thumbnail.removeClass('active')
-//             $active_slide.removeClass('active')
-//
-//             $new_thumbnail.addClass('active')
-//             var $new_slide
-//             var new_slide_loaded = $new_thumbnail.hasClass('loaded')
-//             var new_event_id = + $new_thumbnail.attr('data-event-id')
-//             if(!new_slide_loaded){
-//
-//
-//                 $.ajax({
-//                         url: '/home/event_info',
-//                         data: {event_ids: [new_event_id].join(',')},
-//                         dataType: 'html',
-//                         success: function (data, textStatus, jqXHR) {
-//                             var $data = $(data)
-//                             var $items = $data
-//                             $items.first().addClass('active')
-//                             $home_featured_event_info_slides_row_ul.append($items)
-//                             var $required_item = $data.first()
-//                             var $required_item_thumbnails
-//                             var event_id_strings_arr = []
-//                             var event_id = + $items.first().attr('data-event-id')
-//
-//                             //$items.each(function(){
-//                             //    var $this = $(this)
-//                             //    var id = $this.attr('data-event-id')
-//                             //    //var $required_item_thumbnail = $event_thumbnails_container.children().filter('[data-event-id='+id+']')
-//                             //    //$required_item_thumbnails.add($this)
-//                             //    event_id_strings_arr.push('[data-event-id='+id+']')
-//                             //})
-//
-//                             //$required_item_thumbnails = $event_thumbnails_container.children().filter(event_id_strings_arr.join(','))
-//                             //$required_item_thumbnails.addClass('loaded')
-//                             //$required_item.addClass('active')
-//                             var $thumbnail = $thumbnails.filter('[data-event-id='+event_id+']')
-//                             $thumbnail.addClass('loaded')
-//
-//                             //console.log('data: ', $data.first())
-//                         }
-//                     })
-//             }
-//             else{
-//                $new_slide = $slides.filter('[data-event-id='+new_event_id+']')
-//             }
-//         }
-//
-//     })
-
-         var loadedSlides = []
-         var slidesInLoad = []
-
-         $event_info_slides_container.on('click', 'span.nav-arrow', function () {
-             var $arrow = $(this)
-             var prev_arrow = $arrow.hasClass('prev')
-             var next_arrow = !prev_arrow
-
-             var $active_thumbnail = $thumbnails.filter('.active')
-             var $active_thumbnail_wrapper = $active_thumbnail.parent()
-             var active_item_index = $active_thumbnail_wrapper.index()
-
-             var $slides = $home_featured_event_info_slides_row_ul.children()
-             var $active_slide = $slides.filter('.active')
-
-
-             var new_item_index
-             if (prev_arrow) {
-                 new_item_index = active_item_index - 1
-             }
-             else {
-                 new_item_index = active_item_index + 1
-             }
-
-
-             if (new_item_index <= thumbnails_carousel_data.itemsAmount - 1 && new_item_index >= 0) {
-
-
-                 var is_visible_item = thumbnails_carousel_data.visibleItems.indexOf(new_item_index) >= 0
-                 if (!is_visible_item) {
-                     thumbnails_carousel_data.goTo(new_item_index)
-                 }
-
-                 var $new_item = thumbnails_carousel_data.$owlItems.eq(new_item_index)
-                 var $new_item_thumbnail = $new_item.children()
-                 var new_event_id = +$new_item_thumbnail.attr('data-event-id')
-                 var loaded = $new_item_thumbnail.hasClass('loaded')
-                 ///////
-
-                 $active_slide.removeClass('active').addClass('inactive')
-
-
-                 $new_item_thumbnail.removeClass('inactive').addClass('active')
-                 $active_thumbnail.removeClass('active').addClass('inactive')
-
-                 if (!loaded) {
-                     loadEvent(new_event_id, $new_item_thumbnail)
-                 }
-                 else {
-
-                     var $new_slide = $slides.filter('[data-event-id=' + new_event_id + ']')
-
-                     $new_slide.removeClass('inactive').addClass('active')
-
-                 }
-             }
-
-         })
-
-
-         function loadEvent(event_id, $thumbnail) {
-             console.log('load_event: ', event_id)
-             if (slidesInLoad.indexOf(event_id) < 0) {
-                 slidesInLoad.push(event_id)
-                 $.ajax({
-                     url: '/home/event_info',
-                     data: {event_ids: [event_id].join(',')},
-                     type: 'get',
-                     dataType: 'html',
-                     success: function (data) {
-                         var $html_source = $(data)
-                         $thumbnail.addClass('loaded')
-
-                         $home_featured_event_info_slides_row_ul.append($html_source)
-
-                     }
-                 })
              }
          }
 
-         $thumbnails_carousel.on('click', 'div.owl-item', function () {
-             var $item = $(this)
+     })
 
-             var $thumbnail = $item.children()
-             var active = $thumbnail.hasClass('active')
-             if(!active) {
-                 var loaded = $thumbnail.hasClass('loaded')
-                 var $active_thumbnail = $thumbnails.filter('.active')
-                 $thumbnail.removeClass('inactive').addClass('active')
-                 $active_thumbnail.removeClass('active').addClass('inactive')
-                 var $slides = $home_featured_event_info_slides_row_ul.children()
-                 var $active_slide = $slides.filter('.active')
-                 $active_slide.removeClass('active').addClass('inactive')
-                 var event_id = +$thumbnail.attr('data-event-id')
-                 if (!loaded) {
-                     loadEvent(event_id, $thumbnail)
-                 }
-                 else {
-                     var $new_slide = $slides.filter('[data-event-id=' + event_id + ']')
-                     $new_slide.removeClass('inactive').addClass('active')
+
+     function loadEvent(event_id, $thumbnail) {
+         console.log('load_event: ', event_id)
+         if (slidesInLoad.indexOf(event_id) < 0) {
+             slidesInLoad.push(event_id)
+             $.ajax({
+                 url: '/home/event_info',
+                 data: {event_ids: [event_id].join(',')},
+                 type: 'get',
+                 dataType: 'html',
+                 success: function (data) {
+                     var $html_source = $(data)
+                     $thumbnail.addClass('loaded')
+
+                     $home_featured_event_info_slides_row_ul.append($html_source)
 
                  }
-             }
-         })
-
-
-//     $('div.owl-nav-arrows').on('click', 'div.owl-nav-arrow', function(){
-//
-//         var $this = $(this)
-//
-//         var items_min_difference_for_load = 14
-//
-//         var load_count = 7
-//
-//
-//         var $arrow = $this
-//         var arrows_step = 3
-//
-//         var current_item = carousel_data.currentItem
-//         var visible_items_max_count = carousel_data.maximumItem
-//         var total_items_count = carousel_data.itemsAmount
-//
-//         var min = 0
-//         var max = total_items_count - visible_items_max_count
-//         if(max < 0){
-//             max = 0
-//         }
-//
-//         var required_page
-//
-//         if($arrow.hasClass('prev')){
-//             //if(current_item > 0){
-//             required_page = current_item - arrows_step
-//             //}
-//         }
-//         else{
-//             required_page = current_item + arrows_step
-//         }
-//
-//         if(required_page < min){
-//             //required_page = min
-//         }
-//         else if(required_page > max){
-//             //required_page = max
-//         }
-//
-//         var url, start_number, end_number, count_for_load, need_load = false;
-//
-//
-//
-//         if(required_page != current_item){
-//
-//             var check_for_need_load = false
-//
-//             if(required_page < 0 || required_page > total_items_count){
-//                 check_for_need_load = true
-//             }
-//
-//             if(check_for_need_load) {
-//
-//                 //alert('check_for_need_load')
-//                 if (required_page <= items_min_difference_for_load ) {
-//                     // load prev items
-//
-//
-//                     //var max_loaded_prev_number = -1 * (+carousel_data.$owlItems.first().children().attr('data-carousel-event-index'))
-//                     //start_number = max_loaded_prev_number + 1
-//                     start_number = total_prev_items_loaded_or_in_process + 1
-//                     end_number = start_number + load_count - 1
-//
-//                     if (start_number <= total_prev_items) {
-//                         if (end_number > total_prev_items) {
-//                             end_number = total_prev_items
-//                         }
-//
-//                         count_for_load = end_number - start_number + 1
-//
-//                         url = '/uk/home/prev_events_thumbnails'
-//                         //alert('end_number: '+end_number+'; total_prev_items_loaded_or_in_process: '+total_prev_items_loaded_or_in_process+'; total_prev_items: '+total_prev_items)
-//                         if(end_number > total_prev_items_loaded_or_in_process) {
-//                             //total_prev_items_loaded_or_in_process += count_for_load
-//                             total_prev_items_loaded_or_in_process = end_number
-//                             need_load = true
-//                         }
-//
-//
-//                     }
-//                 }
-//                 else if (total_items_count - required_page <= items_min_difference_for_load && required_page > total_future_items_loaded_or_in_process) {
-//                     // load future items
-//
-//                     //var max_loaded_future_number = +carousel_data.$owlItems.last().children().attr('data-carousel-event-index')
-//                     //start_number = max_loaded_future_number + 1
-//                     start_number = total_future_items_loaded_or_in_process + 1
-//                     end_number = start_number + load_count - 1
-//
-//                     if (start_number <= total_future_items) {
-//                         if (end_number > total_future_items) {
-//                             end_number = total_future_items
-//                         }
-//                         count_for_load = end_number - start_number + 1
-//                         url = '/uk/home/future_events_thumbnails'
-//
-//                         if(end_number > total_future_items_loaded_or_in_process){
-//                             //total_future_items_loaded_or_in_process += count_for_load
-//                             total_prev_items_loaded_or_in_process = end_number
-//                             need_load = true
-//                         }
-//
-//
-//                     }
-//                 }
-//
-//                 if (need_load) {
-//                     //alert('need_load')
-//                     $.ajax({
-//                         type: 'get',
-//                         url: url,
-//                         dataType: 'html',
-//                         data: {start_number: start_number, end_number: end_number},
-//                         success: function (data) {
-//                             var $data = $(data)
-//                             var $items = $data
-//                             var position = -1;
-//                             var $first_item = $items.first()
-//                             if($first_item.hasClass('prev')){
-//                                 position = 0
-//                                 //var first_item_number = -1 * (+ $first_item.attr('data-carousel-event-index'))
-//                                 var $prev_owl_items = carousel_data.$owlItems.filter(function(){
-//                                     var $this = $(this);
-//                                     return $this.children().hasClass('prev');
-//                                 }).sort(function(a,b){
-//                                     var $a = $(a), $b = $(b);
-//                                     var a_index =  ( + $a.attr('data-carousel-event-index') )
-//                                     var b_index =  ( + $a.attr('data-carousel-event-index') )
-//
-//                                     if(a_index < 0){
-//                                         a_index *= -1
-//                                     }
-//                                     if(b_index < 0){
-//                                         b_index *= -1
-//                                     }
-//                                     return a_index - b_index
-//                                 })
-//                                 var $last_prev_item = $prev_owl_items.first()
-//                                 var last_prev_item_index = $last_prev_item.index()
-//                                 position = last_prev_item_index
-//                                 //alert('position: '+position+'event-id'+$last_prev_item.children().attr('data-event-id'))
-//                             }
-//                             else{
-//                                 position = 0
-//                                 //var first_item_number = -1 * (+ $first_item.attr('data-carousel-event-index'))
-//                                 var $future_owl_items = carousel_data.$owlItems.filter(function(){
-//                                     var $this = $(this);
-//                                     return $this.children().hasClass('future');
-//                                 }).sort(function(a,b){
-//                                     var $a = $(a), $b = $(b);
-//                                     var a_index = -1 * ( + $a.attr('data-carousel-event-index') )
-//                                     var b_index = -1 * ( + $a.attr('data-carousel-event-index') )
-//
-//                                     if(a_index<0){
-//                                         a_index *= -1
-//                                     }
-//
-//                                     if(b_index<0){
-//                                         b_index *= -1
-//                                     }
-//                                     return b_index - a_index
-//                                 })
-//                                 var $last_future_item = $future_owl_items.last()
-//                                 var last_future_item_index = $last_future_item.index()
-//                                 position = last_future_item_index
-//                             }
-//                             /*$items.each(function () {
-//                                 var $item = $(this)
-//
-//                                 console.log('item: ', $item)
-//
-//                                 if($item.hasClass('prev')){
-//                                     position = 0
-//                                 }
-//                                 if(position >= 0){
-//                                     carousel_data.addItem($item, position)
-//                                 }
-//                                 else{
-//                                     carousel_data.addItem($item)
-//                                 }
-//
-//                             })*/
-//
-//                             //alert('items added at: position: ' + position)
-//
-//                             if(position >= 0){
-//                                 carousel_data.addItem($items, position)
-//                             }
-//                             else{
-//                                 carousel_data.addItem($items)
-//                             }
-//                         }
-//                     })
-//                 }
-//
-//             }
-//
-//
-//
-//
-//             console.log('goTo: ', required_page, ' from: ', current_item)
-//             carousel_data.goTo(required_page)
-//         }
-//
-//
-//
-//
-//     })
+             })
+         }
      }
-}
- )(jQuery)
+
+     $thumbnails_carousel.on('click', 'div.owl-item', function () {
+         var $item = $(this)
+
+         var $thumbnail = $item.children()
+         var active = $thumbnail.hasClass('active')
+         if(!active) {
+             var loaded = $thumbnail.hasClass('loaded')
+             var $active_thumbnail = $thumbnails.filter('.active')
+             $thumbnail.removeClass('inactive').addClass('active')
+             $active_thumbnail.removeClass('active').addClass('inactive')
+             var $slides = $home_featured_event_info_slides_row_ul.children()
+             var $active_slide = $slides.filter('.active')
+             $active_slide.removeClass('active').addClass('inactive')
+             var event_id = +$thumbnail.attr('data-event-id')
+             if (!loaded) {
+                 loadEvent(event_id, $thumbnail)
+             }
+             else {
+                 var $new_slide = $slides.filter('[data-event-id=' + event_id + ']')
+                 $new_slide.removeClass('inactive').addClass('active')
+
+             }
+         }
+     })
+
+ }
+
+
 

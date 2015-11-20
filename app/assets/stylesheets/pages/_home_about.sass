@@ -39,8 +39,10 @@
 	.social-links
 		margin-top: 2rem
 		ul
+			+flexbox
 			padding: 0
 			margin: 0
+
 
 			li
 				display: inline-block
@@ -66,3 +68,24 @@
 					svg
 						g
 							fill: #0a4f6c
+
+
+
+@media #{$screen} and (max-width: em-calc(768))
+	.name
+		position: relative !important
+		a
+			font-size: 2rem !important
+
+	#home-about-section
+		.short-description
+			@include grid-column(9, $push: 3)
+
+@media #{$small-only}, #{$screen} and (max-height: em-calc(568))
+	#home-about-section
+		.short-description
+			+grid-column(12)
+			left: 0
+
+
+

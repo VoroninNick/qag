@@ -98,6 +98,36 @@ var initialize = function() {
         counter = 0
         last_time_stamp = null
 
+        scroll_home_page = function(difference){
+            var $flags = $('.home-page-section-flag')
+            var $checked_flag = $flags.filter(':checked')
+            var checked_flag_index = $checked_flag.index()
+            var checked_section_number = parseInt($checked_flag.attr('data-to'))
+
+            var next_number = 0;
+            var min_number = 1;
+            var max_number = 6;
+            if (difference > 0)
+                next_number = (checked_section_number > min_number) ? checked_section_number - 1 : min_number;
+            else {
+                next_number = (checked_section_number < max_number) ? checked_section_number + 1 : max_number
+            }
+
+
+            if (checked_section_number != next_number) {
+                console.log('checked:' + checked_section_number + '; next: ' + next_number)
+                $next_flag = $flags.filter('#home-page-section-flag-from-' + (checked_section_number) + '-to-' + (next_number))
+                //$checked_flag.removeAttr('checked')
+                //$next_flag.attr('checked', 'checked')
+                $checked_flag.prop('checked', false)
+                $next_flag.prop('checked', true)
+                $body.attr('data-home-page-current-section', next_number)
+
+
+            }
+        }
+
+
         $('body').mousewheel(function (event) {
             //EVENT = event
             var timestamp_difference = 0
@@ -119,38 +149,26 @@ var initialize = function() {
 
                 //console.log("hello:" + event.deltaX, event.deltaY, event.deltaFactor);
 
-                var $flags = $('.home-page-section-flag')
-                var $checked_flag = $flags.filter(':checked')
-                var checked_flag_index = $checked_flag.index()
-                var checked_section_number = parseInt($checked_flag.attr('data-to'))
-
-                var next_number = 0;
-                var min_number = 1;
-                var max_number = 6;
-                if (event.deltaY > 0)
-                    next_number = (checked_section_number > min_number) ? checked_section_number - 1 : min_number;
-                else {
-                    next_number = (checked_section_number < max_number) ? checked_section_number + 1 : max_number
-                }
-
-
-                if (checked_section_number != next_number) {
-                    console.log('checked:' + checked_section_number + '; next: ' + next_number)
-                    $next_flag = $flags.filter('#home-page-section-flag-from-' + (checked_section_number) + '-to-' + (next_number))
-                    //$checked_flag.removeAttr('checked')
-                    //$next_flag.attr('checked', 'checked')
-                    $checked_flag.prop('checked', false)
-                    $next_flag.prop('checked', true)
-                    $body.attr('data-home-page-current-section', next_number)
-
-
-                }
+                scroll_home_page(event.deltaY)
             }
             if (counter == 3)
                 counter = 0
             else
                 counter++
         });
+
+        if (Modernizr.touch || true) {
+            $("body").on("swipedown swipeup", function (e) {
+                if (e.type == "swipedown"){
+                    scroll_home_page(1)
+                }
+                else{
+                    scroll_home_page(-1)
+                }
+            })
+        }
+
+
 
         $('#home-page-section-bullets-ul').on('click', 'li', function(){
             var $this = $(this)

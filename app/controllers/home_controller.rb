@@ -113,6 +113,12 @@ class HomeController < ApplicationController
     #end
   end
 
+  def new
+    index
+
+    render "home/new"
+  end
+
   def featured_events
     #respond_to do |format|
       #format.html

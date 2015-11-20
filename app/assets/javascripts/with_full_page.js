@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+//= require jquery/dist/jquery.min
 //= require jquery_ujs
 //= require misc
 //= require interpolate
@@ -22,6 +22,7 @@
 //= require fancybox
 
 //= require jquery-touch-events/src/1.0.1/jquery.mobile-events
+
 
 // require tiny_validation
 //= require validation
@@ -49,9 +50,6 @@
 
 //= require fast_code/layout
 //= require fast_code/dashboard
-
-
-//= require mobile/home_scroll
 
 //$(function(){ $(document).foundation(); });
 

@@ -17,7 +17,7 @@
 
 /public
 /vendor
-/Gemfile.lock
+
 /db/*.sqlite3
 /.idea
 /db/seeds.rb

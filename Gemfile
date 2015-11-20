@@ -67,7 +67,7 @@ gem 'google-analytics-turbolinks'
 gem 'social-buttons'
 #gem 'wise-links'
 
-gem 'wiselinks', github: 'igor-alexandrov/wiselinks', branch: 'dev'
+#gem 'wiselinks', github: 'igor-alexandrov/wiselinks', branch: 'dev'
 
 # css
 # Use SCSS for stylesheets
@@ -172,3 +172,8 @@ gem 'fancybox2-rails'
 #gem 'ukrainian'
 
 gem 'global_config'
+
+gem 'quiet_assets'
+gem 'thin'
+
+gem "bower-rails"

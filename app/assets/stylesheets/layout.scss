@@ -707,8 +707,8 @@ $header-height: 90px;
 
 .header-menu-social-icon{
   display: inline-block;
-  margin: 1rem;
-
+  //margin: 1rem;
+  @include flex-grow(1);
 }
 
 #header-menu-social-icon-google_plus{

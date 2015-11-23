@@ -68,12 +68,14 @@
   display: inline-block;
   //padding: 2rem;
   padding: 0;
-  margin: 2rem;
+  //margin: 2rem;
   //border: 10px lightblue solid;
   z-index: 8;
   position: relative;
   //transform: translateY(-50%);
   max-width: 100%;
+  overflow: hidden;
+
 }
 
 .popup-box{
@@ -489,6 +491,7 @@ select:-webkit-autofill {
 #modal-windows-wrapper{
   .devise-form-wrap{
     width: 500px;
+    max-width: 100%;
   }
 }
 
@@ -873,5 +876,16 @@ select:-webkit-autofill {
       display: block;
       color: red;
     }
+  }
+}
+
+
+
+@media #{$small-only} {
+  .sign-up-link-wrapper{
+    text-align: center;
+    top: 11px;
+    position: relative;
+    line-height: 1;
   }
 }

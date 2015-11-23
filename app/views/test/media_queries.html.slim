@@ -32,3 +32,13 @@ html
 
     .landscape
       |landscape
+    .window-inner-width
+    .window-inner-height
+    .device-pixel-ratio
+
+
+    script type="text/javascript" src="/assets/jquery/dist/jquery.min.js"
+    javascript:
+      $(".window-inner-width").text(window.innerWidth)
+      $(".window-inner-height").text(window.innerHeight)
+      $(".device-pixel-ratio").text(window.devicePixelRatio)

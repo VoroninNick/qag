@@ -20,6 +20,7 @@
 //= require jquery.maskedinput
 //= require jquery.content_changed
 //= require fancybox
+//= require jquery_appear/jquery.appear
 
 //= require fullpage.js/jquery.fullPage.min
 //= require bxslider-4/dist/jquery.bxslider.min.js

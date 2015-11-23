@@ -41,6 +41,14 @@ $(document).on "ready", ()->
   )
 
 
+$(window).on "scroll", ()->
+  scroll_top = $("body").scrollTop()
+  if window.innerWidth <= 640 && scroll_top > 0
+    hideHeaderLogo()
+    addAccentToMenuButton()
+  else
+    showHeaderLogo()
+    removeAccentFromMenuButton()
 
 $("body").on "click", "#header-menu-button", ()->
   $("body").toggleClass("open-menu")

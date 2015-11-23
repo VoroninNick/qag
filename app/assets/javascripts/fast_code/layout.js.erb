@@ -1061,7 +1061,7 @@ if(!is_home_page) {
         var scroll_down = !scroll_up
         var current_scoll_at_top = $window.scrollTop() <= $fixed_header_top_container.height()
         console.log("current_scoll_at_top: ", current_scoll_at_top)
-        if (!current_scoll_at_top) {
+        if (!current_scoll_at_top && window.innerWidth > 640) {
             //console.log('scrolling up !');
             $fixed_header_top_container.addClass(fixed_header_top_container_visible_class)
         }
@@ -1069,6 +1069,17 @@ if(!is_home_page) {
             $fixed_header_top_container.removeClass(fixed_header_top_container_visible_class)
         }
     })
+
+//    $body.on("appear", "*", function(){
+//        $("div:appeared").filter(function(){
+//            return ""
+//        })
+//    })
+
+
+
+
+
 }
 $(document).on('ready',function() {
     var $fixed_on_scroll_containers = $('.fixed-on-scroll')

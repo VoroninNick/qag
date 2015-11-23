@@ -35,7 +35,6 @@ a
   position: relative
 
 
-
 .pr
   position: relative
 
@@ -50,6 +49,16 @@ a
 .page-block-fixed-wrapper
   position: relative
   height: 500px
+
+  img
+    height: inherit
+
+  @media only screen and (max-width: 640px)
+    height: 200px
+
+
+
+
 
 .page-block-fixed
   position: fixed
@@ -76,4 +85,6 @@ html[class*=controller-users]
     border-top-color: $menu-blue-color
     &:before, &:after
       background-color: $menu-blue-color
+
+
 

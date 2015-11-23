@@ -12,6 +12,9 @@ html
         .landscape
           color: green
 
+      @media only screen and (max-width: 768px)
+        .max-width-768px
+          color: green
 
       @media  (max-width: 640px)
         .max-width-640px
@@ -22,6 +25,8 @@ html
   body
     .max-width-640px
       |max-width 640px
+    .max-width-768px
+      |max-width: 768px
     .portrait
       |portrait
 

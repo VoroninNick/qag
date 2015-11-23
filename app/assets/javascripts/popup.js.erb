@@ -54,15 +54,17 @@ var $popups_wrapper = $('#modal-windows-wrapper')
 console.log('popups_wrapper: '+$popups_wrapper.length)
 $popups_wrapper.on('click', 'a.link-to-input', function(e){
     e.preventDefault()
-    var $link = $(this)
-    var data_input_id = $link.attr('data-input')
-    var $required_input = $(data_input_id)
-    var flag_name = $required_input.attr('name')
-    var $flags = $('input[name='+flag_name+']')
-    var $active_input = $flags.filter(':checked')
+    //var $link = $(this)
+    //var data_input_id = $link.attr('data-input')
+    //var $required_input = $(data_input_id)
+    //var flag_name = $required_input.attr('name')
+    //var $flags = $('input[name='+flag_name+']')
+    //var $active_input = $flags.filter(':checked')
 
-    $active_input.prop('checked', false)
-    $required_input.prop('checked', true)
+    //$active_input.prop('checked', false)
+    //$required_input.prop('checked', true)
+
+
 
 
     //var $sender = $(this)
@@ -132,3 +134,24 @@ if($header_user_menu.length > 0){
         var $logout_link = $(this)
     })
 }
+
+function setPopupSize(){
+    var $popup = $(this)
+    if($popup.length){
+
+        var less = $popup.height() < window.innerHeight
+        console.log("resize popup", less)
+        if(!less){
+            $popup.removeClass("less-than-screen")
+        }
+        else{
+            $popup.addClass("less-than-screen")
+        }
+    }
+}
+
+$(window).on("resize", function(){
+
+    var $popup = $(".popup.modal-open")
+    setPopupSize.call($popup)
+})

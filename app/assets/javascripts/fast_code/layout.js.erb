@@ -177,6 +177,7 @@ $header_menu_user_wrapper.on('click', '.popup-link', function(event){
                     var $modal = $(data)
                     $modal.addClass(modalOpenClass)
                     $modal_windows_wrapper.append($modal)
+                    setPopupSize.call($modal)
                 }
 
             })
@@ -784,6 +785,7 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                     console.log('after $modal')
                     $modal.addClass(modalOpenClass)
                     $modal_windows_wrapper.append($modal)
+                    setPopupSize.call($modal)
                     registration_location = window.location.pathname
                     registration_event_id = event_id
                     popup_event_id = event_id

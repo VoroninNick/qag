@@ -6,4 +6,8 @@ class TestController < ApplicationController
   def rendering
     
   end
+
+  def media_queries
+    render layout: false
+  end
 end

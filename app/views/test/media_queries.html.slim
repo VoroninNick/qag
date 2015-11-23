@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+    sass:
+
+
+      @media only screen and (orientation: portrait)
+        .portrait
+          color: green
+
+      @media only screen and (orientation: landscape)
+        .landscape
+          color: green
+
+
+      @media  (max-width: 640px)
+        .max-width-640px
+          color: green
+
+
+
+  body
+    .max-width-640px
+      |max-width 640px
+    .portrait
+      |portrait
+
+    .landscape
+      |landscape

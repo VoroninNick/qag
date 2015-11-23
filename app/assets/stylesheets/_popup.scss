@@ -881,11 +881,19 @@ select:-webkit-autofill {
 
 
 
-@media #{$small-only} {
+@media #{$small-only}  {
   .sign-up-link-wrapper{
     text-align: center;
     top: 11px;
     position: relative;
     line-height: 1;
+  }
+
+  .less-than-screen{
+    .popup-box-border{
+      top: 0;
+      left: 0;
+      @include transform(none);
+    }
   }
 }

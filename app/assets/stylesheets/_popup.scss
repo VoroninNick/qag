@@ -82,7 +82,7 @@
   max-width: 100%;
   position: relative;
   //border: 10px lightblue solid;
-  padding: 2rem;
+  padding: 0.25rem;
 }
 
 .popup-box-content{
@@ -889,11 +889,22 @@ select:-webkit-autofill {
     line-height: 1;
   }
 
-  .less-than-screen{
-    .popup-box-border{
+  .popup-box-border{
+    &, .less-than-screen &{
       top: 0;
       left: 0;
       @include transform(none);
+    }
+  }
+
+  .popup-box-content{
+    padding: 15px 25px 25px 25px;
+  }
+
+
+  body.has-modal-open{
+    #header-menu-button{
+      display: none;
     }
   }
 }

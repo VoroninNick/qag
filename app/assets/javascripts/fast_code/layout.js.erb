@@ -65,6 +65,8 @@ email_to_login = null;
 
 page_before_dashboard = null;
 
+has_modal_open_class = "has-modal-open";
+
 
 
 
@@ -177,6 +179,7 @@ $header_menu_user_wrapper.on('click', '.popup-link', function(event){
                     var $modal = $(data)
                     $modal.addClass(modalOpenClass)
                     $modal_windows_wrapper.append($modal)
+                    $body.addClass(has_modal_open_class)
                     setPopupSize.call($modal)
                 }
 
@@ -200,6 +203,7 @@ $header_menu_user_wrapper.on('click', '.popup-link', function(event){
                 var $modal = $(data)
                 $modal.addClass(modalOpenClass)
                 $modal_windows_wrapper.append($modal)
+                $body.addClass(has_modal_open_class)
             }
 
         })
@@ -567,7 +571,7 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                                         $html_source.addClass(modalOpenClass)
                                         $popup.init_form()
                                         $modal_windows_wrapper.append($html_source)
-
+                                        $body.addClass(has_modal_open_class)
                                     }
                                     else {
 
@@ -625,6 +629,7 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                                         remove_with_delay($popup)
 
                                         $modal_windows_wrapper.append($modal)
+                                        $body.addClass(has_modal_open_class)
 
                                         $modal.init_form()
                                     }
@@ -682,6 +687,7 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                             remove_with_delay($popup)
 
                             $modal_windows_wrapper.append($modal)
+                            $body.addClass(has_modal_open_class)
 
                             $modal.init_form()
                         }
@@ -694,6 +700,7 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                             remove_with_delay($popup)
 
                             $modal_windows_wrapper.append($modal)
+                            $body.addClass(has_modal_open_class)
 
                             $modal.init_form()
                         }
@@ -785,6 +792,7 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                     console.log('after $modal')
                     $modal.addClass(modalOpenClass)
                     $modal_windows_wrapper.append($modal)
+                    $body.addClass(has_modal_open_class)
                     setPopupSize.call($modal)
                     registration_location = window.location.pathname
                     registration_event_id = event_id

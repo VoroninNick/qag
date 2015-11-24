@@ -721,6 +721,9 @@
     height: inherit;
   }
 
+  img{
+    opacity: 0;
+  }
 }
 
 //.home-slider-description.description {
@@ -735,15 +738,22 @@
 //}
 
 
-@include small {
-  .about-team-avatar-description-text-short-description {
-    display: none !important;
-  }
-}
+
 
 
 .controller-about{
   .page-content-z-index{
     padding-bottom: 0;
+  }
+
+}
+
+@include small {
+  .about-team-avatar-description-text-short-description {
+    display: none !important;
+  }
+
+  #about-slider{
+    height: 200px;
   }
 }

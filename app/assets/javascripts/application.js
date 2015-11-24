@@ -42,6 +42,7 @@
 //= require popup
 //= require test_map
 //= require home
+//= require pages/about
 //= require contact
 //= require events
 // require render

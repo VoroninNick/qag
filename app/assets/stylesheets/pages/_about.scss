@@ -126,6 +126,8 @@
   }
 
 
+
+
 }
 
 #about-quote-text {
@@ -136,6 +138,10 @@
   color: white;
   font-style: italic;
   font-size: 1.3rem;
+
+  @include small{
+    padding: 0;
+  }
 }
 
 
@@ -272,10 +278,16 @@
 .about-team-avatar-description-text{
   position: absolute;
   display: block;
-  top: 50%;
-  left: 50%;
-  @include transform( translate(-50%, -50%) );
+  //top: 50%;
+  top: 35%;
+  //left: 50%;
+  //@include transform( translate(-50%, -50%) );
+  //width: 100%;
+  padding: 0 10%;
   width: 100%;
+
+
+
 }
 
 
@@ -285,14 +297,21 @@
   line-height: 1.4rem;
   color: #666;
   display: block;
-
+  max-height: 2.8rem;
+  overflow: hidden;
 }
 
 .about-team-avatar-description-text-short-description{
+  overflow: hidden;
   line-height: 1.2rem;
+  max-height: 1.2rem;
   display: block;
-  margin: 16px 0;
+  margin: 0;
   font-style: italic;
+
+
+
+
 }
 
 .about-team-avatar-wrapper{
@@ -669,6 +688,24 @@
       }
     }
   }
+
+
+  // new version
+  .bx-pager{
+    @include pager;
+  }
+
+  .bx-wrapper{
+    border: none;
+  }
+
+  #about-slides-ul{
+    margin: 0;
+  }
+
+  .slide{
+    left: 0;
+  }
 }
 
 //.home-slider-description.description {
@@ -681,3 +718,10 @@
 //  font-weight: 800;
 //  text-transform: uppercase;
 //}
+
+
+@include small {
+  .about-team-avatar-description-text-short-description {
+    display: none !important;
+  }
+}

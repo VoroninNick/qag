@@ -177,3 +177,5 @@ gem 'quiet_assets'
 gem 'thin'
 
 gem "bower-rails"
+
+gem 'git'

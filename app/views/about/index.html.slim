@@ -29,7 +29,8 @@
             #about-quote-text.quote
               = @about_page.quote
 
-  = render partial: 'about/about_slider'
+  /= render partial: 'about/about_slider'
+  = render "about_bxslider"
 
   - if @about_page && @about_page.respond_to?(:bottom_text)
     #about-what-unites-us.text-content

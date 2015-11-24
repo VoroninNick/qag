@@ -1,3 +1,10 @@
+= pager
+	bottom: 250px
+	a
+		background-color: #fff
+		&.active
+			background-color: $orange-color
+
 #home-slider-section
 	.bx-wrapper
 		border: none
@@ -5,11 +12,7 @@
 
 
 	.bx-pager
-		bottom: 250px
-		a
-			background-color: #fff
-			&.active
-				background-color: $orange-color
+		+pager
 
 
 	.image-background

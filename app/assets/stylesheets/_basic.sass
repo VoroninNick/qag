@@ -53,8 +53,7 @@ a
   img
     height: inherit
 
-  @media only screen and (max-width: 850px) and (min-device-pixel-ratio: 1.5), only screen and (max-width: 640px)
-    height: 200px
+
 
 
 
@@ -88,3 +87,10 @@ html[class*=controller-users]
 
 
 
++small
+  .page-block-fixed-wrapper
+    height: 200px
+    .page-block-fixed
+      position: relative !important
+  .fixed-on-scroll
+    position: relative !important

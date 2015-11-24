@@ -140,6 +140,7 @@ GEM
     foundation-rails (5.4.5.0)
       railties (>= 3.1.0)
       sass (>= 3.4.1)
+    git (1.2.9.1)
     global_config (0.1.2)
       railties
     globalize (4.0.2)
@@ -376,6 +377,7 @@ DEPENDENCIES
   fancybox2-rails
   foreman
   foundation-rails
+  git
   global_config
   globalize
   globalize-versioning
@@ -418,3 +420,6 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   watchr
   will_paginate (~> 3.0)
+
+BUNDLED WITH
+   1.10.6

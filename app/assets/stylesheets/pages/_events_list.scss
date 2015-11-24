@@ -1212,3 +1212,12 @@ $events-list-item-hover-transition-duration: 0.5s;
     }
   }
 }
+
+@include small{
+  .events-list-event {
+    .event-title-a{
+      font-size: 1.2rem;
+      max-height: 4.8rem;
+    }
+  }
+}

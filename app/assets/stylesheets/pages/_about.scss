@@ -697,15 +697,30 @@
 
   .bx-wrapper{
     border: none;
+    height: inherit;
   }
 
   #about-slides-ul{
     margin: 0;
+    height: inherit;
   }
 
   .slide{
     left: 0;
+    height: inherit;
   }
+
+  .bx-viewport{
+    height: inherit !important;
+  }
+
+  .image-background{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: inherit;
+  }
+
 }
 
 //.home-slider-description.description {
@@ -723,5 +738,12 @@
 @include small {
   .about-team-avatar-description-text-short-description {
     display: none !important;
+  }
+}
+
+
+.controller-about{
+  .page-content-z-index{
+    padding-bottom: 0;
   }
 }

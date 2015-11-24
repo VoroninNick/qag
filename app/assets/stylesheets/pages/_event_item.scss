@@ -275,3 +275,9 @@
     padding: 0;
   }
 }
+
+@include small{
+  #event-item-page-event-name{
+    font-size: 1.5rem;
+  }
+}

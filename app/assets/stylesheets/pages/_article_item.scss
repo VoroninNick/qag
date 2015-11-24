@@ -7,11 +7,13 @@
   text-align: left;
   line-height: 3rem;
   margin: 2.25rem 0 0 0;
+
 }
 
 #article-date{
   font-size: 1.3rem;
   font-weight: $basic-font-weight;
+  color: rgba($gray-color, 1);
 }
 
 
@@ -149,5 +151,12 @@
 .controller-articles.action-item{
   .page-content-z-index{
     padding: 0;
+  }
+}
+
+@include small{
+  #article-title{
+    font-size: 1.5rem;
+    line-height: 1;
   }
 }

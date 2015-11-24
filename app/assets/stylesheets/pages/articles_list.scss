@@ -146,7 +146,7 @@ $articles-list-item-hover-transition-duration: 0.5s;
   font-size: 1.2rem;
   font-weight: $basic-font-weight;
   margin-top: 1rem;
-  color: $orange-color;
+  color: $dark-orange-text-color;
 
 }
 
@@ -257,7 +257,7 @@ $articles-list-item-hover-transition-duration: 0.5s;
   }
 }
 
-@media #{$small-only} {
+@include small{
   .articles-list-article-description.columns{
     position: relative;
     @include grid-column(12, $push: 0);
@@ -273,5 +273,11 @@ $articles-list-item-hover-transition-duration: 0.5s;
 
   .articles-list-article{
     margin: 4.5rem 0 0 0;
+  }
+
+  .article-avatar-a{
+    img{
+      width: 100%;
+    }
   }
 }

@@ -1,5 +1,5 @@
 #contact-map-container{
-  height: 500px;
+  //height: 500px;
 }
 
 .contact-page-map-and-form{
@@ -7,6 +7,7 @@
 
   .map-wrapper{
     padding: 0 600px 0 0;
+    //height: inherit;
   }
 
   .contact-page-form{
@@ -234,5 +235,59 @@
       background-color: #ffb700;
     }
 
+  }
+}
+
+.contact-page-map{
+  .map-wrapper, .map-container{
+    height: inherit;
+  }
+}
+
+
+@include small{
+  #contact-page-header{
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  #contact-page-address{
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+
+  #contact-page-info-service {
+    .title{
+      text-align: center;
+      font-size: 1.2rem;
+    }
+
+
+  }
+
+  .info-phone, .info-mail{
+    @include clearfix;
+    margin-bottom: 1.5rem;
+
+    svg{
+      @include grid-column(3);
+      width: grid-calc(3, 12) !important;
+      margin-right: 0 !important;
+      height: auto !important;
+    }
+    span{
+      @include grid-column(9);
+      width: grid-calc(9, 12) !important;
+      line-height: 4rem;
+      font-size: 1.4rem;
+      font-weight: 300;
+    }
+  }
+}
+
+
+@include small-height{
+  #contact-map-fixed{
+    height: 200px;
   }
 }

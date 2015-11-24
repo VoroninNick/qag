@@ -58,7 +58,7 @@ class EventTag < ActiveRecord::Base
     #EventTag.all.select do |t|
     #  t.events.count > 0
     #end
-    EventTag.joins(:events).select("distinct #{EventTag.table_name}.*")
+    EventTag.joins(:events).select("distinct #{EventTag.table_name}.*").where(events: { published: true })
   end
 
   def fix_slug

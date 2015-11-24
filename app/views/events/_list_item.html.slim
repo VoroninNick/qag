@@ -2,7 +2,7 @@
   .events-list-event.event-collection-item.list-item data-event-id="#{event.id}" class="#{"event-i-am-subscribed-on" if subscribed_on_event?(event.id) } #{ ( event.expired? )? 'expired-event' : ( Date.today >= event.start_date )? 'started-event' : 'future-event' }#{(index % 2 == 1)? ' right-image' : nil}"
     a.event-bg-link href=event_item_path(locale: I18n.locale, item: event.slug, tags: event.tags.join('-'))
     .events-list-event-row.row
-      .image-and-info.columns.large-3.medium-3.small-3
+      .image-and-info.columns.large-3.medium-3.small-4
         .image
           a href="#"
             /img.grayscale src=( (event.avatar.exists?(:event_list_avatar) )? event.avatar.url(:event_list_avatar) : stub_image_link(255, 170, "event #{event.id}") )
@@ -24,7 +24,7 @@
             = raw t('pages.events-list.event-template.info.participants-count', svg: embedded_svg_from_assets('svg/participant.svg'), count: "<span class='count'>#{event.allowed_subscriptions_count}</span>", span_start: "<span class='participants-tip'>", span_end: "</span>")
 
 
-      .description.columns.large-9.medium-9.small-9
+      .description.columns.large-9.medium-9.small-8
         .description-inner
           .event-title
             a.event-title-a href=event_item_path(locale: I18n.locale, item: event.slug, tags: event.tags.join('-'))

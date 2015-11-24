@@ -1145,7 +1145,7 @@ $events-list-item-hover-transition-duration: 0.5s;
 #html{
   &.touch{
     .events-list-event{
-      .hover-read-button{
+      .hover-read-button, .event-link-and-register-button{
         display: block;
       }
 
@@ -1156,7 +1156,7 @@ $events-list-item-hover-transition-duration: 0.5s;
         }
       }
 
-      @media #{$small-only} {
+      @include small{
         .hover-read-button{
           margin-left: 0;
           margin-right: 0;
@@ -1168,7 +1168,27 @@ $events-list-item-hover-transition-duration: 0.5s;
           max-height: 5.25rem;
         }
 
+        .register-button-a{
+          line-height: 60px;
 
+          svg{
+            display: none;
+          }
+        }
+
+
+      }
+
+      .event-link-and-register-button{
+        margin: 3rem 0 0 0;
+      }
+
+      .register-button{
+        padding: 0;
+      }
+
+      .register-button-a{
+        border: 1px solid $light-orange-color;
       }
     }
   }

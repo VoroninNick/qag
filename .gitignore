@@ -22,3 +22,5 @@
 /.idea
 /db/seeds.rb
 /db/schema.rb
+
+/config/settings

@@ -945,12 +945,13 @@ select:-webkit-autofill {
   }
 }
 
-@include small(470px){
+@include small(480px){
   #users_event_subscriptions-new-get{
     .sign-up-link-wrapper{
-      padding-right: 0;
-      line-height: 20px;
-      top: 10px;
+      //padding-right: 0;
+      //line-height: 20px;
+      //top: 10px;
+      display: none;
     }
   }
 

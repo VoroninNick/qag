@@ -118,6 +118,8 @@ $('#dashboard-content #dashboard-profile-column').each(function(){
 
                             $input_wrapper.addClass(has_no_unsaved_changes).removeClass(not_saved_valid_changes_class)
                         })
+
+                        $body.scrollTop($("#edit_user").offset().top)
                     }
                     else{
                         $form.removeClass(modeEditClass).addClass(modeViewClass)

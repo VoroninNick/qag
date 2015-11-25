@@ -65,8 +65,8 @@ $button-box-shadow: 0px 1px 2px rgba(0,0,0,0.3)
 $basic-font-weight: 400
 
 
-= small
-	@media only screen and (max-width: 850px) and (min-device-pixel-ratio: 1.5), only screen and (max-width: 640px)
+= small($base-size: 640px)
+	@media only screen and (max-width: #{$base-size * 1.5}) and (min-device-pixel-ratio: 1.5), only screen and (max-width: $base-size)
 		@content
 
 = small-height

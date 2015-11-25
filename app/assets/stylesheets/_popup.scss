@@ -908,3 +908,40 @@ select:-webkit-autofill {
     }
   }
 }
+
+
+@include small{
+  #users_event_subscriptions-new-get{
+    .popup-box-content{
+      padding: 15px 15px 25px 15px;
+    }
+
+    .form-actions{
+      @include flexbox;
+    }
+
+    .sign-up-link-wrapper{
+      width: auto;
+      @include flex-grow(0);
+      line-height: 60px;
+      top: 0;
+    }
+
+    .sign-in-submit-button-wrapper{
+      width: auto;
+      @include flex-grow(1);
+      padding: 0;
+    }
+  }
+}
+
+@include small(470px){
+  #users_event_subscriptions-new-get{
+    .sign-up-link-wrapper{
+      padding-right: 0;
+      line-height: 20px;
+      top: 10px;
+    }
+  }
+
+}

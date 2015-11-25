@@ -285,6 +285,7 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
             if ($this.hasClass(modalCloseTriggerClass)) {
                 $popup.removeClass(modalOpenClass)
                 remove_with_delay($popup)
+                $body.removeClass(has_modal_open_class)
 
                 registration_event_id = false
                 registration_location = false

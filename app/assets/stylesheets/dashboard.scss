@@ -219,6 +219,11 @@
         content: attr(data-error-taken);
       }
     }
+
+
+    @include small{
+      height: auto;
+    }
   }
 }
 
@@ -234,6 +239,10 @@
       }
     }
   }
+}
+
+.devise-button-wrapper{
+  @include flexbox;
 }
 
 #dashboard-content{
@@ -306,6 +315,12 @@
         height: 50px;
         vertical-align: top;
         line-height: 50px;
+      }
+    }
+
+    &.mode-view{
+      .form-actions{
+        @include flexbox;
       }
     }
   }
@@ -393,6 +408,7 @@ form#change_password{
 }
 
 #dashboard-content{
+  padding-bottom: 6rem;
   form.simple_form.form-with-labels.mode-view {
     &#change_password {
       .button.devise-submit-button.orange-bg{

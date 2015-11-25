@@ -177,10 +177,11 @@ $header_menu_user_wrapper.on('click', '.popup-link', function(event){
                 data: 'modal=true',
                 success: function (data) {
                     var $modal = $(data)
-                    $modal.addClass(modalOpenClass)
-                    $modal_windows_wrapper.append($modal)
-                    $body.addClass(has_modal_open_class)
-                    setPopupSize.call($modal)
+                    showPopup.call($modal)
+//                    $modal.addClass(modalOpenClass)
+//                    $modal_windows_wrapper.append($modal)
+//                    $body.addClass(has_modal_open_class)
+//                    setPopupSize.call($modal)
                 }
 
             })
@@ -201,9 +202,10 @@ $header_menu_user_wrapper.on('click', '.popup-link', function(event){
             data: 'modal=true',
             success: function (data) {
                 var $modal = $(data)
-                $modal.addClass(modalOpenClass)
-                $modal_windows_wrapper.append($modal)
-                $body.addClass(has_modal_open_class)
+//                $modal.addClass(modalOpenClass)
+//                $modal_windows_wrapper.append($modal)
+//                $body.addClass(has_modal_open_class)
+                showPopup.call($modal)
             }
 
         })
@@ -568,10 +570,11 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                                         console.log('errors: ', errors)
                                         $popup.removeClass(modalOpenClass)
                                         remove_with_delay($popup)
-                                        $html_source.addClass(modalOpenClass)
+                                        //$html_source.addClass(modalOpenClass)
                                         $popup.init_form()
-                                        $modal_windows_wrapper.append($html_source)
-                                        $body.addClass(has_modal_open_class)
+                                        //$modal_windows_wrapper.append($html_source)
+                                        //$body.addClass(has_modal_open_class)
+                                        showPopup.call($html_source)
                                     }
                                     else {
 
@@ -622,15 +625,16 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                                     }
                                     else{
                                         var $modal = $html_source
-                                        $modal.addClass(modalOpenClass)
+                                        //$modal.addClass(modalOpenClass)
                                         $popup.removeClass(modalOpenClass)
                                         PUBLIC_MODAL = $modal
                                         //alert('hello')
                                         remove_with_delay($popup)
 
-                                        $modal_windows_wrapper.append($modal)
-                                        $body.addClass(has_modal_open_class)
+                                        //$modal_windows_wrapper.append($modal)
 
+                                        //$body.addClass(has_modal_open_class)
+                                        showPopup.call($modal)
                                         $modal.init_form()
                                     }
                                 }
@@ -680,28 +684,30 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                         if (textStatus == 'success') {
                             //var $html_source = $(data['html'])
                             var $modal = $html_source
-                            $modal.addClass(modalOpenClass)
+                            //$modal.addClass(modalOpenClass)
                             $popup.removeClass(modalOpenClass)
                             PUBLIC_MODAL = $modal
                             //alert('hello')
                             remove_with_delay($popup)
 
-                            $modal_windows_wrapper.append($modal)
-                            $body.addClass(has_modal_open_class)
+                            //$modal_windows_wrapper.append($modal)
+                            //$body.addClass(has_modal_open_class)
+                            showPopup.call($modal)
+
 
                             $modal.init_form()
                         }
                         else if ($html_source) {
                             var $modal = $html_source
-                            $modal.addClass(modalOpenClass)
+                            //$modal.addClass(modalOpenClass)
                             $popup.removeClass(modalOpenClass)
                             PUBLIC_MODAL = $modal
                             //alert('hello')
                             remove_with_delay($popup)
 
-                            $modal_windows_wrapper.append($modal)
-                            $body.addClass(has_modal_open_class)
-
+                            //$modal_windows_wrapper.append($modal)
+                            //$body.addClass(has_modal_open_class)
+                            showPopup.call($modal)
                             $modal.init_form()
                         }
                     }
@@ -786,14 +792,15 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                     if(data['controller'] == 'users/event_subscriptions' && data['action'] == 'new'){
                         event_register_request = true
                     }
-                    console.log('success')
-                    console.log('before $modal')
+                    //console.log('success')
+                    //console.log('before $modal')
                     var $modal = $html_source
-                    console.log('after $modal')
-                    $modal.addClass(modalOpenClass)
-                    $modal_windows_wrapper.append($modal)
-                    $body.addClass(has_modal_open_class)
-                    setPopupSize.call($modal)
+                    //console.log('after $modal')
+//                    $modal.addClass(modalOpenClass)
+//                    $modal_windows_wrapper.append($modal)
+//                    $body.addClass(has_modal_open_class)
+//                    setPopupSize.call($modal)
+                    showPopup.call($modal)
                     registration_location = window.location.pathname
                     registration_event_id = event_id
                     popup_event_id = event_id

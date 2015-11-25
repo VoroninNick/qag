@@ -890,7 +890,7 @@ select:-webkit-autofill {
   }
 
   .popup-box-border{
-    &, .less-than-screen &{
+    &{
       top: 0;
       left: 0;
       @include transform(none);

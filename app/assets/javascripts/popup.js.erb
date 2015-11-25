@@ -135,11 +135,22 @@ if($header_user_menu.length > 0){
     })
 }
 
+
+function showPopup(){
+    var $modal = $(this)
+    $modal.addClass(modalOpenClass)
+    if (!$modal.closest("#modal-windows-wrapper").length) {
+        $modal_windows_wrapper.append($modal)
+    }
+    $body.addClass(has_modal_open_class)
+    setPopupSize.call($modal)
+}
+
 function setPopupSize(){
     var $popup = $(this)
     if($popup.length){
-
-        var less = $popup.height() < window.innerHeight
+        var $popup_box_content = $popup.find(".popup-box-content")
+        var less = $popup_box_content.height() < window.innerHeight
         console.log("resize popup", less)
         if(!less){
             $popup.removeClass("less-than-screen")

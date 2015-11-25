@@ -435,7 +435,9 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                                         if(!successfullySignedIn){
                                             //alert('signed in')
                                             setInterval(function(){
-                                                $html_source.fadeOut(800)
+                                                $html_source.fadeOut(800, function(){
+                                                    $body.removeClass(has_modal_open_class)
+                                                })
                                             }, 3000)
                                         }
 

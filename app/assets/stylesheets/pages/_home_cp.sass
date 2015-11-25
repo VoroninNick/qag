@@ -1,0 +1,655 @@
+$sections-count: 6
+
+$bullet-with: 10px
+$bullet-height: 10px
+$bullet-background: white
+$bullet-border-radius: 50%
+$bullet-indent: 1.25rem
+$active-bullet-background: $orange-color
+
+$hover-bullet-background: $hover-color
+
+$main-slider-slides-count: 3
+
+$featured-events-timeline-height: 250px
+$featured-events-timeline-bullet-background: #7ab8d1
+$featured-events-timeline-active-bullet-background: #ffb502
+
+$featured-events-timeline-active-event-text-color: #0a4f6c
+$featured-events-timeline-inactive-event-text-color: $featured-events-timeline-bullet-background
+
+$featured-events-count: 7
+$featured-events-timeline-pages-count: 1
+
+$home-page-sections-count: 6
+$home-page-initial-section-number: 1
+
+$user-comments-count: 6
+
+$expired-events-count: 20
+$expired-events-pages-count: $expired-events-count / 5
+
+$home-page-comments-section-number: 5
+
+
+
+
+
+#my-style
+  color: map-get($colors, red)
+  @each $key, $value in $colors
+    #{$key}: #{$value}
+
+
+@include keyframes(input-active-animation)
+  0%
+    width: 0%
+    left: auto
+    right: 0
+    background: #2facda
+  100%
+    width: 100%
+
+
+
+
+
+@import "home_featured_events_section"
+
+#home-about-section
+  > ul.slides
+    height: 100%
+    padding: 0
+    margin: 0
+    > li.slide
+      height: 100%
+
+
+@import "home_expired_events_section"
+
+
+
+
+#home-contact-section
+  .relative
+    position: relative
+    height: 100%
+  .map-wrapper
+    height: 100%
+    padding: 0 780px 0 0
+
+    .map-container
+      height: 100%
+
+      .home-marker
+        svg
+          width: 54px
+          height: 80px
+
+  .home-contact-show-form-button, #home-contact-show-map-button
+    //@include grid-row()
+    @include grid-column(10, $center: true)
+
+    button
+
+      @include white-button
+      border: none
+      height: 2.5rem
+      width: 100%
+
+      &:hover
+        background-color: $orange-color
+        color: white
+
+  #home-contact-show-map-button
+    display: none
+
+
+  #home-contact-form
+    z-index: 1
+    background: $skyblue-color
+    width: 60%
+    max-width: 780px
+    position: absolute
+    right: 0
+    height: 100%
+    top: 0
+
+    #home-contact-form-row
+      z-index: 1
+      position: relative
+      background: $skyblue-color
+
+    #home-contact-form-outer
+      height: 100%
+      padding: 0 0 0 40px
+      #home-contact-form-content
+        max-width: 500px
+        height: 100%
+
+        .form-title
+          margin: 2rem 0 1.5rem 0
+
+          .svg-container
+            text-align: center
+
+            svg
+              display: inline-block
+              width: 2.5rem
+              height: 2.5rem
+
+              .round
+                fill: white
+              .clock-arrow
+                fill: white
+              .dot
+                fill: #f0c67a
+
+          .title
+            text-transform: uppercase
+            color: white
+            display: block
+            font-size: 3.75rem
+            font-weight: 900
+            line-height: 0.9
+
+        .address
+          text-transform: uppercase
+          font-size: 1.3rem
+          font-weight: 500
+          color: $dark-blue-color
+        .address-at
+          font-size: 1rem
+          font-weight: $basic-font-weight
+          color: #222
+
+        .info-service
+          margin: 1.5rem 0 0 0
+          .title
+            color: $dark-blue-color
+          ul
+            margin: 0.5rem 0 1rem 0
+            padding: 0
+
+            li
+              list-style: none
+
+              &.info-phone
+                span
+                  color: white
+                  top: -10px
+                  position: relative
+              &.info-mail
+                span
+                  color: white
+                  top: -10px
+                  position: relative
+
+            svg
+              width: 2.5rem
+              height: 2rem
+              margin-right: 0.5rem
+
+        .support
+          .title
+            color: $dark-blue-color
+          ul
+            margin: 0.5rem 0 1rem 0
+            padding: 0
+          li
+            list-style: none
+          svg
+            width: 2.5rem
+            height: 2rem
+            margin-right: 0.5rem
+          span
+            top: -10px
+            position: relative
+            color: white
+
+  &.show-map
+    .map-wrapper
+      display: block !important
+      height: 100%
+      position: absolute
+      width: 100%
+      max-height: none !important
+      .map-container
+        display: block !important
+    #home-contact-form
+      display: none !important
+
+
+
+  @media #{$screen} and (max-height: 850px)
+    .form-title
+      .title
+        display: none !important
+    //.info-service-and-support
+    //  @include grid-row
+    //  margin-top: 1rem
+    //.info-service, .support
+    //  @include grid-column(6)
+    .info-service
+      margin-top: 0 !important
+
+  @media #{$screen} and (max-height: 690px)
+    .form-title
+      .svg-container
+        display: none
+  @media #{$medium-up} and (max-height: 690px)
+    .info-service-and-support
+      @include grid-row(nested)
+    .info-service
+      @include grid-column(6)
+    .support
+      @include grid-column(6, $collapse: true)
+  @media #{$medium-up} and (max-height: 530px)
+    .contact-form
+      margin-top: 3rem
+      &:not(.open)
+        display: none
+    .home-contact-show-form-button
+      &:not(.opened-form)
+        display: block !important
+    .js-trigger.cancel-changes
+      display: inherit !important
+    .field.field-submit
+      display: flex
+
+    #home-contact-info
+      &.opened-form
+        display: none
+
+  @media #{$screen} and (max-width: 1300px)
+    .map-wrapper
+      padding-right: 60%
+  @media #{$medium-down}
+    .map-wrapper
+      padding-right: 0
+      max-height: 10rem
+    #home-contact-form
+      height: auto
+      bottom: 0
+      //top: auto
+      width: 100%
+      max-width: none
+      //max-height: 24rem
+      min-height: 100%
+      //top: 10rem
+      top: 40px
+    #home-contact-form-outer
+      padding: 0 !important
+    #home-contact-form-content
+      max-width: 100% !important
+    .contact-form
+      @include grid-column(5)
+    #home-contact-info
+      @include grid-column(5, $offset: 1)
+
+  @media #{$screen} and (max-width: 575px)
+    .info-service, .support
+      .info-mail, .info-phone
+        svg
+          display: none
+  @media #{$small-only}, #{$medium-up} and (max-height: 530px)
+    .field.field-submit
+      display: flex
+    .js-trigger.cancel-changes
+
+      height: 40px
+      width: 60px
+      background-color: transparent
+      margin-right: 0.6rem
+      &:before, &:after
+        border-top-color: white
+        border-left-color: white
+      &:before
+        top: 18px
+        left: 20px
+      &:after
+        top: 10px
+        left: 20px
+      &:hover
+        &:before, &:after
+          border-left-color: $light-orange-color
+          border-top-color: $light-orange-color
+
+
+    .home-contact-show-form-button
+      &.opened-form
+        display: none !important
+    .contact-form
+      @include grid-column(10, $center: true)
+
+      &:not(.open)
+        display: none
+  @media #{$medium-down}
+    #home-contact-info
+      &:not(.opened-form)
+        @include grid-column(10, $center: true)
+      &.opened-form
+        display: none
+  @media #{$small-only} and (max-height: em-calc(850))
+
+  @media #{$small-only} and (max-height: em-calc(480))
+    .info-service, .support
+      @include grid-column(6, $collapse: true)
+
+
+  +small
+
+    #home-contact-show-map-button
+      display: block
+    #home-contact-info
+      width: 100% !important
+      margin: 0 !important
+
+    .map-wrapper
+      padding-bottom: 40px
+      .map-container
+        display: none
+
+
+
+
+
+
+.contact-form
+form
+  .field
+    position: relative
+    margin: 4px 0 0 0
+    input, textarea
+
+      background: transparent
+      height: 40px
+      width: 100%
+      border: none
+      font-size: 1.1rem
+      font-weight: 500
+      color: white
+      padding: 0 1.5rem 0 1.5rem
+      font-family: inherit
+
+      @include placeholder
+        color: $skyblue-color
+        //background: green
+
+
+      &:focus
+        //background: $form-focus-input-background
+
+        @include placeholder
+          color: $form-focus-input-background
+
+
+
+    textarea
+      background: $form-input-background
+      height: 120px
+      padding: 0.5rem 1.5rem 0.5rem 1.5rem
+      line-height: 1.4
+
+    &.field-submit
+      margin: 1rem 0 0 0
+
+
+
+
+      input
+        @include white-button
+        box-shadow: $button-box-shadow
+        &:hover
+          background-color: $light-orange-color
+          color: white
+
+  input[type=text] + .input-bg
+    position: absolute
+    display: block
+    height: 100%
+    width: 100%
+    top: 0
+    z-index: -1
+    background: $form-input-background
+  input[type="text"]:focus + .input-bg
+    background: $orange-color
+    @include animation-duration(0.5s)
+    @include animation-delay(0s)
+    @include animation-name(input-active-animation)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.map-container
+  img
+    max-width: none
+
+
+
+
+#home-comments-section
+  background: #ffffff
+
+  .section-title
+    margin: 3rem 0 3rem 0
+    text-align: center
+    .svg-container
+      svg
+        width: 45px
+        height: 40px
+        display: inline-block
+
+        .border
+          fill: #fe9900
+        .dot
+          fill: #a46201
+        .line
+          fill: #fd9802
+
+    .title
+      text-transform: uppercase
+      color: $orange-color
+      font-size: 3.5rem
+      font-weight: 900
+
+  .user-avatars
+    ul
+      li.user-avatar
+        overflow: hidden
+        list-style: none
+
+
+        label
+          text-align: center
+          cursor: pointer
+          display: block
+          .image-wrapper
+            //border: #ff9a00 3px solid
+            border-radius: 50%
+            position: relative
+
+
+            &:before
+              position: absolute
+              top: 0
+              bottom: 0
+              left: 0
+              right: 0
+              display: block
+              background: $orange-color
+              z-index: 1
+              content: ""
+              border-radius: 50%
+              opacity: $orange-overlay-opacity
+
+
+          img
+            border-radius: 50%
+          .name
+            display: inline-block
+            font-weight: 600
+            color: #888
+            text-transform: uppercase
+            max-width: 110px
+          .status
+            display: block
+            font-weight: 300
+            color: #888
+            font-size: 0.8rem
+
+        &:hover
+          label
+            .image-wrapper
+              &:before
+                opacity: 0
+                display: none
+
+
+  .comments
+    margin-top: 3.5rem
+    ul
+      li
+        list-style: none
+        display: none
+        font-size: 1.2rem
+        font-weight: $basic-font-weight
+        color: #fccf52
+
+        &:before, &:after
+          color: #c0e6f3
+          position: absolute
+          display: block
+          font-weight: 900
+        &:before
+          content: "\AB"
+          font-size: 12rem
+          top: 0
+          left: 0
+          line-height: 1rem
+
+        &:after
+          content: "\BB"
+          right: 0
+          bottom: 0
+          font-size: 6rem
+          line-height: 100%
+
+        .comment-text
+          position: relative
+          display: block
+          padding: 0 30px 3rem 75px
+          z-index: 1
+          font-style: italic
+
+  @media #{$small-only}
+    .section-title
+      margin-top: rem-calc(90)
+      .title
+        line-height: 1
+        font-size: rem-calc(32)
+    .user-avatars
+      ul
+        li.user-avatar
+          width: grid-calc(6, 12)
+          &:nth-child(n+3)
+            display: none
+          label
+            .image-wrapper
+              display: inline-block
+            .name
+              max-width: none !important
+              width: 100%
+    .comments
+      ul
+        li
+          .comment-text
+            line-height: 28px
+            max-height: 196px
+            overflow: hidden
+
+
+@for $i from 1 through $user-comments-count
+  .home-user-comment-flag#home-user-comment-flag-#{$i}:checked
+    & ~ .user-avatars
+      ul
+        li.user-avatar#user-avatar-#{$i}
+          label
+            .image-wrapper
+              border: $orange-color 3px solid
+
+              &:before
+                opacity: 0
+                @include transform(translate3d(0, -100%, 0))
+            img
+              //border: $orange-color 3px solid
+              -webkit-filter: none
+              filter: none
+            .name
+              color: #2581a8
+            .status
+              color: $orange-color
+
+    & ~ .comments
+      ul
+        li.comment#comment-#{$i}
+          display: block
+
+
+#home-footer-wrap
+  position: absolute
+  bottom: 30px
+  width: 100%
+#footer-copyright-and-developed-by
+  position: relative
+
+  #footer-developed-by-inner
+    position: relative
+    svg
+      opacity: 0.5
+      @include transition-duration($hover-transition-duration)
+      @include transition-property(opacity)
+      path
+        fill: white
+
+      &:hover
+        opacity: 1
+  #footer-copyright-inner
+    position: relative
+    //text-align: right
+#home-footer
+  p
+    //color: #888
+    color: white
+  #footer-copyright
+    //color: #888
+    color: white
+    margin: 0
+    line-height: 47px
+
+
+
+#body[data-home-page-current-section="5"]
+  #header-menu-button-label
+    border-top-color: $menu-blue-color
+    &:before, &:after
+      background-color: $menu-blue-color
+
+
+
+.controller-home
+  #fixed-header-top-container
+    display: none !important
+
+

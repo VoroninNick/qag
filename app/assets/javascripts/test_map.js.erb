@@ -49,17 +49,6 @@ $(document).on('ready', function() {
             map.mapTypes.set(HOME_MAPTYPE_ID, customMapType);
 
 
-            //var div = document.createElement('DIV');
-            //div.innerHTML = '<div class="my-other-marker">I am flat marker!</div>';
-
-            //console.log('hello')
-
-
-
-
-
-
-
             for(var i=0; i<data_markers.length;i++) {
 
                 var m = data_markers[i]
@@ -93,6 +82,13 @@ $(document).on('ready', function() {
         }
     }
 
+    function reinit(){
+        var $home_map_container = $("#home-map-container")
+        $home_map_container.attr("style", "")
+        $home_map_container.children().remove()
+        init()
+    }
+
 
 
 
@@ -100,4 +96,29 @@ $(document).on('ready', function() {
     // Register an event listener to fire when the page finishes loading.
     //google.maps.event.addDomListener(window, 'load', init);
     init()
+
+    $("#home-contact-show-map-button button").on("click", function(){
+        var $button = $(this)
+        var $home_contact_section = $("#home-contact-section")
+        var show_map_class = "show-map"
+        var visible_map = $home_contact_section.hasClass(show_map_class)
+        var $map_wrapper = $home_contact_section.find(".map-wrapper")
+
+        if(!visible_map){
+            $home_contact_section.addClass(show_map_class)
+            $button.text("Сховати карту")
+            $map_wrapper.show()
+            reinit()
+        }
+        else{
+            $home_contact_section.removeClass(show_map_class)
+            $button.text("Показати на карті")
+            $map_wrapper.css("display", '')
+        }
+
+
+
+
+
+    })
 });

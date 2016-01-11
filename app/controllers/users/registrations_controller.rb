@@ -79,6 +79,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         expire_data_after_sign_in!
         if modal?
           html_source = render_to_string template: 'devise/registrations/signed_up_successfully'
+          session[:last_registered_user_id_per_session] = resource.id
           data = { html: html_source }
           render inline: "#{data.to_json}"
 

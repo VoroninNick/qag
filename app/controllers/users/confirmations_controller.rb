@@ -2,9 +2,19 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
 
   # GET /resource/confirmation/new
-  # def new
-  #   super
-  # end
+  def new
+    super
+  end
+
+  def resend
+    user = User.find(session[:last_registered_user_id_per_session])
+    user.resend_confirmation_instructions
+
+    html_source = render_to_string template: 'devise/confirmations/confirmation_instructions_sent_successfully', locals: { user: user }
+
+    data = { html: html_source }
+    render inline: "#{data.to_json}"
+  end
 
   # POST /resource/confirmation
   def create

@@ -1,10 +1,12 @@
 #devise-content
   #devise_sessions-new-get-form-wrap.devise-form-wrap
     .form-title
-      = "Створено нового користувача!"
+      = "Вам ще раз надіслано інструкцію!"
     .text
       p
-        = "Найближчим часом на Вашу електронну скриньку прийде лист з інструкцією по підтвердженню реєстрації на нашому сайті."
+        |Електронна скринька: &thinsp;
+        span style="color:#33ABDD"
+          |#{user.email}
       p
         |Якщо не бачите листа, будь ласка, перевірте папку &laquo;Спам&raquo; або &thinsp;&thinsp;
         a href=resend_user_instructions_path class="popup-link sign-up link-to-input"

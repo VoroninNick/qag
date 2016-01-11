@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     end
 
     devise_scope :user do
+      get "/users/resend_instructions", to: "users/confirmations#resend", as: "resend_user_instructions"
 
       get 'event/:event_id/register', to: 'users/event_subscriptions#new', as: 'new_event_subscription', defaults: { route_name: 'new_event_subscription' }
       match 'event/:event_id/register', to: 'users/event_subscriptions#create', as: 'create_event_subscription', via: [ :post, :patch ], defaults: { route_name: 'create_event_subscription' }

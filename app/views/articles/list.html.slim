@@ -13,9 +13,8 @@
 
 
   #events-list.events-collection.infinity-scroll-list
-    - 10.times do
-      /- @paginated_events.each_with_index do |event, index|
-      = render partial: 'articles/list_item', locals: { articles: @paginated_articles }
+    /- @paginated_events.each_with_index do |event, index|
+    = render partial: 'articles/list_item', locals: { articles: @paginated_articles }
 
 
   .pagination-wrapper

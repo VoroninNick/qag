@@ -24,10 +24,10 @@ class ArticlesController < ApplicationController
     @paginated_articles =  @articles.paginate(page: params_page, per_page: max_items_count)
 
     if ajax?
-      articles_html = render_to_string template: 'articles/_list_item', layout: false, locals: { events: @paginated_articles }
+      articles_html = render_to_string template: 'articles/_list_item', layout: false, locals: { articles: @paginated_articles }
       #html_source = render_to_string template: 'devise/event_subscriptions/unsubscribe_form.html'
       data = { html: articles_html }
-      render inline: "#{data.to_json}"
+      render json: data
     end
 
     @page = Pages::ArticlesList.first

@@ -120,7 +120,7 @@ class EventsController < ApplicationController
       events_html = render_to_string template: 'events/_list_item', layout: false, locals: { events: @paginated_events }
       #html_source = render_to_string template: 'devise/event_subscriptions/unsubscribe_form.html'
       data = { html: events_html }
-      render inline: "#{data.to_json}"
+      render json: data
     end
 
     @page = Pages::EventsList.first

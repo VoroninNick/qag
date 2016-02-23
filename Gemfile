@@ -179,3 +179,17 @@ gem 'thin'
 gem "bower-rails"
 
 gem 'git'
+
+local = ENV["LOCAL"]
+
+if local
+  gem 'cms', path: "/media/data/pasha/gems/cms"
+else
+  gem 'cms', github: "pkorenev/cms"
+end
+
+gem 'attachable', github: "VoroninNick/attachable"
+
+gem 'enumerize'
+
+gem 'rack-page_caching'

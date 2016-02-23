@@ -1,0 +1,28 @@
+= render partial: 'about/about_banner'
+.page-content-z-index
+  .row
+    - if Pages.students.try(:students_text).present?
+      #about-participants.text-content
+        = raw Pages.students.try(:students_text)
+        .clearfix
+
+    #about-team-avatars
+      ul#about-team-avatars-ul
+        - @participants.each do |m|
+          li.about-team-avatar-li.columns.large-3.medium-3.small-6
+            .about-team-avatar-wrapper
+              .image.about-team-avatar-img-container
+                img.about-team-avatar-img.grayscale src=image_or_stub_url(m.avatar, :about, 250, 250, "member #{m.id}")
+              .about-team-avatar-description
+
+                span.about-team-avatar-description-text
+                  span.about-team-avatar-description-text-name
+                    = m.name
+                  span.about-team-avatar-description-text-short-description
+                    = m.short_description
+                  span.about-team-avatar-description-text-social-links
+                    - m.get_social_links.each_pair do |key, value|
+                      a href=value
+                        = embedded_svg_from_assets("svg/#{key}.svg")
+
+      .clearfix

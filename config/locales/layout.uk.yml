@@ -6,6 +6,8 @@ uk:
         events: 'Заходи'
         articles: 'Публікації'
         contact: 'Контакти'
+        students: "Випускники"
+        feedbacks: "Відгуки"
       contact-info:
         info-service:
           tip: 'Інформаційний сервіс'
@@ -34,6 +36,8 @@ uk:
       contact: 'Контакти'
       events_list: 'Заходи'
       articles_list: "Публікації"
+      students: "Випускники"
+      feedbacks: "Відгуки"
 
     buttons:
       register: "Зареєструватися"

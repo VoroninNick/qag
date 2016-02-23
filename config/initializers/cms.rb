@@ -1,0 +1,1 @@
+Cms::Config.use_translations = false

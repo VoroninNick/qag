@@ -31,6 +31,8 @@ class Participant < ActiveRecord::Base
     result
   end
 
+  scope :published, -> { where(published: 't' ) }
+
   translates :name, :short_description, :avatar_alt, :versioning => :paper_trail
   accepts_nested_attributes_for :translations
   attr_accessible :translations_attributes, :translations

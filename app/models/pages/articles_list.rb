@@ -1,4 +1,5 @@
 class Pages::ArticlesList < ActiveRecord::Base
+  self.table_name = :pages_articles_lists
   has_one :page_metadata, :class_name => 'VoroninStudio::PageMetadata', as: :page
   attr_accessible :page_metadata
 

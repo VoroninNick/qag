@@ -239,11 +239,13 @@ $articles-list-item-hover-transition-duration: 0.5s;
     &.hover-delay-end {
       background-color: $large-object-hover-color;
 
-      .articles-list-article-description-side-1 {
-        @include transform(translateY(-100%));
-      }
-      .articles-list-article-description-side-2 {
-        @include transform(translateY(0));
+      &:not(.one-side) {
+        .articles-list-article-description-side-1 {
+          @include transform(translateY(-100%));
+        }
+        .articles-list-article-description-side-2 {
+          @include transform(translateY(0));
+        }
       }
     }
   }
@@ -266,6 +268,8 @@ $articles-list-item-hover-transition-duration: 0.5s;
   .articles-list-article-description-side-1{
     position: relative;
   }
+
+
 
   .articles-list-article-description-side-2{
     display: none !important;

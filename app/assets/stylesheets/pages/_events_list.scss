@@ -921,7 +921,7 @@ $events-list-item-hover-transition-duration: 0.5s;
     }
   }
 
-  &.hover-delay-end{
+  &.hover-delay-end:not(.one-side){
     @include transition-duration($events-list-item-hover-transition-duration);
 
     .event-title{
@@ -1046,7 +1046,7 @@ $events-list-item-hover-transition-duration: 0.5s;
         }
       }
 
-      &.hover-delay-end{
+      &.hover-delay-end:not(.one-side){
         &:first-child{
           border-top: none;
         }
@@ -1126,7 +1126,7 @@ $events-list-item-hover-transition-duration: 0.5s;
 }
 
 .events-list-event{
-  &.hover-delay-end{
+  &.hover-delay-end:not(.one-side){
     //background-color: $light-red-background-color;
     background-color: $large-object-hover-color;
 

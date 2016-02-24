@@ -86,9 +86,10 @@ Rails.application.routes.draw do
 
 
     get "students", to: "pages#students", as: :students, defaults: { route_name: 'students' }
-    get "feedbacks", to: "pages#feedbacks", as: :feedbacks, defaults: { route_name: 'students' }
+    scope "feedbacks", controller: "feedbacks" do
+      root action: "index", as: :feedbacks, defaults: { route_name: 'feedbacks' }
+    end
 
-    get "feedbacks", to: "feedback"
 
     get 'about', to: 'about#index', as: :about, defaults: { route_name: 'about' }
 

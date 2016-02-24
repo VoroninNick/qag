@@ -1,0 +1,21 @@
+= render partial: 'articles/articles_list_banner'
+.page-content-z-index
+  #breadcrumbs-container
+    #breadcrumbs-row.row
+      ul#breadcrumbs-ul
+        li#breadcrumb-home.breadcrumb.inactive_breadcrumb
+          a#breadcrumb-home-a href=root_path
+            = embedded_svg_from_assets('svg/home.svg')
+        li#active-breadcrumb.breadcrumb
+          span#active-breadcrumb-text
+            = @breadcrumbs[:feedbacks][:title]
+
+
+
+  #events-list.events-collection
+    /- @paginated_events.each_with_index do |event, index|
+    = render 'list_item', articles: @paginated_feedbacks
+
+
+  .pagination-wrapper
+    = will_paginate @paginated_feedbacks

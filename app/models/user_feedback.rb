@@ -19,6 +19,12 @@ class UserFeedback < ActiveRecord::Base
 
   attr_accessible :comment_text, :name, :status, :published
 
+  scope :published, -> { where(published: 't') }
+
+  def show_toned_avatar
+    true
+  end
+
   rails_admin do
     parent HomePage
     weight 3

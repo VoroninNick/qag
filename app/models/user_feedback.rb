@@ -2,7 +2,7 @@ class UserFeedback < ActiveRecord::Base
   belongs_to :home_page
   attr_accessible :home_page
 
-  has_attached_file :avatar, :styles => { :thumb => '150x150#'},
+  has_attached_file :avatar, :styles => { thumb: '150x150#', article_list_large_thumb: "690x575#"},
                     :url  => "/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
                     :path => ":rails_root/public/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
                     convert_options: {

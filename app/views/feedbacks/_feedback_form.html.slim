@@ -1,0 +1,31 @@
+.feedback-form-wrap
+  - if defined?(feedback) && feedback
+
+    .feedback-form
+      .feedback-form-row.row
+        .columns.large-12
+          form id="feedback-form" method="post" action=create_feedback_path(locale: I18n.locale) data-success-message="Ваше повідомлення було успішно надіслано" data-sending-message="Ваше повідомлення надсилається" data-already-sent-message="Ви вже надсилали повідомлення"
+            /.field.field-name data-error-empty="Будь ласка, заповніть ім'я" data-error-invalid="Невірно заповнене ім'я" data-validate="name"
+                  input type="text" placeholder="Ім'я*" name="feedback[name]" id="message_name" aria-required="true" required="required"
+                  /.input-bg
+            /.field.field-phone data-error-empty="Будь ласка, заповніть телефон" data-validate="phone" data-error-invalid="Невірно заповнений телефон"
+                  input type="text" placeholder="+38 (XXX) XXX XX XX*" id="message_phone" name="message[phone]" aria-required="true" required="required"
+                  /.input-bg
+            /.field.field-email data-error-empty="Будь ласка, заповніть електронну пошту" data-validate="email" data-error-invalid="Невірно заповнена електронна пошта"
+                  input type="text" placeholder="Електронна скринька*" id="message_email" name="message[email]" aria-required="true" required="required"
+                  /.input-bg
+            .field.field-message data-error-empty="Будь ласка, заповніть повідомлення" data-validate="message" data-error-invalid="Невірно заповнене повідомлення"
+              textarea placeholder="Текст повідомлення*" id="message_text" name="feedback[comment_text]" aria-required="true" required="required"
+
+            .field.field-submit
+              a.js-trigger.cancel-changes.show-for-small-only href="#"
+              button type="submit" name="home-form-submit"
+                |Надіслати
+  - else
+    .row.please-login-to-leave-feedback
+      .columns.large-12
+        p
+          |Щоб залишити відгук, будь ласка,&thinsp;&thinsp;
+          a.popup-link.login href="/uk/my/dashboard/login" data-popup-name="sign_in_popup_form"
+            |увійдіть
+          |&thinsp;&thinsp;або зареєструйтесь

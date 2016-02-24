@@ -88,6 +88,7 @@ Rails.application.routes.draw do
     get "students", to: "pages#students", as: :students, defaults: { route_name: 'students' }
     scope "feedbacks", controller: "feedbacks" do
       root action: "index", as: :feedbacks, defaults: { route_name: 'feedbacks' }
+      post "", action: :create, as: :create_feedback, defaults: { route_name: 'create_feedback' }
     end
 
 

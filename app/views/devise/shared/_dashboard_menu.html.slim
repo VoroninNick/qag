@@ -1,5 +1,10 @@
 #dashboard-menu-column.columns.large-4.right
   #dashboard-menu-wrap
+    - avatar_exists = current_user.avatar.exists?
+    .dashboard-profile-icon class=(avatar_exists ? "avatar-exists" : 'avatar-fallback')
+      - if avatar_exists
+      - else
+        = embedded_svg_from_assets('svg/account.svg')
     .title
       = "Мій особистий кабінет"
     ul#dashboard-menu-links-ul

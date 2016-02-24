@@ -161,7 +161,7 @@ function path_before_dashboard_or_home_path(){
     }
 }
 
-$header_menu_user_wrapper.on('click', '.popup-link', function(event){
+var login_popup_link_click_handler = function(event){
     var $link = $(this)
     var url = $link.attr('href')
 
@@ -182,6 +182,7 @@ $header_menu_user_wrapper.on('click', '.popup-link', function(event){
 //                    $modal_windows_wrapper.append($modal)
 //                    $body.addClass(has_modal_open_class)
 //                    setPopupSize.call($modal)
+                    $("")
                 }
 
             })
@@ -212,7 +213,10 @@ $header_menu_user_wrapper.on('click', '.popup-link', function(event){
     }
 
 
-})
+}
+
+$header_menu_user_wrapper.on('click', '.popup-link', login_popup_link_click_handler)
+$('.please-login-to-leave-feedback').on('click', '.popup-link', login_popup_link_click_handler)
 
 
 
@@ -439,6 +443,13 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                                                     $body.removeClass(has_modal_open_class)
                                                 })
                                             }, 3000)
+
+                                            console.log("signed_in", data)
+
+                                            var feedback_form_html = data.feedback_form_html
+                                            if(feedback_form_html && feedback_form_html.length){
+                                                $(".feedback-form-wrap").html(feedback_form_html)
+                                            }
                                         }
 
                                         $header_menu_user_dropdown.appendTo($header_menu_user_wrapper)

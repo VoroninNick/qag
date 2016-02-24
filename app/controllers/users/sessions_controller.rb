@@ -68,9 +68,14 @@ class Users::SessionsController < Devise::SessionsController
         event_ids_i_am_subscribed_on.each do |event_id|
           event_data = { :"event_id" => event_id, :decline_button_link => event_unsubscription_form_path(event_id: event_id, locale: I18n.locale) }
           data[:events_i_am_subscribed_on].push event_data
+
+
         end
 
         data[:decline_button_text] = t("layout.buttons.unregister")
+
+        feedback = UserFeedback.new
+        data[:feedback_form_html] = render_to_string(template: "feedbacks/_feedback_form", layout: false, locals: { feedback: feedback })
       end
 
       render inline: "#{data.to_json}"

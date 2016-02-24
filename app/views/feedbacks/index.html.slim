@@ -19,3 +19,9 @@
 
   .pagination-wrapper
     = will_paginate @paginated_feedbacks
+
+  .feedback-form-section
+    .row
+      .form-title.columns.large-12
+        |Напишіть свій відгук
+    = render "feedback_form", feedback: @feedback

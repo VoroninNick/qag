@@ -1,5 +1,6 @@
 class UserFeedback < ActiveRecord::Base
   belongs_to :home_page
+
   attr_accessible :home_page
 
   has_attached_file :avatar, :styles => { thumb: '150x150#', article_list_large_thumb: "690x575#"},
@@ -23,6 +24,10 @@ class UserFeedback < ActiveRecord::Base
 
   def show_toned_avatar
     true
+  end
+
+  def get_avatar
+    user
   end
 
   rails_admin do

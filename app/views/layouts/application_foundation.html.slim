@@ -61,6 +61,7 @@ html#html class="no-js locale-#{I18n.locale.to_s} controller-#{params[:controlle
           #new_user_confirmation-popup-wrapper.popup-wrapper.js-template data-url=new_confirmation_url( :user, locale: I18n.locale) data-popup-name="sign_up_popup_form" data-input-id="devise_confirmations-new-get-flag"
           #devise_unlocks-new-get-wrapper.popup-wrapper.js-template data-url=new_unlock_path(:user, locale: I18n.locale) data-input-id="devise_unlocks-new-get-flag"
           #devise_passwords-new-get-wrapper.popup-wrapper.js-template data-url=new_password_path(:user, locale: I18n.locale) data-input-id="devise_passwords-new-get-flag"
+
         - if !flash[:notice].nil? && flash[:notice].is_a?(Hash)
           /= "locals: #{flash[:notice]['locals']['registration_event'].id.inspect }"
           = render partial: "layouts/#{flash[:notice]['layout']}", locals: { active: true, template: flash[:notice]['template'], template_locals: flash[:notice]['locals'] }

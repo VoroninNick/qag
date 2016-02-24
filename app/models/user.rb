@@ -116,6 +116,8 @@ class User < ActiveRecord::Base
   end
 
 
+
+
   rails_admin do
     navigation_label I18n.t('rails_admin.navigation_labels.other')
     label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")

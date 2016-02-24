@@ -473,6 +473,10 @@ $header-height: 90px;
   //overflow: hidden;
   cursor: pointer;
 
+
+}
+
+#header-menu-user, .dashboard-profile-icon{
   svg {
     height: 32px;
     width: 32px;
@@ -481,6 +485,30 @@ $header-height: 90px;
     //top: 10px;
     fill: #b7c9d3;
     @include transition($hover-transition-duration fill);
+
+  }
+}
+
+.dashboard-profile-icon{
+  text-align: center;
+  position: relative;
+  height: 96px;
+  cursor: pointer;
+
+  svg{
+    width: 96px;
+    height: 96px;
+  }
+
+  &:hover:before {
+    content: "Змінити аватар";
+    color: #FFA500;
+    position: absolute;
+    background: rgba(100, 100, 100, 0.5);
+    height: 48px;
+    width: 96px;
+    bottom: 0;
+    z-index: 1;
 
   }
 }

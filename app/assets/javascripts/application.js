@@ -27,6 +27,8 @@
 
 //= require jquery-touch-events/src/1.0.1/jquery.mobile-events
 
+//= require jquery-form/jquery.form
+
 // require tiny_validation
 //= require validation
 //= require variables
@@ -54,6 +56,8 @@
 
 //= require fast_code/layout
 //= require fast_code/dashboard
+//= require fast_code/feedbacks
+//= require fast_code/dashboard_avatar
 
 
 //= require mobile/home_scroll

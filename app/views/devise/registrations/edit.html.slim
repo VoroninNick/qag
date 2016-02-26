@@ -66,4 +66,33 @@
           = link_to "Cancel my account", registration_path(resource_name, locale: I18n.locale), data: { confirm: "Are you sure?" }, method: :delete
         /= link_to "Back", :back
 
-= render "avatar_form"
+  /= render "avatar_form"
+
+  - content_for(:popup_content) do
+    form#avatar-form
+      .step-1
+        h3
+          |Будь ласка, завантажте фотку
+        input#avatar-file type="file"
+        .error
+      .step-2
+        h3
+          |Кропніть фотку
+        img#preview
+
+        .info
+          label File size
+          input#filesize name="filesize" type="text"
+          label Type
+          input#filetype name="filetype" type="text"
+          label Image dimension
+          input#filedim name="filedim" type="text"
+          label W
+          input#w name="w" type="text"
+          label H
+          input#h name="h" type="text"
+        button type="submit"
+          |upload
+
+
+  = render "avatar_popup"

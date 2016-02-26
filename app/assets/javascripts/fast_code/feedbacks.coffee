@@ -1,6 +1,5 @@
-$("#feedback-form").on "submit", (e)->
+$(".feedback-form-section").on "submit", "form", (e)->
   e.preventDefault()
-  alert("hello")
 
 
   $form = $(this)

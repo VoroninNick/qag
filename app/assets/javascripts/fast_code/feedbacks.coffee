@@ -1,6 +1,7 @@
 $("#feedback-form").on "submit", (e)->
   e.preventDefault()
 
+
   $form = $(this)
   $button = $form.find("button")
   classes = {

@@ -1,1 +1,5 @@
-Cms::Config.use_translations = false
+Cms.config do
+  use_translations do
+    false
+  end
+end

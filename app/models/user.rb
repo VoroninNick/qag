@@ -45,6 +45,8 @@ class User < ActiveRecord::Base
 
   has_many :comments
 
+  has_many :user_feedbacks
+
   translates :name, :avatar_alt, :status, :versioning => :paper_trail
   accepts_nested_attributes_for :translations
   attr_accessible :translations_attributes, :translations

@@ -32,6 +32,7 @@ class FeedbacksController < ApplicationController
     feedback_params = params[:feedback]
     @feedback = UserFeedback.new(feedback_params)
     @feedback.user = current_user
+    @feedback.published = true
     if @feedback.save
       render "_list_item", locals: {articles: [@feedback]}, status: 201, layout: false
     end

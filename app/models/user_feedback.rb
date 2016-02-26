@@ -1,5 +1,6 @@
 class UserFeedback < ActiveRecord::Base
   belongs_to :home_page
+  belongs_to :user
 
   attr_accessible :home_page
 

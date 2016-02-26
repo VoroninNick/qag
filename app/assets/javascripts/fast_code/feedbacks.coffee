@@ -1,5 +1,6 @@
 $("#feedback-form").on "submit", (e)->
   e.preventDefault()
+  alert("hello")
 
 
   $form = $(this)

@@ -72,8 +72,8 @@ Cropper.fileSelectHandler = ->
 
     oImage.onload = ->
       #alert("oImage.onload")
-# onload event handler
-# display step 2
+      # onload event handler
+      # display step 2
       $('.step-2').fadeIn 500
       # display some basic image info
       sResultFileSize = Cropper.bytesToSize(oFile.size)
@@ -88,6 +88,7 @@ Cropper.fileSelectHandler = ->
         $('#preview').height oImage.naturalHeight
       setTimeout (
         ->
+          alert("initialize jcrop")
           # initialize Jcrop
           $('#preview').Jcrop {
             minSize: [

@@ -26,7 +26,30 @@
 
 .feedbacks-pagination-wrap
 	text-align: center
+	margin: 30px
 
 	.pagination
 		display: inline-block
 
+.pagination
+	> *
+		color: white
+		background: $semi-dark-blue-color
+		display: inline-block
+		border-radius: 50%
+		width: 30px
+		height: 30px
+		text-align: center
+		line-height: 30px
+		cursor: default
+
+	a
+		cursor: pointer
+		+transition-property(all)
+		+transition-duration(0.2s)
+
+	a:hover, .current
+		color: white
+		background-color: $orange-color
+	.disabled
+		background-color: $gray-color

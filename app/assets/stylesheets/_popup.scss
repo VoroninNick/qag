@@ -24,7 +24,7 @@
   display: block;
 
   //@include transform( translate3d(0, -100%, 0) );
-  @include transform( translate3d(0, -100%, 0) );
+  @include transform( translate(0, -100%) );
 
   //&.active{
   //  @include transform( none );
@@ -58,7 +58,7 @@
   width: auto;
   /* top: 50%; */
   left: 50%;
-  @include transform( translate3d(-50%, 0, 0) );
+  @include transform( translate(-50%, 0) );
   text-align: center;
   max-width: 100%;
   /* min-height: 100%; */
@@ -140,7 +140,7 @@
   }
 
   .popup-box-border{
-    @include transform( translate3d(-50%, -50%, 0) );
+    @include transform( translate(-50%, -50%) );
     padding: 0;
     top: 50%;
     left: 50%;
@@ -545,7 +545,7 @@ select:-webkit-autofill {
   &:checked{
     & ~ #body-inner{
       #users_registrations-new-get{
-        @include transform( translate3d(0, 0, 0) );
+        @include transform( translate(0, 0) );
         opacity: 1;
       }
     }
@@ -557,7 +557,7 @@ select:-webkit-autofill {
     & ~ #body-inner{
       #users_sessions-new-get{
         //transform: translateY(0);
-        @include transform( translate3d(0, 0, 0) );
+        @include transform( translate(0, 0) );
         opacity: 1;
       }
     }
@@ -569,7 +569,7 @@ select:-webkit-autofill {
     & ~ #body-inner{
       #users_confirmations-new-get{
         //transform: translateY(0);
-        @include transform( translate3d(0, 0, 0) );
+        @include transform( translate(0, 0) );
         opacity: 1;
       }
     }
@@ -581,7 +581,7 @@ select:-webkit-autofill {
     & ~ #body-inner{
       #users_unlocks-new-get{
         //transform: translateY(0);
-        @include transform( translate3d(0, 0, 0) );
+        @include transform( translate(0, 0) );
         opacity: 1;
       }
     }
@@ -593,7 +593,7 @@ select:-webkit-autofill {
     & ~ #body-inner{
       #users_passwords-new-get{
         //transform: translateY(0);
-        @include transform( translate3d(0, 0, 0) );
+        @include transform( translate(0, 0) );
         opacity: 1;
       }
     }
@@ -612,7 +612,7 @@ select:-webkit-autofill {
 
 .modal-open{
   opacity: 1;
-  @include transform(translate3d(0,0,0))
+  @include transform(translate(0,0))
 }
 
 

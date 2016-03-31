@@ -32,6 +32,7 @@ class Participant < ActiveRecord::Base
   end
 
   scope :published, -> { where(published: 't' ) }
+  scope :sort_by_sorting_position, -> { order("sorting_position asc") }
 
   translates :name, :short_description, :avatar_alt, :versioning => :paper_trail
   accepts_nested_attributes_for :translations
@@ -81,6 +82,7 @@ class Participant < ActiveRecord::Base
   end
 
   rails_admin do
+    nestable_list(position_field: :sorting_position)
     parent AboutPage
     label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")
     label_plural I18n.t("rails_admin.model_labels_plural.#{self.abstract_model.model_name.underscore}")

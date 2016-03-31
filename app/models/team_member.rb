@@ -12,6 +12,9 @@ class TeamMember < ActiveRecord::Base
 
   validates_attachment_file_name :avatar, :matches => [/png\Z/i, /jpe?g\Z/i, /gif\Z/i, /svg\Z/i]
 
+  scope :published, -> { where(published: 't' ) }
+  scope :sort_by_sorting_position, -> { order("sorting_position asc") }
+
   [:avatar].each do |paperclip_field_name|
     attr_accessible paperclip_field_name.to_sym, "delete_#{paperclip_field_name}".to_sym, "#{paperclip_field_name}_file_name".to_sym, "#{paperclip_field_name}_file_size".to_sym, "#{paperclip_field_name}_content_type".to_sym, "#{paperclip_field_name}_updated_at".to_sym, "#{paperclip_field_name}_file_name_fallback".to_sym, "#{paperclip_field_name}_alt".to_sym
 
@@ -79,6 +82,7 @@ class TeamMember < ActiveRecord::Base
   end
 
   rails_admin do
+    nestable_list(position_field: :sorting_position)
     parent AboutPage
     weight -1
     label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")

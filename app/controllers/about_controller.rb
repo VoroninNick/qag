@@ -12,10 +12,10 @@ class AboutController < ApplicationController
         }
     }
 
-    @participants = Participant.all.where("published = 't' ")
-    @team_members = TeamMember.all.where("published = 't' ")
+    @participants = Participant.published.sort_by_sorting_position
+    @team_members = TeamMember.published.sort_by_sorting_position
 
-    @about_slides = AboutPageSliderSlide.where("published = 't' ").order('order_index asc')
+    @about_slides = AboutPageSliderSlide.published.sort_by_sorting_position
 
     @about_page = AboutPage.first
 

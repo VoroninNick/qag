@@ -1,0 +1,6 @@
+uk:
+  admin:
+    actions:
+      nestable:
+        title: Сортування
+        breadcrumb: Сортування

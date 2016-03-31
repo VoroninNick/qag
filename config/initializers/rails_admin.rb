@@ -159,6 +159,10 @@ RailsAdmin.config do |config|
     ## With an audit adapter, you can add:
     history_index
     history_show
+
+    nestable do
+      only [Participant, TeamMember, AboutPageSliderSlide]
+    end
   end
 
   ([
@@ -197,4 +201,6 @@ RailsAdmin.config do |config|
 
     field :seo_tags
   end
+
+
 end

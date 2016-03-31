@@ -12,6 +12,9 @@ class AboutPageSliderSlide < ActiveRecord::Base
 
   validates_attachment_file_name :background, :matches => [/png\Z/i, /jpe?g\Z/i, /gif\Z/i, /svg\Z/i]
 
+  scope :published, -> { where(published: 't' ) }
+  scope :sort_by_sorting_position, -> { order("sorting_position asc") }
+
   [:background].each do |paperclip_field_name|
     attr_accessible paperclip_field_name.to_sym, "delete_#{paperclip_field_name}".to_sym, "#{paperclip_field_name}_file_name".to_sym, "#{paperclip_field_name}_file_size".to_sym, "#{paperclip_field_name}_content_type".to_sym, "#{paperclip_field_name}_updated_at".to_sym, "#{paperclip_field_name}_file_name_fallback".to_sym, "#{paperclip_field_name}_alt".to_sym
 
@@ -76,7 +79,7 @@ class AboutPageSliderSlide < ActiveRecord::Base
   end
 
   rails_admin do
-
+    nestable_list(position_field: :sorting_position)
     parent AboutPage
     label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")
     label_plural I18n.t("rails_admin.model_labels_plural.#{self.abstract_model.model_name.underscore}")
@@ -84,11 +87,6 @@ class AboutPageSliderSlide < ActiveRecord::Base
     weight -10
     edit do
       field :published do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
-      end
-      field :order_index do
         if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
           label asd
         end

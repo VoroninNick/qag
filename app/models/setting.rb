@@ -4,8 +4,9 @@ class Setting < ActiveRecord::Base
   def self.get_social_links
     settings = Setting.first
     result = {}
-
-    [:twitter, :facebook, :odnoklassniki, :linked_in, :blogger, :vk, :google_plus].each do |field_name|
+    #keys = [:twitter, :facebook, :odnoklassniki, :linked_in, :blogger, :vk, :google_plus]
+    keys = [:twitter, :facebook, :linked_in, :vk, :google_plus]
+    keys.each do |field_name|
       value = settings.send("social_#{field_name}")
       if value && value.length > 0
         result[field_name] = value

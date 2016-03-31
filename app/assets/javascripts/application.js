@@ -58,7 +58,7 @@
 //= require fast_code/dashboard
 //= require fast_code/feedbacks
 
-//= require Jcrop/js/Jcrop.min
+//= require Jcrop/js/jquery.Jcrop.min
 
 //= require fast_code/cropper
 //= require fast_code/dashboard_avatar

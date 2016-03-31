@@ -86,32 +86,34 @@ Cropper.fileSelectHandler = ->
         jcrop_api = null
         $('#preview').width oImage.naturalWidth
         $('#preview').height oImage.naturalHeight
-      setTimeout (
+      alert("before setTimeout")
+      setTimeout(
         ->
           alert("initialize jcrop")
           # initialize Jcrop
-          $('#preview').Jcrop {
-            minSize: [
-              32
-              32
-            ]
-            aspectRatio: 1
-            bgFade: true
-            bgOpacity: .3
-            onChange: Cropper.updateInfo
-            onSelect: Cropper.updateInfo
-            onRelease: Cropper.clearInfo
-          },
-          ->
-            # use the Jcrop API to get the real image size
-            bounds = @getBounds()
-            boundx = bounds[0]
-            boundy = bounds[1]
-            # Store the Jcrop API in the jcrop_api variable
-            jcrop_api = this
-
+          $('#preview').Jcrop(
+            {
+              minSize: [
+                32
+                32
+              ]
+              aspectRatio: 1
+              bgFade: true
+              bgOpacity: .3
+              onChange: Cropper.updateInfo
+              onSelect: Cropper.updateInfo
+              onRelease: Cropper.clearInfo
+            },
+            ->
+              # use the Jcrop API to get the real image size
+              bounds = @getBounds()
+              boundx = bounds[0]
+              boundy = bounds[1]
+              # Store the Jcrop API in the jcrop_api variable
+              jcrop_api = this
+          )
         3000)
-      return
+
 
     return
 

@@ -1,5 +1,8 @@
 class Message < ActiveRecord::Base
-	attr_accessible :name, :phone, :email, :text
+	attr_accessible *attribute_names
+
+	validates_presence_of :name, :phone, :email, :text
+
 	rails_admin do
 		navigation_label I18n.t('rails_admin.navigation_labels.other')
 		label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")

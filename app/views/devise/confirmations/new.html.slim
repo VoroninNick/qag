@@ -5,7 +5,7 @@
 
     .errors
 
-	= simple_form_for(resource, as: resource_name, url: create_user_confirmation_path(locale: I18n.locale), html: { method: :post }) do |f|
+	= simple_form_for(resource, as: resource_name, url: create_user_confirmation_path, html: { method: :post }) do |f|
 	  .form-errors
         - if f.error_notification
           = "Помилки форми"

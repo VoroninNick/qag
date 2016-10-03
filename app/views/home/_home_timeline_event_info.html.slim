@@ -43,7 +43,7 @@
           /- if event.up_to_date?
             - if event.enabled_registration?
               .register-button.registration-enabled.columns.large-4.right class=( "decline" if subscribed_on_event?(event.id) )
-                a.register-button-a href=( subscribed_on_event?(event.id) ? event_unsubscription_form_path(event_id: event.id, locale: I18n.locale) : new_event_subscription_path(event_id: event.id, locale: I18n.locale)  )
+                a.register-button-a href=( subscribed_on_event?(event.id) ? event_unsubscription_form_path(event_id: event.id) : new_event_subscription_path(event_id: event.id)  )
                   = embedded_svg_from_assets('svg/registration.svg')
                   span.registration-text
                     = t("layout.buttons.#{ "un" if subscribed_on_event?(event.id) }register")

@@ -2,7 +2,7 @@
   #devise_sessions-new-get-form-wrap.devise-form-wrap
 	.form-title
 	  | Змінити пароль
-	= simple_form_for(resource, as: resource_name, url: password_path(resource_name, locale: I18n.locale), html: { method: :put }) do |f|
+	= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
 	  = f.error_notification
 	  = f.input :reset_password_token, as: :hidden
 	  = f.full_error :reset_password_token

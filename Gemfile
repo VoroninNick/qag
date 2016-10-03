@@ -174,7 +174,7 @@ gem 'fancybox2-rails'
 gem 'global_config'
 
 gem 'quiet_assets'
-gem 'thin'
+gem 'puma'
 
 gem "bower-rails"
 
@@ -193,3 +193,5 @@ gem 'attachable', github: "VoroninNick/attachable"
 gem 'enumerize'
 
 gem 'rack-page_caching'
+
+gem 'json', "1.8.3"

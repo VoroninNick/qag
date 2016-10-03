@@ -45,6 +45,7 @@
 //= require test_map
 //= require home
 //= require pages/about
+//= require pages/feedbacks
 //= require contact
 //= require events
 // require render

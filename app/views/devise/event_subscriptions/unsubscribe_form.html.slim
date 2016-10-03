@@ -3,9 +3,9 @@
     .form-title
       = "Відмовитися від події"
 
-    = simple_form_for(:user, url: event_unsubscribe_path( locale: I18n.locale)) do |f|
+    = simple_form_for(:user, url: event_unsubscribe_path do |f|
       p.text
-        = raw "Ви впевнені, що хочете відмовитися від події <a href=\"#{event_item_path(item: @event.slug, tags: @event.tags.join('-'), locale: I18n.locale)}\">&laquo;#{ @event.name }&raquo;?"
+        = raw "Ви впевнені, що хочете відмовитися від події <a href=\"#{event_item_path(item: @event.slug, tags: @event.tags.join('-'))}\">&laquo;#{ @event.name }&raquo;?"
       = f.button :submit, "Так", class: 'unsubscribe-submit-button devise-submit-button input-submit orange-bg'
       /= link_to "Ні", "#"
-      /= link_to "Детальніше про подію", event_item_path(item: @event.slug, tags: @event.tags.join('-'), locale: I18n.locale)
+      /= link_to "Детальніше про подію", event_item_path(item: @event.slug, tags: @event.tags.join('-'))

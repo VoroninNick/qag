@@ -53,3 +53,40 @@
 		background-color: $orange-color
 	.disabled
 		background-color: $gray-color
+
+
+
+.controller-feedbacks
+	.articles-list-article
+		.article-short-description
+			+transition-duration(0.5s)
+			+transition-property(max-height)
+		.articles-list-article-description
+			height: auto
+			position: relative
+			left: 0
+		.articles-list-article-description-side-1
+			height: auto
+			position: relative
+
+		.article-list-article-date
+			margin-bottom: 32px
+
+		.collapse, .expand
+			color: $font-blue-color
+			font-weight: 800
+			text-transform: uppercase
+			font-size: 12px
+			cursor: pointer
+
+		.collapse
+			display: none
+
+		&.expanded
+			.collapse
+				display: block
+			.expand
+				display: none
+
+			//.article-short-description
+				max-height: none

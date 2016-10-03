@@ -1,26 +1,26 @@
 /.shared-links
   - if controller_name != 'sessions'
     div
-      = link_to t('shared.links.sign_in'), new_session_path(resource_name, locale: I18n.locale), class: 'popup-link link-to-input', data: { input: '#devise_sessions-new-get-flag' }
+      = link_to t('shared.links.sign_in'), new_session_path(resource_name), class: 'popup-link link-to-input', data: { input: '#devise_sessions-new-get-flag' }
 
   - if devise_mapping.registerable? && controller_name != 'registrations'
     div
-      = link_to t('shared.links.sign_up'), new_registration_path(resource_name, locale: I18n.locale), class: 'popup-link link-to-input', data: { input: '#devise_registrations-new-get-flag' }
+      = link_to t('shared.links.sign_up'), new_registration_path(resource_name), class: 'popup-link link-to-input', data: { input: '#devise_registrations-new-get-flag' }
 
   - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
     div
-      = link_to t('shared.links.forgot_password'), new_password_path(resource_name, locale: I18n.locale), class: 'popup-link link-to-input', data: { input: '#devise_passwords-new-get-flag' }
+      = link_to t('shared.links.forgot_password'), new_password_path(resource_name), class: 'popup-link link-to-input', data: { input: '#devise_passwords-new-get-flag' }
 
   - if devise_mapping.confirmable? && controller_name != 'confirmations'
     div
-      = link_to t('shared.links.confirmations'), new_confirmation_path(resource_name, locale: I18n.locale), class: 'popup-link link-to-input', data: { input: '#devise_confirmations-new-get-flag' }
+      = link_to t('shared.links.confirmations'), new_confirmation_path(resource_name), class: 'popup-link link-to-input', data: { input: '#devise_confirmations-new-get-flag' }
 
   - if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
     div
-      = link_to t('shared.links.unlocks'), new_unlock_path(resource_name, locale: I18n.locale), class: 'popup-link link-to-input', data: { input: '#devise_unlocks-new-get-flag' }
+      = link_to t('shared.links.unlocks'), new_unlock_path(resource_name), class: 'popup-link link-to-input', data: { input: '#devise_unlocks-new-get-flag' }
 
   - if devise_mapping.omniauthable?
     - resource_class.omniauth_providers.each do |provider|
       div
-        = link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider, locale: I18n.locale)
+        = link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider)
 

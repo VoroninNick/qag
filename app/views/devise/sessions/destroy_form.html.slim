@@ -3,7 +3,7 @@
     .form-title
       = "Вихід"
 
-    = simple_form_for(:user, url: destroy_user_session_path( locale: I18n.locale)) do |f|
+    = simple_form_for(:user, url: destroy_user_session_path) do |f|
       p.text
         = "Ви впевнені, що хочете вийти з системи?"
       = f.button :submit, "Так", class: 'input-submit logout logout-submit-button devise-submit-button orange-bg'

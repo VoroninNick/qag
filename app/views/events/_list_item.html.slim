@@ -1,6 +1,6 @@
 - events.each_with_index do |event, index|
   .events-list-event.event-collection-item.list-item data-event-id="#{event.id}" class="#{"event-i-am-subscribed-on" if subscribed_on_event?(event.id) } #{ ( event.expired? )? 'expired-event' : ( Date.today >= event.start_date )? 'started-event' : 'future-event' }#{(index % 2 == 1)? ' right-image' : nil}"
-    a.event-bg-link href=event_item_path(locale: I18n.locale, item: event.slug, tags: event.tags.join('-'))
+    a.event-bg-link href=event_item_path(item: event.slug, tags: event.tags.join('-'))
     .events-list-event-row.row
       .image-and-info.columns.large-3.medium-3.small-4
         .image
@@ -27,7 +27,7 @@
       .description.columns.large-9.medium-9.small-8
         .description-inner
           .event-title
-            a.event-title-a href=event_item_path(locale: I18n.locale, item: event.slug, tags: event.tags.join('-'))
+            a.event-title-a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
               = event.name
           / slide.name
           .event-description

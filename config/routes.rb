@@ -5,8 +5,6 @@ Rails.application.routes.draw do
   scope "(:locale)", locale: /[a-zA-Z]{2}/ do
     post "/enable_event_substription", to: "events#enable_event_subscription"
 
-
-
     get 'home/future_events_thumbnails', to: 'home#future_events_thumbnails', as: :home_future_events_thumbnails, defaults: { route_name: 'home_future_events_thumbnails' }
     get 'home/prev_events_thumbnails', to: 'home#prev_events_thumbnails', as: :home_prev_events_thumbnails, defaults: { route_name: 'home_prev_events_thumbnails' }
 
@@ -22,12 +20,16 @@ Rails.application.routes.draw do
     devise_scope :user do
       get "/users/resend_instructions", to: "users/confirmations#resend", as: "resend_user_instructions"
 
-      get 'event/:event_id/register', to: 'users/event_subscriptions#new', as: 'new_event_subscription', defaults: { route_name: 'new_event_subscription' }
-      match 'event/:event_id/register', to: 'users/event_subscriptions#create', as: 'create_event_subscription', via: [ :post, :patch ], defaults: { route_name: 'create_event_subscription' }
-      get 'event/:event_id/unregister', to: 'users/event_subscriptions#unsubscribe_form', as: 'event_unsubscription_form', defaults: { route_name: 'event_unsubscription_form' }
-      post 'event/:event_id/unregister', to: 'users/event_subscriptions#unsubscribe', as: 'event_unsubscribe', defaults: { route_name: 'event_unsubscribe' }
+      scope "event/:event_id", controller: "users/event_subscriptions" do
+        get 'register', action: 'new', as: 'new_event_subscription', defaults: { route_name: 'new_event_subscription' }
+        match 'register', action: 'create', as: 'create_event_subscription', via: [ :post, :patch ], defaults: { route_name: 'create_event_subscription' }
+        get 'unregister', action: 'unsubscribe_form', as: 'event_unsubscription_form', defaults: { route_name: 'event_unsubscription_form' }
+        post 'unregister', action: 'unsubscribe', as: 'event_unsubscribe', defaults: { route_name: 'event_unsubscribe' }
+      end
 
-      get "events/history", to: "events#history", as: :events_history, defaults: { route_name: 'events_history' }
+      ['event', "course"].each do |k|
+        get "#{k.pluralize}/history", to: "events#history", as: :"#{k.pluralize}_history", defaults: { route_name: "#{k.pluralize}_history", event_type: k }
+      end
 
       # session handling
       get     '/my/dashboard/login'  => 'users/sessions#new',     as: 'new_user_session', defaults: { route_name: 'new_user_session' }
@@ -74,15 +76,20 @@ Rails.application.routes.draw do
 
     get 'articles', to: 'articles#list', as: :articles_list, defaults: { route_name: 'articles_list' }
 
+
     get 'articles/:item', to: 'articles#item', as: :article_item, defaults: { route_name: 'article_item' }
 
-    get 'events/(:tag)', to: 'events#list', as: :events_list, defaults: { route_name: 'events_list' }
+    ["event", "course"].each do |k|
+      scope k.pluralize, controller: "events" do
+        get '(:tag)', action: "list", as: :"#{k.pluralize}_list", defaults: { route_name: "#{k.pluralize}_list", event_type: k }
+        get ':tag', action: 'tag', as: :"#{k}_tag", defaults: { route_name: "#{k}_tag", event_type: k }
+      end
 
-    get 'events/:tag', to: 'events#tag', as: :event_tag, defaults: { route_name: 'event_tag' }
-
-    get 'event(/*tags)/:item/register', to: 'users/event_subscriptions#new', as: :register_on_event, defaults: { route_name: 'register_on_event' }
-
-    get 'event(/*tags)/:item', to: 'events#item', as: :event_item, defaults: { route_name: 'event_item' }
+      scope "#{k}(/*tags)" do
+        get ':item/register', to: 'users/event_subscriptions#new', as: :"register_on_#{k}", defaults: { route_name: "register_on_#{k}", event_type: k }
+        get ':item', to: "events#item", as: :"#{k}_item", defaults: { route_name: "#{k}_item", event_type: k }
+      end
+    end
 
 
     get "students", to: "pages#students", as: :students, defaults: { route_name: 'students' }
@@ -107,59 +114,4 @@ Rails.application.routes.draw do
 
     root to: 'home#index', defaults: { route_name: 'root' }
   end
-
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
-
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
 end

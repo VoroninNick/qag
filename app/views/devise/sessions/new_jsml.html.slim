@@ -11,17 +11,17 @@
         .unlogged-text-part-2
           = flash["unlogged_text"]["unlogged_text_2"]
 
-    = simple_form_for(:user, url: session_path(:user, locale: I18n.locale), html: { class: "new_user", id: "new_user" } ) do |f|
+    = simple_form_for(:user, url: session_path(:user), html: { class: "new_user", id: "new_user" } ) do |f|
       .form-inputs
         = f.input :email, required: false, autofocus: true, label: false, placeholder: t('devise.sessions.placeholders.email')
         = f.input :password, required: false, label: false, placeholder: t('devise.sessions.placeholders.password')
         = f.input :remember_me, as: :boolean, label: t('devise.sessions.remember_me') 
         
-        = link_to t('shared.links.forgot_password'), new_password_path(:user, locale: I18n.locale), class: 'forgot-password link-to-input', data: { input: "#devise_passwords-new-get-flag" }
+        = link_to t('shared.links.forgot_password'), new_password_path(:user), class: 'forgot-password link-to-input', data: { input: "#devise_passwords-new-get-flag" }
       .form-actions
         - if respond_to?(:devise_mapping) && devise_mapping && devise_mapping.registerable? && controller_name != 'registrations'
           .sign-up-link-wrapper
-            = link_to t('shared.links.sign_up'), new_registration_path(:user, locale: I18n.locale), class: 'sign-up link-to-input', data: { input: "#devise_registrations-new-get-flag" }
+            = link_to t('shared.links.sign_up'), new_registration_path(:user), class: 'sign-up link-to-input', data: { input: "#devise_registrations-new-get-flag" }
         .sign-in-submit-button-wrapper
           = f.button :submit, t('devise.sessions.sign_in_button'), class: 'sign-in-submit-button devise-submit-button'
 

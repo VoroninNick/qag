@@ -3,7 +3,7 @@
 
   .articles-list-article.article-collection-item.list-item.one-side.feedback-item
 
-    /a.event-bg-link href=article_item_path(locale: I18n.locale, item: article.slug)
+    /a.event-bg-link href=article_item_path(item: article.slug)
     .articles-list-article-row.row
       .article-avatar.columns.large-4.medium-4.small-12
         .pr
@@ -13,7 +13,12 @@
       .articles-list-article-description.columns.large-8.medium-8.small-12
         .articles-list-article-description-side-1
           .article-short-description
-            = article.comment_text
+            .article-short-description-inner
+              = article.comment_text
+          .expand
+            |Розгорнути
+          .collapse
+            |Згорнути
           .articles-list-article-description-title
             a.article-title-a
               = article.name
@@ -21,7 +26,9 @@
           .article-list-article-date
             = (article.updated_at ).strftime("%d.%m.%Y")
 
-        .articles-list-article-description-side-2
+
+
+        /.articles-list-article-description-side-2
           .article-short-description-and-button
 
             = get_button_for(article)

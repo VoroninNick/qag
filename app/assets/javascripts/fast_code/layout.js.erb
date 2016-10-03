@@ -106,10 +106,10 @@ has_modal_open_class = "has-modal-open";
 
 config = {
     routes: {
-        new_user_session: <%= js_path(:new_user_session, locale: I18n.locale) %>,
-        edit_user_registration: <%= js_path(:edit_user_registration, locale: I18n.locale) %>,
-        my_events: <%= js_path(:root, locale: I18n.locale) %>,
-        user_session_destroy_form: <%= js_path(:user_session_destroy_form, locale: I18n.locale) %>
+        new_user_session: <%= js_path(:new_user_session) %>,
+        edit_user_registration: <%= js_path(:edit_user_registration) %>,
+        my_events: <%= js_path(:root) %>,
+        user_session_destroy_form: <%= js_path(:user_session_destroy_form) %>
 
     }
 }

@@ -101,6 +101,7 @@ uk:
       start_date: "Дата початку"
       end_date: "Дата завершення"
       participants_count: "Кількість учасників"
+      event_type: "Тип події"
       event_tags: "Теги події"
       event_tags_attributes: "Теги події"
       event_gallery_albums: "Альбоми для події"
@@ -147,6 +148,7 @@ uk:
       participants: "Почесні учасники"
       participants_attributes: "Почесні учасники"
       days_and_time_string: "Дні та час проведення"
+      featured: "Показувати на головній"
 
     field_group_labels:
       social_links: "Посилання на соціальні мережі"

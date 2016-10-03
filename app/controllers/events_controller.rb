@@ -1,12 +1,11 @@
 class EventsController < ApplicationController
-
-
   def find_event
     params_item = params[:item]
+    event_type = params[:event_type]
     @event_ids_rows = Event.find_by_sql("select t.event_id as id from #{Event.translation_class.table_name} t where t.locale='#{I18n.locale}' and t.slug='#{params_item}'")
     @event_ids = []
     @event_ids_rows.each {|e| @event_ids.push e['id']  }
-    @events = Event.find(@event_ids)
+    @events = Event.where(event_type: event_type).where(id: @event_ids)
     @event = (@events.respond_to?(:count) && @events.count > 0)? @events.first : nil
 
     if @event
@@ -96,7 +95,7 @@ class EventsController < ApplicationController
 
     if selected_event_tag == 0
       #@events = Event.all.limit(max_events_count)
-      @events = Event.published#.order('id desc')
+      @events = Event.send(params[:event_type].pluralize).published#.order('id desc')
 
     else
       #@events = selected_event_tag.events.limit(max_events_count)
@@ -146,7 +145,7 @@ class EventsController < ApplicationController
 
   def history
     if user_signed_in?
-      @events = current_user.events
+      @events = current_user.events.send(params[:event_type].pluralize)
       @events_history = true
 
       events_per_page = 10

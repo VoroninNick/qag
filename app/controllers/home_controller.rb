@@ -94,7 +94,7 @@ class HomeController < ApplicationController
 
 
     #@home_reviews = Comment.all.includes(:user).limit(6)
-    @home_reviews = UserFeedback.where(published: true).limit(6)
+    @home_reviews = UserFeedback.published.featured.limit(6)
 
     @page = HomePage.first
 

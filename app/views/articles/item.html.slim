@@ -37,7 +37,7 @@
             - @related_articles.each do |a|
               .read-also-articles-article
                 .read-also-articles-article-title
-                  a.read-also-articles-article-title-a href="#{article_item_path(locale: I18n.locale, item: a.slug)}"
+                  a.read-also-articles-article-title-a href="#{article_item_path(item: a.slug)}"
                     = a.name
                 .read-also-articles-article-date
                   = (a.updated_at ).strftime("%d.%m.%Y")

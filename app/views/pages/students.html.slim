@@ -1,11 +1,15 @@
 = render partial: 'about/about_banner'
 .page-content-z-index
+  = render "breadcrumbs", key: "students"
   .row
     #students
       - if Pages.students.try(:students_text).present?
         #about-participants.text-content
           = raw Pages.students.try(:students_text)
           .clearfix
+
+      h1.about-gray-header.columns.large-12 style="text-align: center"
+        |Випускники
 
       #about-team-avatars
         ul#about-team-avatars-ul

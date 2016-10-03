@@ -1,5 +1,5 @@
-class Pages::ArticlesList < ActiveRecord::Base
-  self.table_name = :pages_articles_lists
+class Pages::CoursesList < ActiveRecord::Base
+  self.table_name = :pages_events_lists
   has_one :page_metadata, :class_name => 'VoroninStudio::PageMetadata', as: :page
   attr_accessible :page_metadata
 
@@ -7,11 +7,12 @@ class Pages::ArticlesList < ActiveRecord::Base
   attr_accessible :page_metadata_attributes
 
   image :banner, :styles => { :banner => '2100x500#'},
-                    :url  => "/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
-                    :path => ":rails_root/public/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
-                    convert_options: {
-                        banner: "-quality 94 -interlace Plane",
-                    }
+        :url  => "/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
+        :path => ":rails_root/public/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
+        convert_options: {
+            banner: "-quality 94 -interlace Plane",
+        }
+
 
   rails_admin do
     navigation_label I18n.t("rails_admin.navigation_labels.pages")

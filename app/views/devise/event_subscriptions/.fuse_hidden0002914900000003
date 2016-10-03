@@ -8,7 +8,7 @@
       	  = raw "#{@user.first_name}, Ви збираєтесь зареєструватись на курс &laquo;#{@event.name}&raquo;."
       	.event-reg-2
       	  = "Перевірте особисті дані, якщо необхідно введіть корективи та підтвердіть реєстрацію."
-      = simple_form_for(@user, as: :user, url: session_path(:user, locale: I18n.locale)) do |f|
+      = simple_form_for(@user, as: :user, url: session_path(:user)) do |f|
         .form-inputs
           = f.input :first_name, required: false, autofocus: true, label: t('devise.sessions.placeholders.first_name'), placeholder: t('devise.sessions.placeholders.first_name'), value: @user.first_name
           = f.input :last_name, required: false, label: t('devise.sessions.placeholders.last_name'), placeholder: t('devise.sessions.placeholders.last_name'), value: @user.last_name
@@ -17,11 +17,11 @@
 
           = f.input :contact_phone, label: t('devise.sessions.placeholders.contact_phone'), placeholder: t('devise.sessions.placeholders.contact_phone'), value: @user.contact_phone 
           /- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
-          = link_to t('shared.links.forgot_password'), new_password_path(:user, locale: I18n.locale), class: 'forgot-password link-to-input', data: { input: "#devise_passwords-new-get-flag" }
+          = link_to t('shared.links.forgot_password'), new_password_path(:user), class: 'forgot-password link-to-input', data: { input: "#devise_passwords-new-get-flag" }
         .form-actions
           - if 1 == 1 || devise_mapping.registerable? && controller_name != 'registrations'
             .sign-up-link-wrapper
-              = link_to t('shared.links.sign_up'), new_registration_path(:user, locale: I18n.locale), class: 'sign-up link-to-input', data: { input: "#devise_registrations-new-get-flag" }
+              = link_to t('shared.links.sign_up'), new_registration_path(:user), class: 'sign-up link-to-input', data: { input: "#devise_registrations-new-get-flag" }
         .sign-in-submit-button-wrapper
           = f.button :submit, t('devise.sessions.sign_in_button'), class: 'sign-in-submit-button devise-submit-button'
 

@@ -2,17 +2,17 @@
   #devise_sessions-new-get-form-wrap.devise-form-wrap
 	.form-title
 	  | Forgot your password?
-	= simple_form_for(resource, as: resource_name, url: password_path(resource_name, locale: I18n.locale), html: { method: :post }) do |f|
+	= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
 	  = f.error_notification
 	  .form-inputs
 	    = f.input :email, required: true, autofocus: true, label: false, placeholder: "#{t('devise.registrations.placeholders.email')}*"
 	  .form-actions
 	    = f.button :submit, "Send me reset password instructions", class: 'send-me-password-submit-button devise-submit-button'
 	/= render "devise/shared/links"
-	= link_to t('shared.links.sign_in'), new_session_path(resource_name, locale: I18n.locale), class: 'link-to-input', data: { input: '#devise_sessions-new-get-flag' }
+	= link_to t('shared.links.sign_in'), new_session_path(resource_name), class: 'link-to-input', data: { input: '#devise_sessions-new-get-flag' }
 	br
-	= link_to t('shared.links.sign_up'), new_registration_path(resource_name, locale: I18n.locale), class: 'link-to-input', data: { input: '#devise_registrations-new-get-flag' }
+	= link_to t('shared.links.sign_up'), new_registration_path(resource_name), class: 'link-to-input', data: { input: '#devise_registrations-new-get-flag' }
 	br
-	= link_to t('shared.links.confirmations'), new_confirmation_path(resource_name, locale: I18n.locale), class: 'link-to-input', data: { input: '#devise_confirmations-new-get-flag' }
+	= link_to t('shared.links.confirmations'), new_confirmation_path(resource_name), class: 'link-to-input', data: { input: '#devise_confirmations-new-get-flag' }
 	br
-	= link_to t('shared.links.unlocks'), new_unlock_path(resource_name, locale: I18n.locale), class: 'link-to-input', data: { input: '#devise_unlocks-new-get-flag' }
+	= link_to t('shared.links.unlocks'), new_unlock_path(resource_name), class: 'link-to-input', data: { input: '#devise_unlocks-new-get-flag' }

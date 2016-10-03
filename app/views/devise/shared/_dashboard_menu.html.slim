@@ -6,33 +6,34 @@
       - else
         = embedded_svg_from_assets('svg/account.svg')
     .title
-      = "Мій особистий кабінет"
+      = t("layout.dashboard.menu.cabinet")
     ul#dashboard-menu-links-ul
       li.dashboard-menu-link-li
-        = content_tag ( params[:route_name].to_sym == :edit_user_registration ? :span : :a ), class: "dashboard-menu-link-#{( params[:route_name].to_sym == :edit_user_registration ? :span : :a )}", href: "#{edit_user_registration_path(locale: I18n.locale)}" do
+        = content_tag ( params[:route_name].to_sym == :edit_user_registration ? :span : :a ), class: "dashboard-menu-link-#{( params[:route_name].to_sym == :edit_user_registration ? :span : :a )}", href: "#{edit_user_registration_path}" do
           .dashboard-menu-link-icon
             = embedded_svg_from_assets('svg/user_icon.svg')
           .dashboard-menu-link-text
-            = "Особисті дані"
+            = t("layout.dashboard.menu.profile")
 
-      li.dashboard-menu-link-li
-        .dashboard-menu-link-a href="#{events_history_path(locale: I18n.locale)}"
-        = content_tag ( params[:route_name].to_sym == :events_history ? :span : :a ), class: "dashboard-menu-link-#{( params[:route_name].to_sym == :events_history ? :span : :a )}", href: "#{events_history_path(locale: I18n.locale)}"  do
-          .dashboard-menu-link-icon
-            = embedded_svg_from_assets('svg/user_icon.svg')
-          span.dashboard-menu-link-text
-            = "Історія заходів"
+      - ["event", "course"].each do |k|
+        li.dashboard-menu-link-li
+          .dashboard-menu-link-a href="#{send("#{k.pluralize}_history_path")}"
+          = content_tag ( params[:route_name].to_sym == :"#{k.pluralize}_history" ? :span : :a ), class: "dashboard-menu-link-#{( params[:route_name].to_sym == :events_history ? :span : :a )}", href: "#{send("#{k.pluralize}_history_path")}"  do
+            .dashboard-menu-link-icon
+              = embedded_svg_from_assets('svg/user_icon.svg')
+            span.dashboard-menu-link-text
+              = t("layout.dashboard.menu.#{k.pluralize}-history")
   ul#dashboard-menu-another-links-ul
     li.dashboard-menu-another-link-li
-      a.dashboard-menu-another-link-li-a.js-trigger.quit-dashboard href="#{user_session_destroy_form_path(locale: I18n.locale)}"
-        = "Повернутись на сайт"
+      a.dashboard-menu-another-link-li-a.js-trigger.quit-dashboard href="#{user_session_destroy_form_path}"
+        = t("layout.dashboard.menu.return-to-site")
 
     li.dashboard-menu-another-link-li
-      a.dashboard-menu-another-link-li-a.popup-link.logout href="#{user_session_destroy_form_path(locale: I18n.locale)}"
+      a.dashboard-menu-another-link-li-a.popup-link.logout href="#{user_session_destroy_form_path}"
         /= "Вийти з кабінету"
-        = "Вилогінитись"
+        = t("layout.dashboard.menu.logout")
 
     li.dashboard-menu-another-link-li
-      = link_to "Видалити аккаунт", registration_path(resource_name, locale: I18n.locale), data: { confirm: "Are you sure?" }, method: :delete, class: "dashboard-menu-another-link-li-a"
+      = link_to "Видалити аккаунт", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "dashboard-menu-another-link-li-a"
 
 

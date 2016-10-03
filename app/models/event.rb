@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 class Event < ActiveRecord::Base
+  attr_accessible *attribute_names
+  include Enumerize
   #include VoroninStudio::PageHelper
 
   #acts_as_page
@@ -28,6 +30,11 @@ class Event < ActiveRecord::Base
 
   has_and_belongs_to_many :event_tags, join_table: :event_taggings
   attr_accessible :event_tags, :event_tag_id, :event_tag_ids
+
+  enumerize :event_type, in: [:event, :course], default: :event
+
+  scope "events", -> { where(event_type: "event")  }
+  scope "courses", -> { where(event_type: "course")  }
 
 
   has_attached_file :avatar, :styles => { :event_list_small_thumb => '360x240#', :event_list_avatar => '255x170#', :event_list_large_thumb => '720x480#', :home_expired_event_thumb => '500x1250#', :article_item => '320x320>', home_article_item: '250x250>', article_page: '500x500>'},
@@ -147,6 +154,7 @@ class Event < ActiveRecord::Base
     subscription = self.event_subscriptions.where(user_id: user.id).first
     return ( subscription ? subscription.disabled : nil )
   end
+
 
   attr_accessible :days_and_time_string
 
@@ -293,6 +301,12 @@ class Event < ActiveRecord::Base
     label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")
     label_plural I18n.t("rails_admin.model_labels_plural.#{self.abstract_model.model_name.underscore}")
 
+    configure :event_type, :enum do |f|
+      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
+        label asd
+      end
+    end
+
     [:start_date, :end_date].each do |f|
       configure f, :date do
         #date_format "%d.%m.%Y"
@@ -346,43 +360,24 @@ class Event < ActiveRecord::Base
       if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
         label asd
       end
+
+      help "якщо це курс, залишайте порожнім"
     end
 
     configure :avatar do
       if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
         label asd
       end
-      if type == :paperclip
-        model = @abstract_model.model_name.constantize
-        temp_instance = model.new
-        attr = temp_instance.send(method_name)
-        help help + ( attr.styles.map{|obj| info = obj[1]; res = {}; res[info.name.to_sym] = info.geometry; res  }).inspect
-
-      end
     end
     configure :banner do
       if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
         label asd
-      end
-      if type == :paperclip
-        model = @abstract_model.model_name.constantize
-        temp_instance = model.new
-        attr = temp_instance.send(method_name)
-        help help + ( attr.styles.map{|obj| info = obj[1]; res = {}; res[info.name.to_sym] = info.geometry; res  }).inspect
-
       end
     end
 
     configure :expired_event_avatar do
       if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
         label asd
-      end
-      if type == :paperclip
-        model = @abstract_model.model_name.constantize
-        temp_instance = model.new
-        attr = temp_instance.send(method_name)
-        help help + ( attr.styles.map{|obj| info = obj[1]; res = {}; res[info.name.to_sym] = info.geometry; res  }).inspect
-
       end
     end
 
@@ -401,6 +396,7 @@ class Event < ActiveRecord::Base
     end
 
     list do
+      field :event_type
       field :published
       field :disabled_registration
       field :allowed_subscriptions_count
@@ -424,6 +420,7 @@ class Event < ActiveRecord::Base
       end
 
       group :details do
+        field :event_type
         field :published
         field :translations, :globalize_tabs
         field :event_tags

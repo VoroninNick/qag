@@ -1,3 +1,7 @@
+@function rem-calc($value){
+  @return #{$value / 16}rem;
+}
+
 @mixin vendor-prefix($name, $arguments...) {
   -webkit-#{$name}: #{$arguments};
   -ms-#{$name}: #{$arguments};
@@ -259,36 +263,48 @@
   }
 }
 
+@mixin button-element {
+  height: 3.75rem;
+  display:inline-block;
+  background: $registration-button-background;
+  //width: 100%
+  width: rem-calc(300);
+  text-align: center;
+  border-radius: rem-calc(3);
+  cursor: pointer;
+  box-shadow: $button-box-shadow;
+  max-width: 100%;
+}
+
+@mixin button-svg{
+  display: inline-block;
+  position: relative;
+  top: rem-calc(10);
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+@mixin button-text{
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: white;
+}
+
 @mixin register-button {
   .register-button-a, .register-button-span {
-    height: 3.75rem;
-    display:inline-block;
-    background: $registration-button-background;
-    //width: 100%
-    width: rem-calc(300);
-    text-align: center;
-    border-radius: rem-calc(3);
-    cursor: pointer;
-    box-shadow: $button-box-shadow;
-    max-width: 100%;
+    @include button-element;
 
     svg {
-      display: inline-block;
-      position: relative;
-      top: rem-calc(10);
-      width: 2.5rem;
-      height: 2.5rem;
+      @include button-svg;
       .clock-arrow, .clock-round, .clock-fire {
         fill: white;
       }
     }
 
     .registration-text {
-      font-size: 2rem;
-      text-transform: uppercase;
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: white;
+      @include button-text;
     }
   }
 

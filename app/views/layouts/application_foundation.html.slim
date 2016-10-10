@@ -38,23 +38,14 @@ html#html class="no-js locale-#{I18n.locale.to_s} controller-#{params[:controlle
           #main
             #content
               == yield
-        = render partial: 'layouts/footer'
+        - if @render_footer != false
+          = render partial: 'layouts/footer'
       - else
         div#wrap
           == yield
 
-
-      /.async-partial-loader data-path="layouts/modal"
-      /.async-loader data-url=new_user_registration(locale: I18n.locale)
       #modal-windows-wrapper
         - if !@is_devise
-          / #new_user_session-popup-wrapper.popup-wrapper.async-loader data-url=new_user_session_url(locale: I18n.locale) data-popup-name="sign_in_popup_form" data-input-id="devise_sessions-new-get-flag"
-          / #new_user_registration-popup-wrapper.popup-wrapper.async-loader data-url=new_user_registration_url(locale: I18n.locale) data-popup-name="sign_up_popup_form" data-input-id="devise_registrations-new-get-flag"
-          / #new_user_confirmation-popup-wrapper.popup-wrapper.async-loader data-url=new_confirmation_url( :user) data-popup-name="sign_up_popup_form" data-input-id="devise_confirmations-new-get-flag"
-          / #devise_unlocks-new-get-wrapper.popup-wrapper.async-loader data-url=new_unlock_path(:user) data-input-id="devise_unlocks-new-get-flag"
-          / #devise_passwords-new-get-wrapper.popup-wrapper.async-loader data-url=new_password_path(:user) data-input-id="devise_passwords-new-get-flag"
-
-
           #new_user_session-popup-wrapper.popup-wrapper.js-template data-url=new_user_session_url(locale: I18n.locale) data-popup-name="sign_in_popup_form" data-input-id="devise_sessions-new-get-flag"
 
           #new_user_registration-popup-wrapper.popup-wrapper.js-template data-url=new_user_registration_url(locale: I18n.locale) data-popup-name="sign_up_popup_form" data-input-id="devise_registrations-new-get-flag"
@@ -63,31 +54,11 @@ html#html class="no-js locale-#{I18n.locale.to_s} controller-#{params[:controlle
           #devise_passwords-new-get-wrapper.popup-wrapper.js-template data-url=new_password_path(:user) data-input-id="devise_passwords-new-get-flag"
 
         - if !flash[:notice].nil? && flash[:notice].is_a?(Hash)
-          /= "locals: #{flash[:notice]['locals']['registration_event'].id.inspect }"
           = render partial: "layouts/#{flash[:notice]['layout']}", locals: { active: true, template: flash[:notice]['template'], template_locals: flash[:notice]['locals'] }
-          /= render partial: "layouts/#{flash[:notice]['layout']}", locals: { active: true, template: flash[:notice]['template'], template_locals: flash[:notice]['locals] }
-          /.notice
-            = raw flash[:notice]['html']
-          /= raw( render_to_string(template: 'devise/sessions/signed_in_successfully'), layout: 'modal_layout' )
-          /= raw flash[:notice]['html']
-          /= render template: flash[:notice]['template'], layout: flash[:notice]['template']['layout'], locals: flash[:notice]['locals']
-        /= render partial: "layouts/modal_layout", locals: { active: true, template: "devise/sessions/signed_in_successfully_message", template_locals: { registration_event: Event.first } }
-          /= flash[:notice]['locals'].inspect
-
-      /.async
-      /.async-partial-loader data-path="devise/registrations/new"
-      //.async-partial-loader data-path="about/about_banner"
-
 
       script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"
-      /script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"
+
       - if !content_for?(:script)
         = javascript_include_tag "application"
       - else
         = content_for(:script)
-      /= javascript_include_tag "views"
-
-      / javascript_include_tag "modernizr_load1"
-
-
-    / render partial: 'layouts/modal'

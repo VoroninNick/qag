@@ -113,5 +113,6 @@ Rails.application.routes.draw do
     
 
     root to: 'home#index', defaults: { route_name: 'root' }
+    match "*url", to: "application#render_not_found", via: [:get, :post, :path, :put, :update, :delete]
   end
 end

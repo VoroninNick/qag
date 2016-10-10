@@ -66,7 +66,7 @@ class ArticlesController < ApplicationController
 
       #@meta_keywords = resource.tags.map(&:get_name).select{|t| t.present? }.uniq.join(',') if resource.respond_to?(:tags) && @page_metadata.try{|m| m.get_meta_keywords}.blank?
     else
-      redirect_to articles_list_path
+      render_not_found
     end
 
 

@@ -49,6 +49,11 @@ class ApplicationController < ActionController::Base
     I18n.locale = locale
   end
 
+  def render_not_found
+    @render_footer = false
+    render template: "errors/not_found.html.slim", status: 404
+  end
+
   before_filter :update_sanitized_params, if: :devise_controller?
 
   def update_sanitized_params

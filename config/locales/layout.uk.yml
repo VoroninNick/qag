@@ -4,6 +4,7 @@ uk:
       menu:
         about: 'Про нас'
         events: 'Заходи'
+        courses: "Курси"
         articles: 'Публікації'
         contact: 'Контакти'
         students: "Випускники"
@@ -35,6 +36,7 @@ uk:
       about_us: 'Про нас'
       contact: 'Контакти'
       events_list: 'Заходи'
+      courses_list: "Курси"
       articles_list: "Публікації"
       students: "Випускники"
       feedbacks: "Відгуки"

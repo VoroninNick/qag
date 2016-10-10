@@ -41,7 +41,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
         data = {html: html_source }
 
         #render inline: "#{data.to_json}"
-        redirect_to new_user_session_path(locale: I18n.locale), notice: "You have successfully confirmed your account."
+        redirect_to new_user_session_path, notice: "You have successfully confirmed your account."
       else
         #respond_to_on_destroy
         render template: required_template
@@ -64,7 +64,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
       sign_in(resource_name, resource)
       required_template = "devise/confirmations/confirmed_successfully"
       #respond_with_navigational(resource){ redirect_to after_confirmation_path_for(resource_name, resource) }
-      redirect_to root_path(locale: I18n.locale), notice: {
+      redirect_to root_path, notice: {
                                                     template: required_template,
                                                     layout: 'modal_layout',
                                                     locals: {active: true, registration_event_id: (@registration_event.id rescue nil)},

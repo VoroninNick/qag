@@ -190,9 +190,9 @@ class HomeController < ApplicationController
         }
 
         if event_obj[:registered]
-          event_obj[:unregister_link] = event_unsubscription_form_path(locale: I18n.locale, event_id: e.id)
+          event_obj[:unregister_link] = event_unsubscription_form_path(event_id: e.id)
         else
-          event_obj[:register_link] = new_event_subscription_path(locale: I18n.locale, event_id: e.id)
+          event_obj[:register_link] = new_event_subscription_path(event_id: e.id)
         end
         event_obj
   end

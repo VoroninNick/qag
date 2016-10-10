@@ -11,7 +11,7 @@ class EventsController < ApplicationController
     if @event
       @event.translations_by_locale.keys.each do |locale|
         I18n.with_locale(locale.to_sym) do
-          @page_locale_links[locale.to_sym] = url_for(item: @event.slug, tags: @event.tags.join('-'), locale: locale)
+          @page_locale_links[locale.to_sym] = url_for(item: @event.slug, tags: @event.tags.join('-'))
         end
 
       end
@@ -25,16 +25,16 @@ class EventsController < ApplicationController
     if @event
       @breadcrumbs = {
           home: {},
-          events_list: {
-              title: I18n.t('layout.breadcrumbs.events_list'),
+          :"#{params[:event_type].pluralize}_list" => {
+              title: I18n.t("layout.breadcrumbs.#{params[:event_type].pluralize}_list"),
               link: {
-                  url: events_list_path(locale: I18n.locale)
+                  url: events_list_path
               }
           },
           event_item: {
               title: @event.name,
               link: {
-                  url: event_item_path(item: @event.slug, tags: @event.tags.join('-'), locale: I18n.locale)
+                  url: event_item_path(item: @event.slug, tags: @event.tags.join('-'))
               }
           }
       }
@@ -71,7 +71,7 @@ class EventsController < ApplicationController
         events_list: {
             title: I18n.t('layout.breadcrumbs.events_list'),
             link: {
-                url: events_list_path(locale: I18n.locale)
+                url: events_list_path
             }
         }
     }
@@ -159,7 +159,7 @@ class EventsController < ApplicationController
           dashboard: {
               title: "Особистий кабінет",
               link: {
-                  url: edit_user_registration_path(locale: locale)
+                  url: edit_user_registration_path
               }
           }
       }
@@ -174,7 +174,7 @@ class EventsController < ApplicationController
 
 
     else
-      redirect_to new_user_session_path(locale: I18n.locale)
+      redirect_to new_user_session_path
     end
   end
 

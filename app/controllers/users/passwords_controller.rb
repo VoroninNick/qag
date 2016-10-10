@@ -74,13 +74,13 @@ class Users::PasswordsController < Devise::PasswordsController
             dashboard: {
                 title: "Особистий кабінет",
                 link: {
-                    url: edit_user_registration_path(locale: locale)
+                    url: edit_user_registration_path
                 }
             },
             change_password: {
                 title: "Змінити пароль",
                 link: {
-                    url: my_edit_user_password_path(locale: I18n.locale)
+                    url: my_edit_user_password_path
                 }
             }
         }
@@ -104,7 +104,7 @@ class Users::PasswordsController < Devise::PasswordsController
       if user_signed_in?
         # render
       else
-        redirect_to new_user_session_path(locale: I18n.locale)
+        redirect_to new_user_session_path
       end
     end
   end
@@ -117,13 +117,13 @@ class Users::PasswordsController < Devise::PasswordsController
           dashboard: {
               title: "Особистий кабінет",
               link: {
-                  url: edit_user_registration_path(locale: locale)
+                  url: edit_user_registration_path
               }
           },
           change_password: {
               title: "Змінити пароль",
               link: {
-                  url: my_edit_user_password_path(locale: I18n.locale)
+                  url: my_edit_user_password_path
               }
           }
       }
@@ -142,11 +142,11 @@ class Users::PasswordsController < Devise::PasswordsController
 
 
       render template: "devise/passwords/edit_password" unless @saved
-      redirect_to new_user_session_path(locale: I18n.locale) if @saved
+      redirect_to new_user_session_path if @saved
 
       #render template: required_template
     else
-      redirect_to new_user_session_path(locale: I18n.locale)
+      redirect_to new_user_session_path
     end
   end
 

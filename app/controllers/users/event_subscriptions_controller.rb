@@ -76,7 +76,9 @@ class Users::EventSubscriptionsController < ApplicationController
 
 		required_template = ''
 
-		if user_signed_in?
+		required_sign_in = false
+
+		if !required_sign_in || user_signed_in?
 			required_template = "devise/event_subscriptions/new"
 			#render template: "devise/event_subscriptions/new"
 
@@ -89,49 +91,8 @@ class Users::EventSubscriptionsController < ApplicationController
 			 html_source = render_to_string template: required_template
 			 data = {controller: "users/event_subscriptions", action: "new", html: html_source }
 			 render inline: "#{data.to_json}"
-
-
-			#  if @event
-			# 	if @ev
-			# 		flash[:result] = "You already subscribed on this event"
-			# 	end
-			# else
-			# 	required_template = "devise/sessions/new"
-			# 	#render template: "devise/sessions/new"
-			# end
-      #
-			# if modal?
-			# 	html_source = render_to_string template: required_template
-			# 	data = {controller: "users/event_subscriptions", action: "new", html: html_source }
-			# 	render inline: "#{data.to_json}"
-			# else
-			# 	#respond_to_on_destroy
-			# 	render template: required_template
-			# end
-
 		else
-			#respond_to_on_destroy
 			render template: required_template
-
-			# redirect_location = current_user.registration_location
-			# if !redirect_location
-			# 	redirect_location = root_path(locale: I18n.locale)
-			# end
-      #
-			# redirect_to redirect_location, notice: {
-			# 																 # html: render_to_string(template: required_template,
-			# 																 #                        layout: 'modal_layout',
-			# 																 #                        locals:
-			# 																 #                            {
-			# 																 #                                active: true,
-			# 																 #                                registration_event: @registration_event
-			# 																 #                            }),
-			# 																 template: required_template,
-			# 																 layout: 'modal_layout',
-			# 																 locals: {active: true, registration_event_id: (@registration_event.id rescue nil)},
-			# 																 title: "Ви успішно залогінились",
-			# 																 message: "тепер ви можете підписатися на подію або відмовитись. також у вас є особистий кабінет, де ви можете переглянути улюблені події, ті, на які ви підписались, переглянути історію змін. Також ви можете відредагувати свої дані. Будемо вдячні за ваш відгук. Приємного користування"
-			# 														 }
 		end
 	end
 
@@ -150,13 +111,18 @@ class Users::EventSubscriptionsController < ApplicationController
 		event_subscription_data = params[:user]
 
 		if @event
-			@event_subscription = EventSubscription.where(event_id: @event.id, user_id: current_user.id)
+			condition_str = ""
+			user_id_condition_str = current_user ? "user_id = #{current_user.id}" : nil
+
+			condition_str = "#{user_id_condition_str.try{|s| s + " or " }} email = '#{event_subscription_data["email"]}'"
+			@event_subscription = EventSubscription.where(event_id: @event.id).where(condition_str)
 			#@subscribed_event = @user.events.where(id: @event.id)
 			if @event_subscription.count > 0
 				flash[:result] = "You already subscribed on this event"
+				@already_registered = true
 			else
 				@event_subscription = EventSubscription.new
-				@event_subscription.user_id = current_user.id
+				@event_subscription.user_id = current_user.try(:id)
 				@event_subscription.event_id = @event.id
 
 				event_subscription_data.each_pair do |key, value|
@@ -182,7 +148,7 @@ class Users::EventSubscriptionsController < ApplicationController
 			data = {controller: "users/event_subscriptions", action: "new", html: html_source, decline_button_text: t("layout.buttons.unregister")  }
 
 			if @event
-				data[:decline_button_link] = event_unsubscription_form_path(event_id: @event.id, locale: I18n.locale)
+				data[:decline_button_link] = event_unsubscription_form_path(event_id: @event.id)
 			end
 
 			render inline: "#{data.to_json}"
@@ -252,7 +218,7 @@ class Users::EventSubscriptionsController < ApplicationController
 				data = { html: html_source, subscribe_button_text: t("layout.buttons.register") }
 
 				if @event
-					data[:subscribe_button_link] = new_event_subscription_path(event_id: @event.id, locale: I18n.locale)
+					data[:subscribe_button_link] = new_event_subscription_path(event_id: @event.id)
 				end
 
 				render inline: "#{data.to_json}"

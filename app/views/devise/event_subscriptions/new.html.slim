@@ -1,30 +1,31 @@
-- if user_signed_in?
-  #devise-content
-    #devise_event_subscriptions-new-get-form-wrap.devise-form-wrap
-      .form-title
-        = ""
-      .event-reg
-      	.event-reg-1
-      	  = raw "#{@user.first_name}, Ви збираєтесь зареєструватись на курс &laquo;#{@event.name}&raquo;."
-      	.event-reg-2
-      	  = "Перевірте особисті дані, якщо необхідно введіть корективи та підтвердіть реєстрайцію."
-      = simple_form_for(@user, as: :user, url: create_event_subscription_path(event_id: @event.id), type: 'POST', html: { class: 'form-with-labels mode-view' } ) do |f|
-        .form-inputs
-          = f.input :first_name, required: false, autofocus: true, label: "#{t('devise.registrations.placeholders.first_name')}*", placeholder: t('devise.registrations.placeholders.first_name'), value: @user.first_name, wrapper_html: { class: "#{"empty" if !@user.first_name || @user.first_name == ''}", data: { validate: 'first_name required' } }
-          = f.input :last_name, required: false, label: "#{t('devise.registrations.placeholders.last_name')}*", placeholder: t('devise.registrations.placeholders.last_name'), value: @user.last_name, wrapper_html: { class: "#{"empty" if !@user.last_name || @user.last_name == ''}", data: { validate: 'last_name required' } }
+/- if user_signed_in?
+- form_user = @user || User.new
+#devise-content
+  #devise_event_subscriptions-new-get-form-wrap.devise-form-wrap
+    .form-title
+      = ""
+    .event-reg
+      .event-reg-1
+        = raw "#{@user ? @user.first_name : "Анонім"}, Ви збираєтесь зареєструватись на курс &laquo;#{@event.name}&raquo;."
+      .event-reg-2
+        = "Перевірте особисті дані, якщо необхідно введіть корективи та підтвердіть реєстрайцію."
+    = simple_form_for(form_user, as: :user, url: create_event_subscription_path(event_id: @event.id), type: 'POST', html: { class: 'form-with-labels mode-view' } ) do |f|
+      .form-inputs
+        = f.input :first_name, required: false, autofocus: true, label: "#{t('devise.registrations.placeholders.first_name')}*", placeholder: t('devise.registrations.placeholders.first_name'), value: form_user.first_name, wrapper_html: { class: "#{"empty" if !form_user.first_name || form_user.first_name == ''}", data: { validate: 'first_name required' } }
+        = f.input :last_name, required: false, label: "#{t('devise.registrations.placeholders.last_name')}*", placeholder: t('devise.registrations.placeholders.last_name'), value: form_user.last_name, wrapper_html: { class: "#{"empty" if !form_user.last_name || form_user.last_name == ''}", data: { validate: 'last_name required' } }
 
-          = f.input :email, required: false, label: "#{t('devise.registrations.placeholders.email')}*", placeholder: t('devise.registrations.placeholders.email'), value: @user.email, wrapper_html: { class: "#{"empty" if !@user.email || @user.email == ''}", data: { validate: 'email required' } }
+        = f.input :email, required: false, label: "#{t('devise.registrations.placeholders.email')}*", placeholder: t('devise.registrations.placeholders.email'), value: form_user.email, wrapper_html: { class: "#{"empty" if !form_user.email || form_user.email == ''}", data: { validate: 'email required' } }
 
-          = f.input :contact_phone, required: false, label: "#{t('devise.registrations.placeholders.contact_phone')}*", placeholder: t('devise.registrations.placeholders.contact_phone'), value: @user.contact_phone, wrapper_html: { class: "phone #{"empty" if !@user.contact_phone || @user.contact_phone == ''}", data: { validate: 'phone required' } }
-          /- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
-          span.starred-fields-required
-            = t("all-fields-required")
-        .form-actions
-          .sign-up-link-wrapper
-            = link_to "Редагувати дані", '#', class: 'js-trigger mode', data: {input: "#devise_registrations-new-get-flag"}
-          .sign-in-submit-button-wrapper
-            = f.button :submit, t('devise.event_subscriptions.form-subscribe-button'), class: 'subscribe-submit-button devise-submit-button input-submit orange-bg'
+        = f.input :contact_phone, required: false, label: "#{t('devise.registrations.placeholders.contact_phone')}*", placeholder: t('devise.registrations.placeholders.contact_phone'), value: form_user.contact_phone, wrapper_html: { class: "phone #{"empty" if !form_user.contact_phone || form_user.contact_phone == ''}", data: { validate: 'phone required' } }
+        /- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+        span.starred-fields-required
+          = t("all-fields-required")
+      .form-actions
+        .sign-up-link-wrapper
+          = link_to "Редагувати дані", '#', class: 'js-trigger mode', data: {input: "#devise_registrations-new-get-flag"}
+        .sign-in-submit-button-wrapper
+          = f.button :submit, t('devise.event_subscriptions.form-subscribe-button'), class: 'subscribe-submit-button devise-submit-button input-submit orange-bg'
 
 
-    / render "devise/shared/links"
+  / render "devise/shared/links"
 

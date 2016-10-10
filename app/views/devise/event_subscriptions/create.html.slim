@@ -12,7 +12,10 @@
 #devise-content
   #message-signed-in-succesfully.message
     .form-title
-      = "Реєстрація на подію завершена"
+      - if @already_registered
+        = "Реєстрація на подію завершена"
+      - else
+        = "Ви вже були зареєстровані"
     /- if respond_to?(:registration_location)
       .log
         |@registration_location =
@@ -23,8 +26,13 @@
       = registration_event.name
       br
     /= registration_event.id
-    .message
-      span.message-bold-text
-        = raw "Ви успішно зареєструвались на курс &laquo;#{@event.name}&raquo;"
-      br
-      = raw "Найближчим часом адміністратор зв'яжеться з вами"
+    - if @already_registered
+      .message
+        span.message-bold-text
+          = raw "Ви вже були зареєстровані на подію &laquo;#{@event.name}&raquo;"
+    - else
+      .message
+        span.message-bold-text
+          = raw "Ви успішно зареєструвались на курс &laquo;#{@event.name}&raquo;"
+        br
+        = raw "Найближчим часом адміністратор зв'яжеться з вами"

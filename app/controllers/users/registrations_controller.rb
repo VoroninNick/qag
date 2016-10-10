@@ -116,7 +116,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         dashboard: {
             title: "Особистий кабінет",
             link: {
-                url: edit_user_registration_path(locale: locale)
+                url: edit_user_registration_path
             }
         }
     }

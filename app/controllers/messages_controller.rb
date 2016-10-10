@@ -14,7 +14,7 @@ class MessagesController < ApplicationController
 	 
 	        #format.html { redirect_to(@message, notice: 'User was successfully created.') }
 	        format.html { render inline: 'message successfully created.' }
-	        format.json { render json: @message, status: :created, location: create_message_path(locale: I18n.locale) }
+	        format.json { render json: @message, status: :created, location: create_message_path }
 	      else
 	        #format.html { render action: 'new' }
 	        format.html { render inline: 'message creation failed.' }

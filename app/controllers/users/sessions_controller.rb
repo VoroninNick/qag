@@ -66,7 +66,7 @@ class Users::SessionsController < Devise::SessionsController
         data[:event_ids_i_am_subscribed_on] = event_ids_i_am_subscribed_on
         data[:events_i_am_subscribed_on] = []
         event_ids_i_am_subscribed_on.each do |event_id|
-          event_data = { :"event_id" => event_id, :decline_button_link => event_unsubscription_form_path(event_id: event_id, locale: I18n.locale) }
+          event_data = { :"event_id" => event_id, :decline_button_link => event_unsubscription_form_path(event_id: event_id) }
           data[:events_i_am_subscribed_on].push event_data
 
 
@@ -85,7 +85,7 @@ class Users::SessionsController < Devise::SessionsController
       #render inline:
       redirect_location = after_sign_in_path_for(current_user) || current_user.registration_location
       if !redirect_location
-        redirect_location = root_path(locale: I18n.locale)
+        redirect_location = root_path
       end
 
 
@@ -132,7 +132,7 @@ class Users::SessionsController < Devise::SessionsController
         data[:event_ids_i_am_subscribed_on] = event_ids_i_am_subscribed_on
         data[:events_i_am_subscribed_on] = []
         event_ids_i_am_subscribed_on.each do |event_id|
-          event_data = { :"event_id" => event_id, :subscribe_button_link => event_unsubscription_form_path(event_id: event_id, locale: I18n.locale) }
+          event_data = { :"event_id" => event_id, :subscribe_button_link => event_unsubscription_form_path(event_id: event_id) }
           data[:events_i_am_subscribed_on].push event_data
         end
 

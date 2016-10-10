@@ -7,7 +7,7 @@ class ArticlesController < ApplicationController
         articles_list: {
             title: I18n.t('layout.breadcrumbs.articles_list'),
             link: {
-                url: articles_list_path(locale: I18n.locale)
+                url: articles_list_path
             }
         }
     }
@@ -43,13 +43,13 @@ class ArticlesController < ApplicationController
           articles_list: {
               title: I18n.t('layout.breadcrumbs.articles_list'),
               link: {
-                  url: articles_list_path(locale: I18n.locale)
+                  url: articles_list_path
               }
           },
           article_item: {
               title: @article.name,
               link: {
-                  url: article_item_path(item: @article.slug, locale: I18n.locale)
+                  url: article_item_path(item: @article.slug)
               }
           }
       }
@@ -66,7 +66,7 @@ class ArticlesController < ApplicationController
 
       #@meta_keywords = resource.tags.map(&:get_name).select{|t| t.present? }.uniq.join(',') if resource.respond_to?(:tags) && @page_metadata.try{|m| m.get_meta_keywords}.blank?
     else
-      redirect_to articles_list_path(locale: I18n.locale)
+      redirect_to articles_list_path
     end
 
 
@@ -88,7 +88,7 @@ class ArticlesController < ApplicationController
     unless @article_not_found
       @article.translations_by_locale.keys.each do |locale|
         I18n.with_locale(locale.to_sym) do
-          @page_locale_links[locale.to_sym] = url_for(item: @article.slug, locale: locale)
+          @page_locale_links[locale.to_sym] = url_for(item: @article.slug)
         end
       end
     end

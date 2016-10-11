@@ -20,13 +20,16 @@
 
     #article-section
       #article-section-row.row
-        #article-section-column.columns.large-12
+        #article-section-column.columns.large-7
           #article-title.about-gray-header
             = @article.name
           #article-date
             = (@article.updated_at ).strftime("%d.%m.%Y")
           #article-content.text-content
             = raw @article.full_description
+
+        .article-share-block-wrap.columns.large-4
+          = render "share_block", object: @article, url: article_item_path(item: @article.slug), title: @article.name
 
     - if @related_articles.try(&:any?)
       #read-also-section

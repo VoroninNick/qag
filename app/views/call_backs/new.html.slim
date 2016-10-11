@@ -1,0 +1,21 @@
+- content_for(:popup_content)
+  #devise-content
+    #devise_sessions-new-get-form-wrap.devise-form-wrap
+      .form-title
+        = "Замовити дзвінок"
+
+
+    .errors
+
+
+    = simple_form_for(@call_back, as: resource_name, url: call_back_path) do |f|
+      .form-inputs
+        = f.input :name, required: true, autofocus: true, label: false, placeholder: t('devise.sessions.placeholders.email'), input_html: {data: {validate: "email, notEmpty"}}, wrapper_html: { data: { validate: 'email required',   :"error-taken" => t('activerecord.errors.models.user.attributes.email.taken'), :"error-empty" => t('activerecord.errors.models.user.attributes.email.empty'), :"error-invalid" => t('activerecord.errors.models.user.attributes.email.invalid') , help: t('activerecord.help.models.user.attributes.email') } }
+
+
+
+      .form-actions
+        .sign-in-submit-button-wrapper
+          = f.button :submit, t('devise.sessions.sign_in_button'), class: 'input-submit login sign-in-submit-button devise-submit-button orange-bg'
+
+      / render "devise/shared/links"

@@ -3,8 +3,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   #protect_from_forgery with: :exception
 
-  layout 'application_foundation'
-
   helper_method :modal?
 
   def modal?
@@ -132,7 +130,7 @@ class ApplicationController < ActionController::Base
       else
         if !controller_class.nil?
           #render inline: 'hello'
-          controller_class.layout 'application_foundation'
+          controller_class.layout 'application'
         end
       end
     end

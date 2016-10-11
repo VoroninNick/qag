@@ -24,14 +24,11 @@ html#html class="no-js locale-#{I18n.locale.to_s} controller-#{params[:controlle
           height: 100%
 
   body#body
-    /style id="main_style"
-      = Rails.application.assets.find_asset('application').to_s.length
-    /input name="modal" id="modal-none" class="flag" type="radio" checked="checked"
-    /input type="radio" id="wrap-focus-flag" name="focus" class="flag focus-flag" checked="checked"
-    /input type="radio" id="menu-focus-flag" name="focus" class="flag focus-flag"
     #body-inner
       = render partial: 'layouts/header'
 
+      #fixed-call-button.popup-link data-popup-name="call_back_popup_form" href="/call-back"
+        = embedded_svg_from_assets("svg/tel.svg")
 
       - if !(params[:controller] == 'home' && params[:action] == 'index')
         div#wrap

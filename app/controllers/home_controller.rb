@@ -99,16 +99,7 @@ class HomeController < ApplicationController
     @page = HomePage.first
 
 
-    if !flash[:notice].nil?
-      #render inline: "#{flash[:notice]['locals'].inspect}"
 
-
-
-      render layout: 'application_foundation'
-
-    else
-      render layout: 'application_foundation'
-    end
     #
     #end
   end

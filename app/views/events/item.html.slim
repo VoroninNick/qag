@@ -49,6 +49,10 @@
                 = embedded_svg_from_assets('svg/clock.svg')
                 #event-item-page-event-info-days-and-time-text.event-item-page-event-info-text
                   = @event.days_and_time_string
+            = get_button_for(@event)
+          = render "share_block", object: @event, url: event_item_path(item: @event.slug), title: @event.name
+
+
 
 
             /- if @event.up_to_date?
@@ -69,7 +73,7 @@
             /      span.registration-text
             /        = "Захід завершено"
 
-            = get_button_for(@event)
+
 
           - if @event.expired? && @event.images.any?
             #event-item-images

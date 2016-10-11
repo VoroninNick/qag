@@ -115,6 +115,14 @@ class Event < ActiveRecord::Base
     self.event_subscriptions.where(disabled: true).count
   end
 
+  def user_subscriptions_count
+    event_subscriptions.where("user_id is not null").count
+  end
+
+  def anonymous_subscriptions_count
+    event_subscriptions.count - user_subscriptions_count
+  end
+
 
   def images
     # query_album_images = "select ai.event_gallery_image_id as 'id' from event_gallery_albums_and_event_gallery_images ai, events_and_gallery_albums ea where ea.event_id = #{self.id} and ai.event_gallery_album_id = ea.event_gallery_album_id "
@@ -139,7 +147,11 @@ class Event < ActiveRecord::Base
   end
 
   def expired?
-    start_date < Date.today
+    if self.end_date
+      self.end_date < Date.today
+    else
+      start_date < Date.today
+    end
   end
 
   def up_to_date?
@@ -424,8 +436,16 @@ class Event < ActiveRecord::Base
         field :published
         field :translations, :globalize_tabs
         field :event_tags
-        field :start_date
-        field :end_date
+        field :start_date do
+          date_format do
+            :default
+          end
+        end
+        field :end_date do
+          date_format do
+            :default
+          end
+        end
         field :avatar
         field :banner
         field :expired_event_avatar

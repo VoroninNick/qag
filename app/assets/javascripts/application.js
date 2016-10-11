@@ -41,6 +41,7 @@
 // foundation
 // require turbolinks
 //= require rich_marker
+//= require _share_popup
 //= require popup
 //= require test_map
 //= require home

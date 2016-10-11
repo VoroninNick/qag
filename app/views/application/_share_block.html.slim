@@ -1,0 +1,8 @@
+.share-block
+  .title
+    |Поділитися:
+  ul
+    - Setting.get_share_links(nil, url, title).each_pair do |key, value|
+      li.footer-social-icons-ul-li
+        a.footer-social-icons-ul-li-a.popup-window-link href=value target="_blank" window-width="700" window-height="700" window-title="Поділитися в #{key}"
+          = embedded_svg_from_assets("svg/#{key}.svg")

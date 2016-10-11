@@ -48,60 +48,64 @@ sass:
         - @object.event_subscriptions.each do |es|
           tr class="#{es.disabled? ? "disabled" : "enabled"}" data-event-subscription-id="#{es.id}"
             td
-              = link_to(es.user.email, "/admin/user/#{es.user_id}")
-              .user-info
-                table
-                  tr
-                    td
-                      |Email:
-                    td
-                      = es.user.email || "-"
-                  tr
-                    td
-                      |FirstName:
-                    td
-                      = es.user.first_name || "-"
-                  tr
-                    td
-                      |LastName:
-                    td
-                      = es.user.last_name || "-"
-                  tr
-                    td
-                      |ContactPhone:
-                    td
-                      = es.user.contact_phone || "-"
-                  tr
-                    td
-                      |City:
-                    td
-                      = es.user.city || "-"
-                  tr
-                    td
-                      |Company:
-                    td
-                      = es.user.company || "-"
-                  tr
-                    td
-                      |Confirmed at:
-                    td
-                      = es.user.confirmed_at || "-"
-                  tr
-                    td
-                      |SignIn count:
-                    td
-                      = es.user.sign_in_count || "-"
-                  - if es.user.events.length > 1
+              - if es.user
+                = link_to(es.user.email, "/admin/user/#{es.user_id}")
+
+
+                .user-info
+                  table
                     tr
                       td
-                        |Another Events User is subscribed on:
+                        |Email:
                       td
-                        ol
-                          - es.user.events.each do |e|
-                            - if e.id != @object.id
-                              li
-                                = link_to e.name, "/admin/event/#{e.id}"
-
+                        = es.user.email || "-"
+                    tr
+                      td
+                        |FirstName:
+                      td
+                        = es.user.first_name || "-"
+                    tr
+                      td
+                        |LastName:
+                      td
+                        = es.user.last_name || "-"
+                    tr
+                      td
+                        |ContactPhone:
+                      td
+                        = es.user.contact_phone || "-"
+                    tr
+                      td
+                        |City:
+                      td
+                        = es.user.city || "-"
+                    tr
+                      td
+                        |Company:
+                      td
+                        = es.user.company || "-"
+                    tr
+                      td
+                        |Confirmed at:
+                      td
+                        = es.user.confirmed_at || "-"
+                    tr
+                      td
+                        |SignIn count:
+                      td
+                        = es.user.sign_in_count || "-"
+                    - if es.user.events.length > 1
+                      tr
+                        td
+                          |Another Events User is subscribed on:
+                        td
+                          ol
+                            - es.user.events.each do |e|
+                              - if e.id != @object.id
+                                li
+                                  = link_to e.name, "/admin/event/#{e.id}"
+              - else
+                = "анонім"
 
             td
               = es.email || "-"
@@ -120,6 +124,14 @@ sass:
         |Всього підписок
       #total_subscriptions_count
         = @object.event_subscriptions.count
+      #total_user_subscriptions_label
+        |Всього підписок залогінених користувачів
+      #total_user_subscriptions_label
+        = @object.user_subscriptions_count
+      #total_user_subscriptions_label
+        |Всього підписок незалогінених користувачів
+      #total_user_subscriptions_label
+        = @object.anonymous_subscriptions_count
     #allowed_subscriptions
       #allowed_subscriptions_label
         |Допущено підписок
@@ -130,6 +142,7 @@ sass:
         |Заблоковано підписок
       #disallowed_subscriptions_count
         = @object.disallowed_subscriptions_count
+
 
   - else
     h1

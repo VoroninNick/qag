@@ -34,7 +34,7 @@ module Qag
         :host => 'qagroup.com.ua',
     }
 
-    config.assets.precompile += %w(ckeditor/lang/*.js)
+    config.assets.precompile += %w(ckeditor/lang/*.js ckeditor/plugins/**/*.js)
 
     if Rails.env != :production
      #config.assets.compile = false

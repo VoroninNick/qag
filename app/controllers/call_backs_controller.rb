@@ -10,6 +10,8 @@ class CallBacksController < ApplicationController
     call_back_params = (params[:call_back] || {}).merge(user_id: current_user.try(:id))
     @call_back = CallBack.create(call_back_params)
 
+    MessageMailer.new_call_back(@call_back).deliver
+
     html_source = render_to_string template: "call_backs/create"
     data = {controller: "call_backs", action: "new", html: html_source  }
 

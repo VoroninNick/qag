@@ -1,0 +1,24 @@
+h1
+  = "Запит передзвонити"
+h5
+  = 'first name'
+p
+  = @call_back.first_name
+
+h5
+  = 'last name'
+p
+  = @call_back.last_name
+
+h5
+  = 'contact_phone'
+p
+  = @call_back.contact_phone
+
+h5
+  = 'user'
+p
+  - u = User.where(id: @call_back.user_id).first
+  - user_text = u.try(:email)
+  - user_text = u.try(:id) if user_text.blank?
+  = @call_back.user_id ? user_text : raw("&mdash;")

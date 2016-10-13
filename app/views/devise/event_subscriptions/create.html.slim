@@ -1,14 +1,3 @@
-/= flash[:result]
-/- if @event
-  br
-  a href=event_item_path(item: @event.slug, tags: @event.tags.join('-'))
-  	= "Read more about this event"
-  
-/br
-/a href=events_list_path(locale: I18n.locale)
-  = "events list"
-
-
 #devise-content
   #message-signed-in-succesfully.message
     .form-title
@@ -16,16 +5,7 @@
         = "Реєстрація на подію завершена"
       - else
         = "Ви вже були зареєстровані"
-    /- if respond_to?(:registration_location)
-      .log
-        |@registration_location =
-        = registration_location
-        br
-    /- if respond_to?(:registration_event)
-      |@registration_event.name =
-      = registration_event.name
-      br
-    /= registration_event.id
+
     - if @already_registered
       .message
         span.message-bold-text

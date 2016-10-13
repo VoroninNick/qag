@@ -2,7 +2,6 @@ class AboutPage < ActiveRecord::Base
   def slider_slides
     AboutPageSliderSlide.all
     #"hello"
-
   end
 
   has_many :about_page_slider_slides

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get "m", to: "test#media_queries"
 
   get "call-back", to: "call_backs#new", as: "call_back"
+  post "call-back", to: "call_backs#create", as: "post_call_back"
 
   scope "(:locale)", locale: /[a-zA-Z]{2}/ do
     post "/enable_event_substription", to: "events#enable_event_subscription"

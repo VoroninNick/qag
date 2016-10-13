@@ -20,7 +20,6 @@ registration_event_id = false
 
 delay_before_remove_popup = 2000
 
-//addProgressClassToButtonOnSubmit = false
 addProgressClassToButtonOnSubmit = true
 
 submitButtonProgressClass = 'progress-bar-moving-bg'
@@ -52,8 +51,6 @@ modeEditClass = 'mode-edit'
 modeViewClass = 'mode-view';
 editDataSubmitClass = 'edit';
 
-
-
 edit_data_button_text = 'Відредагувати';
 register_submit_button_text = 'Зареєструватись';
 register_button_text = "Зареєструватись";
@@ -66,11 +63,6 @@ email_to_login = null;
 page_before_dashboard = null;
 
 has_modal_open_class = "has-modal-open";
-
-
-
-
-
 
 (function($){
     $.fn.init_form = function(){
@@ -109,7 +101,8 @@ config = {
         new_user_session: <%= js_path(:new_user_session) %>,
         edit_user_registration: <%= js_path(:edit_user_registration) %>,
         my_events: <%= js_path(:root) %>,
-        user_session_destroy_form: <%= js_path(:user_session_destroy_form) %>
+        user_session_destroy_form: <%= js_path(:user_session_destroy_form) %>,
+        call_back: <%= js_path(:call_back) %>
 
     }
 }
@@ -125,11 +118,6 @@ function remove_with_delay(element_to_remove, delay){
     delay = delay || delay_before_remove_popup
     $elem = $(element_to_remove)
     $elem.remove()
-//    if($elem.length > 0){
-//        setTimeout(function(){
-//            $elem.remove()
-//        }, delay);
-//    }
 
 }
 
@@ -138,7 +126,6 @@ function path_before_dashboard_or_home_path(){
     var cookies_arr = []
     if(document.cookie != ''){
         console.log('document.cookie: ', document.cookie)
-        //cookie_object = $.parseJSON(document.cookie)
         cookies_arr = document.cookie.split(';')
         for(var i=0;i<cookies_arr.length;i++) {
             var cookie_str = cookies_arr[i].replace(/\s/g, '')
@@ -149,7 +136,6 @@ function path_before_dashboard_or_home_path(){
         }
 
     }
-
 
     var page_before_dashboard = cookie_object['page_before_dashboard']
     console.log("page_before_dashboard", page_before_dashboard ? page_before_dashboard : false)
@@ -165,8 +151,6 @@ var login_popup_link_click_handler = function(event){
     var $link = $(this)
     var url = $link.attr('href')
 
-
-
     if( $link.hasClass(loginLinkClass) || !logged_in) {
         if (!logged_in) {
             event.preventDefault()
@@ -178,22 +162,11 @@ var login_popup_link_click_handler = function(event){
                 success: function (data) {
                     var $modal = $(data)
                     showPopup.call($modal)
-//                    $modal.addClass(modalOpenClass)
-//                    $modal_windows_wrapper.append($modal)
-//                    $body.addClass(has_modal_open_class)
-//                    setPopupSize.call($modal)
-                    $("")
                 }
 
             })
         }
-        //else{
-
-        //}
     }
-    //else if($link.hasClass('dashboard-menu-another-link-li-a logout')){
-
-    //}
     else{
         event.preventDefault()
         $.ajax({
@@ -203,17 +176,39 @@ var login_popup_link_click_handler = function(event){
             data: 'modal=true',
             success: function (data) {
                 var $modal = $(data)
-//                $modal.addClass(modalOpenClass)
-//                $modal_windows_wrapper.append($modal)
-//                $body.addClass(has_modal_open_class)
                 showPopup.call($modal)
             }
 
         })
     }
 
+}
+
+var call_back_popup_link_click_handler = function(event){
+  var $link = $(this)
+  var url = $link.attr('href')
+
+
+  event.preventDefault()
+  $.ajax({
+    dataType: 'html',
+    url: path('call_back'),
+    type: 'GET',
+    data: 'modal=true',
+    success: function (data) {
+      var $modal = $(data)
+      $modal.init_form()
+      showPopup.call($modal)
+    }
+
+  })
+
+
+
 
 }
+
+$("#fixed-call-button").on("click", call_back_popup_link_click_handler)
 
 $header_menu_user_wrapper.on('click', '.popup-link', login_popup_link_click_handler)
 $('.please-login-to-leave-feedback').on('click', '.popup-link', login_popup_link_click_handler)
@@ -221,11 +216,10 @@ $('.please-login-to-leave-feedback').on('click', '.popup-link', login_popup_link
 
 
 $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_valid', ['label.' + modalCloseTriggerClass, 'input.' + submitButtonClass, '.input input', 'a.' + popupLinkClass, '.'+jsTriggerClass].join(','), function(event) {
+    console.log("this: ", this, "; arguments: ", arguments)
     var $this = $(this)
     var $popup = $this.closest('.popup')
     var $form = $this.closest('form')
-
-    //var $a = $this.closest('#devise_event_subscriptions-new-get-form-wrap.devise-form-wrap')
 
     if (event.type == 'focusin') {
         var $parent = $this.parent()
@@ -261,7 +255,6 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                         var $form = $devise_form_wrap.find('form')
                         $form.validate_form()
                     }
-
 
                 }
             }
@@ -333,26 +326,13 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                         event_ids[i] = +$events.eq(i).attr('data-event-id')
                     }
                     form_data += "&loaded_events=" + event_ids.join(',')
-
-
                 }
-
 
                 valid_form = true
 
-                //if($submit_button.hasClass(signUpSubmitButtonClass)){
-
-                //}
-                //else if($submit_button.hasClass(signInSubmitButtonClass)){
-
-                //}
-                //else if($submit_button.hasClass())
-
                 valid_form = $form.validate_form()
 
-
                 if (valid_form) {
-
                     var check_in_progress = addProgressClassToButtonOnSubmit ? $submit_button.hasClass(submitButtonProgressClass) : false
                     if(addProgressClassToButtonOnSubmit) {
                         $submit_button.addClass(submitButtonProgressClass);
@@ -365,12 +345,10 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                         data: form_data,
                         dataType: 'json',
                         complete: function (jqXHR, textStatus) {
-                            //console.log('this:', $this)
                             if(addProgressClassToButtonOnSubmit) {
                                 $submit_button.removeClass(submitButtonProgressClass)
                             }
                             var response_text = jqXHR.responseText
-                            //console.log('before parse json. response_text: ')
                             var data = {}, $html_source
                             if (typeof response_text == 'string' && response_text.length > 0) {
                                 try {
@@ -382,9 +360,6 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                                     $html_source = $($.parseHTML(response_text))
                                 }
                             }
-
-                            //console.log('after parse json')
-
 
                             console.log('data: ', data)
 
@@ -399,30 +374,21 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
 
                             DATA = data
 
-                            //var html_source = ""
-
                             if (data.hasOwnProperty('html')) {
                                 html_source = data['html']
                                 $html_source = $(html_source)
 
                             }
 
-
-                            //var $data = $(data)
-
                             var default_handler = true
 
-
                             if (textStatus == 'success') {
-                                //var $data = $(data)
 
                                 console.log('data: ', data)
 
                                 if ($submit_button.hasClass('login') ) {
 
                                     if(!logged_in) {
-                                        //$popup.removeClass(modalOpenClass)
-                                        //remove_with_delay($popup)
                                         logged_in = true
                                         $('.header-menu-user-link').append('<div id="header-menu-user-email">' + email_to_login + '</div>')
                                         $login_link.attr('href', path('edit_user_registration'))
@@ -437,7 +403,6 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
 
                                         var successfullySignedIn = $html_source.find('#users_sessions-create-post').length
                                         if(!successfullySignedIn){
-                                            //alert('signed in')
                                             setInterval(function(){
                                                 $html_source.fadeOut(800, function(){
                                                     $body.removeClass(has_modal_open_class)
@@ -454,17 +419,11 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
 
                                         $header_menu_user_dropdown.appendTo($header_menu_user_wrapper)
 
-                                        //$()
-
-                                        //event['events_i_am_subscribed_on']
-
                                         changeRegistrationButtonForEvents({
                                             registered: true,
                                             button_text: data['decline_button_text'],
                                             events: data['events_i_am_subscribed_on']
                                         })
-
-                                        //default_handler = false
 
                                         var $devise_event_subscriptions_form_wrap = $html_source.find('#devise_event_subscriptions-new-get-form-wrap.devise-form-wrap')
                                         if ($devise_event_subscriptions_form_wrap.length > 0) {
@@ -481,18 +440,15 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
 
                                     default_handler = false
 
-
                                     var data_events_i_am_subscribed_on = data['events_i_am_subscribed_on']
 
                                     console.log('data_events_i_am_subscribed_on: ', data_events_i_am_subscribed_on)
-
 
                                     changeRegistrationButtonForEvents({
                                         registered: false,
                                         button_text: data['subscribe_button_text'],
                                         events: data_events_i_am_subscribed_on
                                     })
-
                                     var current_path = window.location.pathname
                                     var dashboard = current_path.match(/^(\/[a-z]{2})?\/my/gi) != null
                                     console.log('dashboard: ', dashboard)
@@ -512,13 +468,9 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                                     }
                                     else {
                                         default_handler = true
-                                        //alert('ok')
                                     }
                                 }
-
                                 else if ($submit_button.hasClass(subscribeSubmitButtonClass)) {
-                                    //alert(registration_event_id)
-                                    // abcdef
                                     changeRegistrationButtonForEvents({
                                         registered: true,
                                         button_text: data['decline_button_text'],
@@ -527,45 +479,8 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                                             decline_button_link: data['decline_button_link']
                                         }]
                                     })
-
                                 }
-
                                 else if ($submit_button.hasClass(unsubscribeSubmitButtonClass)) {
-                                    //alert("registration_event_id: ", registration_event_id)
-
-
-                                    // ======================================================
-                                    // ------------------------------------------------------
-                                    // saved for history
-                                    // ------------------------------------------------------
-                                    // ======================================================
-
-//                            var $matched_events = $('.'+eventCollectionItemClass+'[data-event-id='+popup_event_id+']')
-//                            var matched_events_count = $matched_events.length
-//
-//                            var subscribe_button_url = data['subscribe_button_link']
-//                            var subscribe_button_text = data['subscribe_button_text']
-//
-//                            for(var k = 0; k< matched_events_count; k++ ){
-//                                var $event = $matched_events.eq(k)
-//                                var $register_button = $event.find('div.register-button')
-//                                var $register_button_link = $register_button.find('a.register-button-a')
-//
-//                                $register_button_link.attr('href', subscribe_button_url)
-//                                //alert('hello')
-//                                $register_button.manipulateClasses([], ['decline'])
-//                                var $registration_text_tag = $register_button.find('.registration-text')
-//
-//                                $registration_text_tag.text(subscribe_button_text)
-//                            }
-
-                                    // ======================================================
-                                    // ------------------------------------------------------
-                                    // saved for history end
-                                    // ------------------------------------------------------
-                                    // ======================================================
-
-
                                     changeRegistrationButtonForEvents({
                                         registered: true,
                                         button_text: data['subscribe_button_text'],
@@ -579,15 +494,11 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
 
 
                                 if (default_handler) {
-                                    //alert('ok2')
                                     if (Object.keys(errors).length == 0) {
                                         console.log('errors: ', errors)
                                         $popup.removeClass(modalOpenClass)
                                         remove_with_delay($popup)
-                                        //$html_source.addClass(modalOpenClass)
                                         $popup.init_form()
-                                        //$modal_windows_wrapper.append($html_source)
-                                        //$body.addClass(has_modal_open_class)
                                         showPopup.call($html_source)
                                     }
                                     else {
@@ -608,11 +519,8 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                                         $empty_fields.first().find('input').first().focus()
                                     }
                                 }
-
-
                             }
                             else {
-
                                 if ($submit_button.hasClass('login')) {
                                     var error_keys = Object.keys(errors)
                                     var error_keys_length = error_keys.length
@@ -626,10 +534,8 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                                         }
                                     }
                                     else {
-
                                     }
                                 }
-
                                 else if ($submit_button.hasClass(sendMePasswordSubmitButtonClass)) {
                                     console.log("sendMePasswordSubmitButtonClass")
                                     if(false) {
@@ -639,15 +545,9 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                                     }
                                     else{
                                         var $modal = $html_source
-                                        //$modal.addClass(modalOpenClass)
                                         $popup.removeClass(modalOpenClass)
                                         PUBLIC_MODAL = $modal
-                                        //alert('hello')
                                         remove_with_delay($popup)
-
-                                        //$modal_windows_wrapper.append($modal)
-
-                                        //$body.addClass(has_modal_open_class)
                                         showPopup.call($modal)
                                         $modal.init_form()
                                     }
@@ -659,16 +559,12 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                                     }
                                     $errors.html(errors_html)
                                 }
-
-
                             }
                         }
                     })}
                 }
-                //
             }
             else if ($this.hasClass(popupLinkClass)) {
-                //alert('hello')
                 event.preventDefault()
                 var $popup_link = $this
                 var url = $popup_link.attr('href')
@@ -688,24 +584,17 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                             data = {}
                             $html_source = $.parseHTML(response_text)
                             $html_source = $($html_source)
-                            //alert($html_source.attr('class'))
 
                         }
 
                         HTML_SOURCE = $html_source
 
-                        //alert(textStatus)
                         if (textStatus == 'success') {
-                            //var $html_source = $(data['html'])
                             var $modal = $html_source
-                            //$modal.addClass(modalOpenClass)
                             $popup.removeClass(modalOpenClass)
                             PUBLIC_MODAL = $modal
-                            //alert('hello')
                             remove_with_delay($popup)
 
-                            //$modal_windows_wrapper.append($modal)
-                            //$body.addClass(has_modal_open_class)
                             showPopup.call($modal)
 
 
@@ -713,14 +602,10 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                         }
                         else if ($html_source) {
                             var $modal = $html_source
-                            //$modal.addClass(modalOpenClass)
                             $popup.removeClass(modalOpenClass)
                             PUBLIC_MODAL = $modal
-                            //alert('hello')
                             remove_with_delay($popup)
 
-                            //$modal_windows_wrapper.append($modal)
-                            //$body.addClass(has_modal_open_class)
                             showPopup.call($modal)
                             $modal.init_form()
                         }
@@ -732,124 +617,83 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
     }
 })
 
-//if($html.hasClass('controller-home action-index')){
-    $home_featured_event_info_slides_row_ul = $('#home-featured-event-info-slides-row-ul')
-    var $event_collections = $('.events-collection, #event-item-page-event-info-part-details')
 
-    $event_collections.on('click', 'a.register-button-a', function(event){
-        event.preventDefault()
-        var $link = $(this)
-        var url = $link.attr('href')
-        var $event = $link.closest('.'+eventCollectionItemClass)
-        var event_id = + $event.attr('data-event-id')
-        $.ajax({
-            type: 'GET',
-            url: url,
-            dataType: 'json',
-            data: 'modal=true',
-            complete: function(jqXHR, textStatus){
-                // ================================================
-                // ------------------------------------------------
-                // initialize data
-                // ------------------------------------------------
-                // ================================================
-                var response_text = jqXHR.responseText
-                var data, $html_source;
+$home_featured_event_info_slides_row_ul = $('#home-featured-event-info-slides-row-ul')
+$event_collections = $('.events-collection, #event-item-page-event-info-part-details')
 
-                try {
-                    data = $.parseJSON(response_text)
-                    $html_source = $(data['html'])
-                }
-                catch(err){
-                    data = {}
-                    $html_source = $.parseHTML(response_text)
-                    $html_source = $($html_source)
-                    //alert($html_source.attr('class'))
+$event_collections.on('click', 'a.register-button-a', function(event){
+    event.preventDefault()
+    var $link = $(this)
+    var url = $link.attr('href')
+    var $event = $link.closest('.'+eventCollectionItemClass)
+    var event_id = + $event.attr('data-event-id')
+    $.ajax({
+        type: 'GET',
+        url: url,
+        dataType: 'json',
+        data: 'modal=true',
+        complete: function(jqXHR, textStatus){
+            // ================================================
+            // ------------------------------------------------
+            // initialize data
+            // ------------------------------------------------
+            // ================================================
+            var response_text = jqXHR.responseText
+            var data, $html_source;
 
-                }
-
-                //console.log('before parse json. response_text: ')
-                //var data = {}
-                //if(typeof response_text == 'string' && response_text.length > 0){
-                //    data = $.parseJSON(response_text)
-                //}
-
-                //console.log('after parse json')
-
-
-                //console.log('data: ', data)
-
-                var errors = {}
-                if(data.hasOwnProperty('errors')){
-                    errors = data['errors']
-                }
-
-                if(data.hasOwnProperty('error')){
-                    errors['form'] = data['error']
-                }
-
-                DATA = data
-
-                //var html_source = ""
-                //var $html_source
-                //if(data.hasOwnProperty('html')){
-                //    html_source = data['html']
-                //    $html_source = $(html_source)
-
-                //}
-
-
-
-                //if(textStatus == 'success') {
-                if($html_source){
-
-                    if(data['controller'] == 'users/event_subscriptions' && data['action'] == 'new'){
-                        event_register_request = true
-                    }
-                    //console.log('success')
-                    //console.log('before $modal')
-                    var $modal = $html_source
-                    //console.log('after $modal')
-//                    $modal.addClass(modalOpenClass)
-//                    $modal_windows_wrapper.append($modal)
-//                    $body.addClass(has_modal_open_class)
-//                    setPopupSize.call($modal)
-                    showPopup.call($modal)
-                    registration_location = window.location.pathname
-                    registration_event_id = event_id
-                    popup_event_id = event_id
-
-                    var $devise_event_subscriptions_form_wrap = $html_source.find('#devise_event_subscriptions-new-get-form-wrap.devise-form-wrap')
-                    var $form = $devise_event_subscriptions_form_wrap.find('form')
-                    if($devise_event_subscriptions_form_wrap.length > 0){
-                        $form.addClass(modeViewClass)
-                        var $empty_fields = $devise_event_subscriptions_form_wrap.find('.input.empty')
-                        $empty_fields.first().find('input').first().focus()
-                    }
-
-                    $modal.init_form()
-                }
-
-                else{
-                    console.log('error')
-                    console.log('text_status: ', textStatus)
-                }
+            try {
+                data = $.parseJSON(response_text)
+                $html_source = $(data['html'])
             }
-        })
+            catch(err){
+                data = {}
+                $html_source = $.parseHTML(response_text)
+                $html_source = $($html_source)
+
+            }
+
+            var errors = {}
+            if(data.hasOwnProperty('errors')){
+                errors = data['errors']
+            }
+
+            if(data.hasOwnProperty('error')){
+                errors['form'] = data['error']
+            }
+
+            DATA = data
+
+            if($html_source){
+
+                if(data['controller'] == 'users/event_subscriptions' && data['action'] == 'new'){
+                    event_register_request = true
+                }
+                var $modal = $html_source
+                showPopup.call($modal)
+                registration_location = window.location.pathname
+                registration_event_id = event_id
+                popup_event_id = event_id
+
+                var $devise_event_subscriptions_form_wrap = $html_source.find('#devise_event_subscriptions-new-get-form-wrap.devise-form-wrap')
+                var $form = $devise_event_subscriptions_form_wrap.find('form')
+                if($devise_event_subscriptions_form_wrap.length > 0){
+                    $form.addClass(modeViewClass)
+                    var $empty_fields = $devise_event_subscriptions_form_wrap.find('.input.empty')
+                    $empty_fields.first().find('input').first().focus()
+                }
+
+                $modal.init_form()
+            }
+
+            else{
+                console.log('error')
+                console.log('text_status: ', textStatus)
+            }
+        }
     })
-//}
+})
 
-//$('.events-collection').on('click', 'a.register-button-a', function(){
-//    var $this = $(this)
-//
-//    if($this.hasClass('register-button-a')){
-//        //if('')
-//    }
-//})
-
-
-
-var $infinity_scroll_list= $('.infinity-scroll-list')
+$infinity_scroll_list = $('.infinity-scroll-list')
 var infinity_scroll_list_count = $infinity_scroll_list.length
 var load_started = false
 
@@ -875,12 +719,10 @@ if(infinity_scroll_list_count > 0) {
                         var response_text = jqXHR.responseText
                         var data = $.parseJSON(response_text)
                         var html_source = data['html']
-                        //var $html_source
                         if(textStatus == 'success'){
                             var $html_source = $(html_source)
                             var $event_list_expired_image_carousels = $html_source.find('.'+event_list_item_images_carousel_class)
                             $event_list_expired_image_carousels.init_images_carousel()
-                            //alert($event_list_expired_image_carousels.length)
                             $infinity_scroll_list.append($html_source)
                         }
                         load_started = false
@@ -896,6 +738,9 @@ if(infinity_scroll_list_count > 0) {
 function changeRegistrationButtonForEvents(options){
     var defaults = { registered: true, decline_button_link: false, button_text: false, events: [] }
     options = Object.merge(defaults, options )
+    if (!options.events){
+      return
+    }
     var events_count = options.events.length
     if( options.button_text && events_count > 0){
         var event_selector_array = []
@@ -908,12 +753,7 @@ function changeRegistrationButtonForEvents(options){
         event_selector_string = event_selector_array.join(',')
 
         var $all_events
-        //if(!options.registered){
         $all_events = $('.'+eventCollectionItemClass)
-        //}
-        //else{
-        //    $all_events = $('.'+eventCollectionItemClass)
-        //}
 
         var $matched_events = $all_events.filter(event_selector_string)
         console.log('options.registered', options.registered)
@@ -940,9 +780,7 @@ function changeRegistrationButtonForEvents(options){
             var $event = $matched_events.eq(k)
             var $register_button = $event.find('div.register-button')
             var $register_button_link = $register_button.find('a.register-button-a')
-            //var decline_button_url = data['decline_button_link']
             $register_button_link.attr('href', event_button_url)
-            //alert('hello')
             if(options.registered){
                 $register_button.manipulateClasses(['decline'],[])
             }
@@ -958,7 +796,6 @@ function changeRegistrationButtonForEvents(options){
             public_registration_text_tag = $registration_text_tag
 
             $registration_text_tag.text(options.button_text)
-            //alert("test")
         }
     }
 
@@ -976,66 +813,24 @@ function pageHeight() {
     return Math.max(document.body.scrollHeight, document.body.offsetHeight);
 }
 
-
-
 // ======================================================
 // ------------------------------------------------------
 // home page featured events carousel
 // ------------------------------------------------------
 // ======================================================
 
-//$home_featured_events_section = $('#home-featured-events-section')
-//$home_featured_events_section.on('click', '.nav-arrow', function(){
-//    var $this = $(this)
-//
-//})
-
-//$(window.location).change(function(){
-//    //execute code
-//    alert('hello')
-//});
-//
-//$(window).unload(
-//        function(event) {
-//            alert("navigating");
-//        }
-//);
-//
-//window.onbeforeunload=function(){
-//    //displayMessage();
-//    alert('displayMessage')
-//
-//    setTimeout(function(){alert(window.location.href)},document.readyState?10:5000);
-//};
-
 window.onbeforeunload = function(e) {
-    //console.log('window.onbeforeunload:\n'+window.location.href);
-
     var current_path = window.location.pathname
     var dashboard = current_path.match(/^(\/[a-z]{2})?\/my/gi) != null
     if(!dashboard){
-        //if(page_before_dashboard){
-            //window.location = page_before_dashboard
-            //document.cookie = JSON.stringify({page_before_dashboard: window.location.pathname})
             document.cookie = ['page_before_dashboard', window.location.pathname].join('=')
-        //}
-        //else{
-        //    window.location = "/"
-
-        //}
 
     }
 
 };
 
-//window.onload = function(e){
-//    console.log('window.onloadstart:\n'+window.location.href)
-//}
-
 last_timeout_id = false
-function AddHoverToEvent($event){
-    $event.addClass('hover-delay-end')
-}
+
 var mouse_in_event = 'mouseover'
 mouse_in_event = 'mouseenter'
 var mouse_out_event = 'mouseout'
@@ -1044,7 +839,6 @@ $('#events-list').on([mouse_out_event, mouse_in_event].join(' '), 'div.events-li
 
     var $event = $(this)
 
-    //var event_mouse_over_data = $event.data('mouse_over')
     if (event.type == mouse_out_event) {
         if (last_timeout_id) {
             console.log(mouse_out_event + ': event_id: ', $event.attr('data-event-id'))
@@ -1060,7 +854,6 @@ $('#events-list').on([mouse_out_event, mouse_in_event].join(' '), 'div.events-li
     }
 })
 
-
 function hideMenu(){
     $('#menu-focus-flag:checked').prop('checked', false)
 }
@@ -1068,41 +861,24 @@ function hideMenu(){
 $window.on('scroll', hideMenu)
 $wrap.on('click', hideMenu)
 
-var $fixed_header_top_container = $('#fixed-header-top-container')
-var fixed_header_top_container_visible_class = 'visible'
-//$window.on('scroll', function(e){
-//    console.log('scroll: ', e)
-//})
+$fixed_header_top_container = $('#fixed-header-top-container')
+fixed_header_top_container_visible_class = 'visible'
 
 var is_home_page = $html.hasClass('controller-home action-index')
 
 if(!is_home_page) {
     $window.on('mousewheel', function (e) {
-
-
         var scroll_up = e.originalEvent.wheelDelta / 120 > 0
         var scroll_down = !scroll_up
         var current_scoll_at_top = $window.scrollTop() <= $fixed_header_top_container.height()
         console.log("current_scoll_at_top: ", current_scoll_at_top)
         if (!current_scoll_at_top && window.innerWidth > 640) {
-            //console.log('scrolling up !');
             $fixed_header_top_container.addClass(fixed_header_top_container_visible_class)
         }
         else {
             $fixed_header_top_container.removeClass(fixed_header_top_container_visible_class)
         }
     })
-
-//    $body.on("appear", "*", function(){
-//        $("div:appeared").filter(function(){
-//            return ""
-//        })
-//    })
-
-
-
-
-
 }
 $(document).on('ready',function() {
     var $fixed_on_scroll_containers = $('.fixed-on-scroll')
@@ -1110,7 +886,6 @@ $(document).on('ready',function() {
         console.log('add scroll handler')
         $window.on('scroll', function (e) {
             var scroll_top = $window.scrollTop()
-            //var $fixed_on_scroll_containers = $('.fixed-on-scroll')
 
             for(var i = 0; i < $fixed_on_scroll_containers.length; i++) {
                 var $container = $fixed_on_scroll_containers.eq(i)
@@ -1135,8 +910,6 @@ $(document).on('ready',function() {
 $(document).on("keypress", "input", function(e){
     var prevent = false
     if((e.charCode >= 48 && e.charCode <= 57)   ) {
-
-
         var $input = $(this)
         var $input_wrap = $input.closest("div.input")
         var validation_options = $input_wrap.attr("data-validate")

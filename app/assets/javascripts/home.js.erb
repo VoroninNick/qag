@@ -4,13 +4,6 @@ var initialize = function() {
     $('html.controller-home.action-index').each(function () {
         var $page = $(this)
 
-
-
-
-
-
-
-
         counter = 0
         last_time_stamp = null
 
@@ -36,24 +29,19 @@ var initialize = function() {
         })
     })
 
-
-    var $home_featured_event_info_slides_row = $('#home-featured-event-info-slides-row')
-    var $home_featured_events_section = $('#home-featured-events-section')
-
     var $home_contact_section = $('#home-contact-section')
     if($home_contact_section.length > 0){
         var $form = $('#home-contact-form-section-form')
         var default_method = 'GET'
         var method = $form.attr('method') || default_method
-        var url = $form.attr('action') || ''
-        var response_data_type = 'json'
+
 
 
 
     }
 }
 
-var $contact_form = $('#home-contact-form-section-form')
+$contact_form = $('#home-contact-form-section-form')
 
 $contact_form.on('click', 'input[type=submit]', function(e){
     var $form = $contact_form

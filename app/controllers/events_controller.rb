@@ -30,13 +30,13 @@ class EventsController < ApplicationController
           :"#{params[:event_type].pluralize}_list" => {
               title: I18n.t("layout.breadcrumbs.#{params[:event_type].pluralize}_list"),
               link: {
-                  url: events_list_path
+                  url: send("#{@events_list_key}_path")
               }
           },
           event_item: {
               title: @event.name,
               link: {
-                  url: event_item_path(item: @event.url_fragment, tags: @event.tags.join('-'))
+                  url: send("#{@event.event_type}_item_path", item: @event.url_fragment, tags: @event.tags.join('-'))
               }
           }
       }
@@ -70,7 +70,7 @@ class EventsController < ApplicationController
         events_list: {
             title: I18n.t("layout.breadcrumbs.#{params[:route_name]}"),
             link: {
-                url: events_list_path
+                url: send("#{params[:route_name]}_path")
             }
         }
     }

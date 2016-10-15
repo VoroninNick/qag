@@ -30,6 +30,15 @@ class Article < ActiveRecord::Base
   accepts_nested_attributes_for :translations, allow_destroy: true
   attr_accessible :translations_attributes, :translations
 
+  has_cache
+  def url(*args)
+    "articles/#{url_fragment}"
+  end
+
+  def cache_instances
+    [Article.published, Pages::ArticlesList]
+  end
+
   class Translation
     attr_accessible :locale, :url_fragment, :published_translation, :name, :short_description, :full_description
 

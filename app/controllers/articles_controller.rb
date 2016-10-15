@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+  caches_page :item
   def list
     max_items_count = 10
 

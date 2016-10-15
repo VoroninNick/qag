@@ -10,6 +10,11 @@ class AboutPage < ActiveRecord::Base
   has_many :team_members
   has_many :participants
 
+  has_cache
+  def url(locale = I18n.locale)
+    "/about"
+  end
+
   [:about_page_slider_slides, :team_members, :participants].each do |a|
     accepts_nested_attributes_for a, allow_destroy: true
     attr_accessible a, "#{a}_attributes".to_sym

@@ -37,6 +37,12 @@ class Participant < ActiveRecord::Base
     self.about_page = AboutPage.first
   end
 
+  has_cache
+  def cache_instances
+    [Pages::Students.first]
+  end
+
+
   class Translation
     attr_accessible :locale, :published_translation, :name, :short_description, :avatar_alt
 

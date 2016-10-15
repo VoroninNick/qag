@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  caches_page :students
   def students
     @breadcrumbs = {
         home: {},

@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  caches_page :item
   def find_event
     params_item = params[:item]
     event_type = params[:event_type]

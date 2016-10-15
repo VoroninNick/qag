@@ -24,7 +24,7 @@ class EventsController < ApplicationController
     find_event
 
     if @event
-      @events_list_key = @event.event_type.pluralize.to_sym
+      @events_list_key = "#{@event.event_type.pluralize.to_sym}_list".to_sym
       @breadcrumbs = {
           home: {},
           :"#{params[:event_type].pluralize}_list" => {

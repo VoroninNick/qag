@@ -67,7 +67,7 @@ class EventsController < ApplicationController
     @breadcrumbs = {
         home: {},
         events_list: {
-            title: I18n.t('layout.breadcrumbs.events_list'),
+            title: I18n.t("layout.breadcrumbs.#{params[:route_name]}"),
             link: {
                 url: events_list_path
             }

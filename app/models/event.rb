@@ -89,6 +89,15 @@ class Event < ActiveRecord::Base
 
   boolean_scope :published
 
+  has_cache
+  def cache_instances
+    [self, HomePage.first, Object.const_get("#{event_type.pluralize.capitalize}List").first]
+  end
+
+  def url(locale = I18n.locale)
+    "/#{event_type.pluralize}/#{url_fragment}"
+  end
+
   def allowed_subscriptions_count
     self.event_subscriptions.where('disabled is null or disabled = "f"').count
   end

@@ -12,8 +12,8 @@
             a#breadcrumb-home-a href=root_path
               = embedded_svg_from_assets('svg/home.svg')
           li.breadcrumb.inactive-breadcrumb
-            a.inactive-breadcrumb-a href=@breadcrumbs[:events_list][:link][:url]
-              = @breadcrumbs[:events_list][:title]
+            a.inactive-breadcrumb-a href=@breadcrumbs[@events_list_key][:link][:url]
+              = @breadcrumbs[@events_list_key][:title]
           li#active-breadcrumb.breadcrumb
             span#active-breadcrumb-text
               = @event.name
@@ -50,28 +50,10 @@
                 #event-item-page-event-info-days-and-time-text.event-item-page-event-info-text
                   = @event.days_and_time_string
             = get_button_for(@event)
-          = render "share_block", object: @event, url: event_item_path(item: @event.url_fragment), title: @event.name
+          = render "share_block", object: @event, url: send("#{@event.event_type}_item_path", item: @event.url_fragment), title: @event.name
 
 
 
-
-            /- if @event.up_to_date?
-            /  - if @event.enabled_registration?
-            /    .register-button.registration-enabled class=( "decline" if subscribed_on_event?(@event.id) )
-            /        a.register-button-a href=( subscribed_on_event?(@event.id) ? event_unsubscription_form_path(event_id: @event.id) : new_event_subscription_path(event_id: @event.id)  )
-            /          = embedded_svg_from_assets('svg/registration.svg')
-            /          span.registration-text
-            /            = t("layout.buttons.#{ "un" if subscribed_on_event?(@event.id) }register")
-            /  - else
-            /    .register-button class=( "registration-disabled" )
-            /      span.register-button-span
-            /        span.registration-text
-            /          = "Реєстрацію завершено"
-            /- else
-            /  .register-button class=( "event-expired" )
-            /    span.register-button-span
-            /      span.registration-text
-            /        = "Захід завершено"
 
 
 

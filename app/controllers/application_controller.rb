@@ -18,10 +18,16 @@ class ApplicationController < ActionController::Base
 
   reload_rails_admin_config
 
+  before_action :set_admin_locale, if: :admin_panel?
+
   def admin_panel?
     admin = params[:controller].to_s.starts_with?("rails_admin")
 
     return admin
+  end
+
+  def set_admin_locale
+    I18n.locale = :uk
   end
 
   helper_method :modal?

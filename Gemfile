@@ -6,7 +6,7 @@ gem 'rails', '4.1.6'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.1'
+gem 'sass-rails', '~> 5.0'
 #gem 'sass'
 
 #gem 'sass-rails', '5.0.0.beta1' # This is the important bit since it supports Sass 3.3
@@ -97,7 +97,7 @@ gem 'rubytree'
 
 # rails_admin and plugins
 
-gem 'rails_admin'
+gem 'rails_admin', ">= 0.8"
 gem 'rails_admin-i18n', github: 'starchow/rails_admin-i18n'
 gem 'rails_admin_nestable'
 gem 'rails_admin_tag_list', github: 'VoroninNick/rails_admin_tag_list', branch: 'pasha'

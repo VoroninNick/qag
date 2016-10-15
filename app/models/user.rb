@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  attr_accessible *attribute_names
 
 
   devise :database_authenticatable, :registerable,
@@ -20,24 +21,17 @@ class User < ActiveRecord::Base
   #t.string :work_position
 
 
-  has_attached_file :avatar, :styles => { :thumb => '150x150#'},
+  image :avatar, :styles => { :thumb => '150x150#'},
                     :url  => "/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
                     :path => ":rails_root/public/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
                     convert_options: {
                         thumb: "-quality 94 -interlace Plane",
                     }
 
-  validates_attachment_file_name :avatar, :matches => [/png\Z/i, /jpe?g\Z/i, /gif\Z/i, /svg\Z/i]
-
   validates :first_name, length: { minimum: 2 }
   validates :last_name, length: { minimum: 2 }
   #phony_normalize :contact_phone, :default_country_code => 'UA'
 
-  [:avatar].each do |paperclip_field_name|
-    attr_accessible paperclip_field_name.to_sym, "delete_#{paperclip_field_name}".to_sym, "#{paperclip_field_name}_file_name".to_sym, "#{paperclip_field_name}_file_size".to_sym, "#{paperclip_field_name}_content_type".to_sym, "#{paperclip_field_name}_updated_at".to_sym, "#{paperclip_field_name}_file_name_fallback".to_sym, "#{paperclip_field_name}_alt".to_sym
-
-    attr_accessor "delete_#{paperclip_field_name}".to_sym
-  end
 
   #has_and_belongs_to_many :events, join_table: 'event_subscriptions'
   has_many :event_subscriptions

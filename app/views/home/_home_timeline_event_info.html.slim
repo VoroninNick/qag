@@ -3,7 +3,7 @@
     .featured-section-event-content
       .image-and-info.columns.large-4.medium-3.small-3
         .image
-          a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
+          a href=event_item_path(item: event.url_fragment, tags: event.tags.join('-'))
             img.grayscale src=image_or_stub_url(event.avatar, :event_list_small_thumb, 360, 240, "event_#{event.id}")
         .info class=("has_event_end_date" if event.end_date )
           .start-date
@@ -27,7 +27,7 @@
 
 
       .description.columns.large-8.medium-9.small-9
-        a.event-title href=event_item_path(item: event.slug, tags: event.tags.join('-'))
+        a.event-title href=event_item_path(item: event.url_fragment, tags: event.tags.join('-'))
           = event.name
         / slide.name
         .event-description
@@ -36,7 +36,7 @@
         .event-link-and-register-button
           .event-link-wrapper
             .event-link
-              a href=event_item_path(item: event.slug, tags: event.tags.join('-'))
+              a href=event_item_path(item: event.url_fragment, tags: event.tags.join('-'))
                 |Детальніше про подію
           = get_button_for(event, disable_columns: true)
 

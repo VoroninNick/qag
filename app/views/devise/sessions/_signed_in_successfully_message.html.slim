@@ -17,7 +17,7 @@
     - if @registration_event
       .registration-event-wrapper
         = "Ви почали реєструватись на подію "
-        = link_to("#{@registration_event.name}", event_item_path(item: @registration_event.slug, tags: @registration_event.tags.join('-')))
+        = link_to("#{@registration_event.name}", event_item_path(item: @registration_event.url_fragment, tags: @registration_event.tags.join('-')))
         /.sign-in-submit-button-wrapper
           = link_to t('devise.sessions.sign_in_button'), new_event_subscription_path(locale: I18n.locale, event_id: registration_event.id), class: 'popup-link orange-bg', html: { style: "color:white;" }
         .standard-button class=( "decline" if subscribed_on_event?(@registration_event.id) )

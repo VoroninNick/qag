@@ -3,20 +3,12 @@ class Participant < ActiveRecord::Base
 
   attr_accessible :social_twitter, :social_facebook, :social_odnoklassniki, :social_linked_in, :social_blogger, :social_vk, :social_google_plus
 
-  has_attached_file :avatar, :styles => { :about => '250x250#'},
+  image :avatar, :styles => { :about => '250x250#'},
                     :url  => "/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
                     :path => ":rails_root/public/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
                     convert_options: {
                         about: "-quality 94 -interlace Plane",
                     }
-
-  validates_attachment_file_name :avatar, :matches => [/png\Z/i, /jpe?g\Z/i, /gif\Z/i, /svg\Z/i]
-
-  [:avatar].each do |paperclip_field_name|
-    attr_accessible paperclip_field_name.to_sym, "delete_#{paperclip_field_name}".to_sym, "#{paperclip_field_name}_file_name".to_sym, "#{paperclip_field_name}_file_size".to_sym, "#{paperclip_field_name}_content_type".to_sym, "#{paperclip_field_name}_updated_at".to_sym, "#{paperclip_field_name}_file_name_fallback".to_sym, "#{paperclip_field_name}_alt".to_sym
-
-    attr_accessor "delete_#{paperclip_field_name}".to_sym
-  end
 
   def get_social_links
     result = {}
@@ -31,7 +23,7 @@ class Participant < ActiveRecord::Base
     result
   end
 
-  scope :published, -> { where(published: 't' ) }
+  boolean_scope :published
   scope :sort_by_sorting_position, -> { order("sorting_position asc") }
 
   translates :name, :short_description, :avatar_alt, :versioning => :paper_trail

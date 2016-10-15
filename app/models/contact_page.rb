@@ -1,11 +1,7 @@
 class ContactPage < ActiveRecord::Base
-  has_one :page_metadata, :class_name => 'VoroninStudio::PageMetadata', as: :page
-  attr_accessible :page_metadata
+  has_seo_tags
 
-  accepts_nested_attributes_for :page_metadata
-  attr_accessible :page_metadata_attributes
-
-  attr_accessible :content, :address
+  attr_accessible *attribute_names
 
   translates :address, :versioning => :paper_trail
   accepts_nested_attributes_for :translations, allow_destroy: true
@@ -29,7 +25,7 @@ class ContactPage < ActiveRecord::Base
 
     edit do
       #field :content, :ck_editor
-      field :page_metadata
+      field :seo_tags
       field :translations, :globalize_tabs
     end
   end

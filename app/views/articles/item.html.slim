@@ -29,7 +29,7 @@
             = raw @article.full_description
 
         .article-share-block-wrap.columns.large-4
-          = render "share_block", object: @article, url: article_item_path(item: @article.slug), title: @article.name
+          = render "share_block", object: @article, url: article_item_path(item: @article.url_fragment), title: @article.name
 
     - if @related_articles.try(&:any?)
       #read-also-section
@@ -40,7 +40,7 @@
             - @related_articles.each do |a|
               .read-also-articles-article
                 .read-also-articles-article-title
-                  a.read-also-articles-article-title-a href="#{article_item_path(item: a.slug)}"
+                  a.read-also-articles-article-title-a href="#{article_item_path(item: a.url_fragment)}"
                     = a.name
                 .read-also-articles-article-date
                   = (a.updated_at ).strftime("%d.%m.%Y")

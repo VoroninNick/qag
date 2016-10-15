@@ -1,14 +1,14 @@
 class EventTag < ActiveRecord::Base
-
+  attr_accessible *attribute_names
   has_and_belongs_to_many :events, join_table: :event_taggings
   attr_accessible :events, :event_id, :event_ids
 
-  translates :name, :slug, :versioning => :paper_trail
+  translates :name, :url_fragment, :versioning => :paper_trail
   accepts_nested_attributes_for :translations
   attr_accessible :translations_attributes, :translations
 
   class Translation
-    attr_accessible :locale, :published_translation, :name, :slug, :short_description, :full_description
+    attr_accessible :locale, :published_translation, :name, :url_fragment, :short_description, :full_description
 
     # def published=(value)
     #   self[:published] = value
@@ -21,10 +21,10 @@ class EventTag < ActiveRecord::Base
       temp_locale = locale_was
       temp_locale = :ru if I18n.locale == :uk
 
-      self.slug = self.name if !self.slug || self.slug == ''
+      self.url_fragment = self.name if !self.url_fragment || self.url_fragment == ''
 
       I18n.with_locale(temp_locale) do |locale|
-        self.slug = self.slug.parameterize
+        self.url_fragment = self.url_fragment.parameterize
       end
     end
 
@@ -43,7 +43,7 @@ class EventTag < ActiveRecord::Base
 
 
         end
-        field :slug do
+        field :url_fragment do
           if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
             label asd
           end

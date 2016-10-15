@@ -1,10 +1,7 @@
 class Pages::ArticlesList < ActiveRecord::Base
   self.table_name = :pages_articles_lists
-  has_one :page_metadata, :class_name => 'VoroninStudio::PageMetadata', as: :page
-  attr_accessible :page_metadata
 
-  accepts_nested_attributes_for :page_metadata
-  attr_accessible :page_metadata_attributes
+  has_seo_tags
 
   image :banner, :styles => { :banner => '2100x500#'},
                     :url  => "/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
@@ -24,10 +21,6 @@ class Pages::ArticlesList < ActiveRecord::Base
       end
     end
 
-    field :page_metadata do
-      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-        label asd
-      end
-    end
+    field :seo_tags
   end
 end

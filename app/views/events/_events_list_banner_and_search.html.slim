@@ -28,7 +28,7 @@
                         = t('pages.events-list.tag-filter.all-events')
                 - @event_tags.each do |tag|
                   li.tag-dropdown-ul-li
-                    a.tag-dropdown-ul-li-a href=event_tag_path(tag: tag.slug) tabindex="1"
+                    a.tag-dropdown-ul-li-a href=event_tag_path(tag: tag.url_fragment) tabindex="1"
                       span.tag-dropdown-ul-li-a-span
                         = tag.name
 #events-list-banner.page-block-fixed-wrapper

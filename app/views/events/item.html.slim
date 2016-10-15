@@ -50,7 +50,7 @@
                 #event-item-page-event-info-days-and-time-text.event-item-page-event-info-text
                   = @event.days_and_time_string
             = get_button_for(@event)
-          = render "share_block", object: @event, url: event_item_path(item: @event.slug), title: @event.name
+          = render "share_block", object: @event, url: event_item_path(item: @event.url_fragment), title: @event.name
 
 
 

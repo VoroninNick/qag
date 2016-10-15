@@ -27,6 +27,6 @@ class ContactController < ApplicationController
     }
 
     @page = @contact_page_info
-    @page_metadata = @page.try(&:page_metadata)
+    set_page_metadata(@page)
   end
 end

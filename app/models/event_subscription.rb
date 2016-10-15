@@ -1,4 +1,5 @@
 class EventSubscription < ActiveRecord::Base
+  attr_accessible *attribute_names
   belongs_to :event
   belongs_to :user
 

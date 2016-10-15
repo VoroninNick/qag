@@ -1,15 +1,13 @@
 class HomePage < ActiveRecord::Base
+  attr_accessible *attribute_names
+
   has_many :home_about_us_slides
   has_many :home_contact_infos
   #has_many :comments, as: :commentable
   has_many :user_feedbacks
   has_many :main_slider_slides
 
-  has_one :page_metadata, :class_name => 'VoroninStudio::PageMetadata', as: :page
-  attr_accessible :page_metadata
-
-  accepts_nested_attributes_for :page_metadata
-  attr_accessible :page_metadata_attributes
+  has_seo_tags
 
   accepts_nested_attributes_for :home_about_us_slides, allow_destroy: true
   attr_accessible :home_about_us_slides_attributes, :home_about_us_slides
@@ -24,6 +22,12 @@ class HomePage < ActiveRecord::Base
 
   accepts_nested_attributes_for :main_slider_slides, allow_destroy: true
   attr_accessible :main_slider_slides_attributes, :main_slider_slides
+
+  has_cache
+  def url(*args)
+    "/"
+  end
+
 
   rails_admin do
     weight -100
@@ -54,11 +58,7 @@ class HomePage < ActiveRecord::Base
         end
       end
 
-      field :page_metadata do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
-      end
+      field :seo_tags
     end
   end
 

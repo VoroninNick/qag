@@ -3,6 +3,27 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   #protect_from_forgery with: :exception
 
+  include ActionView::Helpers::OutputSafetyHelper
+  include ActionView::Helpers::AssetUrlHelper
+  include ActionView::Helpers::TagHelper
+  include Cms::Helpers::PagesHelper
+  extend Cms::Helpers::PagesHelper::ClassMethods
+  include Cms::Helpers::MetaDataHelper
+  include Cms::Helpers::NavigationHelper
+  include Cms::Helpers::ImageHelper
+
+  include Cms::Helpers::ActionView::CacheHelper
+  include Cms::Helpers::CacheNamingHelper
+  include ApplicationHelper
+
+  reload_rails_admin_config
+
+  def admin_panel?
+    admin = params[:controller].to_s.starts_with?("rails_admin")
+
+    return admin
+  end
+
   helper_method :modal?
 
   def modal?

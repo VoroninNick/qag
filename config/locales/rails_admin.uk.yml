@@ -108,7 +108,7 @@ uk:
       event_gallery_images: "Фотографії для альбомів"
       events: "Події"
       disabled: "Виключити"
-      slug: "назва для url"
+      url_fragment: "назва для url"
       receiver_emails: "E-mails отримувачів"
       full_description: "Повний опис"
       info_service_email: "Інформаційний сервіс > email"

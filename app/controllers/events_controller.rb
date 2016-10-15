@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   def find_event
     params_item = params[:item]
     event_type = params[:event_type]
-    @event_ids_rows = Event.find_by_sql("select t.event_id as id from #{Event.translation_class.table_name} t where t.locale='#{I18n.locale}' and t.slug='#{params_item}'")
+    @event_ids_rows = Event.find_by_sql("select t.event_id as id from #{Event.translation_class.table_name} t where t.locale='#{I18n.locale}' and t.url_fragment='#{params_item}'")
     @event_ids = []
     @event_ids_rows.each {|e| @event_ids.push e['id']  }
     @events = Event.where(event_type: event_type).where(id: @event_ids)
@@ -11,7 +11,7 @@ class EventsController < ApplicationController
     if @event
       @event.translations_by_locale.keys.each do |locale|
         I18n.with_locale(locale.to_sym) do
-          @page_locale_links[locale.to_sym] = url_for(item: @event.slug, tags: @event.tags.join('-'))
+          @page_locale_links[locale.to_sym] = url_for(item: @event.url_fragment, tags: @event.tags.join('-'))
         end
 
       end
@@ -34,20 +34,17 @@ class EventsController < ApplicationController
           event_item: {
               title: @event.name,
               link: {
-                  url: event_item_path(item: @event.slug, tags: @event.tags.join('-'))
+                  url: event_item_path(item: @event.url_fragment, tags: @event.tags.join('-'))
               }
           }
       }
 
       @page = @event
 
-      @page_metadata = @page.try(&:page_metadata)
+      set_page_metadata(@page)
       resource = @event
-      @head_title = resource.name if @page_metadata.try{|m| m.head_title }.blank?
 
-      @meta_description = resource.short_description if resource.respond_to?(:short_description) && @page_metadata.try{|m| m.meta_description }.blank?
-
-      @meta_keywords = resource.event_tags.map(&:name).select{|t| t.present? }.uniq.join(',') if resource.respond_to?(:event_tags) && @page_metadata.try{|m| m.meta_keywords}.blank?
+      #@meta_keywords = resource.event_tags.map(&:name).select{|t| t.present? }.uniq.join(',') if resource.respond_to?(:event_tags) && @page_metadata.try{|m| m.meta_keywords}.blank?
     end
 
 
@@ -81,7 +78,7 @@ class EventsController < ApplicationController
     available_tags = EventTag.all
 
     if params_tag_slug
-      selected_event_tag = available_tags.where(slug: params_tag_slug)
+      selected_event_tag = available_tags.where(url_fragment: params_tag_slug)
       if selected_event_tag.count > 0
         selected_event_tag = selected_event_tag.first
       else
@@ -124,7 +121,7 @@ class EventsController < ApplicationController
 
     @page = Pages::EventsList.first
 
-    @page_metadata = @page.try(&:page_metadata)
+    set_page_metadata(@page)
 
   end
 

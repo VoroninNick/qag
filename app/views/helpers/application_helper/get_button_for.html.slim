@@ -19,6 +19,6 @@
 - elsif resource.is_a?(Article)
   - if button_options[:type] == :read_article
     .article-read-button
-      a.article-read-button-a href="#{article_item_path(item: article.slug)}"
+      a.article-read-button-a href="#{article_item_path(item: article.url_fragment)}"
         span.registration-text
           = "Читати публікацію"

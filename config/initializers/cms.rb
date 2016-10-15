@@ -1,5 +1,7 @@
 Cms.config do
   use_translations do
-    false
+    true
   end
 end
+
+Cms::CompressionConfig.initialize_compression

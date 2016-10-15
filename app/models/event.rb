@@ -5,12 +5,7 @@ class Event < ActiveRecord::Base
   include Enumerize
   #include VoroninStudio::PageHelper
 
-  #acts_as_page
-  has_one :page_metadata, :class_name => 'VoroninStudio::PageMetadata', as: :page
-  attr_accessible :page_metadata
-
-  accepts_nested_attributes_for :page_metadata
-  attr_accessible :page_metadata_attributes
+  has_seo_tags
 
   has_and_belongs_to_many :event_gallery_albums, join_table: :events_and_gallery_albums, :dependent => :destroy
 
@@ -37,42 +32,33 @@ class Event < ActiveRecord::Base
   scope "courses", -> { where(event_type: "course")  }
 
 
-  has_attached_file :avatar, :styles => { :event_list_small_thumb => '360x240#', :event_list_avatar => '255x170#', :event_list_large_thumb => '720x480#', :home_expired_event_thumb => '500x1250#', :article_item => '320x320>', home_article_item: '250x250>', article_page: '500x500>'},
+  image :avatar, :styles => { :event_list_small_thumb => '360x240#', :event_list_avatar => '255x170#', :event_list_large_thumb => '720x480#', :home_expired_event_thumb => '500x1250#', :article_item => '320x320>', home_article_item: '250x250>', article_page: '500x500>'},
                     :url  => "/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
                     :path => ":rails_root/public/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
                     convert_options: {
                         banner: "-quality 94 -interlace Plane",
                     }
 
-  has_attached_file :banner, :styles => { banner: '2100x500#' },
+  image :banner, :styles => { banner: '2100x500#' },
                     :url  => "/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
                     :path => ":rails_root/public/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
                     convert_options: {
                         banner: "-quality 94 -interlace Plane",
                     }
 
-  has_attached_file :expired_event_avatar, :styles => { expired_event_avatar: '500x1250#' },
+  image :expired_event_avatar, :styles => { expired_event_avatar: '500x1250#' },
                     :url  => "/assets/#{self.name.underscore}/:id/expired_event_avatar/:style/:basename.:extension",
                     :path => ":rails_root/public/assets/#{self.name.underscore}/:id/expired_event_avatar/:style/:basename.:extension",
                     convert_options: {
                         banner: "-quality 94 -interlace Plane",
                     }
 
-  validates_attachment_file_name :avatar, :matches => [/png\Z/i, /jpe?g\Z/i, /gif\Z/i, /svg\Z/i]
-  validates_attachment_file_name :banner, :matches => [/png\Z/i, /jpe?g\Z/i, /gif\Z/i, /svg\Z/i]
-  validates_attachment_file_name :expired_event_avatar, :matches => [/png\Z/i, /jpe?g\Z/i, /gif\Z/i, /svg\Z/i]
-
-  #acts_as_taggable
 
   validates_presence_of :start_date
 
 
 
-  [:avatar, :banner, :expired_event_avatar].each do |paperclip_field_name|
-    attr_accessible paperclip_field_name.to_sym, "delete_#{paperclip_field_name}".to_sym, "#{paperclip_field_name}_file_name".to_sym, "#{paperclip_field_name}_file_size".to_sym, "#{paperclip_field_name}_content_type".to_sym, "#{paperclip_field_name}_updated_at".to_sym, "#{paperclip_field_name}_file_name_fallback".to_sym, "#{paperclip_field_name}_alt".to_sym
 
-    #attr_accessor "delete_#{paperclip_field_name}".to_sym
-  end
 
   #has_and_belongs_to_many :users, join_table: 'event_subscriptions'
   has_many :event_subscriptions
@@ -80,7 +66,7 @@ class Event < ActiveRecord::Base
 
   attr_accessible :users, :user_ids
 
-  attr_accessible :published, :name, :slug, :short_description, :full_description
+  attr_accessible :published, :name, :url_fragment, :short_description, :full_description
 
   attr_accessible :start_date, :end_date, :address, :participants_count
 
@@ -101,13 +87,9 @@ class Event < ActiveRecord::Base
 
   attr_accessible :registration_enabled
 
-  scope :published, -> { where(published: 't') }
+  boolean_scope :published
 
   def allowed_subscriptions_count
-    #variable_name = "@event_#{id}_allowed_subscriptions_count"
-    #return instance_variable_get(variable_name) if instance_variable_defined?(variable_name)
-
-    #return instance_variable_set(variable_name, self.event_subscriptions.where(disabled: false).count)
     self.event_subscriptions.where('disabled is null or disabled = "f"').count
   end
 
@@ -125,14 +107,6 @@ class Event < ActiveRecord::Base
 
 
   def images
-    # query_album_images = "select ai.event_gallery_image_id as 'id' from event_gallery_albums_and_event_gallery_images ai, events_and_gallery_albums ea where ea.event_id = #{self.id} and ai.event_gallery_album_id = ea.event_gallery_album_id "
-    # query_event_images = "select ei.event_gallery_image_id as 'id' from events_and_gallery_images ei where ei.event_id = #{self.id}"
-    # result_images = EventGalleryImage.find_by_sql(query_album_images) + EventGalleryImage.find_by_sql(query_event_images)
-    #
-    # image_ids = result_images.map(&:id)
-    # image_objects = EventGalleryImage.where(id: image_ids)
-    #
-    # image_objects
     event_gallery_images
   end
 
@@ -140,7 +114,7 @@ class Event < ActiveRecord::Base
     tags_arr = []
 
     self.event_tags.each do |tag|
-      tags_arr.push tag.slug.parameterize.underscore
+      tags_arr.push tag.url_fragment.parameterize.underscore
     end
 
     tags_arr
@@ -173,12 +147,13 @@ class Event < ActiveRecord::Base
   attr_accessible :disabled_registration
 
 
-  translates :name, :slug, :short_description, :full_description, :address, :days_and_time_string, :versioning => :paper_trail
+  translates :name, :url_fragment, :short_description, :full_description, :address, :days_and_time_string, :versioning => :paper_trail
   accepts_nested_attributes_for :translations
   attr_accessible :translations_attributes, :translations
 
   class Translation
-    attr_accessible :locale, :published_translation, :name, :slug, :short_description, :full_description, :address, :days_and_time_string
+    attr_accessible *attribute_names
+    attr_accessible :locale, :published_translation, :name, :url_fragment, :short_description, :full_description, :address, :days_and_time_string
 
 
 
@@ -189,37 +164,18 @@ class Event < ActiveRecord::Base
       #self.address = I18n.t("activerecord.defaults.models.event.attributes.address") if !self.address || self.address == ''
     end
 
-    # def fix_slug
-    #   locale_was = I18n.locale
-    #   temp_locale = locale_was
-    #   temp_locale = :ru if I18n.locale == :uk
-    #
-    #   self.slug = self.name if !self.slug || self.slug == ''
-    #
-    #   I18n.with_locale(temp_locale) do |locale|
-    #     self.slug = self.slug.parameterize
-    #   end
-    #
-    #   self.address = I18n.t("activerecord.defaults.models.event.attributes.address") if !self.address || self.address == ''
-    #
-    #   #self.participants_count = allowed_subscriptions_count
-    # end
-
     def fix_slug
       locale_was = I18n.locale
       temp_locale = locale_was
       temp_locale = :ru if I18n.locale == :uk
 
-      self.slug = self.name if !self.slug || self.slug == ''
+      self.url_fragment = self.name if !self.url_fragment || self.url_fragment == ''
 
       I18n.with_locale(temp_locale) do |locale|
-        self.slug = self.slug.parameterize
+        self.url_fragment = self.url_fragment.parameterize
       end
     end
 
-    # def published=(value)
-    #   self[:published] = value
-    # end
 
     rails_admin do
       visible false
@@ -232,7 +188,7 @@ class Event < ActiveRecord::Base
             label asd
           end
         end
-        field :slug do
+        field :url_fragment do
           if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
             label asd
           end
@@ -262,29 +218,6 @@ class Event < ActiveRecord::Base
       end
     end
   end
-
-  # def self.fix_slug
-  #   values = {}
-  #   field = :slug
-  #
-  #   self.all.each do |obj|
-  #
-  #     I18n.available_locales.each do |locale|
-  #       if !values.keys.include?(locale.to_sym)
-  #         values[locale.to_sym] = []
-  #       end
-  #       values_for_locale = values[locale.to_sym]
-  #       same_values = values_for_locale.select.with_index{|v,i| if v[:value] == obj.translations_by_locale[locale.to_sym].send(field.to_s) then  c = v[:count]; v[:count] = c + 1; t = obj.translations_by_locale[locale.to_sym]; t.send("#{field.to_s}=", "#{v[:value]}-#{v[:count]}"); t.save; end }
-  #       if same_values.count == 0
-  #         values_for_locale.push( value: obj.translations_by_locale[locale.to_sym].send(field.to_s), count: 1 )
-  #
-  #       else
-  #
-  #       end
-  #     end
-  #   end
-  # end
-
 
   before_save do
     self.participants_count = allowed_subscriptions_count
@@ -401,11 +334,7 @@ class Event < ActiveRecord::Base
         label asd
       end
     end
-    configure :page_metadata do
-      if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-        label asd
-      end
-    end
+
 
     list do
       field :event_type
@@ -450,7 +379,7 @@ class Event < ActiveRecord::Base
         field :banner
         field :expired_event_avatar
         field :event_gallery_images
-        field :page_metadata
+        field :seo_tags
       end
     end
 

@@ -1,13 +1,9 @@
 class Article < ActiveRecord::Base
-  attr_accessible :published, :slug, :name, :short_description, :full_description, :release_date
+  attr_accessible *attribute_names
 
-  has_one :page_metadata, :class_name => 'VoroninStudio::PageMetadata', as: :page
-  attr_accessible :page_metadata
+  has_seo_tags
 
-  accepts_nested_attributes_for :page_metadata
-  attr_accessible :page_metadata_attributes
-
-  has_attached_file :avatar, :styles => { :article_list_small_thumb => '360x300#', related_irticle_thumb: '600x500#', :article_list_large_thumb => "690x575#"},
+  image :avatar, :styles => { :article_list_small_thumb => '360x300#', related_irticle_thumb: '600x500#', :article_list_large_thumb => "690x575#"},
                     :url  => "/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
                     :path => ":rails_root/public/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
                     convert_options: {
@@ -16,49 +12,26 @@ class Article < ActiveRecord::Base
                       article_list_large_thumb: "-quality 94 -interlace Plane"
                     }
 
-  has_attached_file :banner, :styles => { :banner => '2100x500#'},
+  image :banner, :styles => { :banner => '2100x500#'},
                     :url  => "/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
                     :path => ":rails_root/public/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
                     convert_options: {
                         banner: "-quality 94 -interlace Plane",
                     }
 
-  validates_attachment_file_name :avatar, :matches => [/png\Z/i, /jpe?g\Z/i, /gif\Z/i, /svg\Z/i]
-  validates_attachment_file_name :banner, :matches => [/png\Z/i, /jpe?g\Z/i, /gif\Z/i, /svg\Z/i]
-
   validates :name, presence: true
-  validates :slug, presence: true, uniqueness: true
-
-  [:avatar, :banner].each do |paperclip_field_name|
-    attr_accessible paperclip_field_name.to_sym, "delete_#{paperclip_field_name}".to_sym, "#{paperclip_field_name}_file_name".to_sym, "#{paperclip_field_name}_file_size".to_sym, "#{paperclip_field_name}_content_type".to_sym, "#{paperclip_field_name}_updated_at".to_sym, "#{paperclip_field_name}_file_name_fallback".to_sym, "#{paperclip_field_name}_alt".to_sym
-
-    attr_accessor "delete_#{paperclip_field_name}".to_sym
-  end
+  validates :url_fragment, presence: true, uniqueness: true
 
   attr_accessible :show_toned_avatar, :show_toned_banner
 
-  scope :published, -> { where(published: true) }
+  boolean_scope :published
 
-  translates :name, :slug, :short_description, :full_description, :avatar_alt, :banner_alt, :versioning => :paper_trail
+  translates :name, :url_fragment, :short_description, :full_description, :avatar_alt, :banner_alt, :versioning => :paper_trail
   accepts_nested_attributes_for :translations, allow_destroy: true
   attr_accessible :translations_attributes, :translations
 
   class Translation
-    attr_accessible :locale, :slug, :published_translation, :name, :short_description, :full_description
-
-
-
-    # def published=(value)
-    #   self[:published] = value
-    # end
-
-    # before_save do
-    #   self.slug = self.name.parameterize if !self.slug || self.slug == ''
-    #   self.slug = self.slug.parameterize.underscore
-    #
-    #   self.avatar_alt = self.name if !self.avatar_alt || self.avatar_alt == ''
-    #   self.banner_alt = self.name if !self.banner_alt || self.banner_alt == ''
-    # end
+    attr_accessible :locale, :url_fragment, :published_translation, :name, :short_description, :full_description
 
     before_validation :fix_slug
 
@@ -67,21 +40,14 @@ class Article < ActiveRecord::Base
       temp_locale = locale_was
       temp_locale = :ru if I18n.locale == :uk
 
-      self.slug = self.name if !self.slug || self.slug == ''
+      self.url_fragment = self.name if !self.url_fragment || self.url_fragment == ''
 
       I18n.with_locale(temp_locale) do |locale|
-        self.slug = self.slug.parameterize
+        self.url_fragment = self.url_fragment.parameterize
       end
     end
 
     rails_admin do
-
-      # [:name, :slug, :short_description, :full_description, :avatar_alt, :banner_alt].each do |field_name|
-      #   configure field_name do
-      #     label I18n.t("rails_admin.field_labels.#{field_name}")
-      #     type :ck_editor  if [:full_description].include?(field_name)
-      #   end
-      # end
 
       visible false
       edit do
@@ -92,7 +58,7 @@ class Article < ActiveRecord::Base
             label asd
           end
         end
-        field :slug do
+        field :url_fragment do
           if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
             label asd
           end
@@ -183,11 +149,7 @@ class Article < ActiveRecord::Base
       field :show_toned_banner
 
       #field :banner_file_name_fallback
-      field :page_metadata do
-        if asd = I18n.t("rails_admin.field_labels.#{method_name}", raise: true) rescue false
-          label asd
-        end
-      end
+      field :seo_tags
     end
   end
 end

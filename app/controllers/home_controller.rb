@@ -1,47 +1,12 @@
 class HomeController < ApplicationController
-  #skip_filter(*_process_action_callbacks.map(&:filter), :only => [:featured_events])
 
-  include ApplicationHelper
-
-  #respond_to :html, :json
+  caches_page :index
 
   def index
-
-
-   # if params.include?(:featured_events) && params.include?(:ajax)
-   #   @featured_events_json = featured_events
-   #   render inline: @featured_events_json
-
-   # else
-
     @home_page = HomePage.first
     @main_slider_slides = @home_page.main_slider_slides.where(published: true)
 
-    @page_metadata = @home_page.try(&:page_metadata)
-
-
-    # all_events = Event.where(published: true).order('start_date asc')
-    # @featured_events = []
-    # all_events_count = all_events.count
-
-    # requested_count = 7
-    # future_events_limit = requested_count / 2 + 1
-    # future_events = all_events.where("start_date >= '#{Date.today}'").order('start_date asc').limit(future_events_limit)
-    # start_number = 0
-    # if future_events.count == 0
-    #   start_number = all_events_count
-    # else
-    #   start_id = future_events.first.id
-    #   all_events.where("id = #{start_id}")
-    #   future_events_count = future_events.count
-
-
-    #   required_prev_count = (future_events_count > requested_count / 2)? requested_count / 2  : requested_count - future_events_count
-    #   prev_events = all_events.where("start_date < '#{Date.today}'").order('start_date asc').last(required_prev_count)
-
-    #   @featured_events = prev_events + future_events
-
-    # end
+    set_page_metadata(@home_page)
 
     get_events 
 
@@ -57,19 +22,9 @@ class HomeController < ApplicationController
 
     @paginated_prev_events_count = events_per_page
 
-
-
-    #@featured_events_active_event_index = @prev_events.count
-    #@featured_events_active_event_index = @paginated_prev_events.count
     @featured_events_active_event_index = events_per_page
 
-
     @featured_events = @paginated_prev_events + @paginated_future_events
-
-    #render inline: "#{@featured_events_active_event_index}"
-
-
-
 
     @featured_events_timeline_items_count = @featured_events.count
     @featured_events_timeline_pages_count = (((@featured_events_timeline_items_count -7)/3).floor) + 1
@@ -92,16 +47,9 @@ class HomeController < ApplicationController
     m = {lat: @home_contact_info.map_latitude, lng: @home_contact_info.map_longtitude, address: @home_contact_info.address}
     @home_map_markers.push m
 
-
-    #@home_reviews = Comment.all.includes(:user).limit(6)
     @home_reviews = UserFeedback.published.featured.limit(6)
 
     @page = HomePage.first
-
-
-
-    #
-    #end
   end
 
   def new
@@ -111,12 +59,6 @@ class HomeController < ApplicationController
   end
 
   def featured_events
-    #respond_to do |format|
-      #format.html
-
-      #render inline: 'hello'
-
-
         get_events
 
         prev_events_required_page = params[:prev_events_page]
@@ -151,7 +93,6 @@ class HomeController < ApplicationController
         }
 
         render inline: "#{result.to_json}"
-    #end
   end
 
   def get_info_for_event(e)
@@ -175,7 +116,7 @@ class HomeController < ApplicationController
           },
           short_description: e.short_description,
           participants_count: e.participants_count,
-          event_link: event_item_path(item: e.slug, tags: e.tags.join('-')),
+          event_link: event_item_path(item: e.url_fragment, tags: e.tags.join('-')),
           registered: ( user_signed_in? ? ( subscribed_on_event?(e.id) ) : false ),
           image_url: image_or_stub_url(e.avatar, :event_list_small_thumb, 360, 240, "event #{e.id}") 
         }
@@ -190,18 +131,8 @@ class HomeController < ApplicationController
 
   def get_events
     @all_events ||= Event.published.includes(:translations)
-    #events_arr = []
-        #events.each_with_index do |e, index|
-        #  if index > 6
-        #    event_obj = { name: e.name, date_range: { start_date: {day:  e.start_date.day, month: e.start_date.month }, end_date: { day: e.end_date.day, month: e.end_date.month } } }
-        #    events_arr.push(events_arr)
-
-        #  end
-        #end
-
-        #@all_events = Event.where(published: true).order('start_date asc')
-        @prev_events ||= @all_events.where("start_date < '#{Date.today}'").order('start_date asc')
-        @future_events ||= @all_events.where("start_date >= '#{Date.today}'").order('start_date asc')
+    @prev_events ||= @all_events.where("start_date < '#{Date.today}'").order('start_date asc')
+    @future_events ||= @all_events.where("start_date >= '#{Date.today}'").order('start_date asc')
   end
 
   def get_all_events
@@ -248,8 +179,6 @@ class HomeController < ApplicationController
     result_events.each_with_index do |event, index|
       prev_events_html += render_to_string template: 'home/_home_timeline_thumbnail', layout: false, locals: { event: event, index: index, prev: true, future: false, carousel_event_index: (start_number+index), loaded: false }
     end
-
-
 
     render inline: prev_events_html
   end

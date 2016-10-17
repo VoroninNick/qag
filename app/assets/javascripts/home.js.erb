@@ -124,10 +124,7 @@ $(document).on('page:load', initialize)
 initialize();
 
 
-window.svgs = {
-    participant: '<%= ApplicationHelper.self_js_embedded_svg('svg/participant.svg') %>',
-    registration: '<%= ApplicationHelper.self_js_embedded_svg('svg/registration.svg') %>'
-}
+
 
 window.partials = {
     home: {
@@ -283,9 +280,18 @@ window.month_names = ['січня', 'лютого', 'березня', 'квіт�
          console.log('load_event: ', event_id)
          if (slidesInLoad.indexOf(event_id) < 0) {
              slidesInLoad.push(event_id)
+             var ajax_url =  '/home/event_info'
+             var ajax_data = {}
+             if (Array.isArray(event_id) && event_id.length > 1){
+               ajax_data = {event_ids: [event_id].join(',')}
+             }
+             else{
+               ajax_url += "/" + event_id + ".html"
+             }
+
              $.ajax({
-                 url: '/home/event_info',
-                 data: {event_ids: [event_id].join(',')},
+                 url: ajax_url,
+                 data: ajax_data,
                  type: 'get',
                  dataType: 'html',
                  success: function (data) {

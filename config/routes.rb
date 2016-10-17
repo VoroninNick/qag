@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     get 'home/prev_events_thumbnails', to: 'home#prev_events_thumbnails', as: :home_prev_events_thumbnails, defaults: { route_name: 'home_prev_events_thumbnails' }
 
     get 'home/event_info', to: 'home#event_info', as: :home_event_info, defaults: { route_name: 'home_event_info' }
+    get 'home/event_info/:event_id', to: 'home#event_info', as: :home_event_info_item, defaults: { route_name: 'home_event_info_item' }
 
     get 'featured_events', to: 'home#featured_events', as: :featured_events, defaults: { route_name: 'featured_events' }
 

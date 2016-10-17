@@ -1,3 +1,4 @@
+asset "jquery", '1.11.1'
 asset "fullpage.js"
 asset "jquery-touch-events"
 asset "bxslider-4"

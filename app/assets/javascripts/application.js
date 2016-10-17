@@ -1,4 +1,4 @@
-//= require jquery
+//= require jquery/dist/jquery.min
 //= require jquery_ujs
 //= require misc
 //= require interpolate

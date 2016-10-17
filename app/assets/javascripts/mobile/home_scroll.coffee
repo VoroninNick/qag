@@ -18,7 +18,8 @@ removeAccentFromMenuButton = ()->
   $button = $("#header-menu-button")
   $button.removeClass("with-accent")
 
-$(document).on "ready", ()->
+
+window.init_full_page_and_bxslider = ()->
   $('#page-sections').fullpage(
     sectionSelector: ".page-section"
     slideSelector: false
@@ -39,6 +40,9 @@ $(document).on "ready", ()->
   $("#home-slides-ul").bxSlider(
     mode: "fade"
   )
+
+$(document).on "ready", init_full_page_and_bxslider
+
 
 
 $(window).on "scroll", ()->

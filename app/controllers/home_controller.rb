@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
 
-  caches_page :index
+  caches_page :index, :event_info
 
   def index
     @home_page = HomePage.first
@@ -184,8 +184,14 @@ class HomeController < ApplicationController
   end
 
   def event_info
-    event_ids = params[:event_ids].split(',').map(&:to_i)
-    events = Event.where(published: true, id: event_ids)
+    event_id = params[:event_id]
+    if !event_id
+      event_ids = params[:event_ids].split(',').map(&:to_i)
+    else
+      event_ids = event_id
+    end
+
+    events = Event.published.where(id: event_ids)
     events_html = ''
     events.each_with_index do |event, index|
       event_html = render_to_string template: 'home/_home_timeline_event_info', layout: false, locals: { event: event, index: index, active: true }

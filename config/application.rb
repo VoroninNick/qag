@@ -28,8 +28,6 @@ module Qag
 
     config.assets.precompile += %w( modernizr_load1.js modernizr_svg.min.js )
 
-    Rails.application.config.assets.precompile += %w( with_full_page.js with_full_page.css )
-
     config.action_mailer.default_url_options = {
         :host => 'qagroup.com.ua',
     }

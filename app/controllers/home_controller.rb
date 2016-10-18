@@ -52,12 +52,6 @@ class HomeController < ApplicationController
     @page = HomePage.first
   end
 
-  def new
-    index
-
-    render "home/new"
-  end
-
   def featured_events
         get_events
 

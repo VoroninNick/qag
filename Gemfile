@@ -97,7 +97,7 @@ gem 'rubytree'
 
 # rails_admin and plugins
 
-gem 'rails_admin', ">= 0.8"
+gem 'rails_admin', "~> 0.8"
 gem 'rails_admin-i18n', github: 'starchow/rails_admin-i18n'
 gem 'rails_admin_nestable'
 gem 'rails_admin_tag_list', github: 'VoroninNick/rails_admin_tag_list', branch: 'pasha'

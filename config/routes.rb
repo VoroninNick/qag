@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  get "csrf_token", to: "application#render_csrf_token"
   get "m", to: "test#media_queries"
 
   get "call-back", to: "call_backs#new", as: "call_back"

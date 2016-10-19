@@ -15,6 +15,8 @@ class ApplicationController < ActionController::Base
   include Cms::Helpers::ActionView::CacheHelper
   include Cms::Helpers::CacheNamingHelper
   include ApplicationHelper
+  before_action :initialize_csrf_token
+  before_action :validate_csrf_token
 
   reload_rails_admin_config
 
@@ -351,6 +353,32 @@ class ApplicationController < ActionController::Base
 
   #helper_method :host_name
 
+  def generate_csrf_token
+    str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".split("")
+    token = 256.times.map{ str.sample }.join("")
+  end
 
+  def initialize_csrf_token
+    session["_csrf_token"] ||= generate_csrf_token
+  end
 
+  def get_csrf_token
+    session["_csrf_token"]
+  end
+
+  def render_csrf_token
+    render inline: get_csrf_token
+  end
+
+  def valid_csrf_token?
+    get_csrf_token == request.headers["X-CSRFToken"]
+  end
+
+  def validate_csrf_token
+    if !request.get?
+      if !valid_csrf_token?
+        render inline: "Invalid authenticity token", status: 403
+      end
+    end
+  end
 end

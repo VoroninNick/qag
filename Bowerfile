@@ -6,3 +6,4 @@ asset "jquery_appear"
 
 asset "jquery-form"
 asset "Jcrop", '0.9.12'
+asset "js-cookie", "2.1.1"

@@ -1,4 +1,6 @@
 //= require jquery/dist/jquery.min
+//= require js-cookie/src/js.cookie
+//= require csrf_token
 //= require jquery_ujs
 //= require misc
 //= require interpolate

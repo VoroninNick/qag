@@ -14,11 +14,11 @@ class MessagesController < ApplicationController
 	 
 	        #format.html { redirect_to(@message, notice: 'User was successfully created.') }
 	        format.html { render inline: 'message successfully created.' }
-	        format.json { render json: @message, status: :created, location: create_message_path }
+	        format.json { render json: @message, status: 201, location: create_message_path }
 	      else
 	        #format.html { render action: 'new' }
 	        format.html { render inline: 'message creation failed.' }
-	        format.json { render json: @message.errors, status: :unprocessable_entity }
+	        format.json { render json: @message.errors, status: 422 }
 	      end
     end
 

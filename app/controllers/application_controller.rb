@@ -367,7 +367,12 @@ class ApplicationController < ActionController::Base
   end
 
   def render_csrf_token
-    render inline: get_csrf_token
+    if request.referrer
+      render inline: get_csrf_token
+    else
+      render inline: "bot detected", status: 403
+    end
+
   end
 
   def valid_csrf_token?

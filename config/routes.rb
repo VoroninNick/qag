@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
   get "csrf_token", to: "application#render_csrf_token"
   get "m", to: "test#media_queries"
 
@@ -110,8 +113,7 @@ Rails.application.routes.draw do
 
     get '/data/:page', to: 'data#index', as: :data_index, defaults: { route_name: 'data_index' }
 
-    mount Ckeditor::Engine => '/ckeditor'
-    mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
     
     
     

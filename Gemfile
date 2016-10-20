@@ -196,3 +196,5 @@ gem "htmlcompressor"
 gem 'rack-page_caching'
 
 gem 'json', "1.8.3"
+
+gem "cancancan"

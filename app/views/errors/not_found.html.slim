@@ -1,8 +1,8 @@
 .not-found-block
   .gray-header.not-found-gray-header
-    |404
+    = status
   p.description
-    = raw "На жаль, даної сторінки не існує, можливо вона була видалена,<br/>або ви ввели невірну адресу."
+    = raw message
   .buttons
     .button-wrap
       a.btn href="/"

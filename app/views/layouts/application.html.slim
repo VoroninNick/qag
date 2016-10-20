@@ -43,10 +43,10 @@ html#html class="no-js locale-#{I18n.locale.to_s} controller-#{params[:controlle
 
       #modal-windows-wrapper
         - if !@is_devise
-          #new_user_session-popup-wrapper.popup-wrapper.js-template data-url=new_user_session_url(locale: I18n.locale) data-popup-name="sign_in_popup_form" data-input-id="devise_sessions-new-get-flag"
+          #new_user_session-popup-wrapper.popup-wrapper.js-template data-url=new_session_path(:user) data-popup-name="sign_in_popup_form" data-input-id="devise_sessions-new-get-flag"
 
-          #new_user_registration-popup-wrapper.popup-wrapper.js-template data-url=new_user_registration_url(locale: I18n.locale) data-popup-name="sign_up_popup_form" data-input-id="devise_registrations-new-get-flag"
-          #new_user_confirmation-popup-wrapper.popup-wrapper.js-template data-url=new_confirmation_url( :user) data-popup-name="sign_up_popup_form" data-input-id="devise_confirmations-new-get-flag"
+          #new_user_registration-popup-wrapper.popup-wrapper.js-template data-url=new_registration_url(:user) data-popup-name="sign_up_popup_form" data-input-id="devise_registrations-new-get-flag"
+          #new_user_confirmation-popup-wrapper.popup-wrapper.js-template data-url=new_confirmation_url(:user) data-popup-name="sign_up_popup_form" data-input-id="devise_confirmations-new-get-flag"
           #devise_unlocks-new-get-wrapper.popup-wrapper.js-template data-url=new_unlock_path(:user) data-input-id="devise_unlocks-new-get-flag"
           #devise_passwords-new-get-wrapper.popup-wrapper.js-template data-url=new_password_path(:user) data-input-id="devise_passwords-new-get-flag"
 

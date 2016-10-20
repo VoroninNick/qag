@@ -18,6 +18,11 @@ class ApplicationController < ActionController::Base
   before_action :initialize_csrf_token
   before_action :validate_csrf_token, unless: :admin_panel?
 
+  # rescue_from CanCan::AccessDenied do |exception|
+  #   #redirect_to main_app.root_path, :alert => exception.message
+  #   render_unauthorized
+  # end
+
   reload_rails_admin_config
 
   before_action :set_admin_locale, if: :admin_panel?
@@ -78,7 +83,12 @@ class ApplicationController < ActionController::Base
 
   def render_not_found
     @render_footer = false
-    render template: "errors/not_found.html.slim", status: 404
+    render template: "errors/not_found.html.slim", status: 404, layout: "application", locals: { status: 401, message: "На жаль, даної сторінки не існує, можливо вона була видалена,<br/>або ви ввели невірну адресу." }
+  end
+
+  def render_unauthorized
+    @render_footer = false
+    render template: "errors/not_found.html.slim", status: 401, layout: "application", locals: { status: 401, message: "На жаль, ви не маєте прав на цю операцію." }
   end
 
   before_filter :update_sanitized_params, if: :devise_controller?
@@ -233,12 +243,12 @@ class ApplicationController < ActionController::Base
   end
 
 
-  #before_filter :redirect_to_home_if_user_requests_admin
-  before_filter :check_is_user_admin
+  #before_action :redirect_to_home_if_user_requests_admin
+  before_action :check_is_user_admin
   def check_is_user_admin
     if params[:controller].scan(/^rails_admin/).length > 0
-      if user_signed_in? && current_user.role != 'admin'
-        redirect_to "/#{I18n.locale}"
+      if user_signed_in? && !current_user.admin?
+        render_unauthorized
       end
     end
   end

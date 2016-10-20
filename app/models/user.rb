@@ -45,6 +45,10 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :translations
   attr_accessible :translations_attributes, :translations
 
+  def admin?
+    role == "admin"
+  end
+
   class Translation
     attr_accessible :locale, :name, :status, :published_translation, :avatar_alt
 

@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   include Cms::Helpers::CacheNamingHelper
   include ApplicationHelper
   before_action :initialize_csrf_token
-  before_action :validate_csrf_token
+  before_action :validate_csrf_token, unless: :admin_panel?
 
   reload_rails_admin_config
 

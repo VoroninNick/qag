@@ -18,11 +18,16 @@ class UserFeedback < ActiveRecord::Base
   boolean_scope :featured
 
   def show_toned_avatar
-    true
+    false
   end
 
   def get_avatar
     user
+  end
+
+  has_cache
+  def cache_instances
+    [HomePage.first]
   end
 
   rails_admin do

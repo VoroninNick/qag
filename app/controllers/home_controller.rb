@@ -35,7 +35,7 @@ class HomeController < ApplicationController
     @event_links = ActiveRecord::Base.connection.execute(query)
 
 
-    @expired_events = Event.where(published: true).limit(20)
+    #@expired_events = Event.where(published: true).limit(20)
 
 
     @about_slide = @home_page.home_about_us_slides.first

@@ -54,7 +54,12 @@ end
 
 def initialize_model_label
   label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")
-  label_plural I18n.t("rails_admin.model_labels_plural.#{self.abstract_model.model_name.underscore}")
+  label_plural do
+    str = I18n.t("rails_admin.model_labels_plural.#{self.abstract_model.model_name.underscore}", raise: true) rescue nil
+    str = I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}") if str.blank?
+
+    str
+  end
 end
 
 def initialize_field_label
@@ -78,6 +83,12 @@ end
 def forms_navigation_label
   navigation_label do
     "Forms"
+  end
+end
+
+def other_navigation_label
+  navigation_label do
+    I18n.t('rails_admin.navigation_labels.other')
   end
 end
 
@@ -246,6 +257,14 @@ module RailsAdminDynamicConfig
           end
           field :seo_tags
         end
+
+        config.include_models CallBack
+        config.model CallBack do
+          other_navigation_label
+          initialize_model_label
+
+        end
+
       end
     end
   end

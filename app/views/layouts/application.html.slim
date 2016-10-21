@@ -28,7 +28,8 @@ html#html class="no-js locale-#{I18n.locale.to_s} controller-#{params[:controlle
       = render partial: 'layouts/header'
 
       #fixed-call-button.popup-link data-popup-name="call_back_popup_form" href="/call-back"
-        = embedded_svg_from_assets("svg/tel.svg")
+        /= embedded_svg_from_assets("svg/tel.svg")
+        = embedded_svg_from_assets("svg/call.svg")
 
       - if !(params[:controller] == 'home' && params[:action] == 'index')
         div#wrap

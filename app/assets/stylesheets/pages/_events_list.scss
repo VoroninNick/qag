@@ -52,15 +52,7 @@ $events-list-item-hover-transition-duration: 0.5s;
   position: relative;
 
   &:after{
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    display: block;
-    right: 0;
-    background: $orange-color;
-    opacity: 0.1;
+    //@include orange-image-overlay
   }
 
 }

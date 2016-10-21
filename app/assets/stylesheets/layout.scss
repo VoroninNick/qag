@@ -88,7 +88,8 @@ $header-height: 90px;
 #header-logo{
   height: 32px;
   width: 245px;
-  margin: 30px 0 0 5%;
+  //margin: 30px 0 0 5%;
+  margin: 30px 0 0 2%;
   z-index: 1;
   position: relative;
 }
@@ -123,6 +124,8 @@ $header-height: 90px;
   padding: 0;
   margin: 30px 5% 0 0;
   margin: 30px 5% 0 0;
+
+  right: -60px;
 
 
   @include transition-duration(0.6s);
@@ -269,7 +272,8 @@ $header-height: 90px;
   & {
     #body-inner{
       #header-menu-button {
-        margin: 30px 1.5rem 0 0;
+        //margin: 30px 1.5rem 0 0;
+        margin: 30px 5.25rem 0 0;
 
         #header-menu-button-label {
           display: none;

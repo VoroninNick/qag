@@ -36,6 +36,7 @@ uk:
       contact_page: "Контакти"
       voronin_studio/page_metadata: "Метадані для сторінки"
       message: "Повідомлення"
+      call_back: "Замовлення дзвінка"
 
     model_labels_plural:
       home_page: "Головна сторінка"
@@ -66,6 +67,7 @@ uk:
       contact_page: "Контакти"
       voronin_studio/page_metadata: "Метадані для сторінок"
       message: "Історія повідомлень"
+      call_back: "Історія замовлень дзвінка"
     field_labels:
       role: "Роль"
       translations: "Локалізації"

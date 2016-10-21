@@ -1,0 +1,11 @@
+@mixin orange-image-overlay{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  display: block;
+  right: 0;
+  background: $orange-color;
+  opacity: $orange-overlay-opacity;
+}

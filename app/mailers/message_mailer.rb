@@ -14,7 +14,7 @@ class MessageMailer < ActionMailer::Base
 		@call_back = call_back
 
 		default_to = 'p.korenev@voroninstudio.eu'
-		to = FormConfig.first.receiver_emails.split(',')
+		to = FormConfig.second.receiver_emails.split(',')
 		if to.length == 0
 			to = default_to
 		end

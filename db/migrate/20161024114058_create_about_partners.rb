@@ -21,7 +21,7 @@ class CreateAboutPartners < ActiveRecord::Migration
       t.string :social_google_plus
     end
 
-    AboutPartner.create_translation_table!(name: :string, short_description: :text, avatar_alt: :string)
+    AboutPartner.create_translation_table(name: :string, short_description: :text, avatar_alt: :string)
   end
 
   def down

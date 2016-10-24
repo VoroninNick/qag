@@ -32,18 +32,22 @@ def include_models(config, *models)
   end
 end
 
-def content_field(name = :content)
-  field name, :text do
+def content_field(name = :content, editor = :code_mirror)
+  field_type = :text
+  field_type = :ck_editor if editor == :ck_editor
+  field name, field_type do
     help "Якщо редактор не відображається, обновіть сторінку"
-    html_attributes do
-      {
-          class: "my-codemirror",
-          mode: "slim"
-      }
+    if editor == :code_mirror
+      html_attributes do
+        {
+            class: "my-codemirror",
+            mode: "slim"
+        }
+      end
     end
 
     def value
-      bindings[:object].send(name)
+      bindings[:object].send(name.to_s)
     end
   end
 end
@@ -70,7 +74,7 @@ end
 
 def pages_navigation_label
   navigation_label do
-    I18n.t("admin.navigation_labels.pages")
+    I18n.t("rails_admin.navigation_labels.pages")
   end
 end
 
@@ -191,7 +195,7 @@ module RailsAdminDynamicConfig
             Article, Comment, Event, FormConfig, HomeAboutUsSlide, HomeContactInfo, HomeForm, HomePage, MainSliderSlide, User, Participant, TeamMember, Setting, Partner, AboutPageSliderSlide,
             EventTag, EventGalleryAlbum, EventGalleryImage, EventSubscription, UserFeedback,
             #ActsAsTaggableOn::Tag, ActsAsTaggableOn::Tagging
-            HomePage, AboutPage, Pages::EventsList, Pages::ArticlesList, ContactPage, Pages::Students, Pages::Feedbacks,
+            HomePage, AboutPage, Pages::EventsList, Pages::ArticlesList, ContactPage, Pages::Students, Pages::Feedbacks, Pages::CoursesList,
             Message, Cms::MetaTags
 
 
@@ -207,54 +211,56 @@ module RailsAdminDynamicConfig
           #end
         end
 
+        config.model Cms::Page do
+          visible false
+        end
+
+        config.model_translation Cms::Page do
+          visible false
+        end
+
+
         config.model Cms::MetaTags do
+          field :translations, :globalize_tabs
+        end
+
+        config.model_translation Cms::MetaTags do
+          field :locale, :hidden
           field :title
           field :keywords
           field :description
         end
 
         config.model Pages::Students do
-          content_field(:students_text)
+          pages_navigation_label
+          initialize_model_label
+
+          field :banner
+          content_field(:students_text, :ck_editor)
           field :seo_tags
         end
 
         config.model Pages::Feedbacks do
+          pages_navigation_label
+          initialize_model_label
+
+          field :banner
           field :seo_tags
         end
+
 
 
         # configure models
         config.model AboutPage do
           pages_navigation_label
           initialize_model_label
-          field :banner do
-            initialize_field_label
-          end
-
-          field :top_text, :ck_editor do
-            initialize_field_label
-          end
-          field :quote do
-            initialize_field_label
-          end
-          field :about_page_slider_slides do
-            initialize_field_label
-          end
-          field :bottom_text, :ck_editor do
-            initialize_field_label
-          end
-          field :team_text, :ck_editor do
-            initialize_field_label
-          end
-          field :team_members do
-            initialize_field_label
-          end
-          field :participants_text, :ck_editor do
-            initialize_field_label
-          end
-          field :participants do
-            initialize_field_label
-          end
+          field :banner
+          field :top_text, :ck_editor
+          field :quote
+          field :about_page_slider_slides
+          field :bottom_text, :ck_editor
+          field :team_text, :ck_editor
+          field :about_partners_text, :ck_editor
           field :seo_tags
         end
 
@@ -263,6 +269,39 @@ module RailsAdminDynamicConfig
           other_navigation_label
           initialize_model_label
 
+        end
+
+        config.include_models AboutPartner
+
+        [[TeamMember, AboutPage], [AboutPartner, AboutPage], [Participant, Pages::Students]].each do |arr|
+          m = arr.first
+          parent_model = arr.second
+          config.model m do
+            nestable_list(position_field: :sorting_position)
+            parent parent_model
+            weight -1
+            initialize_model_label
+
+            field :published
+            field :avatar
+            field :translations, :globalize_tabs
+            group :social_links do
+              field :social_twitter
+              field :social_facebook
+              field :social_odnoklassniki
+              field :social_linked_in
+              field :social_blogger
+              field :social_vk
+              field :social_google_plus
+            end
+          end
+
+          config.model_translation m do
+            field :locale, :hidden
+            field :name
+            field :short_description
+            field :avatar_alt
+          end
         end
 
       end

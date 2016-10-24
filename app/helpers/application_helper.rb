@@ -54,6 +54,12 @@ module ApplicationHelper
     button_options = { type: nil }
     if object.is_a?(Event)
       event = object
+      if event.course?
+        button_options[:type] = :register
+
+        return button_options
+      end
+
       if event.up_to_date?
         if event.enabled_registration?
           if subscribed_on_event?(event.id)

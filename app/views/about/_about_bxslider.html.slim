@@ -5,8 +5,8 @@
 
         - @about_slides.each_with_index do |slide, index|
           li.slide id="slide-#{index + 1}"
-            .image-background style="background-image: url('#{slide.background.url(:bw_banner)}')"
-              img.about-slider-slide-img src=image_or_stub_url(slide.background, :bw_banner, 150, 100, "image #{index+1}") alt=slide.background_alt
+            .image-background style="background-image: url('#{slide.background.url(:banner)}')"
+              img.about-slider-slide-img src=image_or_stub_url(slide.background, :banner, 150, 100, "image #{index+1}") alt=slide.background_alt
             /.about-slider-description.description
               .about-slider-slide-title.slide-title
                 = slide.name

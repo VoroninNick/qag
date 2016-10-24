@@ -31,6 +31,17 @@ class Event < ActiveRecord::Base
   scope "events", -> { where(event_type: "event")  }
   scope "courses", -> { where(event_type: "course")  }
 
+  def event?
+    event_type == "event"
+  end
+
+  def course?
+    event_type == "course"
+  end
+
+  def show_participants_count?
+    event?
+  end
 
   image :avatar, :styles => { :event_list_small_thumb => '360x240#', :event_list_avatar => '255x170#', :event_list_large_thumb => '720x480#', :home_expired_event_thumb => '500x1250#', :article_item => '320x320>', home_article_item: '250x250>', article_page: '500x500>'},
                     :url  => "/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
@@ -99,15 +110,15 @@ class Event < ActiveRecord::Base
   end
 
   def allowed_subscriptions_count
-    self.event_subscriptions.where('disabled is null or disabled = "f"').count
+    self.event_subscriptions.allowed_subscriptions.count
   end
 
   def disallowed_subscriptions_count
-    self.event_subscriptions.where(disabled: true).count
+    self.event_subscriptions.disallowed_subscriptions.count
   end
 
   def user_subscriptions_count
-    event_subscriptions.where("user_id is not null").count
+    event_subscriptions.user_subscriptions.count
   end
 
   def anonymous_subscriptions_count
@@ -386,7 +397,7 @@ class Event < ActiveRecord::Base
         end
         field :avatar
         field :banner
-        field :expired_event_avatar
+        #field :expired_event_avatar
         field :event_gallery_images
         field :seo_tags
       end

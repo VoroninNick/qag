@@ -8,8 +8,26 @@ sass:
       background: rgba(0, 255, 0, 0.1)
     tr.disabled
       background: rgba(255, 0, 0, 0.1)
+    tr.archived
+      > td
+        opacity: 0.4
+
+        &.user-email-user
+          opacity: 1
+
+          > a
+            opacity: 0.4
+
+
+
+
+
+
     button
       margin: 2px
+
+      &.toggle-archive
+        width: 150px
     .user-info
       display: none
       position: absolute
@@ -25,29 +43,34 @@ sass:
       td:first-child:hover
         .user-info
           display: block
+
+- object_event_subscriptions = @object.event_subscriptions.unarchived
+
 #event_subscriptions_table
   #debug
     /= @object.inspect
-  - if @object.event_subscriptions.any?
+  - if object_event_subscriptions.any?
     table border="1" style="border-color: rgba(0,0,0,0.1);"
       thead
         th
-          |UserEmail
+          |Email користувача
         th
-          |SubscriptionEmail
+          |Email, вказаний при реєстрації на подію
         th
-          |FirstName
+          |Ім'я
         th
-          |LastName
+          |Прізвище
         th
-          |ContactPhone
+          |Телефон
         th
-          |Actions
+          |Дата
+        th
+          |Дії
 
       tbody
-        - @object.event_subscriptions.each do |es|
+        - object_event_subscriptions.each do |es|
           tr class="#{es.disabled? ? "disabled" : "enabled"}" data-event-subscription-id="#{es.id}"
-            td
+            td.user-email-td class="user-email-#{es.user.present? ? "user" : "guest" }"
               - if es.user
                 = link_to(es.user.email, "/admin/user/#{es.user_id}")
 
@@ -61,43 +84,43 @@ sass:
                         = es.user.email || "-"
                     tr
                       td
-                        |FirstName:
+                        |Ім'я:
                       td
                         = es.user.first_name || "-"
                     tr
                       td
-                        |LastName:
+                        |Прізвище:
                       td
                         = es.user.last_name || "-"
                     tr
                       td
-                        |ContactPhone:
+                        |Контактний телефон:
                       td
                         = es.user.contact_phone || "-"
                     tr
                       td
-                        |City:
+                        |Місто:
                       td
                         = es.user.city || "-"
                     tr
                       td
-                        |Company:
+                        |Компанія:
                       td
                         = es.user.company || "-"
                     tr
                       td
-                        |Confirmed at:
+                        |Дата активації акаунту:
                       td
                         = es.user.confirmed_at || "-"
                     tr
                       td
-                        |SignIn count:
+                        |Кількість входів:
                       td
                         = es.user.sign_in_count || "-"
                     - if es.user.events.length > 1
                       tr
                         td
-                          |Another Events User is subscribed on:
+                          |Інші події, на які підписаний користувач:
                         td
                           ol
                             - es.user.events.each do |e|
@@ -116,32 +139,36 @@ sass:
             td
               = es.contact_phone || "-"
             td
-              button.btn class="#{ es.disabled? ? "btn-success" : "btn-danger" }"
-                = es.disabled? ? "Enable" : "Disable"
+              = es.formatted_created_at
+            td
+              button.btn.toggle-disabled class="#{ es.disabled? ? "btn-success" : "btn-danger" }"
+                = es.disabled? ? "Допустити" : "Заблокувати"
+              button.btn.toggle-archive class="#{ "btn-warning" }"
+                = "В архів"
 
     #total_subscriptions
       #total_subscriptions_label
         |Всього підписок
       #total_subscriptions_count
-        = @object.event_subscriptions.count
+        = object_event_subscriptions.count
       #total_user_subscriptions_label
         |Всього підписок залогінених користувачів
       #total_user_subscriptions_label
-        = @object.user_subscriptions_count
+        = object_event_subscriptions.user_subscriptions.count
       #total_user_subscriptions_label
         |Всього підписок незалогінених користувачів
       #total_user_subscriptions_label
-        = @object.anonymous_subscriptions_count
+        = object_event_subscriptions.guest_subscriptions.count
     #allowed_subscriptions
       #allowed_subscriptions_label
         |Допущено підписок
       #allowed_subscriptions_count
-        = @object.allowed_subscriptions_count
+        = object_event_subscriptions.allowed_subscriptions.count
     #disallowed_subscriptions
       #disallowed_subscriptions_label
         |Заблоковано підписок
       #disallowed_subscriptions_count
-        = @object.disallowed_subscriptions_count
+        = object_event_subscriptions.disallowed_subscriptions.count
 
 
   - else

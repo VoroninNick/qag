@@ -1,5 +1,7 @@
 uk:
   activerecord:
+    attributes:
+      about_partners_text: "Партнери - текст"
     errors:
       models:
         user:

@@ -12,7 +12,7 @@ class AboutController < ApplicationController
         }
     }
 
-    @participants = Participant.published.sort_by_sorting_position
+    @about_partners = AboutPartner.published.sort_by_sorting_position
     @team_members = TeamMember.published.sort_by_sorting_position
 
     @about_slides = AboutPageSliderSlide.published.sort_by_sorting_position

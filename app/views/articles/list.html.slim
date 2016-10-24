@@ -1,4 +1,5 @@
-= render partial: 'articles/articles_list_banner'
+/= render partial: 'articles/articles_list_banner'
+= render "page_banner"
 .page-content-z-index
   #breadcrumbs-container
     #breadcrumbs-row.row
@@ -13,7 +14,6 @@
 
 
   #events-list.events-collection.infinity-scroll-list
-    /- @paginated_events.each_with_index do |event, index|
     = render partial: 'articles/list_item', locals: { articles: @paginated_articles }
 
 

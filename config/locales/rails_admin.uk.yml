@@ -37,6 +37,10 @@ uk:
       voronin_studio/page_metadata: "Метадані для сторінки"
       message: "Повідомлення"
       call_back: "Замовлення дзвінка"
+      pages/courses_list: "Список курсів"
+      pages/feedbacks: "Відгуки"
+      pages/students: "Випускники"
+      about_partner: "Партнер"
 
     model_labels_plural:
       home_page: "Головна сторінка"
@@ -68,6 +72,10 @@ uk:
       voronin_studio/page_metadata: "Метадані для сторінок"
       message: "Історія повідомлень"
       call_back: "Історія замовлень дзвінка"
+      pages/courses_list: "Список курсів"
+      pages/feedbacks: "Відгуки"
+      pages/students: "Випускники"
+      about_partner: "Партнери"
     field_labels:
       role: "Роль"
       translations: "Локалізації"

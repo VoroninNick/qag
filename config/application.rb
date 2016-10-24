@@ -34,6 +34,8 @@ module Qag
 
     config.assets.precompile += %w(ckeditor/lang/*.js ckeditor/plugins/**/*.js ckeditor/plugins/**/*.css)
 
+    config.time_zone = 'Kyiv'
+
     if Rails.env != :production
      #config.assets.compile = false
     end

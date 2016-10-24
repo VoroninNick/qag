@@ -121,7 +121,7 @@ class EventsController < ApplicationController
       render json: data
     end
 
-    @page = Pages::EventsList.first
+    @page = Pages.const_get("#{params[:event_type].capitalize.pluralize}List").first
 
     set_page_metadata(@page)
 
@@ -184,8 +184,16 @@ class EventsController < ApplicationController
     es = EventSubscription.find(event_subscription_id.to_i)
     es.disabled = disabled
     saved = es.save
-    #saved = true
     render inline: { saved: saved, enabled: enabled }.to_json
-    #render inline: {enabled: enabled, disabled: disabled}.to_json
+  end
+
+  def archive_event_subscription
+    event_subscription_id = params[:event_subscription_id]
+    archived = params[:archived] == "true"
+    unarchived = !archived
+    es = EventSubscription.find(event_subscription_id.to_i)
+    es.archived_at = archived ? DateTime.now : nil
+    saved = es.save
+    render inline: { saved: saved, archived: archived }.to_json
   end
 end

@@ -2,9 +2,9 @@
   #message-signed-in-succesfully.message
     .form-title
       - if @already_registered
-        = "Реєстрація на подію завершена"
-      - else
         = "Ви вже були зареєстровані"
+      - else
+        = "Реєстрація на подію завершена"
 
     - if @already_registered
       .message

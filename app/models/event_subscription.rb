@@ -3,16 +3,42 @@ class EventSubscription < ActiveRecord::Base
   belongs_to :event
   belongs_to :user
 
+  scope :archived, -> { where.not(archived_at: nil) }
+  scope :unarchived, -> { where(archived_at: nil) }
+
+  scope :user_subscriptions, -> { where("user_id is not null") }
+  scope :guest_subscriptions, -> { where("user_id is null") }
+
+  scope :allowed_subscriptions, -> { where('disabled is null or disabled = "f"') }
+  scope :disallowed_subscriptions, -> { where(disabled: "t") }
+
+
   attr_accessible :event, :event_id
   attr_accessible :user, :user_id
 
   attr_accessible :first_name, :last_name, :email, :contact_phone
 
-  accepts_nested_attributes_for :event, :allow_destroy => true
-  attr_accessible :event_attributes
+  #accepts_nested_attributes_for :event, :allow_destroy => true
+  #attr_accessible :event_attributes
 
   accepts_nested_attributes_for :user, :allow_destroy => true
   attr_accessible :user_attributes
+
+  def formatted_created_at
+    date = created_at
+    return "" if date.blank?
+
+    h = date.hour.to_s
+    h = "0#{h}" if h.length == 1
+
+    m = date.min.to_s
+    m = "0#{m}" if m.length == 1
+
+    s = date.sec.to_s
+    s = "0#{s}" if s.length == 1
+
+    "#{date.day}.#{date.month}.#{date.year} #{h}:#{m}:#{s}"
+  end
 
   rails_admin do
     navigation_label I18n.t('rails_admin.navigation_labels.events')
@@ -58,6 +84,12 @@ class EventSubscription < ActiveRecord::Base
 
     list do
       field :disabled
+      field :archived, :boolean do
+        def value
+          bindings[:object].archived_at.present?
+        end
+      end
+      field :created_at
       field :user do
         pretty_value do
           user_id = bindings[:object].user_id

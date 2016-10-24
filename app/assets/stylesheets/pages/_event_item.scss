@@ -14,17 +14,9 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-//  &:after{
-//    content: "";
-//    position: absolute;
-//    left: 0;
-//    top: 0;
-//    bottom: 0;
-//    display: block;
-//    right: 0;
-//    background: $orange-color;
-//    opacity: 0.1;
-//  }
+  &:after{
+    //@include orange-image-overlay;
+  }
 
 }
 

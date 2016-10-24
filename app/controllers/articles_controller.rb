@@ -26,7 +26,6 @@ class ArticlesController < ApplicationController
 
     if ajax?
       articles_html = render_to_string template: 'articles/_list_item', layout: false, locals: { articles: @paginated_articles }
-      #html_source = render_to_string template: 'devise/event_subscriptions/unsubscribe_form.html'
       data = { html: articles_html }
       render json: data
     end
@@ -61,9 +60,6 @@ class ArticlesController < ApplicationController
       set_page_metadata(@page)
 
       resource = @article
-
-
-      #@meta_keywords = resource.tags.map(&:get_name).select{|t| t.present? }.uniq.join(',') if resource.respond_to?(:tags) && @page_metadata.try{|m| m.get_meta_keywords}.blank?
     else
       render_not_found
     end

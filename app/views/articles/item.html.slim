@@ -1,9 +1,10 @@
 - if @article
-  #event-item-banner.page-block-fixed-wrapper class="#{"has-overlay" if @article.show_toned_banner }"
+  /#event-item-banner.page-block-fixed-wrapper class="#{"has-overlay" if @article.show_toned_banner }"
     .page-block-fixed
       .page-block-fixed-relative
-        #event-item-banner-image-wrapper class="#{ if @article.show_toned_banner then "grayscale" else "does-not-have-overlay" end }" style="background-image: url(#{ @article.banner.exists?(:banner) ? @article.banner.url(:banner) : asset_path('banners/article_item.jpg') })"
+        #event-item-banner-image-wrapper style="background-image: url(#{ @article.banner.exists?(:banner) ? @article.banner.url(:banner) : asset_path('banners/article_item.jpg') })"
           img#event-item-banner-img src="#{ @article.banner.exists?(:banner) ? @article.banner.url(:banner) : asset_path('banners/article_item.jpg') }"
+  = render "page_banner"
   .page-content-z-index
     #breadcrumbs-container
       #breadcrumbs-row.row

@@ -11,7 +11,8 @@ class PagesController < ApplicationController
         }
     }
 
+    set_page_metadata(:students)
+
     @participants = Participant.published
-    @head_title = "Випускники"
   end
 end

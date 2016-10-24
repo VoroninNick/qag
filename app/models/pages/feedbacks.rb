@@ -1,3 +1,3 @@
-class Pages::Feedbacks < Cms::Page
+class Pages::Feedbacks < Page
 
 end

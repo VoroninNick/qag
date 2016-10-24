@@ -22,7 +22,7 @@ class AboutPage < ActiveRecord::Base
 
   has_seo_tags
 
-  attr_accessible :top_text, :quote, :bottom_text, :team_text, :participants_text
+  attr_accessible :top_text, :quote, :bottom_text, :team_text, :about_partners_text
 
   image :banner, :styles => { :banner => '2100x500#'},
                     :url  => "/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",

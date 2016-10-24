@@ -1,4 +1,4 @@
-class Pages::Students < Cms::Page
+class Pages::Students < Page
   has_html_block :students_text
 
   has_cache

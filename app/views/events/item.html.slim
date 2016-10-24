@@ -1,9 +1,10 @@
 - if @event
-  #event-item-banner.page-block-fixed-wrapper
+  /#event-item-banner.page-block-fixed-wrapper
     .page-block-fixed
       .page-block-fixed-relative
         #event-item-banner-image-wrapper.grayscale style="background-image: url(#{ @event.banner.exists?(:banner) ? @event.banner.url(:banner) : asset_path('banners/events_item.jpg') })"
           img#event-item-banner-img src="#{ @event.banner.exists?(:banner) ? @event.banner.url(:banner) : asset_path('banners/events_item.jpg') }"
+  = render "page_banner"
   .page-content-z-index
     #breadcrumbs-container
       #breadcrumbs-row.row
@@ -42,8 +43,9 @@
                   = raw t('pages.event-item.event-info.date-range', start_date_day: number_to_string_with_zero(@event.start_date.day), start_date_month: number_to_string_with_zero(@event.start_date.month), start_date_year: @event.start_date.year, end_date_day: number_to_string_with_zero(@event.end_date.day), end_date_month: number_to_string_with_zero(@event.end_date.month), end_date_year: @event.end_date.year)
                 - else
                   = raw t('pages.event-item.event-info.start-date', start_date_day: number_to_string_with_zero(@event.start_date.day), start_date_month: number_to_string_with_zero(@event.start_date.month), start_date_year: @event.start_date.year)
-            #event-item-page-event-info-participants-quantity.event-item-page-event-info-list-item
-              = raw t('pages.event-item.event-info.participants-count', svg: embedded_svg_from_assets('svg/participant.svg'), span_start: '<span id="event-item-page-event-info-participants-quantity-text" class="event-item-page-event-info-text">', span_end: '</span>', participants_count: @event.allowed_subscriptions_count)
+            - if @event.show_participants_count?
+              #event-item-page-event-info-participants-quantity.event-item-page-event-info-list-item
+                = raw t('pages.event-item.event-info.participants-count', svg: embedded_svg_from_assets('svg/participant.svg'), span_start: '<span id="event-item-page-event-info-participants-quantity-text" class="event-item-page-event-info-text">', span_end: '</span>', participants_count: @event.allowed_subscriptions_count)
             - if @event.days_and_time_string && @event.days_and_time_string != ''
               #event-item-page-event-info-days-and-time.event-item-page-event-info-list-item
                 = embedded_svg_from_assets('svg/clock.svg')

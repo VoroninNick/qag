@@ -83,7 +83,7 @@ class ApplicationController < ActionController::Base
 
   def render_not_found
     @render_footer = false
-    render template: "errors/not_found.html.slim", status: 404, layout: "application", locals: { status: 401, message: "На жаль, даної сторінки не існує, можливо вона була видалена,<br/>або ви ввели невірну адресу." }
+    render template: "errors/not_found.html.slim", status: 404, layout: "application", locals: { status: 404, message: "На жаль, даної сторінки не існує, можливо вона була видалена,<br/>або ви ввели невірну адресу." }
   end
 
   def render_unauthorized
@@ -386,11 +386,19 @@ class ApplicationController < ActionController::Base
   end
 
   def valid_csrf_token?
-    get_csrf_token == request.headers["X-CSRFToken"]
+    get_csrf_token == request.headers["X-CSRF-Token"]
+  end
+
+  def allowed_without_csrf?
+    controller_name == "events" && action_name.in?(["enable_event_subscription", "archive_event_subscription"])
   end
 
   def validate_csrf_token
     if !request.get?
+      if allowed_without_csrf?
+        return
+      end
+
       if !valid_csrf_token?
         render inline: "Invalid authenticity token", status: 403
       end

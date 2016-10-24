@@ -20,8 +20,9 @@
               span.value
                 = "#{number_to_string_with_zero(event.end_date.day)}.#{number_to_string_with_zero(event.end_date.month)}.#{event.end_date.year}"
 
-          .participants-count
-            = raw t('pages.events-list.event-template.info.participants-count', svg: embedded_svg_from_assets('svg/participant.svg'), count: "<span class='count'>#{event.allowed_subscriptions_count}</span>", span_start: "<span class='participants-tip'>", span_end: "</span>")
+          - if event.show_participants_count?
+            .participants-count
+              = raw t('pages.events-list.event-template.info.participants-count', svg: embedded_svg_from_assets('svg/participant.svg'), count: "<span class='count'>#{event.allowed_subscriptions_count}</span>", span_start: "<span class='participants-tip'>", span_end: "</span>")
 
 
       .description.columns.large-9.medium-9.small-8

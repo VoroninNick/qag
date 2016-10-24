@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   scope "(:locale)", locale: /[a-zA-Z]{2}/ do
     post "/enable_event_substription", to: "events#enable_event_subscription"
+    post "/archive_event_substription", to: "events#archive_event_subscription"
 
     get 'home/future_events_thumbnails', to: 'home#future_events_thumbnails', as: :home_future_events_thumbnails, defaults: { route_name: 'home_future_events_thumbnails' }
     get 'home/prev_events_thumbnails', to: 'home#prev_events_thumbnails', as: :home_prev_events_thumbnails, defaults: { route_name: 'home_prev_events_thumbnails' }

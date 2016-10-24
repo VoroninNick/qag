@@ -10,10 +10,15 @@ $(".feedback-form-section").on "submit", "form", (e)->
   $button.addClass(classes.progress_bar_moving_bg)
   $form.ajaxSubmit(
     success: (data)->
-      html = data
-      $list = $("#events-list")
-      $list.append(html)
+      #html = data
+      #$list = $("#events-list")
+      #$list.append(html)
       $button.removeClass(classes.progress_bar_moving_bg)
       $form.find("textarea").val("")
 
+
+
   )
+
+show_confirmation_message = ()->
+  $()

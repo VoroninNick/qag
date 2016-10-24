@@ -10,8 +10,6 @@ class FeedbacksController < ApplicationController
         }
     }
 
-    @head_title = "Відгуки"
-
     max_items_count = 10
 
     params_page = params[:page]
@@ -22,15 +20,15 @@ class FeedbacksController < ApplicationController
     user_id_condition = current_user.try{|u|"or user_id = #{u.id}"} || ''
 
     @paginated_feedbacks = UserFeedback.all.where("published='t' #{user_id_condition}").paginate(page: params_page, per_page: max_items_count)
-    if current_user
-      @feedback = UserFeedback.new
-    end
+    set_page_metadata(:feedbacks)
+
+    @feedback = UserFeedback.new
   end
 
   def create
-    if !current_user
-      return render nothing: true, status: 401
-    end
+    # if !current_user
+    #   return render nothing: true, status: 401
+    # end
     feedback_params = params[:feedback]
     @feedback = UserFeedback.new(feedback_params)
     @feedback.user = current_user

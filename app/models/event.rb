@@ -106,7 +106,7 @@ class Event < ActiveRecord::Base
   end
 
   def url(locale = I18n.locale)
-    "/#{event_type.pluralize}/#{url_fragment}"
+    "/#{event_type}/#{url_fragment}"
   end
 
   def allowed_subscriptions_count

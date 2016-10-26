@@ -27,7 +27,11 @@ class UserFeedback < ActiveRecord::Base
 
   has_cache
   def cache_instances
-    [HomePage.first]
+    expire_home = self.featured || self.featured_was
+    arr = []
+    arr << HomePage.first if expire_home
+
+    arr
   end
 
   rails_admin do

@@ -22,3 +22,8 @@ p
   - user_text = u.try(:email)
   - user_text = u.try(:id) if user_text.blank?
   = @call_back.user_id ? user_text : raw("&mdash;")
+
+h5
+  = 'datetime'
+p
+  = @call_back.created_at

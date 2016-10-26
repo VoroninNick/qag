@@ -102,7 +102,7 @@ class Event < ActiveRecord::Base
 
   has_cache
   def cache_instances
-    [self, HomePage.first, Object.const_get("Pages::#{event_type.pluralize.capitalize}List").first]
+    [self, HomePage.first, Object.const_get("Pages::#{event_type.pluralize.capitalize}List").first, cache_path("/home/event_info/#{self.url_fragment}")]
   end
 
   def url(locale = I18n.locale)

@@ -352,7 +352,7 @@ class ApplicationController < ActionController::Base
   end
 
   def valid_csrf_token?
-    get_csrf_token == request.headers["X-CSRF-Token"]
+    get_csrf_token == request.headers["X-CSRFToken"]
   end
 
   # before_action do

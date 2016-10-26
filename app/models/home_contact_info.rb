@@ -42,6 +42,11 @@ class HomeContactInfo < ActiveRecord::Base
     end
   end
 
+  has_cache
+  def cache_instances
+    [HomePage.first]
+  end
+
   rails_admin do
     parent HomePage
     label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")

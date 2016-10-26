@@ -36,7 +36,20 @@ class Article < ActiveRecord::Base
   end
 
   def cache_instances
-    [Article.published, Pages::ArticlesList]
+    #articles = related_articles.to_a + old_related_articles.to_a
+
+    arr = [Article.published, Pages::ArticlesList.first]
+    arr << self if boolean_changed?(:published) || published
+
+    arr
+  end
+
+  def related_articles
+    Article.published.where.not(id: @article.id).order('updated_at desc').limit(4)
+  end
+
+  def old_related_articles
+    []
   end
 
   class Translation

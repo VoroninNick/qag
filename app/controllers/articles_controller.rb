@@ -56,7 +56,7 @@ class ArticlesController < ApplicationController
           }
       }
 
-      @related_articles = Article.where(published: true).where.not(id: @article.id).order('updated_at desc').limit(4)
+      @related_articles = @article.related_articles
 
       @page = @article
       set_page_metadata(@page)

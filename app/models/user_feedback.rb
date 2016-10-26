@@ -27,7 +27,7 @@ class UserFeedback < ActiveRecord::Base
 
   has_cache
   def cache_instances
-    expire_home = self.featured || self.featured_was
+    expire_home = boolean_changed?(:published) || (published && boolean_changed?(:featured))
     arr = []
     arr << HomePage.first if expire_home
 

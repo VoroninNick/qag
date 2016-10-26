@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   include Cms::Helpers::CacheNamingHelper
   include ApplicationHelper
   before_action :initialize_csrf_token
-  before_action :validate_csrf_token, unless: :admin_panel?
+  before_action :validate_csrf_token, if: -> { !check_devise_controller && !admin_panel? }
 
   # rescue_from CanCan::AccessDenied do |exception|
   #   #redirect_to main_app.root_path, :alert => exception.message
@@ -99,10 +99,10 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:first_name, :last_name, :email, :password, :password_confirmation, :city, :company, :status, :description)}
   end
 
-  before_action :set_devise_controller
+  before_action :check_devise_controller
 
-  def set_devise_controller
-    @is_devise = params[:controller].scan(/^devise\//).count > 0
+  def check_devise_controller
+    @is_devise ||= params[:controller].scan(/\Adevise\//).any? || params[:controller].scan(/\Ausers\//).any?
   end
 
   before_action :set_layout
@@ -355,8 +355,12 @@ class ApplicationController < ActionController::Base
     get_csrf_token == request.headers["X-CSRF-Token"]
   end
 
+  # before_action do
+  #   render inline: "devise: #{@is_devise.inspect}; admin: #{admin_panel?}"
+  # end
+
   def allowed_without_csrf?
-    controller_name == "events" && action_name.in?(["enable_event_subscription", "archive_event_subscription"])
+    (controller_name == "events" && action_name.in?(["enable_event_subscription", "archive_event_subscription"])) || @is_devise
   end
 
   def validate_csrf_token

@@ -112,6 +112,8 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   def destroy
+    #do_redirect = render inline: URI(request.referrer).path.scan(/\A\/admin/).any?
+    #redirect_url = "/"
     if user_signed_in?
       user_id = current_user.id
     end
@@ -142,7 +144,8 @@ class Users::SessionsController < Devise::SessionsController
       render inline: "#{data.to_json}"
     else
       #respond_to_on_destroy
-      render template: "devise/sessions/signed_out_successfully_message.html"
+      #render template: "devise/sessions/signed_out_successfully_message.html"
+      redirect_to root_path
     end
 
   end

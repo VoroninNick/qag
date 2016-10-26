@@ -140,7 +140,7 @@ class Event < ActiveRecord::Base
     tags_arr
   end
 
-  def expired?
+  def event_expired?
     if self.end_date
       self.end_date < Date.today
     else
@@ -149,7 +149,7 @@ class Event < ActiveRecord::Base
   end
 
   def up_to_date?
-    !expired?
+    !event_expired?
   end
 
   def enabled_registration?

@@ -1,5 +1,5 @@
 - events.each_with_index do |event, index|
-  .events-list-event.event-collection-item.list-item data-event-id="#{event.id}" class="#{"event-i-am-subscribed-on" if subscribed_on_event?(event.id) } #{ ( event.expired? )? 'expired-event' : ( Date.today >= event.start_date )? 'started-event' : 'future-event' }#{(index % 2 == 1)? ' right-image' : nil}"
+  .events-list-event.event-collection-item.list-item data-event-id="#{event.id}" class="#{"event-i-am-subscribed-on" if subscribed_on_event?(event.id) } #{ ( event.event_expired? )? 'expired-event' : ( Date.today >= event.start_date )? 'started-event' : 'future-event' }#{(index % 2 == 1)? ' right-image' : nil}"
     a.event-bg-link href=send("#{event.event_type}_item_path", item: event.url_fragment, tags: event.tags.join('-'))
     .events-list-event-row.row
       .image-and-info.columns.large-3.medium-3.small-4
@@ -84,6 +84,6 @@
                 span.minutes-title
                   = "хвилин"
 
-            - elsif event.expired?
+            - elsif event.event_expired?
               .event-expired
                 = "Захід завершено"

@@ -64,7 +64,7 @@ class MainSliderSlide < ActiveRecord::Base
   has_cache
   def cache_instances
     arr = []
-    arr << HomePage.first if boolean_changed?(:published)
+    arr << HomePage.first if boolean_changed?(:published) || published
 
     arr
   end

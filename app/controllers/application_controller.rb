@@ -335,7 +335,11 @@ class ApplicationController < ActionController::Base
   end
 
   def initialize_csrf_token
-    session["_csrf_token"] ||= generate_csrf_token
+    if request.post?
+      #return render inline: "<div>#{get_csrf_token.inspect}</div><div>#{user_sent_token.inspect}</div><div>valid: #{valid_csrf_token?.inspect}</div>"
+    end
+
+    session["_csrf_token"] = generate_csrf_token if get_csrf_token.blank?
   end
 
   def get_csrf_token
@@ -351,8 +355,12 @@ class ApplicationController < ActionController::Base
 
   end
 
+  def user_sent_token
+    request.headers["X-CSRFToken"]
+  end
+
   def valid_csrf_token?
-    get_csrf_token == request.headers["X-CSRFToken"]
+    get_csrf_token == user_sent_token
   end
 
   # before_action do

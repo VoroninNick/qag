@@ -10,6 +10,8 @@ class FeedbacksController < ApplicationController
         }
     }
 
+    @_page_banner_title = "Відгуки"
+
     max_items_count = 10
 
     params_page = params[:page]

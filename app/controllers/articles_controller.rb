@@ -13,6 +13,8 @@ class ArticlesController < ApplicationController
         }
     }
 
+    @_page_banner_title = "Публікації"
+
     params_page = params[:page]
     if !params_page
       params_page = 1

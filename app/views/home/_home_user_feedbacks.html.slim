@@ -3,7 +3,7 @@
     .section-title
       .svg-container
         = embedded_svg_from_assets('svg/reviews.svg')
-      .title
+      a.title href=feedbacks_path
         = 'Відгуки користувачів'
     - @home_reviews.each_with_index do |comment, index|
       input type="radio" name="home-user-comment-flag" class="home-user-comment-flag flag" id="home-user-comment-flag-#{index + 1}" checked=( (index == 0)? 'checked' : false )

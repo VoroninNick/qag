@@ -60,9 +60,11 @@ class ApplicationController < ActionController::Base
     r ? r == route_name.to_sym : nil
   end
 
-  #before_filter :set_locale
-  before_filter do
-    I18n.locale = :uk
+
+  before_action :set_default_locale
+
+  def set_default_locale
+    I18n.locale = I18n.default_locale
   end
 
 
@@ -91,46 +93,20 @@ class ApplicationController < ActionController::Base
     render template: "errors/not_found.html.slim", status: 401, layout: "application", locals: { status: 401, message: "На жаль, ви не маєте прав на цю операцію." }
   end
 
-  before_filter :update_sanitized_params, if: :devise_controller?
+  before_action :update_sanitized_params, if: :devise_controller?
 
   def update_sanitized_params
     devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:first_name, :last_name, :email, :password, :password_confirmation, :city, :company, :status, :description)}
   end
 
-  before_filter do
+  before_action :set_devise_controller
+
+  def set_devise_controller
     @is_devise = params[:controller].scan(/^devise\//).count > 0
   end
 
-  before_filter do
-    #str = render_to_string controller: 'home', action: 'index'
-
-    #if params[:async]
-      #self.class.layout ''
-    #end
-
-    #output = render_to_string
-    #render inline: output
-
-    #self.class.layout
-
-    # params_controller = 'home'
-    # params_action = 'index'
-    #
-    # controller_class_name = "#{params_controller.capitalize}Controller"
-    # controller_class = nil
-    # if Object.const_defined?(controller_class_name)
-    #   controller_class = Object.const_get(controller_class_name)
-    #
-    #   controller_instance = controller_class.new
-    #   if controller_instance.respond_to?(params_action)
-    #     controller_instance.send(params_action)
-    #   end
-    # end
-
-
-
-    #render inline: self.controller.send(:_layout).virtual_path.name
-
+  before_action :set_layout
+  def set_layout
     unless params[:controller].scan(/^rails_admin/).length > 0 
 
       controller_name_parts = params[:controller].split('/')
@@ -144,7 +120,6 @@ class ApplicationController < ActionController::Base
         end
         controller_name = controller_name_parts.join('::')
         controller_class_name = "#{controller_name}Controller"
-        #render inline: controller_class_name
         if Object.const_defined_recursively?(controller_class_name)
           controller_class =  Object.const_get(controller_class_name) 
         else
@@ -152,30 +127,23 @@ class ApplicationController < ActionController::Base
         end
 
       if modal?
-        #render inline: params.inspect
-        #self.class.layout 'modal_layout'
-        #params[:controller] = 'devise/aPP/home_page_index'
-
-        
-        #render inline: controller_class_name
         if !controller_class.nil?
-          #render inline: 'hello'
           controller_class.layout 'modal_layout'
         end
-        #render layout: 'modal_layout'
-        #render inline: params.inspect
+
         @modal_id = "#{params[:controller].parameterize.underscore}-#{params[:action]}-#{@_request.method.downcase}"
 
       else
         if !controller_class.nil?
-          #render inline: 'hello'
           controller_class.layout 'application'
         end
       end
     end
   end
 
-  before_filter do
+  before_action :init_locale_links
+
+  def init_locale_links
     @page_locale_links = {}
     I18n.available_locales.each {|locale| @page_locale_links[locale.to_sym] = url_for(locale: locale) }
   end
@@ -184,7 +152,9 @@ class ApplicationController < ActionController::Base
   #   self.class.layout 'modal_layout'
   # end
 
-  before_filter do
+  before_action :init_load_partial_or_template
+
+  def init_load_partial_or_template
     output_data = {}
 
     available_options= [:load_partial, :load_template]
@@ -243,7 +213,6 @@ class ApplicationController < ActionController::Base
   end
 
 
-  #before_action :redirect_to_home_if_user_requests_admin
   before_action :check_is_user_admin
   def check_is_user_admin
     if params[:controller].scan(/^rails_admin/).length > 0
@@ -262,13 +231,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  before_filter do
-    #render inline: "#{params[:controller]}##{params[:action]}"
+  before_action :init_event_registration_token
+  def init_event_registration_token
     if (params[:controller] == 'users/confirmations' || params[:controller] == 'users/registrations' ) && params[:action] == 'create'
-      #render inline: 'hello'
       @token_registration_location = nil
       @token_registration_event_id = nil
-      #render inline: request.referer.inspect
       if params[:registration_location]
         @token_registration_location = params[:registration_location]
       else
@@ -282,12 +249,11 @@ class ApplicationController < ActionController::Base
       if !@token_return_to
         @token_return_to = '/'
       end
-
-      #render inline: @token_return_to.inspect
     end
   end
 
-  before_filter do
+  before_action :init_registration_event
+  def init_registration_event
     flash_notice = flash[:notice]
     if flash_notice && flash_notice['locals'] && flash_notice['locals']['registration_event_id']
       @registration_event = Event.where("id = #{flash_notice['locals']['registration_event_id']}").first
@@ -403,5 +369,10 @@ class ApplicationController < ActionController::Base
         render inline: "Invalid authenticity token", status: 403
       end
     end
+  end
+
+  before_action :_set_page_banner_title
+  def _set_page_banner_title
+    @_page_banner_title = I18n.t("layout.breadcrumbs.#{params[:route_name]}", raise: true) rescue nil
   end
 end

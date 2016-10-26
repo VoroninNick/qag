@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
+  get "sitemap", to: "sitemap#index", as: :sitemap_xml, format: "xml"
+
   get "csrf_token", to: "application#render_csrf_token"
   get "m", to: "test#media_queries"
 

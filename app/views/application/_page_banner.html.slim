@@ -4,3 +4,8 @@
     .page-block-fixed-relative.page-banner-relative
       #articles-list-banner-image-wrapper.events-list-banner-image-wrapper.page-banner-image-wrap
         img#articles-list-banner-img.grayscale.page-banner-image src=( page && page.respond_to?(:banner) && page.banner.exists?(:banner) ? page.banner.url(:banner) : asset_path('banners/about.jpg'))
+      - page_banner_title = @_page_banner_title
+      - page_banner_title_tag = :h1
+      - if page_banner_title.present?
+        = raw "<#{page_banner_title_tag} class='page-banner-title'>#{page_banner_title}</#{page_banner_title_tag}>"
+

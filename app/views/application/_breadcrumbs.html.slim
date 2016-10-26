@@ -2,9 +2,14 @@
   #breadcrumbs-container
     #breadcrumbs-row.row
       ul#breadcrumbs-ul
-        li#breadcrumb-home.breadcrumb.inactive_breadcrumb
-          a#breadcrumb-home-a href=root_path
-            = embedded_svg_from_assets('svg/home.svg')
-        li#active-breadcrumb.breadcrumb
-          span#active-breadcrumb-text
-            = @breadcrumbs[key.to_sym][:title]
+        - @breadcrumbs.each_with_index do |h, i|
+          - k = h.first
+          - v = h.second
+          - if i == 0
+            li#breadcrumb-home.breadcrumb.inactive_breadcrumb
+              a#breadcrumb-home-a.breadcrumb-tag href=root_path
+                = embedded_svg_from_assets('svg/home.svg')
+          - else
+            li#active-breadcrumb.breadcrumb
+              - tag_name = v[:tag] || "span"
+              = raw "<#{tag_name} id='active-breadcrumb-text' class='breadcrumb-tag'>#{v[:title]}</#{tag_name}>"

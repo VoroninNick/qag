@@ -75,6 +75,8 @@ class EventsController < ApplicationController
         }
     }
 
+
+
     params_tag_slug = params[:tag]
 
     available_tags = EventTag.all

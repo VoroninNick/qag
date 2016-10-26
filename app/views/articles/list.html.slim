@@ -1,16 +1,7 @@
 /= render partial: 'articles/articles_list_banner'
 = render "page_banner"
 .page-content-z-index
-  #breadcrumbs-container
-    #breadcrumbs-row.row
-      ul#breadcrumbs-ul
-        li#breadcrumb-home.breadcrumb.inactive_breadcrumb
-          a#breadcrumb-home-a href=root_path
-            = embedded_svg_from_assets('svg/home.svg')
-        li#active-breadcrumb.breadcrumb
-          span#active-breadcrumb-text
-            = @breadcrumbs[:articles_list][:title]
-
+  = render "breadcrumbs"
 
 
   #events-list.events-collection.infinity-scroll-list

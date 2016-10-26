@@ -63,6 +63,13 @@
   //font-size: 3rem;
   font-size: 4rem;
   text-transform: uppercase;
+
+  * {
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    display: inline;
+  }
 }
 
 #contact-page-address{

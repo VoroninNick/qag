@@ -1,7 +1,7 @@
 /= render partial: 'about/about_banner', locals: { page: @about_page }
 = render "page_banner"
 .page-content-z-index
-  = render "breadcrumbs", key: "students"
+  = render "breadcrumbs"
   .row
     #students
       - if Pages.students.try(:students_text).present?

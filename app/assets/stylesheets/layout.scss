@@ -1045,8 +1045,11 @@ $header-height: 90px;
   position: relative;
   font-size: 0.9rem;
 
-  a, span{
+  a, span, .breadcrumb-tag{
     color: #58595b;
+    display: inline;
+    font: inherit;
+    margin: 0;
   }
 
   a{

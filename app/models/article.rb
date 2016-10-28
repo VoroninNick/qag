@@ -45,7 +45,7 @@ class Article < ActiveRecord::Base
   end
 
   def related_articles
-    Article.published.where.not(id: @article.id).order('updated_at desc').limit(4)
+    Article.published.where.not(id: self.id).order('updated_at desc').limit(4)
   end
 
   def old_related_articles

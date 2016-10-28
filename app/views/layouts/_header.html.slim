@@ -22,10 +22,10 @@
     #header-menu-container
       #header-menu-container-reset
         #header-menu-user-wrapper
-          - if !user_signed_in?
-            a#header-menu-user.header-menu-user-link.popup-link.login data-popup-name="sign_in_popup_form" for="devise_sessions-new-get-flag" href=new_user_session_path
-              = embedded_svg_from_assets('svg/account.svg')
-          - else
+          /- if !user_signed_in?
+          a#header-menu-user.header-menu-user-link.popup-link.login data-popup-name="sign_in_popup_form" for="devise_sessions-new-get-flag" href=new_user_session_path
+            = embedded_svg_from_assets('svg/account.svg')
+          /- else
             a#header-menu-user-menu.header-menu-user-link href="#{edit_user_registration_path}"
               #header-menu-user data-popup-name="sign_in_popup_form" for="devise_sessions-new-get-flag"
                 = embedded_svg_from_assets('svg/account.svg')

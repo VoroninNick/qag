@@ -2,6 +2,10 @@ not_saved_valid_changes_class = 'not-saved-valid-changes'
 form_not_saved_valid_changes_class = 'form-not-saved-valid-changes'
 has_no_unsaved_changes = 'has-no-unsaved-changes'
 dashboard_profile_column_id = 'dashboard-profile-column'
+
+
+
+
 $('#dashboard-content #dashboard-profile-column').each(function(){
     $.fn.save_field = function(){
         var $input = $(this)
@@ -9,7 +13,7 @@ $('#dashboard-content #dashboard-profile-column').each(function(){
         var attribute_name = $input_wrapper.attr('data-attribute-name')
         console.log('attr: ', attribute_name)
         var input_value = $input.val()
-        var url = "/my/dashboard/account/settings/" + attribute_name
+        var url = path("edit_user_registration") + "/" + attribute_name
         console.log('url: ', url)
         $.ajax({
             type: 'post',

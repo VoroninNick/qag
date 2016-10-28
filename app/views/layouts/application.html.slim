@@ -27,7 +27,10 @@ html#html class="no-js locale-#{I18n.locale.to_s} controller-#{params[:controlle
           display: table
           height: 100%
 
-  body#body
+  /- is_dashboard = params[:controller] == "users/registrations" && params[:action] == "edit") || (params[:controller] == "events" && params[:action] == "history")
+  - is_dashboard = @is_devise || (params[:controller] == "events" && params[:action] == "history")
+
+  body#body class=("dashboard" if is_dashboard  )
     #body-inner
       = render partial: 'layouts/header'
 

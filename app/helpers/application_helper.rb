@@ -52,6 +52,7 @@ module ApplicationHelper
 
   def get_button_name_for(object)
     button_options = { type: nil }
+    ignore_unregister = true
     if object.is_a?(Event)
       event = object
       if event.course?
@@ -69,6 +70,8 @@ module ApplicationHelper
             # frozen
             if event.disabled_by_admin_for_user?(current_user)
               button_options[:type] = :frozen
+            elsif ignore_unregister
+              button_options[:type] = :register
             else
               button_options[:type] = :unregister
             end
@@ -110,5 +113,14 @@ module ApplicationHelper
 
   def host_name
     "qagroup.com.ua"
+  end
+
+  def url_for_collection_page(collection, page)
+    klass = collection.model
+    if klass == Article
+      "/articles/page/#{page}"
+    elsif klass == Event
+      "/#{params[:event_type].pluralize}/page/#{page}"
+    end
   end
 end

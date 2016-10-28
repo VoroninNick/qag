@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
+
   mount Ckeditor::Engine => '/ckeditor'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
+  get "short_user_info", to: "application#short_user_info"
 
   get "sitemap", to: "sitemap#index", as: :sitemap_xml, format: "xml"
 
@@ -10,7 +13,7 @@ Rails.application.routes.draw do
   get "call-back", to: "call_backs#new", as: "call_back"
   post "call-back", to: "call_backs#create", as: "post_call_back"
 
-  scope "(:locale)", locale: /[a-zA-Z]{2}/ do
+  scope "(:locale)", locale: /#{Cms.config.provided_locales.join("|")}/ do
     post "/enable_event_substription", to: "events#enable_event_subscription"
     post "/archive_event_substription", to: "events#archive_event_subscription"
 
@@ -38,14 +41,14 @@ Rails.application.routes.draw do
       end
 
       ['event', "course"].each do |k|
-        get "#{k.pluralize}/history", to: "events#history", as: :"#{k.pluralize}_history", defaults: { route_name: "#{k.pluralize}_history", event_type: k }
+        get "history/#{k.pluralize}", to: "events#history", as: :"#{k.pluralize}_history", defaults: { route_name: "#{k.pluralize}_history", event_type: k }
       end
 
       # session handling
-      get     '/my/dashboard/login'  => 'users/sessions#new',     as: 'new_user_session', defaults: { route_name: 'new_user_session' }
-      post    '/my/dashboard/login'  => 'users/sessions#create',  as: 'user_session', defaults: { route_name: 'user_session' }
-      match  '/my/dashboard/logout' => 'users/sessions#destroy', as: 'destroy_user_session', via: [:post, :delete], defaults: { route_name: 'destroy_user_session' }
-      get '/my/dashboard/logout', to: 'users/sessions#destroy_form', as: 'user_session_destroy_form', defaults: { route_name: 'user_session_destroy_form' }
+      get     'login'  => 'users/sessions#new',     as: 'new_user_session', defaults: { route_name: 'new_user_session' }
+      post    'login'  => 'users/sessions#create',  as: 'user_session', defaults: { route_name: 'user_session' }
+      match  'logout' => 'users/sessions#destroy', as: 'destroy_user_session', via: [:post, :delete], defaults: { route_name: 'destroy_user_session' }
+      get 'logout', to: 'users/sessions#destroy_form', as: 'user_session_destroy_form', defaults: { route_name: 'user_session_destroy_form' }
 
 
       # joining
@@ -54,7 +57,7 @@ Rails.application.routes.draw do
       put   '/my/dashboard/join' => 'users/registrations#update', as: 'update_user_regitration', defaults: { route_name: 'update_user_regitration' }
       delete '/my/dashboard/join' => 'users/registrations#destroy', as: 'destroy_user_registration', defaults: { route_name: 'destroy_user_registration' }
 
-      scope '/my/dashboard/account' do
+      scope 'account' do
         # password reset
         get   '/reset-password'        => 'users/passwords#new',    as: 'new_user_password', defaults: { route_name: 'new_user_password' }
         put   '/reset-password'        => 'users/passwords#update', as: 'user_password', defaults: { route_name: 'user_password' }
@@ -78,26 +81,35 @@ Rails.application.routes.draw do
         # account deletion
         delete '' => 'users/registrations#destroy'#, as: 'delete_user_registration'
       end
-  end
+    end
 
     post 'message', to: 'messages#create', as: 'create_message', defaults: { route_name: 'create_message' }
 
     get 'contact', to: 'contact#index', as: :contact, defaults: { route_name: 'contact' }
 
-    get 'articles', to: 'articles#list', as: :articles_list, defaults: { route_name: 'articles_list' }
+    get 'articles(/page/:page)', to: 'articles#list', as: :articles_list, defaults: { route_name: 'articles_list' }
+    #get 'articles/page/:page', to: 'articles#list', as: :articles_list_part, defaults: { route_name: 'articles_list_part' }
+    get '/ajax/articles/page/:page', to: 'articles#list', as: :ajax_articles_list_part, defaults: { ajax: true, route_name: 'ajax_articles_list_part' }
 
 
     get 'articles/:item', to: 'articles#item', as: :article_item, defaults: { route_name: 'article_item' }
 
     ["event", "course"].each do |k|
       scope k.pluralize, controller: "events" do
-        get '(:tag)', action: "list", as: :"#{k.pluralize}_list", defaults: { route_name: "#{k.pluralize}_list", event_type: k }
+        get '(:tag)(/page/:page)', action: "list", as: :"#{k.pluralize}_list", defaults: { route_name: "#{k.pluralize}_list", event_type: k }
         get ':tag', action: 'tag', as: :"#{k}_tag", defaults: { route_name: "#{k}_tag", event_type: k }
       end
 
       scope "#{k}(/*tags)" do
         get ':item/register', to: 'users/event_subscriptions#new', as: :"register_on_#{k}", defaults: { route_name: "register_on_#{k}", event_type: k }
         get ':item', to: "events#item", as: :"#{k}_item", defaults: { route_name: "#{k}_item", event_type: k }
+      end
+
+      scope "ajax" do
+        scope k.pluralize, controller: "events" do
+          get '(:tag)/page/:page', action: "list", as: :"ajax_#{k.pluralize}_list_part", defaults: { ajax: true, route_name: "ajax_#{k.pluralize}_list_part", event_type: k }
+          get ':tag/page/:page', action: 'tag', as: :"ajax_#{k}_tag_part", defaults: { ajax: true, route_name: "ajax_#{k}_tag_part", event_type: k }
+        end
       end
     end
 
@@ -115,11 +127,6 @@ Rails.application.routes.draw do
     get 'test/rendering', to: 'test#rendering', as: :test_rendering, defaults: { route_name: 'test_rendering' }
 
     get '/data/:page', to: 'data#index', as: :data_index, defaults: { route_name: 'data_index' }
-
-
-    
-    
-    
 
     root to: 'home#index', defaults: { route_name: 'root' }
     match "*url", to: "application#render_not_found", via: [:get, :post, :path, :put, :update, :delete]

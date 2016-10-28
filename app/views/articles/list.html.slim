@@ -4,9 +4,10 @@
   = render "breadcrumbs"
 
 
-  #events-list.events-collection.infinity-scroll-list
+  #events-list.events-collection.infinity-scroll-list data-base-url="/articles"
     = render partial: 'articles/list_item', locals: { articles: @paginated_articles }
 
 
   .pagination-wrapper
-    = will_paginate @paginated_articles
+    /= will_paginate @paginated_articles
+    = render "pagination", collection: @paginated_articles

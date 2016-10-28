@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
   helper_method :ajax?
 
   def ajax?
-    @is_ajax ||= params[:ajax] == "true"
+    @is_ajax ||= params[:ajax] == "true" || params[:ajax] == true
   end
 
   helper_method :current_route_name, :current_route?
@@ -268,16 +268,22 @@ class ApplicationController < ActionController::Base
 
   helper_method :subscribed_on_event?
 
-  def subscribed_on_event?(event_id)
-    event_id = event_id.to_i
-    if user_signed_in?
-      @events_i_am_subscribed_on ||= ActiveRecord::Base.connection.execute("select s.event_id as event_id from event_subscriptions s where s.user_id = #{current_user.id}")
-      @event_ids_i_am_subscribed_on ||= []
+  def get_events_i_am_subscribed_on
+    @events_i_am_subscribed_on ||= ActiveRecord::Base.connection.execute("select s.event_id as event_id from event_subscriptions s where s.user_id = #{current_user.id}")
+    if @event_ids_i_am_subscribed_on.nil?
+      @event_ids_i_am_subscribed_on = []
       if @event_ids_i_am_subscribed_on.count == 0 && @events_i_am_subscribed_on.count > 0
         @events_i_am_subscribed_on.each do |e|
           @event_ids_i_am_subscribed_on.push e['event_id']
         end
       end
+    end
+  end
+
+  def subscribed_on_event?(event_id)
+    event_id = event_id.to_i
+    if user_signed_in?
+      get_events_i_am_subscribed_on
       #return @events_i_am_subscribed_on.where("event_id = #{event_id}").count > 0
       return @event_ids_i_am_subscribed_on.index(event_id) != nil
     else
@@ -386,5 +392,17 @@ class ApplicationController < ActionController::Base
   before_action :_set_page_banner_title
   def _set_page_banner_title
     @_page_banner_title = I18n.t("layout.breadcrumbs.#{params[:route_name]}", raise: true) rescue nil
+  end
+
+  def short_user_info
+    u = current_user
+    if u
+      get_events_i_am_subscribed_on
+      event_ids_i_am_subscribed_on = @event_ids_i_am_subscribed_on
+      render json: { email: u.email, event_ids_i_am_subscribed_on: event_ids_i_am_subscribed_on }
+    else
+      render json: {}, status: 401
+    end
+
   end
 end

@@ -5,10 +5,11 @@
 
 
 
-  #events-list.events-collection.infinity-scroll-list
+  #events-list.events-collection.infinity-scroll-list data-base-url="/#{params[:event_type].pluralize}"
     /- @paginated_events.each_with_index do |event, index|
     = render partial: 'events/list_item', locals: { events: @paginated_events }
 
 
   .pagination-wrapper
-    = will_paginate @paginated_events
+    /= will_paginate @paginated_events
+    = render "pagination", collection: @paginated_events

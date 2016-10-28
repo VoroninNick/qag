@@ -2,10 +2,12 @@
   - if button_options[:type] != :frozen && button_options[:type] != :registration_disabled && button_options[:type] != :event_expired
     - if button_options[:type] == :register || button_options[:type] == :unregister
       .register-button.registration-enabled class="#{"columns large-4 right" if !options[:disable_columns] && button_options[:context] == :list_item} #{ "columns large-4 large-centered" if !options[:disable_columns] && button_options[:context] == :events_list_page } #{"decline" if subscribed_on_event?(event.id)}"
-        a.register-button-a href=( subscribed_on_event?(event.id) ? event_unsubscription_form_path(event_id: event.id) : new_event_subscription_path(event_id: event.id)  )
+        /- url = ( subscribed_on_event?(event.id) ? event_unsubscription_form_path(event_id: event.id) : new_event_subscription_path(event_id: event.id)  )
+        - url = new_event_subscription_path(event_id: event.id)
+        a.register-button-a href=url
           = embedded_svg_from_assets('svg/registration.svg')
           span.registration-text
-            = t("layout.buttons.#{ "un" if subscribed_on_event?(event.id) }register")
+            = t("layout.buttons.#{ button_options[:type] }")
   - elsif button_options[:type] == :event_expired
     .register-button class="#{"columns large-4 right" if !options[:disable_columns] &&  button_options[:context] == :list_item} #{ "columns large-4 large-centered" if !options[:disable_columns] && button_options[:context] == :events_list_page } #{"event-expired"} "
       span.register-button-span

@@ -300,6 +300,13 @@ window.month_names = ['січня', 'лютого', 'березня', 'квіт�
 
                      $home_featured_event_info_slides_row_ul.append($html_source)
 
+                     if (logged_in) {
+                       changeRegistrationButtonForEvents({
+                         registered: true,
+                         button_text: unregister_button_text,
+                         events: global_event_ids_i_am_subscribed_on
+                       })
+                     }
                  }
              })
          }

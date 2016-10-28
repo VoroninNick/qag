@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  caches_page :item
+  caches_page :item, :list
   def find_event
     params_item = params[:item]
     event_type = params[:event_type]
@@ -117,7 +117,7 @@ class EventsController < ApplicationController
     @paginated_events =  @events.paginate(page: params_page, per_page: 10)
 
     if ajax?
-      events_html = render_to_string template: 'events/_list_item', layout: false, locals: { events: @paginated_events }
+      events_html = render_to_string template: 'events/_list_item.html', layout: false, locals: { events: @paginated_events }
       #html_source = render_to_string template: 'devise/event_subscriptions/unsubscribe_form.html'
       data = { html: events_html }
       render json: data

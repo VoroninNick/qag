@@ -64,6 +64,8 @@ page_before_dashboard = null;
 
 has_modal_open_class = "has-modal-open";
 
+global_event_ids_i_am_subscribed_on = null;
+
 (function($){
     $.fn.init_form = function(){
         var $this = $(this)
@@ -184,6 +186,103 @@ var login_popup_link_click_handler = function(event){
 
 }
 
+function login($html_source, data, success, event_ids_i_am_subscribed_on){
+  //email_to_login = data.email
+  logged_in = true
+  $('.header-menu-user-link').append('<div id="header-menu-user-email">' + email_to_login + '</div>')
+  $login_link.attr('href', path('edit_user_registration'))
+  var $header_menu_user_dropdown = $(['<div id="header-menu-user-dropdown">',
+    '<a href="',
+    path('edit_user_registration'),
+    '" class="header-menu-user-dropdown-link">dashboard</a>',
+    '<a href="', path('my_events'), '" class="header-menu-user-dropdown-link">events i am subscribed on</a>',
+    '<a href="', path('user_session_destroy_form'), '" class="popup-link header-menu-user-dropdown-link logout">log out</a>',
+    '</div>'].join(''))
+
+  var provided_success = success !== null && success !== undefined
+  var successfullySignedIn = null
+  if (!provided_success){
+    successfullySignedIn = $html_source.find('#users_sessions-create-post').length > 0
+  }
+  else{
+    successfullySignedIn = success
+  }
+
+
+  if(!successfullySignedIn){
+    if ($html_source){
+      setInterval(function(){
+        $html_source.fadeOut(800, function(){
+          $body.removeClass(has_modal_open_class)
+        })
+      }, 3000)
+    }
+
+    if (data){
+      console.log("signed_in", data)
+
+      var feedback_form_html = data.feedback_form_html
+      if(feedback_form_html && feedback_form_html.length){
+        $(".feedback-form-wrap").html(feedback_form_html)
+      }
+    }
+
+
+
+  }
+
+  $header_menu_user_dropdown.appendTo($header_menu_user_wrapper)
+
+  global_event_ids_i_am_subscribed_on = event_ids_i_am_subscribed_on
+
+  if (!event_ids_i_am_subscribed_on && data){
+    event_ids_i_am_subscribed_on = data['events_i_am_subscribed_on']
+  }
+
+  if (event_ids_i_am_subscribed_on) {
+    changeRegistrationButtonForEvents({
+      registered: true,
+      button_text: unregister_button_text,
+      events: event_ids_i_am_subscribed_on
+    })
+  }
+
+  if ($html_source){
+    var $devise_event_subscriptions_form_wrap = $html_source.find('#devise_event_subscriptions-new-get-form-wrap.devise-form-wrap')
+    if ($devise_event_subscriptions_form_wrap.length > 0) {
+      $form.addClass(modeViewClass)
+    }
+  }
+}
+
+function logout($popup, data){
+  Cookies.remove("user_info")
+  $popup.removeClass(modalOpenClass)
+  remove_with_delay($popup)
+  logged_in = false
+  $header_menu_user_wrapper.find('#header-menu-user-dropdown').remove()
+  $('div#header-menu-user-email').remove()
+
+  default_handler = false
+
+  var data_events_i_am_subscribed_on = data['events_i_am_subscribed_on']
+
+  console.log('data_events_i_am_subscribed_on: ', data_events_i_am_subscribed_on)
+
+  changeRegistrationButtonForEvents({
+    registered: false,
+    button_text: data['subscribe_button_text'],
+    events: data_events_i_am_subscribed_on
+  })
+  var current_path = window.location.pathname
+  //var dashboard = current_path.match(/^(\/[a-z]{2})?\/my/gi) != null
+  var dashboard = $("#body").hasClass("dashboard")
+  console.log('dashboard: ', dashboard)
+  if(dashboard){
+    window.location = path_before_dashboard_or_home_path()
+  }
+}
+
 var call_back_popup_link_click_handler = function(event){
   var $link = $(this)
   var url = $link.attr('href')
@@ -207,6 +306,33 @@ var call_back_popup_link_click_handler = function(event){
 
 
 }
+
+function init_login(){
+  var user_info =  Cookies.getJSON("user_info")
+  if (user_info){
+    email_to_login = user_info.email
+    var event_ids = user_info.event_ids_i_am_subscribed_on
+    //global_event_ids_i_am_subscribed_on = event_ids
+
+    login(null, null, true, event_ids)
+  }
+  else{
+    $.ajax({
+      url: "/short_user_info",
+      dataType: "json",
+      success: function (data) {
+        email_to_login = data.email
+        var user_info = data
+        //global_event_ids_i_am_subscribed_on = data.event_ids_i_am_subscribed_on
+
+        Cookies.set("user_info", user_info)
+        login(null, null, true)
+      }
+    })
+  }
+}
+
+init_login()
 
 $("#fixed-call-button").on("click", call_back_popup_link_click_handler)
 
@@ -387,74 +513,12 @@ $modal_windows_wrapper.add($dashboard_content).on('click focusin focusout field_
                                 console.log('data: ', data)
 
                                 if ($submit_button.hasClass('login') ) {
-
                                     if(!logged_in) {
-                                        logged_in = true
-                                        $('.header-menu-user-link').append('<div id="header-menu-user-email">' + email_to_login + '</div>')
-                                        $login_link.attr('href', path('edit_user_registration'))
-                                        var $header_menu_user_dropdown = $(['<div id="header-menu-user-dropdown">',
-                                            '<a href="',
-                                            path('edit_user_registration'),
-                                            '" class="header-menu-user-dropdown-link">dashboard</a>',
-                                            '<a href="', path('my_events'), '" class="header-menu-user-dropdown-link">events i am subscribed on</a>',
-                                            '<a href="', path('user_session_destroy_form'), '" class="popup-link header-menu-user-dropdown-link logout">log out</a>',
-                                            '</div>'].join(''))
-
-
-                                        var successfullySignedIn = $html_source.find('#users_sessions-create-post').length
-                                        if(!successfullySignedIn){
-                                            setInterval(function(){
-                                                $html_source.fadeOut(800, function(){
-                                                    $body.removeClass(has_modal_open_class)
-                                                })
-                                            }, 3000)
-
-                                            console.log("signed_in", data)
-
-                                            var feedback_form_html = data.feedback_form_html
-                                            if(feedback_form_html && feedback_form_html.length){
-                                                $(".feedback-form-wrap").html(feedback_form_html)
-                                            }
-                                        }
-
-                                        $header_menu_user_dropdown.appendTo($header_menu_user_wrapper)
-
-                                        changeRegistrationButtonForEvents({
-                                            registered: true,
-                                            button_text: data['decline_button_text'],
-                                            events: data['events_i_am_subscribed_on']
-                                        })
-
-                                        var $devise_event_subscriptions_form_wrap = $html_source.find('#devise_event_subscriptions-new-get-form-wrap.devise-form-wrap')
-                                        if ($devise_event_subscriptions_form_wrap.length > 0) {
-                                            $form.addClass(modeViewClass)
-                                        }
+                                        login($html_source, data)
                                     }
                                 }
                                 else if ($submit_button.hasClass('logout')) {
-                                    $popup.removeClass(modalOpenClass)
-                                    remove_with_delay($popup)
-                                    logged_in = false
-                                    $header_menu_user_wrapper.find('#header-menu-user-dropdown').remove()
-                                    $('div#header-menu-user-email').remove()
-
-                                    default_handler = false
-
-                                    var data_events_i_am_subscribed_on = data['events_i_am_subscribed_on']
-
-                                    console.log('data_events_i_am_subscribed_on: ', data_events_i_am_subscribed_on)
-
-                                    changeRegistrationButtonForEvents({
-                                        registered: false,
-                                        button_text: data['subscribe_button_text'],
-                                        events: data_events_i_am_subscribed_on
-                                    })
-                                    var current_path = window.location.pathname
-                                    var dashboard = current_path.match(/^(\/[a-z]{2})?\/my/gi) != null
-                                    console.log('dashboard: ', dashboard)
-                                    if(dashboard){
-                                        window.location = path_before_dashboard_or_home_path()
-                                    }
+                                    logout($popup, data)
                                 }
                                 else if ($submit_button.hasClass(signUpSubmitButtonClass)) {
                                     var errors_html = ""
@@ -695,6 +759,7 @@ $event_collections.on('click', 'a.register-button-a', function(event){
 
 $infinity_scroll_list = $('.infinity-scroll-list')
 var infinity_scroll_list_count = $infinity_scroll_list.length
+var infinity_scroll_base_url = $infinity_scroll_list.attr("data-base-url")
 var load_started = false
 
 if(infinity_scroll_list_count > 0) {
@@ -709,11 +774,11 @@ if(infinity_scroll_list_count > 0) {
                 load_started = true
                 var required_page = current_pagination_page + 1
                 current_pagination_page++
-
+                url = "/ajax" + infinity_scroll_base_url + "/page/" + required_page + ".json"
                 $.ajax({
                     url: url,
                     type: 'get',
-                    data: 'ajax=true&page=' + required_page,
+                    data: {},
                     dataType: 'json',
                     complete: function (jqXHR, textStatus) {
                         var response_text = jqXHR.responseText
@@ -736,24 +801,35 @@ if(infinity_scroll_list_count > 0) {
 }
 
 function changeRegistrationButtonForEvents(options){
-    var defaults = { registered: true, decline_button_link: false, button_text: false, events: [] }
+    var defaults = { events_attribute: "events", registered: true, decline_button_link: false, button_text: false, events: [] }
     options = Object.merge(defaults, options )
     if (!options.events){
       return
     }
-    var events_count = options.events.length
+    var events_attribute = options['events_attribute']
+    var events = options[events_attribute]
+    var events_count = events.length
     if( options.button_text && events_count > 0){
         var event_selector_array = []
         var event_selector_string;
         for(var i=0; i< events_count; i++){
-            var event_info = options.events[i]
-            var event_id = event_info['event_id']
+            var event_info = events[i]
+
+            var event_id = null;
+            if (typeof event_info == "number" ){
+              event_id = event_info
+            }
+            else {
+              event_id = event_info['event_id']
+            }
+
+
             event_selector_array[i] = '[data-event-id='+event_id+']'
         }
         event_selector_string = event_selector_array.join(',')
 
         var $all_events
-        $all_events = $('.'+eventCollectionItemClass)
+        $all_events = $('.'+eventCollectionItemClass + ", [id='event-content-and-info-row']")
 
         var $matched_events = $all_events.filter(event_selector_string)
         console.log('options.registered', options.registered)
@@ -821,7 +897,8 @@ function pageHeight() {
 
 window.onbeforeunload = function(e) {
     var current_path = window.location.pathname
-    var dashboard = current_path.match(/^(\/[a-z]{2})?\/my/gi) != null
+    //var dashboard = current_path.match(/^(\/[a-z]{2})?\/my/gi) != null
+    var dashboard = $("#body").hasClass("dashboard")
     if(!dashboard){
             document.cookie = ['page_before_dashboard', window.location.pathname].join('=')
 

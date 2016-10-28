@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
-  caches_page :item
+  caches_page :item, :list
+
   def list
     max_items_count = 10
 
@@ -27,7 +28,7 @@ class ArticlesController < ApplicationController
     @paginated_articles =  @articles.paginate(page: params_page, per_page: max_items_count)
 
     if ajax?
-      articles_html = render_to_string template: 'articles/_list_item', layout: false, locals: { articles: @paginated_articles }
+      articles_html = render_to_string template: 'articles/_list_item.html', layout: false, locals: { articles: @paginated_articles }
       data = { html: articles_html }
       render json: data
     end

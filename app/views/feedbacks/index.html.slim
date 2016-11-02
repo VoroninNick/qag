@@ -1,12 +1,8 @@
-div
-  /= render partial: 'articles/articles_list_banner'
-  = render "page_banner"
+= render "page_banner"
+.page-content-z-index
   = render "breadcrumbs"
 
-
-
   #events-list.events-collection
-    /- @paginated_events.each_with_index do |event, index|
     = render 'list_item', articles: @paginated_feedbacks
 
 

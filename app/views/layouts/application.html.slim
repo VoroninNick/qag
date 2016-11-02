@@ -65,5 +65,6 @@ html#html class="no-js locale-#{I18n.locale.to_s} controller-#{params[:controlle
 
       - if !content_for?(:script)
         = javascript_include_tag "application"
+        = render "ga"
       - else
         = content_for(:script)

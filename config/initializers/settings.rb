@@ -1,6 +1,6 @@
 class Settings
   def self.[](arg)
-    config = YAML.load_file(File.open(Rails.root.join("config/settings/development.yml")))
+    config = YAML.load_file(File.open(Rails.root.join("config/settings/#{Rails.env}.yml")))
     path_fragments = arg.split(".")
     res = config
 

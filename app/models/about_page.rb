@@ -21,6 +21,7 @@ class AboutPage < ActiveRecord::Base
   end
 
   has_seo_tags
+  has_sitemap_record
 
   attr_accessible :top_text, :quote, :bottom_text, :team_text, :about_partners_text
 

@@ -6,6 +6,7 @@ class Event < ActiveRecord::Base
   #include VoroninStudio::PageHelper
 
   has_seo_tags
+  has_sitemap_record
 
   has_and_belongs_to_many :event_gallery_albums, join_table: :events_and_gallery_albums, :dependent => :destroy
 
@@ -404,6 +405,7 @@ class Event < ActiveRecord::Base
         #field :expired_event_avatar
         field :event_gallery_images
         field :seo_tags
+        field :sitemap_record
       end
     end
 

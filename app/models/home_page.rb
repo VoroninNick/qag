@@ -8,6 +8,7 @@ class HomePage < ActiveRecord::Base
   has_many :main_slider_slides
 
   has_seo_tags
+  has_sitemap_record
 
   accepts_nested_attributes_for :home_about_us_slides, allow_destroy: true
   attr_accessible :home_about_us_slides_attributes, :home_about_us_slides
@@ -59,6 +60,7 @@ class HomePage < ActiveRecord::Base
       end
 
       field :seo_tags
+      field :sitemap_record
     end
   end
 

@@ -1,5 +1,6 @@
 class ContactPage < ActiveRecord::Base
   has_seo_tags
+  has_sitemap_record
 
   attr_accessible *attribute_names
 
@@ -25,8 +26,9 @@ class ContactPage < ActiveRecord::Base
 
     edit do
       #field :content, :ck_editor
-      field :seo_tags
       field :translations, :globalize_tabs
+      field :seo_tags
+      field :sitemap_record
     end
   end
 end

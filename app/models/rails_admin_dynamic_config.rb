@@ -196,7 +196,7 @@ module RailsAdminDynamicConfig
             EventTag, EventGalleryAlbum, EventGalleryImage, EventSubscription, UserFeedback,
             #ActsAsTaggableOn::Tag, ActsAsTaggableOn::Tagging
             HomePage, AboutPage, Pages::EventsList, Pages::ArticlesList, ContactPage, Pages::Students, Pages::Feedbacks, Pages::CoursesList,
-            Message, Cms::MetaTags
+            Message, Cms::MetaTags, Cms::SitemapElement
 
 
         ]#+(Dir.glob(Rails.root.join('app/models/pages/*.rb')).each {|file| require file;}; classes = [] ;Pages.constants.each {|c| classes.push("Pages::#{c.to_s}") }; classes )
@@ -238,6 +238,7 @@ module RailsAdminDynamicConfig
           field :banner
           content_field(:students_text, :ck_editor)
           field :seo_tags
+          field :sitemap_record
         end
 
         config.model Pages::Feedbacks do
@@ -246,6 +247,7 @@ module RailsAdminDynamicConfig
 
           field :banner
           field :seo_tags
+          field :sitemap_record
         end
 
 
@@ -262,6 +264,7 @@ module RailsAdminDynamicConfig
           field :team_text, :ck_editor
           field :about_partners_text, :ck_editor
           field :seo_tags
+          field :sitemap_record
         end
 
         config.include_models CallBack
@@ -304,6 +307,20 @@ module RailsAdminDynamicConfig
           end
         end
 
+
+        config.model Cms::SitemapElement do
+          edit do
+            field :display_on_sitemap
+            field :changefreq
+            field :priority
+          end
+          # nested do
+          #   field :display_on_sitemap
+          #   field :changefreq
+          #   field :priority
+          # end
+
+        end
       end
     end
   end

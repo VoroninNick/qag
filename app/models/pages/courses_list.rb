@@ -2,6 +2,7 @@ class Pages::CoursesList < ActiveRecord::Base
   self.table_name = :pages_events_lists
 
   has_seo_tags
+  has_sitemap_record
 
   image :banner, :styles => { :banner => '2100x500#'},
         :url  => "/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
@@ -26,5 +27,6 @@ class Pages::CoursesList < ActiveRecord::Base
     end
 
     field :seo_tags
+    field :sitemap_record
   end
 end

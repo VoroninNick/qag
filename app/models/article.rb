@@ -38,7 +38,7 @@ class Article < ActiveRecord::Base
   def cache_instances
     #articles = related_articles.to_a + old_related_articles.to_a
 
-    arr = [Article.published, Pages::ArticlesList.first, "ajax/articles/page/*", "articles/page/*"]
+    arr = [Article.published, Pages::ArticlesList.first.url, "ajax/articles/page/*", "articles/page/*"]
     arr << self if boolean_changed?(:published) || published
 
     arr

@@ -10,6 +10,9 @@ class Pages::EventsList < ActiveRecord::Base
                         banner: "-quality 94 -interlace Plane",
                     }
 
+  def url *args
+    "/events.html"
+  end
 
   rails_admin do
     navigation_label I18n.t("rails_admin.navigation_labels.pages")

@@ -9,7 +9,10 @@ class Pages::CoursesList < ActiveRecord::Base
         convert_options: {
             banner: "-quality 94 -interlace Plane",
         }
-
+  
+  def url *args
+    "/courses.html"
+  end
 
   rails_admin do
     navigation_label I18n.t("rails_admin.navigation_labels.pages")

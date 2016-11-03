@@ -102,7 +102,7 @@ class ApplicationController < ActionController::Base
   before_action :check_devise_controller
 
   def check_devise_controller
-    @is_devise ||= params[:controller].scan(/\Adevise\//).any? || params[:controller].scan(/\Ausers\//).any?
+    @is_devise ||=  params[:controller] != "users/event_subscriptions" && (params[:controller].scan(/\Adevise\//).any? || params[:controller].scan(/\Ausers\//).any?)
   end
 
   before_action :set_layout

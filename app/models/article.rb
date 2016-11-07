@@ -3,7 +3,7 @@ class Article < ActiveRecord::Base
 
   has_seo_tags
   has_sitemap_record
-
+  has_aliases
   image :avatar, :styles => { :article_list_small_thumb => '360x300#', related_irticle_thumb: '600x500#', :article_list_large_thumb => "690x575#"},
                     :url  => "/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
                     :path => ":rails_root/public/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",

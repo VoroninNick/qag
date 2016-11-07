@@ -47,6 +47,8 @@ class EventsController < ApplicationController
       resource = @event
 
       #@meta_keywords = resource.event_tags.map(&:name).select{|t| t.present? }.uniq.join(',') if resource.respond_to?(:event_tags) && @page_metadata.try{|m| m.meta_keywords}.blank?
+    else
+      alias_or_not_found
     end
 
 

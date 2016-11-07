@@ -5,3 +5,8 @@ Cms.config do
 end
 
 Cms::CompressionConfig.initialize_compression
+
+def has_aliases
+  has_many :page_aliases, as: :page
+  attr_accessible :page_aliases, :page_alias_ids
+end

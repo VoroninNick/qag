@@ -321,6 +321,12 @@ module RailsAdminDynamicConfig
           # end
 
         end
+
+	config.include_models PageAlias
+	config.model PageAlias do
+	  field :url
+	  field :page  
+	end
       end
     end
   end

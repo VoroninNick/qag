@@ -129,6 +129,7 @@ Rails.application.routes.draw do
     get '/data/:page', to: 'data#index', as: :data_index, defaults: { route_name: 'data_index' }
 
     root to: 'home#index', defaults: { route_name: 'root' }
+    get "*url", to: "application#alias_or_not_found"
     match "*url", to: "application#render_not_found", via: [:get, :post, :path, :put, :update, :delete]
   end
 end

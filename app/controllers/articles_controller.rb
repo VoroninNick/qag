@@ -64,7 +64,7 @@ class ArticlesController < ApplicationController
 
       resource = @article
     else
-      render_not_found
+      alias_or_not_found
     end
 
 
@@ -81,7 +81,7 @@ class ArticlesController < ApplicationController
     #@article_ids_rows.each {|e| @event_ids.push e['id']  }
     #@articles = Event.find(@event_ids)
     #@article = (@events.respond_to?(:count) && @events.count > 0)? @events.first : nil
-    @article = Article.where(url_fragment: params_item).first
+    @article = Article.published.where(url_fragment: params_item).first
     @article_not_found = @article.nil?
     unless @article_not_found
       @article.translations_by_locale.keys.each do |locale|

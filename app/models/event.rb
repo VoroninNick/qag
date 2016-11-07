@@ -4,7 +4,7 @@ class Event < ActiveRecord::Base
   attr_accessible *attribute_names
   include Enumerize
   #include VoroninStudio::PageHelper
-
+  has_aliases
   has_seo_tags
   has_sitemap_record
 

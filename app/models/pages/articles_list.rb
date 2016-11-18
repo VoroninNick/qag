@@ -11,6 +11,7 @@ class Pages::ArticlesList < ActiveRecord::Base
                         banner: "-quality 94 -interlace Plane",
                     }
 
+  has_cache
 
   def url(*args)
     "/articles.html"

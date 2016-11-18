@@ -11,6 +11,8 @@ class Pages::EventsList < ActiveRecord::Base
                         banner: "-quality 94 -interlace Plane",
                     }
 
+  has_cache
+
   def url *args
     "/events.html"
   end

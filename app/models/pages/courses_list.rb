@@ -10,7 +10,9 @@ class Pages::CoursesList < ActiveRecord::Base
         convert_options: {
             banner: "-quality 94 -interlace Plane",
         }
-  
+
+  has_cache
+
   def url *args
     "/courses.html"
   end

@@ -39,7 +39,7 @@
         #footer-copyright
           = raw t('layout.footer.copyright')
         #footer-developed-by
-          a#vs-logo-link href=t('layout.footer.developed-by.studio-site-link')
+          a#vs-logo-link rel='nofollow' href=t('layout.footer.developed-by.studio-site-link')
             = embedded_svg_from_assets('svg/vs_logo.svg')
           p#footer-developed-by-text
             = raw t('layout.footer.developed-by.developed', link_start: "<a rel='nofollow' href='#{t('layout.footer.developed-by.studio-site-link')}'>", link_end: "</a>")

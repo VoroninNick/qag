@@ -124,6 +124,7 @@ Rails.application.routes.draw do
     get 'about', to: 'about#index', as: :about, defaults: { route_name: 'about' }
 
     get 'test', to: 'test#index', as: :test_index, defaults: { route_name: 'test_index' }
+    get "test/articles", to: "articles#list", defaults: { new_test: true }
     get 'test/rendering', to: 'test#rendering', as: :test_rendering, defaults: { route_name: 'test_rendering' }
 
     get '/data/:page', to: 'data#index', as: :data_index, defaults: { route_name: 'data_index' }

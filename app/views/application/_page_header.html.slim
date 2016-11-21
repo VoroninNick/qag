@@ -1,0 +1,5 @@
+- if @gray_page_header.present?
+  .text-content
+    .row
+      h1.about-gray-header.columns.large-12 style="text-align: center"
+        = @gray_page_header == true ? @_page_banner_title : @gray_page_header

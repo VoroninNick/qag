@@ -2,11 +2,7 @@
 = render "page_banner"
 .page-content-z-index
   = render "breadcrumbs"
-  - if @gray_page_header.present?
-    .text-content
-      .row
-        h1.about-gray-header.columns.large-12 style="text-align: center"
-          = @gray_page_header
+  = render "page_header"
 
   #events-list.events-collection.infinity-scroll-list data-base-url="/articles"
     = render partial: 'articles/list_item', locals: { articles: @paginated_articles }

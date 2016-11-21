@@ -15,8 +15,8 @@ class ArticlesController < ApplicationController
     }
 
     @_page_banner_title = "Публікації"
-    @disable_page_banner = params[:new_test].present?
-    @gray_page_header = params[:new_test].present? ? @_page_banner_title : false
+
+    @gray_page_header = @disable_page_banner ? @_page_banner_title : false
 
 
     params_page = params[:page]

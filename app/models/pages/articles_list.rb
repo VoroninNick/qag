@@ -16,6 +16,7 @@ class Pages::ArticlesList < ActiveRecord::Base
   def url(*args)
     "/articles.html"
   end
+
   rails_admin do
     pages_navigation_label
     label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")

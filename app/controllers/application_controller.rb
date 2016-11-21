@@ -26,6 +26,15 @@ class ApplicationController < ActionController::Base
   reload_rails_admin_config
 
   before_action :set_admin_locale, if: :admin_panel?
+  before_action :disable_page_banner
+
+
+  def disable_page_banner
+    c = controller_name
+    a = action_name
+    @disable_page_banner = (c.in?(["events", "articles"]) && a == "list") || (c == "feedbacks" && a == "index") || (c == "pages" && a == "students")
+    @gray_page_header = @disable_page_banner
+  end
 
   def admin_panel?
     admin = params[:controller].to_s.starts_with?("rails_admin")

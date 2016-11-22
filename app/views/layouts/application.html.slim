@@ -3,7 +3,7 @@ html#html class="no-js locale-#{I18n.locale.to_s} controller-#{params[:controlle
   head
     = raw seo_tags
     meta charset="utf-8"
-    - if params[:page]
+    - if params[:page] || params[:locale].present?
       link rel="canonical" href=send("#{params[:route_name]}_path")
     meta name="viewport" content="width=device-width, initial-scale=1.0"
 

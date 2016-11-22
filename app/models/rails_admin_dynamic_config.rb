@@ -325,6 +325,9 @@ module RailsAdminDynamicConfig
 	config.include_models PageAlias
 	config.model PageAlias do
 	  field :url
+    field :redirect_url do
+      help "враховується цееей урл або, якщо нема, то урл зв'язаної сторінки"
+    end
 	  field :page  
 	end
       end

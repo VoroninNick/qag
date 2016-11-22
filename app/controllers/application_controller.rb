@@ -418,13 +418,18 @@ class ApplicationController < ActionController::Base
   def alias_or_not_found
     url = params[:url] || URI(request.url).path.gsub(/\A\//, "")
     a = PageAlias.where(url: url).first
-    if a && ((page_url = a.page.url).present? rescue false)
-      return redirect_to page_url, status: 301
-    end
-    
     if !a
       PageAlias.create(url: url)
+    else
+      redirect_url = a.redirect_url
+      redirect_url = a.page.url rescue false if redirect_url.blank?
+
+
+      if redirect_url.present?
+        return redirect_to page_url, status: 301
+      end
     end
+
     return render_not_found
   end
 end

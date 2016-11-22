@@ -426,7 +426,7 @@ class ApplicationController < ActionController::Base
 
 
       if redirect_url.present?
-        return redirect_to page_url, status: 301
+        return redirect_to redirect_url, status: 301
       end
     end
 

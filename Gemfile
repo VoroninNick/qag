@@ -200,3 +200,5 @@ gem 'rack-page_caching'
 gem 'json', "1.8.3"
 
 gem "cancancan"
+
+gem "non-stupid-digest-assets"

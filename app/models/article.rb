@@ -5,8 +5,8 @@ class Article < ActiveRecord::Base
   has_sitemap_record
   has_aliases
   image :avatar, :styles => { :article_list_small_thumb => '360x300#', related_irticle_thumb: '600x500#', :article_list_large_thumb => "690x575#"},
-                    :url  => "/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
-                    :path => ":rails_root/public/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
+                    :url  => "/uploads/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
+                    :path => ":rails_root/public:url",
                     convert_options: {
                       article_list_small_thumb: "-quality 94 -interlace Plane",
                       related_irticle_thumb: "-quality 94 -interlace Plane",
@@ -14,8 +14,8 @@ class Article < ActiveRecord::Base
                     }
 
   image :banner, :styles => { :banner => '2100x500#'},
-                    :url  => "/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
-                    :path => ":rails_root/public/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
+                    :url  => "/uploads/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
+                    :path => ":rails_root/public:url",
                     convert_options: {
                         banner: "-quality 94 -interlace Plane",
                     }

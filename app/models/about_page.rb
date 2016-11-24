@@ -26,8 +26,8 @@ class AboutPage < ActiveRecord::Base
   attr_accessible :top_text, :quote, :bottom_text, :team_text, :about_partners_text
 
   image :banner, :styles => { :banner => '2100x500#'},
-                    :url  => "/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
-                    :path => ":rails_root/public/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
+                    :url  => "/uploads/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
+                    :path => ":rails_root/public:url",
                     convert_options: {
                         banner: "-quality 94 -interlace Plane",
                     }

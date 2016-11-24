@@ -22,8 +22,8 @@ class User < ActiveRecord::Base
 
 
   image :avatar, :styles => { :thumb => '150x150#'},
-                    :url  => "/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
-                    :path => ":rails_root/public/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
+                    :url  => "/uploads/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
+                    :path => ":rails_root/public:url",
                     convert_options: {
                         thumb: "-quality 94 -interlace Plane",
                     }

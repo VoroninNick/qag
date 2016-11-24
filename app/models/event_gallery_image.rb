@@ -10,8 +10,8 @@ class EventGalleryImage < ActiveRecord::Base
   attr_accessible :published, :name, :short_description, :order_index
 
   image :image, :styles => { :event_list_image => '180x120#', event_item_image: "270x180#"},
-                    :url  => "/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
-                    :path => ":rails_root/public/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
+                    :url  => "/uploads/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
+                    :path => ":rails_root/public:url",
                     convert_options: {
                         event_list_image: "-quality 94 -interlace Plane",
                         event_item_image: "-quality 94 -interlace Plane"

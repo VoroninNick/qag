@@ -5,8 +5,8 @@ class Partner < ActiveRecord::Base
   attr_accessible :social_twitter, :social_facebook, :social_odnoklassniki, :social_linked_in, :social_blogger, :social_vk, :social_google_plus
 
   image :avatar, :styles => { :about => '250x250#'},
-                    :url  => "/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
-                    :path => ":rails_root/public/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
+                    :url  => "/uploads/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
+                    :path => ":rails_root/public:url",
                     convert_options: {
                         about: "-quality 94 -interlace Plane",
                     }

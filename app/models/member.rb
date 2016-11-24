@@ -5,7 +5,7 @@ module Member
     base.attr_accessible :social_twitter, :social_facebook, :social_odnoklassniki, :social_linked_in, :social_blogger, :social_vk, :social_google_plus
 
     base.image :avatar, :styles => { :about => '250x250#'},
-               :url  => "/assets/#{base.name.underscore}/:id/avatar/:style/:basename.:extension",
+               :url  => "/uploads/#{base.name.underscore}/:id/avatar/:style/:basename.:extension",
                :path => ":rails_root/public:url",
                convert_options: {
                    about: "-quality 94 -interlace Plane",

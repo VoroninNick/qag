@@ -45,22 +45,22 @@ class Event < ActiveRecord::Base
   end
 
   image :avatar, :styles => { :event_list_small_thumb => '360x240#', :event_list_avatar => '255x170#', :event_list_large_thumb => '720x480#', :home_expired_event_thumb => '500x1250#', :article_item => '320x320>', home_article_item: '250x250>', article_page: '500x500>'},
-                    :url  => "/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
-                    :path => ":rails_root/public/assets/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
+                    :url  => "/uploads/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
+                    :path => ":rails_root/public:url",
                     convert_options: {
                         banner: "-quality 94 -interlace Plane",
                     }
 
   image :banner, :styles => { banner: '2100x500#' },
-                    :url  => "/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
-                    :path => ":rails_root/public/assets/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
+                    :url  => "/uploads/#{self.name.underscore}/:id/banner/:style/:basename.:extension",
+                    :path => ":rails_root/public:url",
                     convert_options: {
                         banner: "-quality 94 -interlace Plane",
                     }
 
   image :expired_event_avatar, :styles => { expired_event_avatar: '500x1250#' },
-                    :url  => "/assets/#{self.name.underscore}/:id/expired_event_avatar/:style/:basename.:extension",
-                    :path => ":rails_root/public/assets/#{self.name.underscore}/:id/expired_event_avatar/:style/:basename.:extension",
+                    :url  => "/uploads/#{self.name.underscore}/:id/expired_event_avatar/:style/:basename.:extension",
+                    :path => ":rails_root/public:url",
                     convert_options: {
                         banner: "-quality 94 -interlace Plane",
                     }

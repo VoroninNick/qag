@@ -3,8 +3,8 @@ class MainSliderSlide < ActiveRecord::Base
   attr_accessible :name, :short_description, :full_description, :published, :order_index
 
   image :background, :styles => { banner: '2100x1200#', sepia_banner: '2100x1200#' },
-                    :url  => "/assets/#{self.name.underscore}/:id/background/:style/:basename.:extension",
-                    :path => ":rails_root/public/assets/#{self.name.underscore}/:id/background/:style/:basename.:extension",
+                    :url  => "/uploads/#{self.name.underscore}/:id/background/:style/:basename.:extension",
+                    :path => ":rails_root/public:url",
                     convert_options: {
                         banner: "-quality 94 -interlace Plane",
                         sepia_banner: "-quality 94 -interlace Plane -fill beige"

@@ -53,6 +53,10 @@ class Article < ActiveRecord::Base
     []
   end
 
+  def self.default_priority
+    0.9
+  end
+
   class Translation
     attr_accessible :locale, :url_fragment, :published_translation, :name, :short_description, :full_description
 

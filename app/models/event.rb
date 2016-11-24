@@ -174,6 +174,10 @@ class Event < ActiveRecord::Base
     return ( subscription ? subscription.disabled : nil )
   end
 
+  def self.default_priority
+    0.9
+  end
+
 
   attr_accessible :days_and_time_string
 

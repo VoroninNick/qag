@@ -109,14 +109,16 @@ class EventsController < ApplicationController
 
 
 
-    params_page = params[:page]
+    params_page = params[:page].present? ? params[:page] : nil
     if !params_page
-      params_page = 1
+      list_page = 1
+    else
+      list_page = params_page
     end
 
     @events = @events.order('start_date desc')
 
-    @paginated_events =  @events.paginate(page: params_page, per_page: 10)
+    @paginated_events =  @events.paginate(page: list_page, per_page: 10)
 
     if ajax?
       events_html = render_to_string template: 'events/_list_item.html', layout: false, locals: { events: @paginated_events }
@@ -128,6 +130,7 @@ class EventsController < ApplicationController
     @page = Pages.const_get("#{params[:event_type].capitalize.pluralize}List").first
 
     set_page_metadata(@page)
+    init_list_page_title(params_page)
 
   end
 

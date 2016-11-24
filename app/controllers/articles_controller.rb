@@ -19,16 +19,22 @@ class ArticlesController < ApplicationController
     @gray_page_header = @disable_page_banner ? @_page_banner_title : false
 
 
-    params_page = params[:page]
+    params_page = params[:page].present? ? params[:page] : nil
     if !params_page
-      params_page = 1
+      list_page = 1
+    else
+      list_page = params_page
     end
+
+
 
     @articles = Article.published
 
     @articles = @articles.order('id desc')
 
-    @paginated_articles =  @articles.paginate(page: params_page, per_page: max_items_count)
+    @show_loading_button = @articles.count > 10
+
+    @paginated_articles =  @articles.paginate(page: list_page, per_page: max_items_count)
 
     if ajax?
       articles_html = render_to_string template: 'articles/_list_item.html', layout: false, locals: { articles: @paginated_articles }
@@ -38,6 +44,7 @@ class ArticlesController < ApplicationController
 
     @page = Pages::ArticlesList.first
     set_page_metadata(@page)
+    init_list_page_title(params_page)
   end
 
   def item

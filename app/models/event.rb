@@ -104,7 +104,15 @@ class Event < ActiveRecord::Base
   has_cache
   def cache_instances
     self_id = self.try(:id)
-    arr = [self, HomePage.first, Object.const_get("Pages::#{event_type.pluralize.capitalize}List").first.url, "ajax/#{event_type.pluralize}/page/*", "#{event_type.pluralize}/page/*"]
+    pages_keys = []
+    if event_type_changed? && event_type_was.in?(["event", "course"]) && event_type.in?(["event", "course"])
+      pages_keys = ["events", "courses"]
+    else
+      pages_keys = [event_type.pluralize]
+    end
+    list_pages = pages_keys.map{|k| Object.const_get("Pages::#{k.capitalize}List").first.url}
+    #list_pages = Pages::EventsList
+    arr = [self, HomePage.first, *list_pages, pages_keys.map{|k|"ajax/#{k}/page/*"}, pages_keys.map{|k|"#{k}/page/*"}]
     arr << cache_path("/home/event_info/#{self_id}") if self_id.present?
 
     arr

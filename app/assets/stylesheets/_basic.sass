@@ -1,70 +1,84 @@
+= form-button
+  height: 3.75rem
+  display: inline-block
+  width: 100%
+  text-align: center
+  border-radius: 4px
+  cursor: pointer
+  text-transform: uppercase
+  font-size: 1.3rem
+  font-weight: 900
+  border: none
+  color: white
+  background-color: #ffb700
+
 a
-	color: #ffb700
-	text-decoration: none
-	@include transition-property(color)
-	@include transition-duration($hover-transition-duration)
+  color: #ffb700
+  text-decoration: none
+  @include transition-property(color)
+  @include transition-duration($hover-transition-duration)
 
 
-	&:hover
-		color: $hover-color
+  &:hover
+    color: $hover-color
 
 .home-featured-events-section .event .event-title
-	font-weight: 900
-	text-transform: uppercase
-	font-size: 2.5rem
-	line-height: 1.1
+  font-weight: 900
+  text-transform: uppercase
+  font-size: 2.5rem
+  line-height: 1.1
 
 .tip
-	font-weight: 100
+  font-weight: 100
 
 .orange-bg
-	background-color: #ffb700
+  background-color: #ffb700
 
 @mixin large-gray-header
-	color: #6d6e72
-	text-transform: uppercase
-	text-align: center
-	font-weight: 800
-	font-size: 3rem
+  color: #6d6e72
+  text-transform: uppercase
+  text-align: center
+  font-weight: 800
+  font-size: 3rem
 
 = banner-title
-	top: 50%
-	position: absolute
-	left: 50%
-	@include transform(translate3d(-50%,-50%,0))
-	color: white
-	font-size: 2.25rem
-	font-weight: 800
-	text-transform: uppercase
-	line-height: 2.25rem
-	width: 90%
-	max-width: rem-calc(1024)
-	text-align: center
+  top: 50%
+  position: absolute
+  left: 50%
+  @include transform(translate3d(-50%,-50%,0))
+  color: white
+  font-size: 2.25rem
+  font-weight: 800
+  text-transform: uppercase
+  line-height: 2.25rem
+  width: 90%
+  max-width: rem-calc(1024)
+  text-align: center
 
 .overflow-hidden
-	overflow: hidden
+  overflow: hidden
 
 .position-relative
-	position: relative
+  position: relative
 
 
 .pr
-	position: relative
+  position: relative
 
 
 
 .page-content-z-index
-	z-index: 1
-	position: relative
-	background: #ffffff
-	padding: 0 0 8rem 0
+  z-index: 1
+  position: relative
+  background: #ffffff
+  padding: 0 0 8rem 0
 
 .page-block-fixed-wrapper
-	position: relative
-	height: 500px
+  position: relative
+  height: 500px
 
-	img
-		height: inherit
+  img
+    height: inherit
 
 
 
@@ -73,56 +87,56 @@ a
 
 
 .page-block-fixed
-	position: fixed
-	height: inherit
-	width: 100%
+  position: fixed
+  height: inherit
+  width: 100%
 
 .fixed-on-scroll
-	position: relative
-	height: inherit
-	width: 100%
-	top: 0
-	&.fixed
-		position: fixed
+  position: relative
+  height: inherit
+  width: 100%
+  top: 0
+  &.fixed
+    position: fixed
 
 .page-block-fixed-relative
-	position: relative
-	height: inherit
-	width: 100%
+  position: relative
+  height: inherit
+  width: 100%
 
 
 
 html[class*=controller-users]
-	#header-menu-button-label
-		border-top-color: $menu-blue-color
-		&:before, &:after
-			background-color: $menu-blue-color
+  #header-menu-button-label
+    border-top-color: $menu-blue-color
+    &:before, &:after
+      background-color: $menu-blue-color
 
 
 
 +small
-	.page-block-fixed-wrapper
-		height: 200px
-		.page-block-fixed
-			position: relative !important
-	.fixed-on-scroll
-		position: relative !important
+  .page-block-fixed-wrapper
+    height: 200px
+    .page-block-fixed
+      position: relative !important
+  .fixed-on-scroll
+    position: relative !important
 
 
 .btn
-	+button-element
-	span
-		+button-text
-	svg
-		+button-svg
-		*
-			fill: white
+  +button-element
+  span
+    +button-text
+  svg
+    +button-svg
+    *
+      fill: white
 
-	&.btn-gray
-		background: #D2D3D5
-		span
-			color: rgba(#6d6e72, 0.8)
+  &.btn-gray
+    background: #D2D3D5
+    span
+      color: rgba(#6d6e72, 0.8)
 
-		svg
-			*
-				fill: #6d6e72
+    svg
+      *
+        fill: #6d6e72

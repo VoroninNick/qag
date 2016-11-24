@@ -33,7 +33,7 @@ class Article < ActiveRecord::Base
 
   has_cache
   def url(*args)
-    "articles/#{url_fragment}"
+    "/articles/#{url_fragment}"
   end
 
   def cache_instances

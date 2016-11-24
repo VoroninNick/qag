@@ -432,4 +432,8 @@ class ApplicationController < ActionController::Base
 
     return render_not_found
   end
+
+  def init_list_page_title(page_number)
+    @head_title = "#{@head_title || @page_metadata.try(:title)} - Сторінка #{page_number}" if page_number
+  end
 end

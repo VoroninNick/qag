@@ -105,7 +105,7 @@ def page_fields(hide_content = false)
   html_block_fields
   field :url
   field :seo_tags
-  field :sitemap_record
+  #field :sitemap_record
 end
 
 def configure_codemirror_html_field(name)
@@ -238,7 +238,7 @@ module RailsAdminDynamicConfig
           field :banner
           content_field(:students_text, :ck_editor)
           field :seo_tags
-          field :sitemap_record
+          #field :sitemap_record
         end
 
         config.model Pages::Feedbacks do
@@ -247,7 +247,7 @@ module RailsAdminDynamicConfig
 
           field :banner
           field :seo_tags
-          field :sitemap_record
+          #field :sitemap_record
         end
 
 
@@ -264,7 +264,7 @@ module RailsAdminDynamicConfig
           field :team_text, :ck_editor
           field :about_partners_text, :ck_editor
           field :seo_tags
-          field :sitemap_record
+          #field :sitemap_record
         end
 
         config.include_models CallBack
@@ -309,6 +309,7 @@ module RailsAdminDynamicConfig
 
 
         config.model Cms::SitemapElement do
+          visible false
           edit do
             field :display_on_sitemap
             field :changefreq

@@ -1,5 +1,5 @@
 doctype html
-html#html class="no-js locale-#{I18n.locale.to_s} controller-#{params[:controller]} action-#{params[:action]} #{ (user_signed_in?)? "logged_in" : "unlogged" }" lang="en"
+html#html class="no-js locale-#{I18n.locale.to_s} controller-#{params[:controller]} action-#{params[:action]} #{ (user_signed_in?)? "logged_in" : "unlogged" }" lang=I18n.locale.to_s
   head
     = raw seo_tags
     meta charset="utf-8"

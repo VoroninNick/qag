@@ -18,6 +18,10 @@ class ContactPage < ActiveRecord::Base
     end
   end
 
+  def url(locale = I18n.locale)
+    "/contact"
+  end
+
   rails_admin do
     navigation_label I18n.t("rails_admin.navigation_labels.pages")
     label I18n.t("rails_admin.model_labels.#{self.abstract_model.model_name.underscore}")

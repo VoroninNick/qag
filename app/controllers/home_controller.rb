@@ -195,3 +195,11 @@ class HomeController < ApplicationController
     render inline: events_html
   end
 end
+
+
+# article_urls = %w(ilon-riv-mask-chomu-pro-kompaniyu-treba-dumati-postiyno oleg-roginskiy-ukrayinskiy-it-milyoner-istoriya-uspihu oplata-pratsi-scho-vplivae-na-rozmir-zarplati-test-inzhenera poshuk-roboti-zapitannya-yaki-mozhe-otrimati-na-spivbesidi-test-inzhener-pochatkivets quality-assurance-group-prezentuvala-kurs-osnovi-zabezpechennya-yakosti-pz svyatkuvannya-dnya-test-inzhenera-u-klubi-picasso test-inzhener-pochatkivets-junior-test-engineer-potentsiyni-obov-yazki-ta-bazhani-znannya)
+# Article.where(url_fragment: article_urls).pluck(:id)
+
+# event_urls = %w(kurs-osnovi-testuvannya-programnogo-zabezpechennya kurs-osnovi-zabezpechennya-yakosti-pz)
+# Event.where(url_fragment: event_urls).pluck(:id)
+#

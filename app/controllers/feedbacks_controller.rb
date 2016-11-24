@@ -14,15 +14,18 @@ class FeedbacksController < ApplicationController
 
     max_items_count = 10
 
-    params_page = params[:page]
+    params_page = params[:page].present? ? params[:page] : nil
     if !params_page
-      params_page = 1
+      list_page = 1
+    else
+      list_page = params_page
     end
 
     user_id_condition = current_user.try{|u|"or user_id = #{u.id}"} || ''
 
-    @paginated_feedbacks = UserFeedback.all.where("published='t' #{user_id_condition}").paginate(page: params_page, per_page: max_items_count)
+    @paginated_feedbacks = UserFeedback.all.where("published='t' #{user_id_condition}").paginate(page: list_page, per_page: max_items_count)
     set_page_metadata(:feedbacks)
+    init_list_page_title(params_page)
 
     @feedback = UserFeedback.new
   end

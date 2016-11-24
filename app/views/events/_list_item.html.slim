@@ -36,7 +36,7 @@
 
 
 
-        - if event.up_to_date?
+        - if event.up_to_date? || event.course?
           .hover-event-date-range-and-participants
             .hover-event-start-date
               = "#{number_to_string_with_zero(event.start_date.day)}.#{number_to_string_with_zero(event.start_date.month)}.#{event.start_date.year}"
@@ -58,6 +58,7 @@
                   .hover-expired-event-images-carousel-ul-li.item-inner
                     a.hover-expired-event-images-carousel-ul-li-a href=( (image.image.exists?(:original) )? image.image.url(:original) : stub_image_link(600, 400, "image #{index + 1}") )
                       = content_tag(:img, nil, class: "hover-expired-event-images-carousel-ul-li-a-img #{'lazyOwl' if index > 5}",  :"#{ index <= 5 ? "src" : "data-src" }" => image_or_stub_url(image.image, :event_item_image, 150, 100, "image_#{index+1}"))
+
 
           a.hover-read-button href=send("#{event.event_type}_item_path", item: event.url_fragment, tags: event.tags.join('-'))
             = "Переглянути"

@@ -765,6 +765,15 @@ var load_started = false
 if(infinity_scroll_list_count > 0) {
     var current_pagination_page = 1
     var max_pagination_page = +$('.pagination a:not(.next_page):last').text()
+
+    var $ajax_list_preloader_wrap = $(".ajax-list-preloader-wrap")
+    if (max_pagination_page > current_pagination_page){
+
+      if(!$ajax_list_preloader_wrap.hasClass("show")){
+        $ajax_list_preloader_wrap.addClass("show")
+      }
+
+    }
     if(max_pagination_page > current_pagination_page) {
         var url = window.location.pathname
 
@@ -775,12 +784,15 @@ if(infinity_scroll_list_count > 0) {
                 var required_page = current_pagination_page + 1
                 current_pagination_page++
                 url = "/ajax" + infinity_scroll_base_url + "/page/" + required_page + ".json"
+                var str = 1
                 $.ajax({
                     url: url,
                     type: 'get',
                     data: {},
                     dataType: 'json',
                     complete: function (jqXHR, textStatus) {
+                        var last_page_received = current_pagination_page == max_pagination_page
+
                         var response_text = jqXHR.responseText
                         var data = $.parseJSON(response_text)
                         var html_source = data['html']
@@ -790,6 +802,11 @@ if(infinity_scroll_list_count > 0) {
                             $event_list_expired_image_carousels.init_images_carousel()
                             $infinity_scroll_list.append($html_source)
                         }
+
+                      if(last_page_received){
+                        $ajax_list_preloader_wrap.removeClass("show")
+                      }
+
                         load_started = false
 
 

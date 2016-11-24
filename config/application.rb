@@ -32,6 +32,9 @@ module Qag
         :host => 'qagroup.com.ua',
     }
 
+    Rails.application.config.assets.precompile += %w(ckeditor/config.js)
+    config.assets.precompile += Ckeditor.assets
+    config.assets.precompile += %w(ckeditor)
     config.assets.precompile += %w(ckeditor/lang/*.js ckeditor/plugins/**/*.js ckeditor/plugins/**/*.css)
 
     config.time_zone = 'Kyiv'

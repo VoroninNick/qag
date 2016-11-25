@@ -992,6 +992,12 @@ $events-list-item-hover-transition-duration: 0.5s;
       display: block;
     }
   }
+
+  &.course.hover-delay-end.expired-event{
+    .event-title{
+      display: block;
+    }
+  }
 }
 
 

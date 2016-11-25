@@ -1,5 +1,6 @@
 = form-button
   height: 3.75rem
+  line-height: 3.75rem
   display: inline-block
   width: 100%
   text-align: center
@@ -11,6 +12,9 @@
   border: none
   color: white
   background-color: #ffb700
+
+= form-button-hover
+  color: white
 
 a
   color: #ffb700
@@ -140,3 +144,14 @@ html[class*=controller-users]
     svg
       *
         fill: #6d6e72
+
+
+.form-button
+  +form-button
+
+  &:hover
+    +form-button-hover
+
+
+.text-center
+  text-align: center

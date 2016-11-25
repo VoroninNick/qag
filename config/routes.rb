@@ -33,11 +33,11 @@ Rails.application.routes.draw do
     devise_scope :user do
       get "/users/resend_instructions", to: "users/confirmations#resend", as: "resend_user_instructions"
 
-      scope "event/:event_id", controller: "users/event_subscriptions" do
-        get 'register', action: 'new', as: 'new_event_subscription', defaults: { route_name: 'new_event_subscription' }
-        match 'register', action: 'create', as: 'create_event_subscription', via: [ :post, :patch ], defaults: { route_name: 'create_event_subscription' }
-        get 'unregister', action: 'unsubscribe_form', as: 'event_unsubscription_form', defaults: { route_name: 'event_unsubscription_form' }
-        post 'unregister', action: 'unsubscribe', as: 'event_unsubscribe', defaults: { route_name: 'event_unsubscribe' }
+      scope "event", controller: "users/event_subscriptions" do
+        get 'register/:event_id', action: 'new', as: 'new_event_subscription', defaults: { route_name: 'new_event_subscription' }
+        match 'register/:event_id', action: 'create', as: 'create_event_subscription', via: [ :post, :patch ], defaults: { route_name: 'create_event_subscription' }
+        get 'unregister/:event_id', action: 'unsubscribe_form', as: 'event_unsubscription_form', defaults: { route_name: 'event_unsubscription_form' }
+        post 'unregister/:event_id', action: 'unsubscribe', as: 'event_unsubscribe', defaults: { route_name: 'event_unsubscribe' }
       end
 
       ['event', "course"].each do |k|
@@ -95,13 +95,17 @@ Rails.application.routes.draw do
     get 'articles/:item', to: 'articles#item', as: :article_item, defaults: { route_name: 'article_item' }
 
     ["event", "course"].each do |k|
+
       scope k.pluralize, controller: "events" do
         get '(:tag)(/page/:page)', action: "list", as: :"#{k.pluralize}_list", defaults: { route_name: "#{k.pluralize}_list", event_type: k }
         get ':tag', action: 'tag', as: :"#{k}_tag", defaults: { route_name: "#{k}_tag", event_type: k }
       end
 
+      scope k do
+        get 'register/:item', to: 'users/event_subscriptions#new', as: :"register_on_#{k}", defaults: { route_name: "register_on_#{k}", event_type: k }
+      end
       scope "#{k}(/*tags)" do
-        get ':item/register', to: 'users/event_subscriptions#new', as: :"register_on_#{k}", defaults: { route_name: "register_on_#{k}", event_type: k }
+
         get ':item', to: "events#item", as: :"#{k}_item", defaults: { route_name: "#{k}_item", event_type: k }
       end
 

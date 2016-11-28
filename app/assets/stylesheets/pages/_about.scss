@@ -205,6 +205,14 @@
   &:before{
     display: none;
   }
+
+  @media #{$medium-only} {
+    width: 25%;
+  }
+
+  @media #{$screen} and (min-width: 40.063em) and (max-width: 48em) {
+    width: 33.3333%;
+  }
 }
 
 .about-team-avatar-img-container{

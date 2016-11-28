@@ -10,7 +10,7 @@
     /- @paginated_events.each_with_index do |event, index|
     = render partial: 'events/list_item', locals: { events: @paginated_events }
 
-
+  = render "ajax_preloader_wrap"
   .pagination-wrapper
     /= will_paginate @paginated_events
     = render "pagination", collection: @paginated_events

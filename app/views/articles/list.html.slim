@@ -7,12 +7,7 @@
   #events-list.events-collection.infinity-scroll-list data-base-url="/articles"
     = render partial: 'articles/list_item', locals: { articles: @paginated_articles }
 
-  .ajax-list-preloader-wrap
-    .row
-      .columns.large-12
-        button.btn.ajax-list-preloader type="submit" class="progress-bar-moving-bg"
-          |Завантажується...
-
+  = render "ajax_preloader_wrap"
   .pagination-wrapper
     /= will_paginate @paginated_articles
     = render "pagination", collection: @paginated_articles

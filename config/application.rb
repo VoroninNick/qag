@@ -39,7 +39,7 @@ module Qag
 
     config.time_zone = 'Kyiv'
 
-    NonStupidDigestAssets.whitelist += ["ckeditor/**/*.js", "ckeditor/**/*.css"]
+    NonStupidDigestAssets.whitelist += [/ckeditor\/*\.(js|css)/]
 
     if Rails.env != :production
      #config.assets.compile = false

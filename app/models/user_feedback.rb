@@ -7,7 +7,7 @@ class UserFeedback < ActiveRecord::Base
 
   image :avatar, :styles => { thumb: '150x150#', article_list_large_thumb: "690x575#"},
                     :url  => "/uploads/#{self.name.underscore}/:id/avatar/:style/:basename.:extension",
-                    :path => ":rails_root/public",
+                    :path => ":rails_root/public:url",
                     convert_options: {
                         thumb: "-quality 94 -interlace Plane",
                     }

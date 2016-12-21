@@ -1,16 +1,17 @@
-div#home-slider-section.page-section
-  /- @main_slider_slides.each_with_index do |slide, index|
-    input type="radio" name="home-slider-slide-flag" class="home-slider-slide-flag flag" id="home-slider-slide-flag-#{(index + 1)}" checked=( (index == 0)? 'checked' : false )
+- if @main_slider_slides.try(:any?)
+  div#home-slider-section.page-section
+    /- @main_slider_slides.each_with_index do |slide, index|
+      input type="radio" name="home-slider-slide-flag" class="home-slider-slide-flag flag" id="home-slider-slide-flag-#{(index + 1)}" checked=( (index == 0)? 'checked' : false )
 
-  ul#home-slides-ul.slides
-    - @main_slider_slides.each_with_index do |slide, index|
-      li.slide
-        .image-background style="background-image: url('#{ image_or_stub_url(slide.background, :banner, 2100, 1200, '') }')"
-          img.home-slider-slide-img src=image_or_stub_url(slide.background, :banner, 2100, 1200, '') alt=slide.background_alt
-        .home-slider-description.description
-          .home-slider-slide-title.slide-title
-            = slide.name
+    ul#home-slides-ul.slides
+      - @main_slider_slides.each_with_index do |slide, index|
+        li.slide
+          .image-background style="background-image: url('#{ image_or_stub_url(slide.background, :banner, 2100, 1200, '') }')"
+            img.home-slider-slide-img src=image_or_stub_url(slide.background, :banner, 2100, 1200, '') alt=slide.background_alt
+          .home-slider-description.description
+            .home-slider-slide-title.slide-title
+              = slide.name
 
 
-  #home-slider-scroll-down-arrow
-    = embedded_svg_from_assets('svg/scroll.svg')
+    #home-slider-scroll-down-arrow
+      = embedded_svg_from_assets('svg/scroll.svg')

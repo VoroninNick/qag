@@ -1,21 +1,22 @@
-#about-slider.page-block-fixed-wrapper
-  .fixed-on-scroll
-    .page-block-fixed-relative
-      ul#about-slides-ul
+- if @about_slides.try(:any?)
+  #about-slider.page-block-fixed-wrapper
+    .fixed-on-scroll
+      .page-block-fixed-relative
+        ul#about-slides-ul
 
-        - @about_slides.each_with_index do |slide, index|
-          li.slide id="slide-#{index + 1}"
-            .image-background style="background-image: url('#{slide.background.url(:banner)}')"
-              img.about-slider-slide-img src=image_or_stub_url(slide.background, :banner, 150, 100, "image #{index+1}") alt=slide.background_alt
-            /.about-slider-description.description
-              .about-slider-slide-title.slide-title
-                = slide.name
+          - @about_slides.each_with_index do |slide, index|
+            li.slide id="slide-#{index + 1}"
+              .image-background style="background-image: url('#{slide.background.url(:banner)}')"
+                img.about-slider-slide-img src=image_or_stub_url(slide.background, :banner, 150, 100, "image #{index+1}") alt=slide.background_alt
+              /.about-slider-description.description
+                .about-slider-slide-title.slide-title
+                  = slide.name
 
 
-      /ul#about-slider-bullets.bullets
-        - @about_slides.each_with_index do |slide, index|
-          li.about-slider-slide-label id="about-slider-slide-label-#{index + 1}"
-            label for="about-slider-slide-flag-#{(\index + 1)}"
+        /ul#about-slider-bullets.bullets
+          - @about_slides.each_with_index do |slide, index|
+            li.about-slider-slide-label id="about-slider-slide-label-#{index + 1}"
+              label for="about-slider-slide-flag-#{(\index + 1)}"
 
 
 

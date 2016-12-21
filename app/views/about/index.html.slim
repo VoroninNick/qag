@@ -1,5 +1,6 @@
 
-= render "page_banner"
+- if @page_instance.respond_to?(:banner) && @page_instance.banner.exists?(:banner)
+  = render "page_banner"
 
 .page-content-z-index
 

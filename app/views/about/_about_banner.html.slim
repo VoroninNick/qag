@@ -1,5 +1,6 @@
-#about-banner.page-block-fixed-wrapper
-  .page-block-fixed
-    .page-block-fixed-relative
-      #about-banner-image-wrapper
-        img#about-banner-img.grayscale src=( page && page.respond_to?(:banner) && page.banner.exists?(:banner) ? page.banner.url(:banner) : asset_path('banners/about.jpg'))
+- if page && page.respond_to?(:banner) && page.banner.exists?(:banner)
+  #about-banner.page-block-fixed-wrapper
+    .page-block-fixed
+      .page-block-fixed-relative
+        #about-banner-image-wrapper
+          img#about-banner-img.grayscale src=page.banner.url(:banner)

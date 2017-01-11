@@ -1270,6 +1270,10 @@ $events-list-item-hover-transition-duration: 0.5s;
     }
   }
 
+  @include small{
+    height: 380px;
+  }
+
   &.future-event{
     .register-button{
       .register-button-a{

@@ -667,7 +667,7 @@ form
 
       svg
         path
-          fill: $menu-blue-color !important
+          //fill: $menu-blue-color !important
 
   #header-menu-button
     right: 0 !important
@@ -683,6 +683,13 @@ form
 
       &:before, &:after
         background-color: $menu-blue-color
+
+    &:hover
+      #header-menu-button-label
+        border-top-color: $orange-color
+
+        &:before, &:after
+          background-color: $orange-color
 .controller-home
   #body.open-menu
     #header-menu-button

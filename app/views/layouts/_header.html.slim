@@ -1,5 +1,5 @@
 - unless params[:controller].scan(/^rails_admin/).length > 0 
-  #header
+  #header class=("header-always-on-top" if params[:controller] != "home")
     #fixed-header-top-container
     /input#header-show-menu-flag type="checkbox"  class="flag"
     #header-fixed
@@ -16,7 +16,7 @@
 
 
     /label#header-menu-button for="header-show-menu-flag"
-    #header-menu-button 
+    #header-menu-button title="Відкрити/закрити меню"
       label#header-menu-button-label for="menu-focus-flag"
       label#header-menu-close-button-label for="wrap-focus-flag"
     #header-menu-container

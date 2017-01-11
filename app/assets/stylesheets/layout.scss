@@ -56,7 +56,7 @@ $header-height: 90px;
     & ~ #header-fixed{
       path{
         //fill: white;
-        fill: $menu-blue-color;
+        //fill: $menu-blue-color;
       }
     }
 
@@ -1259,4 +1259,72 @@ $header-height: 90px;
 
 #header-menu-container-reset{
   padding: 22px;
+}
+
+
+html:not(.controller-home){
+  #header-logo{
+    margin-top: 5px;
+  }
+
+  #header-menu-button{
+    margin-top: 9px;
+
+
+  }
+
+  #fixed-header-top-container.visible{
+    & ~ #header-fixed {
+      #header-logo{
+        margin-top: 30px;
+      }
+    }
+
+    & ~ #header-menu-button{
+      margin-top: 30px;
+    }
+  }
+}
+
+#header{
+  &.header-always-on-top{
+    height: 60px;
+
+    #header-logo{
+      margin-top: 15px;
+    }
+
+    #fixed-header-top-container{
+      opacity: 1;
+      background: white;
+      z-index: 10;
+      height: 60px;
+    }
+
+    #header-menu-button{
+      margin-top: 15px;
+
+      #header-menu-button-label{
+        border-top-color: $menu-blue-color;
+
+        &:before, &:after{
+          background-color: $menu-blue-color;
+        }
+      }
+
+      &:hover{
+        #header-menu-button-label{
+          border-top-color: $orange-color;
+
+          &:before, &:after{
+            background-color: $orange-color;
+          }
+        }
+      }
+    }
+
+
+
+
+  }
 }

@@ -964,46 +964,51 @@ fixed_header_top_container_visible_class = 'visible'
 
 var is_home_page = $html.hasClass('controller-home action-index')
 
-if(!is_home_page) {
+var enable_auto_hide_menu = false
+
+if (enable_auto_hide_menu) {
+  if (!is_home_page) {
     $window.on('mousewheel', function (e) {
-        var scroll_up = e.originalEvent.wheelDelta / 120 > 0
-        var scroll_down = !scroll_up
-        var current_scoll_at_top = $window.scrollTop() <= $fixed_header_top_container.height()
-        console.log("current_scoll_at_top: ", current_scoll_at_top)
-        if (!current_scoll_at_top && window.innerWidth > 640) {
-            $fixed_header_top_container.addClass(fixed_header_top_container_visible_class)
-        }
-        else {
-            $fixed_header_top_container.removeClass(fixed_header_top_container_visible_class)
-        }
+      var scroll_up = e.originalEvent.wheelDelta / 120 > 0
+      var scroll_down = !scroll_up
+      var current_scoll_at_top = $window.scrollTop() <= $fixed_header_top_container.height()
+      console.log("current_scoll_at_top: ", current_scoll_at_top)
+      if (!current_scoll_at_top && window.innerWidth > 640) {
+        $fixed_header_top_container.addClass(fixed_header_top_container_visible_class)
+      }
+      else {
+        $fixed_header_top_container.removeClass(fixed_header_top_container_visible_class)
+      }
     })
-}
-$(document).on('ready',function() {
+  }
+  $(document).on('ready', function () {
     var $fixed_on_scroll_containers = $('.fixed-on-scroll')
     if ($fixed_on_scroll_containers.length > 0) {
-        console.log('add scroll handler')
-        $window.on('scroll', function (e) {
-            var scroll_top = $window.scrollTop()
+      console.log('add scroll handler')
+      $window.on('scroll', function (e) {
+        var scroll_top = $window.scrollTop()
 
-            for(var i = 0; i < $fixed_on_scroll_containers.length; i++) {
-                var $container = $fixed_on_scroll_containers.eq(i)
-                var $parent = $container.parent()
-                var parent_top = $parent.offset().top
-                var parent_height = $parent.height()
-                var parent_bottom = parent_top + parent_height
-                console.log('scroll_top: ', scroll_top, 'parent_top: ', parent_top, 'parent_bottom: ', parent_bottom, 'result: ', (scroll_top >= parent_top && scroll_top <= parent_bottom))
-                if (scroll_top >= parent_top && scroll_top <= parent_bottom) {
-                    $container.addClass('fixed')
-                    console.log('add class fixed')
-                }
-                else {
-                    $container.removeClass('fixed')
-                    console.log('remove class fixed')
-                }
-            }
-        })
+        for (var i = 0; i < $fixed_on_scroll_containers.length; i++) {
+          var $container = $fixed_on_scroll_containers.eq(i)
+          var $parent = $container.parent()
+          var parent_top = $parent.offset().top
+          var parent_height = $parent.height()
+          var parent_bottom = parent_top + parent_height
+          console.log('scroll_top: ', scroll_top, 'parent_top: ', parent_top, 'parent_bottom: ', parent_bottom, 'result: ', (scroll_top >= parent_top && scroll_top <= parent_bottom))
+          if (scroll_top >= parent_top && scroll_top <= parent_bottom) {
+            $container.addClass('fixed')
+            console.log('add class fixed')
+          }
+          else {
+            $container.removeClass('fixed')
+            console.log('remove class fixed')
+          }
+        }
+      })
     }
-})
+  })
+
+}
 
 $(document).on("keypress", "input", function(e){
     var prevent = false

@@ -1228,3 +1228,40 @@ $events-list-item-hover-transition-duration: 0.5s;
     }
   }
 }
+
+
+// show button
+.events-list-event{
+  .hover-read-button{
+    display: block;
+    color: white;
+    background: $light-orange-color;
+  }
+
+  .event-link-and-register-button{
+    display: inline-block;
+
+    .register-button{
+      .register-button-a{
+        background-color: $light-orange-color;
+      }
+      /*&.decline{
+        .register-button-a{
+          background-color: $light-red-background-color;
+        }
+      }*/
+    }
+
+    .register-button-a{
+      padding: 0 36px;
+      span{
+        color: white !important;
+      }
+      svg{
+        path{
+          fill: white !important;
+        }
+      }
+    }
+  }
+}

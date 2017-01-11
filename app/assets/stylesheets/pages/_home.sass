@@ -656,4 +656,34 @@ form
 
 .controller-home
   #fixed-header-top-container
-    display: none !important
+    //display: none !important
+    background-color: white
+    opacity: 1
+    height: 60px
+  #header-fixed
+    #header-logo
+      margin-top: 15px
+      display: block !important
+
+      svg
+        path
+          fill: $menu-blue-color !important
+
+  #header-menu-button
+    right: 0 !important
+    margin-top: 19px !important
+    margin-right: 0 !important
+    width: 64px !important
+    height: 25px !important
+    padding: 0 20px !important
+
+
+    #header-menu-button-label
+      border-top-color: $menu-blue-color
+
+      &:before, &:after
+        background-color: $menu-blue-color
+.controller-home
+  #body.open-menu
+    #header-menu-button
+      margin-right: 20px !important

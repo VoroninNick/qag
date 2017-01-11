@@ -55,4 +55,11 @@ $(window).on "scroll", ()->
     removeAccentFromMenuButton()
 
 $("body").on "click", "#header-menu-button", ()->
-  $("body").toggleClass("open-menu")
+  $body = $("body")
+  opened_menu = $body.hasClass("open-menu")
+  if $.fn.fullpage
+    if  $.fn.fullpage.setMouseWheelScrolling
+      $.fn.fullpage.setMouseWheelScrolling(opened_menu)
+    if $.fn.fullpage.setAllowScrolling
+      $.fn.fullpage.setAllowScrolling(opened_menu)
+  $body.toggleClass("open-menu")

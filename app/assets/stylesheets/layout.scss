@@ -39,7 +39,8 @@ $header-height: 90px;
 
 #fixed-header-top-container{
   height: 90px;
-  background: $menu-blue-color;
+  //background: $menu-blue-color;
+  background: white;
   width: 100%;
   position: fixed;
   z-index: 1;
@@ -54,9 +55,20 @@ $header-height: 90px;
 
     & ~ #header-fixed{
       path{
-        fill: white;
+        //fill: white;
+        fill: $menu-blue-color;
       }
     }
+
+    & ~ #header-menu-button #header-menu-button-label{
+      border-top-color: $menu-blue-color;
+
+      &:before, &:after{
+        background-color: $menu-blue-color;
+      }
+    }
+
+
   }
 }
 
@@ -1221,4 +1233,30 @@ $header-height: 90px;
     }
   }
 
+}
+
+// menu with scroll
+#header-menu-contact{
+  position: relative;
+}
+
+#header-menu-contact-support-ul{
+  padding-left: 0;
+}
+
+#header-menu-container-reset{
+  overflow: auto;
+}
+
+#header-menu-close-button-label{
+
+}
+
+// remove white border
+#header-menu-container{
+  padding: 0;
+}
+
+#header-menu-container-reset{
+  padding: 22px;
 }

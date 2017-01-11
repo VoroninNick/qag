@@ -1264,4 +1264,16 @@ $events-list-item-hover-transition-duration: 0.5s;
       }
     }
   }
+
+  &.future-event{
+    .register-button{
+      .register-button-a{
+        //width: auto;
+        width: 312px;
+        margin-top: 40px;
+      }
+
+
+    }
+  }
 }

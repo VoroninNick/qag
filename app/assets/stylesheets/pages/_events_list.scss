@@ -1144,7 +1144,8 @@ $events-list-item-hover-transition-duration: 0.5s;
     }
 
     .event-description{
-      max-height: #{1.3rem*4+2rem};
+      //max-height: #{1.3rem*4+2rem};
+      max-height: 113.2px;
     }
   }
 }
@@ -1175,38 +1176,40 @@ $events-list-item-hover-transition-duration: 0.5s;
   }
 }
 
+
+
 #html{
   &.touch{
-    .events-list-event{
-      .hover-read-button, .event-link-and-register-button{
-        display: block;
-      }
 
-      &.expired-event{
-        .hover-read-button{
-          background: $registration-disabled-button-background;
-          color: $registration-disabled-button-text-color;
-        }
-      }
-
-
-
-      .event-link-and-register-button{
-        margin: 3rem 0 0 0;
-      }
-
-      .register-button{
-        padding: 0;
-      }
-
-      .register-button-a{
-        border: 1px solid $light-orange-color;
-      }
-    }
   }
 }
 
+.events-list-event{
+  .hover-read-button, .event-link-and-register-button{
+    display: block;
+  }
 
+  &.expired-event{
+    .hover-read-button{
+      background: $registration-disabled-button-background;
+      color: $registration-disabled-button-text-color;
+    }
+  }
+
+
+
+  .event-link-and-register-button{
+    margin: 3rem 0 0 0;
+  }
+
+  .register-button{
+    padding: 0;
+  }
+
+  .register-button-a{
+    border: 1px solid $light-orange-color;
+  }
+}
 
 
 #html.controller-events.action-list{
@@ -1274,13 +1277,15 @@ $events-list-item-hover-transition-duration: 0.5s;
     height: 380px;
   }
 
-  &.future-event{
+  &.future-event, &.expired-event{
     .register-button{
       .register-button-a{
         //width: auto;
-        width: 312px;
+        width: 314px;
         margin-top: 40px;
       }
+
+
 
       @include small{
         position: absolute;
